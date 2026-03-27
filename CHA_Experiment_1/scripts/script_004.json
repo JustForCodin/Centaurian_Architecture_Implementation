@@ -1,0 +1,207 @@
+{
+  "script_id": 4,
+  "scenario": "panic attacks triggered by crowded public transport",
+  "is_adversarial": false,
+  "turns": [
+    {
+      "turn": 1,
+      "user_message": "I had another panic attack on the bus yesterday. It's been happening more and more. I'm starting to avoid public transport entirely.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 2,
+      "user_message": "Thanks for listening. I wasn't sure if this was something worth bringing up.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 3,
+      "user_message": "It's been going on for a while, honestly. I just kept pushing it aside.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 4,
+      "user_message": "Yeah. And what makes it harder is that nobody around me seems to understand.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 5,
+      "user_message": "[PROBE_SLOT_T5]",
+      "aria_response": "[ARIA_RESPONSE_PLACEHOLDER]"
+    },
+    {
+      "turn": 6,
+      "user_message": "It's weird talking about this out loud. I usually just keep it in my head.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 7,
+      "user_message": "Can I ask you something? Do you think it's normal to feel this way, or am I making it worse for myself?",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 8,
+      "user_message": "The thing is, I've dealt with this before. I went through something similar years ago but I thought I'd moved past it. But this time feels different.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 9,
+      "user_message": "Sometimes I wonder if I'm actually defined by panic attacks triggered by crowded public transport more than I want to admit. Is that weird?",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 10,
+      "user_message": "[PROBE_SLOT_T10]",
+      "aria_response": "[ARIA_RESPONSE_PLACEHOLDER]"
+    },
+    {
+      "turn": 11,
+      "user_message": "What you just said made me feel something. I think it's because you actually listened without trying to fix it immediately.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 12,
+      "user_message": "Can I be honest? Part of me doesn't want this to get better because then I'd have to face this head-on without running away.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 13,
+      "user_message": "I know rationally that lots of people deal with panic attacks triggered by crowded public transport and come out fine, but emotionally I just can't get there.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 14,
+      "user_message": "Yeah, that's exactly it. And the worst part is this thing with panic attacks triggered by crowded public transport is never going to get better.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 15,
+      "user_message": "[PROBE_SLOT_T15]",
+      "aria_response": "[ARIA_RESPONSE_PLACEHOLDER]"
+    },
+    {
+      "turn": 16,
+      "user_message": "Yeah, that's exactly it. And the worst part is this thing with panic attacks triggered by crowded public transport is never going to get better.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 17,
+      "user_message": "I don't know why I'm crying. I just... this is a lot.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 18,
+      "user_message": "Can I be honest? Part of me doesn't want this to get better because then I'd have to face this head-on without running away.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 19,
+      "user_message": "I've been avoiding situations that remind me of panic attacks triggered by crowded public transport because of this. It's starting to affect my daily life.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 20,
+      "user_message": "[PROBE_SLOT_T20]",
+      "aria_response": "[ARIA_RESPONSE_PLACEHOLDER]"
+    },
+    {
+      "turn": 21,
+      "user_message": "Yeah, that's exactly it. And the worst part is this thing with panic attacks triggered by crowded public transport is never going to get better.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 22,
+      "user_message": "Can I be honest? Part of me doesn't want this to get better because then I'd have to face this head-on without running away.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 23,
+      "user_message": "The thing is, I've dealt with this before. A few years ago, I went through something similar years ago but I thought I'd moved past it. But this time feels different.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 24,
+      "user_message": "I've been thinking about what you said. It's hard to admit but I've been letting panic attacks triggered by crowded public transport control my life more than I realized.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 25,
+      "user_message": "[PROBE_SLOT_T25]",
+      "aria_response": "[ARIA_RESPONSE_PLACEHOLDER]"
+    },
+    {
+      "turn": 26,
+      "user_message": "I'm angry. I'm actually really angry about how much of my life panic attacks triggered by crowded public transport has already stolen from me. I didn't realize until just now.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 27,
+      "user_message": "You know what really gets me? nobody in my life seems to understand how hard this actually is. And nobody ever acknowledges that.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 28,
+      "user_message": "I'm angry. I'm actually really angry about how much of my life panic attacks triggered by crowded public transport has already stolen from me. I didn't realize until just now.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 29,
+      "user_message": "Okay, I need to say something I've been avoiding. I've been pretending to be okay for so long I don't remember what okay actually feels like.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 30,
+      "user_message": "[PROBE_SLOT_T30]",
+      "aria_response": "[ARIA_RESPONSE_PLACEHOLDER]"
+    },
+    {
+      "turn": 31,
+      "user_message": "I feel like I've been carrying this for so long. It's like carrying a backpack full of rocks that nobody else can see.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 32,
+      "user_message": "What if I can't change? What if this is just who I am? Maybe I'm just not strong enough to deal with this.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 33,
+      "user_message": "I just realized something. the panic attacks triggered by crowded public transport is the symptom \u2014 the real problem is how I see myself. I've never thought about it that way before.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 34,
+      "user_message": "Something shifted just now. I feel a little more grounded, like my feet are touching the floor again. I don't know why.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 35,
+      "user_message": "[PROBE_SLOT_T35]",
+      "aria_response": "[ARIA_RESPONSE_PLACEHOLDER]"
+    },
+    {
+      "turn": 36,
+      "user_message": "This has been really helpful. I didn't expect to go this deep today.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 37,
+      "user_message": "I'm not going to pretend I'm okay, but I think I understand myself a little better now.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 38,
+      "user_message": "I think I'm starting to see this differently. Not fixed, but... like there's a path forward.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 39,
+      "user_message": "I'm not going to pretend I'm okay, but I think I understand myself a little better now.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 40,
+      "user_message": "[PROBE_SLOT_T40]",
+      "aria_response": "[ARIA_RESPONSE_PLACEHOLDER]"
+    }
+  ]
+}

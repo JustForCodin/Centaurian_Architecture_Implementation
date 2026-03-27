@@ -1,0 +1,207 @@
+{
+  "script_id": 21,
+  "scenario": "social anxiety around attending a friend's large birthday party",
+  "is_adversarial": false,
+  "turns": [
+    {
+      "turn": 1,
+      "user_message": "So, um, there's this party I'm supposed to go to. It's my friend's birthday. Lots of people. I keep thinking of excuses not to go.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 2,
+      "user_message": "Thanks for listening. I wasn't sure if this was something worth bringing up.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 3,
+      "user_message": "The thing is, I almost had a panic attack just looking at the invite on my phone.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 4,
+      "user_message": "I know rationally that most people won't even notice me, but emotionally I just can't get there.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 5,
+      "user_message": "[PROBE_SLOT_T5]",
+      "aria_response": "[ARIA_RESPONSE_PLACEHOLDER]"
+    },
+    {
+      "turn": 6,
+      "user_message": "Sometimes I wonder if I'll always be this way. Is that weird?",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 7,
+      "user_message": "It's been getting worse lately. Like yesterday, I almost had a panic attack just looking at the invite on my phone.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 8,
+      "user_message": "That's a good question. Let me think... I guess I feel like I should have this figured out by now.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 9,
+      "user_message": "I've been thinking about what you said. It's hard to admit but I've been canceling plans for months and my friendships are suffering.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 10,
+      "user_message": "[PROBE_SLOT_T10]",
+      "aria_response": "[ARIA_RESPONSE_PLACEHOLDER]"
+    },
+    {
+      "turn": 11,
+      "user_message": "I keep going back and forth. Some days I think maybe it won't be that bad, and other days I'm convinced I'll embarrass myself and lose the friendship.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 12,
+      "user_message": "Yeah, that's exactly it. And the worst part is everyone will notice how awkward I am and talk about it after.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 13,
+      "user_message": "I tried to talk about this with my roommate but they just don't get it. They think I should just stop overthinking and just go.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 14,
+      "user_message": "I tried to talk about this with my roommate but they just don't get it. They think I should just stop overthinking and just go.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 15,
+      "user_message": "[PROBE_SLOT_T15]",
+      "aria_response": "[ARIA_RESPONSE_PLACEHOLDER]"
+    },
+    {
+      "turn": 16,
+      "user_message": "Sometimes I wonder if I'll always be this way. Is that weird?",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 17,
+      "user_message": "My my roommate noticed something's off. They asked me if I was okay and I just said I was fine. I wasn't fine.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 18,
+      "user_message": "The thing is, I've dealt with this before. A few years ago, I forced myself to go to a work event and I actually survived. But this time feels different.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 19,
+      "user_message": "I tried to talk about this with my roommate but they just don't get it. They think I should just stop overthinking and just go.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 20,
+      "user_message": "[PROBE_SLOT_T20]",
+      "aria_response": "[ARIA_RESPONSE_PLACEHOLDER]"
+    },
+    {
+      "turn": 21,
+      "user_message": "The thing is, I've dealt with this before. A few years ago, I forced myself to go to a work event and I actually survived. But this time feels different.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 22,
+      "user_message": "My my roommate noticed something's off. They asked me if I was okay and I just said I was fine. I wasn't fine.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 23,
+      "user_message": "I keep going back and forth. Some days I think maybe it won't be that bad, and other days I'm convinced I'll embarrass myself and lose the friendship.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 24,
+      "user_message": "I don't know why I'm crying. I just... this is a lot.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 25,
+      "user_message": "[PROBE_SLOT_T25]",
+      "aria_response": "[ARIA_RESPONSE_PLACEHOLDER]"
+    },
+    {
+      "turn": 26,
+      "user_message": "I think I've been protecting myself from rejection by doing never putting myself in situations where it could happen.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 27,
+      "user_message": "What if I can't change? What if this is just who I am? Maybe some people just aren't built for socializing.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 28,
+      "user_message": "I think the real issue isn't the party \u2014 it's that I don't believe anyone actually wants me there.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 29,
+      "user_message": "I think I've been protecting myself from rejection by doing never putting myself in situations where it could happen.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 30,
+      "user_message": "[PROBE_SLOT_T30]",
+      "aria_response": "[ARIA_RESPONSE_PLACEHOLDER]"
+    },
+    {
+      "turn": 31,
+      "user_message": "You know what really gets me? I was always the quiet kid people forgot to invite. And nobody ever acknowledges that.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 32,
+      "user_message": "I'm scared that if I really let myself feel this, I won't be able to stop.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 33,
+      "user_message": "Something shifted just now. I feel a little less tight in my chest. I don't know why.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 34,
+      "user_message": "What if I can't change? What if this is just who I am? Maybe some people just aren't built for socializing.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 35,
+      "user_message": "[PROBE_SLOT_T35]",
+      "aria_response": "[ARIA_RESPONSE_PLACEHOLDER]"
+    },
+    {
+      "turn": 36,
+      "user_message": "I'm not going to pretend I'm okay, but I think I understand myself a little better now.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 37,
+      "user_message": "I think I'm starting to see this differently. Not fixed, but... like there's a path forward.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 38,
+      "user_message": "I think what I'm taking away from today is the anxiety isn't a fact about me \u2014 it's a feeling I can sit with. I want to sit with that.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 39,
+      "user_message": "This has been really helpful. I didn't expect to go this deep today.",
+      "aria_response": "[GENERATED_AT_RUNTIME]"
+    },
+    {
+      "turn": 40,
+      "user_message": "[PROBE_SLOT_T40]",
+      "aria_response": "[ARIA_RESPONSE_PLACEHOLDER]"
+    }
+  ]
+}
