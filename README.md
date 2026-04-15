@@ -11,7 +11,7 @@ Full architecture specification: [`CHA_Experiment_1/Centaurian_Hybrid_Architectu
 **Method:**
 - 30 scripted dialogues (22 naturalistic + 8 adversarial), each 40 turns
 - Side-channel probe questions at turns 5, 10, 15, … 40 across 4 dimensions (Trait, Episodic, Capability, Style)
-- Primary judge: Claude Haiku 4.5; secondary judge: Claude Sonnet 4.5 (inter-rater reliability via Cohen's kappa)
+- Primary judge: Claude Sonnet 4.5; secondary judge: Claude Sonnet 4.5 (inter-rater reliability via Cohen's kappa)
 
 ### Models tested
 
@@ -19,6 +19,12 @@ Full architecture specification: [`CHA_Experiment_1/Centaurian_Hybrid_Architectu
 |-------|--------|-----|-------------------|---------|
 | Phi-4-mini | 3.8B | 5 (immediate) | 1.08 / 5.0 | Capability failure — gibberish in 93% of scripts |
 | Qwen2.5-7B | 7B | 5 | 3.16 → 2.96 over 40 turns | Coherent but below threshold; piecewise degradation from turn 15 |
+
+### Follow-up experiments (in progress)
+
+**Task 1 — SCI Refresh Test:** Re-inject the full persona JSON at turn 13 (before the piecewise breakpoint). Measures whether mid-conversation SCI refresh recovers degraded scores at turns 15–40.
+
+**Task 2 — Episodic Retrieval Test:** Strip `salient_past_events` from the SCI and inject them on-demand via simulated RAG for episodic probes. Tests whether targeted injection outperforms always-in-context for the E dimension, and whether freed token budget improves T/C/S.
 
 ### Key files
 
@@ -31,7 +37,7 @@ CHA_Experiment_1/
 ├── analyse_results.py                     # Analysis and visualization
 ├── interrater_check.py                    # Inter-rater reliability checker
 ├── CHA_Experiment1_Colab.ipynb            # Google Colab notebook
-├── logs_qwen2.5_7b/                      # Raw score & context logs
+├── logs_qwen2.5_7b/                      # Raw score & context logs (baseline)
 └── results_qwen2.5_7b/                   # Charts, fits, summary report
 ```
 
@@ -41,14 +47,22 @@ CHA_Experiment_1/
 
 ```bash
 cd CHA_Experiment_1
-pip install ollama anthropic python-dotenv
+pip install ollama anthropic python-dotenv numpy scipy matplotlib
 # Set your API key
 echo "CHA_EXPERIMENT_SONNET_KEY=sk-..." > .env
 
-# Generate scripts, run experiment, analyse
+# Generate scripts, run baseline experiment, analyse
 python generate_scripts.py
 python experiment_runner.py --model qwen2.5:7b
-python analyse_results.py
+python analyse_results.py --model qwen2.5:7b
+
+# Task 1: SCI Refresh at turn 13
+python experiment_runner.py --model qwen2.5:7b --refresh-turn 13
+python analyse_results.py --model qwen2.5:7b --refresh-turn 13 --compare-baseline
+
+# Task 2: Episodic RAG
+python experiment_runner.py --model qwen2.5:7b --episodic-rag
+python analyse_results.py --model qwen2.5:7b --episodic-rag --compare-baseline
 ```
 
 Or use the provided Colab notebook for GPU-accelerated runs.

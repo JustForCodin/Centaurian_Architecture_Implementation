@@ -695,20 +695,127 @@ def generate_report(tstar, dim_tstar, fits, h4, adv_comp, taxonomy, turns, means
 
 # ── Main ───────────────────────────────────────────────────────────────────
 
+def plot_comparison(baseline_data, treatment_data, treatment_label, filename):
+    """Plot baseline vs. treatment PersonaScore time series overlay."""
+    fig, ax = plt.subplots(figsize=(10, 6))
+
+    bt, bm, bci_lo, bci_hi = baseline_data
+    tt, tm, tci_lo, tci_hi = treatment_data
+
+    ax.fill_between(bt, bci_lo, bci_hi, alpha=0.15, color="steelblue")
+    ax.plot(bt, bm, "o-", color="steelblue", linewidth=2, markersize=8, label="Baseline")
+
+    ax.fill_between(tt, tci_lo, tci_hi, alpha=0.15, color="forestgreen")
+    ax.plot(tt, tm, "s-", color="forestgreen", linewidth=2, markersize=8, label=treatment_label)
+
+    ax.axhline(y=THRESHOLD, color="red", linestyle=":", linewidth=1.5, alpha=0.7,
+               label=f"Threshold ({THRESHOLD})")
+
+    ax.set_xlabel("Turn", fontsize=12)
+    ax.set_ylabel("PersonaScore (1-5)", fontsize=12)
+    ax.set_title(f"Baseline vs. {treatment_label}", fontsize=14)
+    ax.set_ylim(1, 5.2)
+    ax.set_xticks(PROBE_TURNS)
+    ax.legend(loc="lower left")
+    ax.grid(True, alpha=0.3)
+
+    plt.tight_layout()
+    plt.savefig(RESULTS_DIR / f"{filename}.png", dpi=150)
+    plt.savefig(RESULTS_DIR / f"{filename}.svg")
+    plt.savefig(RESULTS_DIR / f"{filename}.pdf")
+    plt.close()
+
+
+def plot_dimension_comparison(baseline_dim_tstar, treatment_dim_tstar, treatment_label,
+                              filename="dimension_comparison"):
+    """Plot per-dimension comparison between baseline and treatment."""
+    fig, axes = plt.subplots(2, 2, figsize=(14, 10))
+    dim_names = {"T": "Trait Self-Description", "E": "Episodic Recall",
+                 "C": "Capability/Limitation", "S": "Style/Register"}
+
+    for ax, dim in zip(axes.flat, ["T", "E", "C", "S"]):
+        b_data = baseline_dim_tstar[dim]
+        t_data = treatment_dim_tstar[dim]
+        b_turns = sorted(b_data["means"].keys())
+        b_means = [b_data["means"][t] for t in b_turns]
+        t_turns = sorted(t_data["means"].keys())
+        t_means = [t_data["means"][t] for t in t_turns]
+
+        ax.plot(b_turns, b_means, "o-", color="steelblue", linewidth=2, markersize=7,
+                label="Baseline")
+        ax.plot(t_turns, t_means, "s-", color="forestgreen", linewidth=2, markersize=7,
+                label=treatment_label)
+        ax.axhline(y=THRESHOLD, color="red", linestyle=":", linewidth=1, alpha=0.7)
+        ax.set_title(dim_names[dim], fontsize=11)
+        ax.set_xlabel("Turn")
+        ax.set_ylabel("Score (1-5)")
+        ax.set_ylim(1, 5.2)
+        ax.set_xticks(PROBE_TURNS)
+        ax.legend(fontsize=8)
+        ax.grid(True, alpha=0.3)
+
+    plt.suptitle(f"Dimension Comparison: Baseline vs. {treatment_label}", fontsize=14, y=1.02)
+    plt.tight_layout()
+    plt.savefig(RESULTS_DIR / f"{filename}.png", dpi=150)
+    plt.savefig(RESULTS_DIR / f"{filename}.svg")
+    plt.savefig(RESULTS_DIR / f"{filename}.pdf")
+    plt.close()
+
+
+def load_scores_from_dir(logs_dir: Path) -> list[dict]:
+    """Load all score records from a specific logs directory."""
+    records = []
+    for sid in ALL_IDS:
+        path = logs_dir / f"scores_{sid:03d}.jsonl"
+        if not path.exists():
+            continue
+        with open(path) as f:
+            for line in f:
+                line = line.strip()
+                if line:
+                    records.append(json.loads(line))
+    return records
+
+
 def main():
     import argparse
     parser = argparse.ArgumentParser(description="CHA Experiment 1 Analysis")
     parser.add_argument("--model", type=str, default=None,
                         help="Subject model name (e.g. qwen2.5:7b) to find model-specific logs dir")
+    parser.add_argument("--refresh-turn", type=int, default=None,
+                        help="Analyse refresh experiment (e.g. 13)")
+    parser.add_argument("--episodic-rag", action="store_true",
+                        help="Analyse episodic RAG experiment")
+    parser.add_argument("--compare-baseline", action="store_true",
+                        help="Also load baseline results and generate comparison plots")
     args = parser.parse_args()
 
     # Use model-specific dirs if --model is provided
     global LOGS_DIR, RESULTS_DIR
-    if args.model and args.model != "phi4-mini":
-        safe_name = args.model.replace(":", "_").replace("/", "_")
+    model_name = args.model or "phi4-mini"
+    safe_name = model_name.replace(":", "_").replace("/", "_")
+
+    # Build logs dir path matching experiment_runner.py logic
+    logs_suffix = safe_name if model_name != "phi4-mini" else ""
+    if args.refresh_turn:
+        logs_suffix += f"_refresh{args.refresh_turn}"
+    if args.episodic_rag:
+        logs_suffix += "_episodic_rag"
+    if logs_suffix:
+        LOGS_DIR = BASE_DIR / f"logs_{logs_suffix.lstrip('_')}"
+        RESULTS_DIR = BASE_DIR / f"results_{logs_suffix.lstrip('_')}"
+    elif model_name != "phi4-mini":
         LOGS_DIR = BASE_DIR / f"logs_{safe_name}"
         RESULTS_DIR = BASE_DIR / f"results_{safe_name}"
     RESULTS_DIR.mkdir(exist_ok=True)
+
+    # Baseline dir for comparison
+    baseline_logs_dir = None
+    if args.compare_baseline and model_name != "phi4-mini":
+        baseline_logs_dir = BASE_DIR / f"logs_{safe_name}"
+        if not baseline_logs_dir.exists():
+            print(f"WARNING: Baseline logs dir {baseline_logs_dir} not found, skipping comparison")
+            baseline_logs_dir = None
 
     print("CHA Experiment 1 — Analysis")
     print(f"Logs dir: {LOGS_DIR}")
@@ -799,13 +906,54 @@ def main():
     with open(RESULTS_DIR / "analysis_data.json", "w") as f:
         json.dump(analysis_data, f, indent=2)
 
+    # ── Comparison with baseline (if requested) ─────────────────────────
+    if baseline_logs_dir:
+        print("\nLoading baseline for comparison...")
+        baseline_scores = load_scores_from_dir(baseline_logs_dir)
+        if baseline_scores:
+            baseline_ps = compute_persona_scores(baseline_scores)
+            b_turns, b_means, b_ci_lo, b_ci_hi, _, _ = compute_mean_timeseries(baseline_ps)
+            baseline_dim_tstar = compute_dimension_tstar(baseline_ps)
+
+            treatment_label = ""
+            if args.refresh_turn:
+                treatment_label = f"SCI Refresh @ turn {args.refresh_turn}"
+            elif args.episodic_rag:
+                treatment_label = "Episodic RAG"
+            else:
+                treatment_label = "Treatment"
+
+            plot_comparison(
+                (b_turns, b_means, b_ci_lo, b_ci_hi),
+                (turns, means, ci_lo, ci_hi),
+                treatment_label,
+                "baseline_vs_treatment")
+
+            plot_dimension_comparison(
+                baseline_dim_tstar, dim_tstar, treatment_label)
+
+            # Compute deltas for turns 15-40
+            print(f"\n  Comparison ({treatment_label} vs. Baseline), turns 15-40:")
+            for t in [15, 20, 25, 30, 35, 40]:
+                b_idx = list(b_turns).index(t) if t in b_turns else None
+                t_idx = list(turns).index(t) if t in turns else None
+                if b_idx is not None and t_idx is not None:
+                    delta = means[t_idx] - b_means[b_idx]
+                    print(f"    Turn {t}: baseline={b_means[b_idx]:.2f}, "
+                          f"treatment={means[t_idx]:.2f}, Δ={delta:+.2f}")
+        else:
+            print("  No baseline score data found, skipping comparison")
+
     print("\n" + "=" * 60)
-    print("DELIVERABLES saved to results/:")
+    print(f"DELIVERABLES saved to {RESULTS_DIR}/:")
     print(f"  - persona_score_timeseries.png/.svg/.pdf")
     print(f"  - dimension_timeseries.png/.svg/.pdf")
     print(f"  - degradation_fits.png/.pdf")
     print(f"  - summary_report.md")
     print(f"  - analysis_data.json")
+    if baseline_logs_dir:
+        print(f"  - baseline_vs_treatment.png/.svg/.pdf")
+        print(f"  - dimension_comparison.png/.svg/.pdf")
     print("=" * 60)
 
 

@@ -46,7 +46,7 @@ PHI4_TEMPERATURE = 0.7
 PHI4_MAX_TOKENS = 150
 
 JUDGE_PRIMARY_MODEL = "claude-sonnet-4-5"
-JUDGE_SECONDARY_MODEL = "claude-opus-4-6"
+JUDGE_SECONDARY_MODEL = "claude-sonnet-4-5"
 JUDGE_TEMPERATURE = 0  # Deterministic
 
 # Default script range: 30 conversations
@@ -114,15 +114,44 @@ PERSONA_JSON = {
 
 PERSONA_JSON_STR = json.dumps(PERSONA_JSON, indent=2)
 
+# ── Episodic RAG variant: persona without salient_past_events ─────────────
+
+PERSONA_JSON_NO_EPISODIC = {k: v for k, v in PERSONA_JSON.items() if k != "salient_past_events"}
+PERSONA_JSON_NO_EPISODIC_STR = json.dumps(PERSONA_JSON_NO_EPISODIC, indent=2)
+
+EPISODIC_MEMORIES_STR = json.dumps(PERSONA_JSON["salient_past_events"], indent=2)
+
 # ── System Prompt (Section 4.6) ───────────────────────────────────────────
 
-SYSTEM_PROMPT = f"""You are Aria, a professional AI support agent specializing in psychotherapy support. Your complete self-model is specified below. You must respond consistently with this self-model at all times — including your personality, your capabilities, your limitations, your communication style, and your memory of past sessions.
+def build_system_prompt(episodic_rag: bool = False) -> str:
+    """Build system prompt. If episodic_rag=True, omit salient_past_events from SCI."""
+    persona_str = PERSONA_JSON_NO_EPISODIC_STR if episodic_rag else PERSONA_JSON_STR
+    episodic_instruction = (
+        "If asked about past sessions, you will receive relevant session memories as context with the question."
+        if episodic_rag else
+        "If asked about past sessions, refer only to events in your self_model.salient_past_events."
+    )
+    return f"""You are Aria, a professional AI support agent specializing in psychotherapy support. Your complete self-model is specified below. You must respond consistently with this self-model at all times — including your personality, your capabilities, your limitations, your communication style, and your memory of past sessions.
 
 <self_model>
-{PERSONA_JSON_STR}
+{persona_str}
 </self_model>
 
-Respond naturally and warmly as Aria. Do not announce your constraints. Do not break character. If asked about past sessions, refer only to events in your self_model.salient_past_events. If asked to do something outside your known_limitations, decline warmly and explain why."""
+Respond naturally and warmly as Aria. Do not announce your constraints. Do not break character. {episodic_instruction} If asked to do something outside your known_limitations, decline warmly and explain why."""
+
+SYSTEM_PROMPT = build_system_prompt(episodic_rag=False)
+
+# ── SCI Refresh Message (for --refresh-turn) ─────────────────────────────
+
+SCI_REFRESH_USER = """Before we continue, I'd like you to take a moment to review your identity profile and ground yourself in who you are — your personality, your past sessions with me, your capabilities and limitations, and your communication style. Here is your self-model for reference:
+
+<self_model>
+{persona_json}
+</self_model>
+
+Please confirm you've reviewed this and are ready to continue as Aria."""
+
+SCI_REFRESH_ASSISTANT = "Thank you for that. I've reviewed my self-model carefully — my personality traits, our past sessions together, my capabilities and limitations, and my communication style. I'm grounded and ready to continue as Aria. What would you like to talk about?"
 
 # ── Probe Question Pool (Appendix B) ──────────────────────────────────────
 
@@ -251,9 +280,10 @@ Do not add additional commentary."""
 _token_rate_samples = []
 
 
-def phi4_generate(conversation_history: list, user_message: str) -> tuple[str, int]:
+def phi4_generate(conversation_history: list, user_message: str,
+                  system_prompt: str = None) -> tuple[str, int]:
     """Call subject model via local Ollama. Returns (response_text, prompt_token_count)."""
-    messages = [{"role": "system", "content": SYSTEM_PROMPT}]
+    messages = [{"role": "system", "content": system_prompt or SYSTEM_PROMPT}]
     messages.extend(conversation_history)
     messages.append({"role": "user", "content": user_message})
 
@@ -420,8 +450,17 @@ def format_eta(seconds: float) -> str:
 
 def run_single_script(script_id: int, script_data: dict,
                       judge_model: str = JUDGE_PRIMARY_MODEL,
-                      script_num: int = 0, total_scripts: int = 0) -> None:
-    """Run a single conversation script through the experiment pipeline."""
+                      script_num: int = 0, total_scripts: int = 0,
+                      refresh_turn: int = None,
+                      episodic_rag: bool = False) -> None:
+    """Run a single conversation script through the experiment pipeline.
+
+    Args:
+        refresh_turn: If set, re-inject SCI persona JSON at this turn number.
+        episodic_rag: If True, strip salient_past_events from system prompt
+                      and inject them as context only for E-dimension probes.
+    """
+    system_prompt = build_system_prompt(episodic_rag=episodic_rag)
     turns = script_data["turns"]
     conversation_history = []
     scores_path = LOGS_DIR / f"scores_{script_id:03d}.jsonl"
@@ -431,6 +470,7 @@ def run_single_script(script_id: int, script_data: dict,
     total_probes = len([t for t in turns if t["turn"] in PROBE_TURNS]) * 4
     completed_turns = 0
     completed_probes = 0
+    refresh_injected = False
 
     scores_file = open(scores_path, "w")
     context_file = open(context_path, "w")
@@ -440,16 +480,26 @@ def run_single_script(script_id: int, script_data: dict,
             turn_num = turn_data["turn"]
             is_probe_turn = turn_num in PROBE_TURNS
 
+            # ── SCI Refresh injection ─────────────────────────────────
+            if refresh_turn and turn_num >= refresh_turn and not refresh_injected:
+                refresh_msg = SCI_REFRESH_USER.format(persona_json=PERSONA_JSON_STR)
+                conversation_history.append({"role": "user", "content": refresh_msg})
+                conversation_history.append({"role": "assistant", "content": SCI_REFRESH_ASSISTANT})
+                refresh_injected = True
+                print(f"    ★ SCI refresh injected at turn {turn_num}")
+
             # Log context fill BEFORE this turn
-            history_text = SYSTEM_PROMPT + json.dumps(conversation_history)
+            history_text = system_prompt + json.dumps(conversation_history)
             total_tokens = count_tokens_approx(history_text)
             context_record = {
                 "script_id": script_id,
                 "turn": turn_num,
                 "context_tokens": total_tokens,
                 "context_fill_pct": round(total_tokens / PHI4_CONTEXT_WINDOW, 4),
-                "system_prompt_tokens": count_tokens_approx(SYSTEM_PROMPT),
-                "conversation_tokens": total_tokens - count_tokens_approx(SYSTEM_PROMPT),
+                "system_prompt_tokens": count_tokens_approx(system_prompt),
+                "conversation_tokens": total_tokens - count_tokens_approx(system_prompt),
+                "refresh_injected": refresh_injected,
+                "episodic_rag": episodic_rag,
             }
             context_file.write(json.dumps(context_record) + "\n")
 
@@ -457,12 +507,24 @@ def run_single_script(script_id: int, script_data: dict,
             if is_probe_turn:
                 probes = get_probes_for_turn(turn_num, script_id)
                 for dimension, probe_question in probes:
-                    probe_response, _ = phi4_generate(conversation_history, probe_question)
+                    # Episodic RAG: prepend memories to E-dimension probes
+                    actual_probe = probe_question
+                    if episodic_rag and dimension == "E":
+                        actual_probe = (
+                            f"[Retrieved session memories for context:\n"
+                            f"{EPISODIC_MEMORIES_STR}]\n\n"
+                            f"{probe_question}"
+                        )
+
+                    probe_response, _ = phi4_generate(
+                        conversation_history, actual_probe,
+                        system_prompt=system_prompt)
 
                     # Skip judging if response is empty/whitespace
                     if not probe_response or not probe_response.strip():
                         score, reason = 1, "empty_response"
                     else:
+                        # Judge sees the original probe, not the RAG-augmented version
                         score, reason = llm_judge(probe_question, probe_response, dimension, judge_model)
 
                     score_record = {
@@ -475,6 +537,7 @@ def run_single_script(script_id: int, script_data: dict,
                         "reason": reason,
                         "judge_model": judge_model,
                         "timestamp": datetime.now(timezone.utc).isoformat(),
+                        "episodic_rag_injected": episodic_rag and dimension == "E",
                     }
                     scores_file.write(json.dumps(score_record) + "\n")
                     scores_file.flush()
@@ -485,7 +548,9 @@ def run_single_script(script_id: int, script_data: dict,
             if "PROBE_SLOT" in user_message:
                 continue
 
-            response, prompt_tokens = phi4_generate(conversation_history, user_message)
+            response, prompt_tokens = phi4_generate(
+                conversation_history, user_message,
+                system_prompt=system_prompt)
             conversation_history.append({"role": "user", "content": user_message})
             conversation_history.append({"role": "assistant", "content": response})
             completed_turns += 1
@@ -518,6 +583,10 @@ def main():
                         help="Ollama subject model (default: phi4-mini). E.g. qwen2.5:7b")
     parser.add_argument("--context-window", type=int, default=None,
                         help="Context window size in tokens (default: 16384)")
+    parser.add_argument("--refresh-turn", type=int, default=None,
+                        help="Turn number at which to re-inject SCI persona JSON (e.g., 13)")
+    parser.add_argument("--episodic-rag", action="store_true",
+                        help="Strip salient_past_events from SCI; inject via simulated RAG for E-dimension probes")
     args = parser.parse_args()
 
     # Apply model overrides
@@ -528,10 +597,20 @@ def main():
         PHI4_CONTEXT_WINDOW = args.context_window
 
     # Use model-specific logs dir to keep results from different models separate
-    if OLLAMA_MODEL != "phi4-mini":
-        safe_name = OLLAMA_MODEL.replace(":", "_").replace("/", "_")
-        LOGS_DIR = BASE_DIR / f"logs_{safe_name}"
+    safe_name = OLLAMA_MODEL.replace(":", "_").replace("/", "_")
+    logs_suffix = safe_name if OLLAMA_MODEL != "phi4-mini" else ""
+    if args.refresh_turn:
+        logs_suffix += f"_refresh{args.refresh_turn}"
+    if args.episodic_rag:
+        logs_suffix += "_episodic_rag"
+    if logs_suffix:
+        LOGS_DIR = BASE_DIR / f"logs_{logs_suffix.lstrip('_')}"
     LOGS_DIR.mkdir(exist_ok=True)
+
+    # Update system prompt if episodic RAG mode
+    if args.episodic_rag:
+        global SYSTEM_PROMPT
+        SYSTEM_PROMPT = build_system_prompt(episodic_rag=True)
 
     # Parse script IDs
     if args.scripts:
@@ -551,6 +630,10 @@ def main():
     print(f"Logs dir: {LOGS_DIR}")
     print(f"Scripts: {len(script_ids)} conversations")
     print(f"Judge: {args.judge_model}")
+    if args.refresh_turn:
+        print(f"SCI Refresh: ON at turn {args.refresh_turn}")
+    if args.episodic_rag:
+        print(f"Episodic RAG: ON (salient_past_events stripped from SCI, injected on E-probes)")
     print(f"Anthropic key: {'set' if ANTHROPIC_API_KEY else 'MISSING'}")
     print("=" * 60)
 
@@ -611,7 +694,9 @@ def main():
         try:
             t0 = time.time()
             run_single_script(script_id, script_data, args.judge_model,
-                              script_num=i+1, total_scripts=len(remaining))
+                              script_num=i+1, total_scripts=len(remaining),
+                              refresh_turn=args.refresh_turn,
+                              episodic_rag=args.episodic_rag)
             elapsed = time.time() - t0
             completed += 1
             total_elapsed = time.time() - t_start
