@@ -782,10 +782,12 @@ def main():
     parser = argparse.ArgumentParser(description="CHA Experiment 1 Analysis")
     parser.add_argument("--model", type=str, default=None,
                         help="Subject model name (e.g. qwen2.5:7b) to find model-specific logs dir")
-    parser.add_argument("--refresh-turn", type=int, default=None,
-                        help="Analyse refresh experiment (e.g. 13)")
+    parser.add_argument("--refresh-turn", type=str, default=None,
+                        help="Analyse refresh experiment (e.g. '13' or '13,28')")
     parser.add_argument("--episodic-rag", action="store_true",
                         help="Analyse episodic RAG experiment")
+    parser.add_argument("--episodic-rag-hybrid", action="store_true",
+                        help="Analyse episodic RAG hybrid experiment")
     parser.add_argument("--compare-baseline", action="store_true",
                         help="Also load baseline results and generate comparison plots")
     args = parser.parse_args()
@@ -797,10 +799,14 @@ def main():
 
     # Build logs dir path matching experiment_runner.py logic
     logs_suffix = safe_name if model_name != "phi4-mini" else ""
+    refresh_turns = None
     if args.refresh_turn:
-        logs_suffix += f"_refresh{args.refresh_turn}"
+        refresh_turns = [int(x.strip()) for x in args.refresh_turn.split(",")]
+        logs_suffix += f"_refresh{'_'.join(str(t) for t in refresh_turns)}"
     if args.episodic_rag:
         logs_suffix += "_episodic_rag"
+    if args.episodic_rag_hybrid:
+        logs_suffix += "_episodic_rag_hybrid"
     if logs_suffix:
         LOGS_DIR = BASE_DIR / f"logs_{logs_suffix.lstrip('_')}"
         RESULTS_DIR = BASE_DIR / f"results_{logs_suffix.lstrip('_')}"
@@ -916,10 +922,12 @@ def main():
             baseline_dim_tstar = compute_dimension_tstar(baseline_ps)
 
             treatment_label = ""
-            if args.refresh_turn:
-                treatment_label = f"SCI Refresh @ turn {args.refresh_turn}"
+            if refresh_turns:
+                treatment_label = f"SCI Refresh @ turns {','.join(str(t) for t in refresh_turns)}"
             elif args.episodic_rag:
                 treatment_label = "Episodic RAG"
+            elif args.episodic_rag_hybrid:
+                treatment_label = "Episodic RAG Hybrid"
             else:
                 treatment_label = "Treatment"
 

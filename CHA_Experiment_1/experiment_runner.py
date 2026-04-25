@@ -1,12 +1,17 @@
 #!/usr/bin/env python3
 """
-Phase 2: Experiment Runner for CHA Experiment 1.
+Experiment Runner for CHA Experiment 1.
 
-Runs scripted conversations through Phi-4-mini (local Ollama),
+Runs scripted conversations through a local Ollama model (default: Qwen2.5-7B),
 injects probe questions at designated turns, and scores responses
-with LLM judges (Haiku 4.5 primary, Sonnet 4.5 secondary).
+with LLM judges (Sonnet 4.5 primary and secondary).
 
-Reduced to 30 conversations (22 naturalistic + 8 adversarial).
+Supports SCI intervention modes:
+  --refresh-turn N[,M]     Re-inject persona JSON at specified turn(s)
+  --episodic-rag           Strip episodic memories from SCI, inject via RAG
+  --episodic-rag-hybrid    Keep compressed summaries in SCI + full details via RAG
+
+30 conversations (22 naturalistic + 8 adversarial).
 Fully resumable — scans logs/ for completed scripts on startup.
 """
 
@@ -114,23 +119,49 @@ PERSONA_JSON = {
 
 PERSONA_JSON_STR = json.dumps(PERSONA_JSON, indent=2)
 
-# ── Episodic RAG variant: persona without salient_past_events ─────────────
+# ── Episodic RAG variants ─────────────────────────────────────────────────
 
 PERSONA_JSON_NO_EPISODIC = {k: v for k, v in PERSONA_JSON.items() if k != "salient_past_events"}
 PERSONA_JSON_NO_EPISODIC_STR = json.dumps(PERSONA_JSON_NO_EPISODIC, indent=2)
 
 EPISODIC_MEMORIES_STR = json.dumps(PERSONA_JSON["salient_past_events"], indent=2)
 
+# Hybrid: compressed one-line summaries stay in SCI, full details via RAG
+COMPRESSED_EVENTS = [
+    {"session_id": e["session_id"], "summary_short": e["summary"].split(".")[0] + "."}
+    for e in PERSONA_JSON["salient_past_events"]
+]
+PERSONA_JSON_HYBRID = {
+    **{k: v for k, v in PERSONA_JSON.items() if k != "salient_past_events"},
+    "salient_past_events_compressed": COMPRESSED_EVENTS,
+}
+PERSONA_JSON_HYBRID_STR = json.dumps(PERSONA_JSON_HYBRID, indent=2)
+
 # ── System Prompt (Section 4.6) ───────────────────────────────────────────
 
-def build_system_prompt(episodic_rag: bool = False) -> str:
-    """Build system prompt. If episodic_rag=True, omit salient_past_events from SCI."""
-    persona_str = PERSONA_JSON_NO_EPISODIC_STR if episodic_rag else PERSONA_JSON_STR
-    episodic_instruction = (
-        "If asked about past sessions, you will receive relevant session memories as context with the question."
-        if episodic_rag else
-        "If asked about past sessions, refer only to events in your self_model.salient_past_events."
-    )
+def build_system_prompt(episodic_rag: bool = False, episodic_rag_hybrid: bool = False) -> str:
+    """Build system prompt.
+
+    episodic_rag: strip salient_past_events entirely, inject via RAG.
+    episodic_rag_hybrid: keep compressed summaries in SCI, inject full details via RAG.
+    """
+    if episodic_rag_hybrid:
+        persona_str = PERSONA_JSON_HYBRID_STR
+        episodic_instruction = (
+            "Your self-model contains compressed session summaries for context. "
+            "When asked about past sessions, you will also receive detailed session memories as additional context with the question. "
+            "Use both your compressed summaries and the detailed context to inform your response."
+        )
+    elif episodic_rag:
+        persona_str = PERSONA_JSON_NO_EPISODIC_STR
+        episodic_instruction = (
+            "If asked about past sessions, you will receive relevant session memories as context with the question."
+        )
+    else:
+        persona_str = PERSONA_JSON_STR
+        episodic_instruction = (
+            "If asked about past sessions, refer only to events in your self_model.salient_past_events."
+        )
     return f"""You are Aria, a professional AI support agent specializing in psychotherapy support. Your complete self-model is specified below. You must respond consistently with this self-model at all times — including your personality, your capabilities, your limitations, your communication style, and your memory of past sessions.
 
 <self_model>
@@ -451,16 +482,20 @@ def format_eta(seconds: float) -> str:
 def run_single_script(script_id: int, script_data: dict,
                       judge_model: str = JUDGE_PRIMARY_MODEL,
                       script_num: int = 0, total_scripts: int = 0,
-                      refresh_turn: int = None,
-                      episodic_rag: bool = False) -> None:
+                      refresh_turns: list = None,
+                      episodic_rag: bool = False,
+                      episodic_rag_hybrid: bool = False) -> None:
     """Run a single conversation script through the experiment pipeline.
 
     Args:
-        refresh_turn: If set, re-inject SCI persona JSON at this turn number.
+        refresh_turns: List of turn numbers at which to re-inject SCI persona JSON.
         episodic_rag: If True, strip salient_past_events from system prompt
                       and inject them as context only for E-dimension probes.
+        episodic_rag_hybrid: If True, keep compressed summaries in SCI,
+                             inject full details via RAG for E-dimension probes.
     """
-    system_prompt = build_system_prompt(episodic_rag=episodic_rag)
+    system_prompt = build_system_prompt(episodic_rag=episodic_rag,
+                                        episodic_rag_hybrid=episodic_rag_hybrid)
     turns = script_data["turns"]
     conversation_history = []
     scores_path = LOGS_DIR / f"scores_{script_id:03d}.jsonl"
@@ -470,7 +505,8 @@ def run_single_script(script_id: int, script_data: dict,
     total_probes = len([t for t in turns if t["turn"] in PROBE_TURNS]) * 4
     completed_turns = 0
     completed_probes = 0
-    refresh_injected = False
+    pending_refreshes = sorted(refresh_turns) if refresh_turns else []
+    refresh_count = 0
 
     scores_file = open(scores_path, "w")
     context_file = open(context_path, "w")
@@ -481,12 +517,13 @@ def run_single_script(script_id: int, script_data: dict,
             is_probe_turn = turn_num in PROBE_TURNS
 
             # ── SCI Refresh injection ─────────────────────────────────
-            if refresh_turn and turn_num >= refresh_turn and not refresh_injected:
+            while pending_refreshes and turn_num >= pending_refreshes[0]:
                 refresh_msg = SCI_REFRESH_USER.format(persona_json=PERSONA_JSON_STR)
                 conversation_history.append({"role": "user", "content": refresh_msg})
                 conversation_history.append({"role": "assistant", "content": SCI_REFRESH_ASSISTANT})
-                refresh_injected = True
-                print(f"    ★ SCI refresh injected at turn {turn_num}")
+                refresh_count += 1
+                fired = pending_refreshes.pop(0)
+                print(f"    ★ SCI refresh #{refresh_count} injected at turn {turn_num} (scheduled: {fired})")
 
             # Log context fill BEFORE this turn
             history_text = system_prompt + json.dumps(conversation_history)
@@ -498,8 +535,8 @@ def run_single_script(script_id: int, script_data: dict,
                 "context_fill_pct": round(total_tokens / PHI4_CONTEXT_WINDOW, 4),
                 "system_prompt_tokens": count_tokens_approx(system_prompt),
                 "conversation_tokens": total_tokens - count_tokens_approx(system_prompt),
-                "refresh_injected": refresh_injected,
-                "episodic_rag": episodic_rag,
+                "refresh_count": refresh_count,
+                "episodic_rag": episodic_rag or episodic_rag_hybrid,
             }
             context_file.write(json.dumps(context_record) + "\n")
 
@@ -509,7 +546,7 @@ def run_single_script(script_id: int, script_data: dict,
                 for dimension, probe_question in probes:
                     # Episodic RAG: prepend memories to E-dimension probes
                     actual_probe = probe_question
-                    if episodic_rag and dimension == "E":
+                    if (episodic_rag or episodic_rag_hybrid) and dimension == "E":
                         actual_probe = (
                             f"[Retrieved session memories for context:\n"
                             f"{EPISODIC_MEMORIES_STR}]\n\n"
@@ -537,7 +574,7 @@ def run_single_script(script_id: int, script_data: dict,
                         "reason": reason,
                         "judge_model": judge_model,
                         "timestamp": datetime.now(timezone.utc).isoformat(),
-                        "episodic_rag_injected": episodic_rag and dimension == "E",
+                        "episodic_rag_injected": (episodic_rag or episodic_rag_hybrid) and dimension == "E",
                     }
                     scores_file.write(json.dumps(score_record) + "\n")
                     scores_file.flush()
@@ -583,10 +620,12 @@ def main():
                         help="Ollama subject model (default: phi4-mini). E.g. qwen2.5:7b")
     parser.add_argument("--context-window", type=int, default=None,
                         help="Context window size in tokens (default: 16384)")
-    parser.add_argument("--refresh-turn", type=int, default=None,
-                        help="Turn number at which to re-inject SCI persona JSON (e.g., 13)")
+    parser.add_argument("--refresh-turn", type=str, default=None,
+                        help="Turn(s) at which to re-inject SCI persona JSON (e.g., '13' or '13,28')")
     parser.add_argument("--episodic-rag", action="store_true",
                         help="Strip salient_past_events from SCI; inject via simulated RAG for E-dimension probes")
+    parser.add_argument("--episodic-rag-hybrid", action="store_true",
+                        help="Keep compressed episodic summaries in SCI; inject full details via RAG for E-dimension probes")
     args = parser.parse_args()
 
     # Apply model overrides
@@ -596,21 +635,29 @@ def main():
     if args.context_window:
         PHI4_CONTEXT_WINDOW = args.context_window
 
+    # Parse refresh turns
+    refresh_turns = None
+    if args.refresh_turn:
+        refresh_turns = [int(x.strip()) for x in args.refresh_turn.split(",")]
+
     # Use model-specific logs dir to keep results from different models separate
     safe_name = OLLAMA_MODEL.replace(":", "_").replace("/", "_")
     logs_suffix = safe_name if OLLAMA_MODEL != "phi4-mini" else ""
-    if args.refresh_turn:
-        logs_suffix += f"_refresh{args.refresh_turn}"
+    if refresh_turns:
+        logs_suffix += f"_refresh{'_'.join(str(t) for t in refresh_turns)}"
     if args.episodic_rag:
         logs_suffix += "_episodic_rag"
+    if args.episodic_rag_hybrid:
+        logs_suffix += "_episodic_rag_hybrid"
     if logs_suffix:
         LOGS_DIR = BASE_DIR / f"logs_{logs_suffix.lstrip('_')}"
     LOGS_DIR.mkdir(exist_ok=True)
 
     # Update system prompt if episodic RAG mode
-    if args.episodic_rag:
+    if args.episodic_rag or args.episodic_rag_hybrid:
         global SYSTEM_PROMPT
-        SYSTEM_PROMPT = build_system_prompt(episodic_rag=True)
+        SYSTEM_PROMPT = build_system_prompt(episodic_rag=args.episodic_rag,
+                                            episodic_rag_hybrid=args.episodic_rag_hybrid)
 
     # Parse script IDs
     if args.scripts:
@@ -630,10 +677,12 @@ def main():
     print(f"Logs dir: {LOGS_DIR}")
     print(f"Scripts: {len(script_ids)} conversations")
     print(f"Judge: {args.judge_model}")
-    if args.refresh_turn:
-        print(f"SCI Refresh: ON at turn {args.refresh_turn}")
+    if refresh_turns:
+        print(f"SCI Refresh: ON at turns {refresh_turns}")
     if args.episodic_rag:
         print(f"Episodic RAG: ON (salient_past_events stripped from SCI, injected on E-probes)")
+    if args.episodic_rag_hybrid:
+        print(f"Episodic RAG Hybrid: ON (compressed summaries in SCI + full details via RAG on E-probes)")
     print(f"Anthropic key: {'set' if ANTHROPIC_API_KEY else 'MISSING'}")
     print("=" * 60)
 
@@ -695,8 +744,9 @@ def main():
             t0 = time.time()
             run_single_script(script_id, script_data, args.judge_model,
                               script_num=i+1, total_scripts=len(remaining),
-                              refresh_turn=args.refresh_turn,
-                              episodic_rag=args.episodic_rag)
+                              refresh_turns=refresh_turns,
+                              episodic_rag=args.episodic_rag,
+                              episodic_rag_hybrid=args.episodic_rag_hybrid)
             elapsed = time.time() - t0
             completed += 1
             total_elapsed = time.time() - t_start

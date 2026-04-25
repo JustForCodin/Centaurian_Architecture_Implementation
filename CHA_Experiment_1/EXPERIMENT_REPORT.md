@@ -713,7 +713,281 @@ Episodic RAG produces a **dramatically flatter degradation curve** (4x slower de
 
 ### 13.3 Recommended Next Steps
 
-1. **Combined experiment (Refresh + RAG):** Run with both `--refresh-turn 13` and `--episodic-rag` to test whether the combination captures refresh's trait stability and RAG's flatter degradation.
-2. **Hybrid episodic strategy:** Keep a one-line compressed summary of each past event in the system prompt (preserving implicit anchoring), inject full details via RAG on E-dimension probes.
-3. **Multi-refresh:** Test `--refresh-turn 13` with a second refresh at turn 28 to cover the late-conversation decline window where single refresh fades.
-4. **Larger model:** Test Qwen2.5-14B or Llama 3.1 13B to determine whether 14B+ resolves the episodic fabrication problem that no intervention has fixed at 7B.
+1. **Combined experiment (Refresh + RAG):** Run with both `--refresh-turn 13` and `--episodic-rag` to test whether the combination captures refresh's trait stability and RAG's flatter degradation. (Section 14)
+2. **Hybrid episodic strategy:** Keep a one-line compressed summary of each past event in the system prompt (preserving implicit anchoring), inject full details via RAG on E-dimension probes. (Section 15)
+3. **Multi-refresh:** Test `--refresh-turn 13` with a second refresh at turn 28 to cover the late-conversation decline window where single refresh fades. (Section 16)
+4. **Larger model:** Test Qwen2.5-14B or Llama 3.1 13B to determine whether 14B+ resolves the episodic fabrication problem that no intervention has fixed at 7B. (Future work)
+
+---
+
+## 14. Combined Refresh + Episodic RAG (Task 4)
+
+### 14.1 Overview
+
+Sections 11 and 12 demonstrated that SCI Refresh and Episodic RAG have complementary strengths and opposing weaknesses. This experiment tests whether combining both interventions captures the benefits of each — refresh's trait stability plus RAG's flattened degradation curve.
+
+- **Intervention:** Both `--refresh-turn 13` and `--episodic-rag` enabled simultaneously. The system prompt has `salient_past_events` stripped; episodic memories are injected via RAG on E-probes; the persona JSON is re-injected at turn 13.
+- **Subject model:** Qwen2.5-7B via Ollama on Google Colab L4 GPU
+- **Conversations:** Same 30 scripts as baseline
+- **Judge:** Sonnet 4.5 (primary and secondary)
+
+### 14.2 Results
+
+#### 14.2.1 PersonaScore Time Series
+
+| Turn | Baseline | Combined | Δ |
+|------|----------|----------|---|
+| 5 | 3.16 | 3.15 | −0.01 |
+| 10 | 3.13 | 3.02 | −0.11 |
+| 15 | 3.15 | 3.22 | +0.07 |
+| 20 | 3.11 | 3.28 | +0.17 |
+| 25 | 3.09 | 3.26 | +0.17 |
+| 30 | 3.04 | 3.28 | +0.24 |
+| 35 | 3.00 | 3.21 | +0.21 |
+| 40 | 2.96 | 3.19 | +0.23 |
+
+Mean improvement across turns 15–40: **+0.18 points** — the largest improvement of any single intervention. Late-conversation scores (turns 25–40) improved by +0.22 on average. This is the only condition where late-conversation scores are *higher* than early-conversation scores.
+
+#### 14.2.2 Degradation Profile Change
+
+| Condition | Best Fit | AIC | Key Parameters |
+|-----------|----------|-----|----------------|
+| Baseline | Piecewise | -67.1 | alpha=3.147, beta=0.008, T0=15 |
+| Combined | Step | — | alpha=3.094, delta=−0.156, breakpoint=15 |
+
+The step model with a *negative* delta (i.e. step *up*) is the best fit — meaning scores actually improve after turn 15 rather than declining. Effective degradation rate is approximately zero across turns 15–40.
+
+#### 14.2.3 Dimension-Level Comparison
+
+| Dimension | Baseline T\* | Combined T\* | Mean (Baseline) | Mean (Combined) | Δ |
+|-----------|-------------|--------------|-----------------|-----------------|---|
+| Trait (T) | >40 | 10 | 3.67 | 3.69 | +0.02 |
+| Episodic (E) | 5 | 5 | 2.37 | 2.76 | +0.39 |
+| Capability (C) | 5 | 5 | 3.28 | 3.27 | −0.01 |
+| Style (S) | 5 | 5 | 3.00 | 3.09 | +0.09 |
+
+- **Trait (T):** Maintained at baseline level. Refresh successfully prevents the trait destabilization that pure RAG caused (RAG-alone: 3.60; Combined: 3.69; Baseline: 3.67). T\* dropped to 10 vs baseline's >40, but mean trait score is preserved.
+- **Episodic (E):** Best E-dimension result of any condition (+0.39 over baseline, +0.07 over RAG-alone). The combined intervention produces the strongest episodic recall, though still below threshold.
+- **Capability (C):** Effectively unchanged from baseline.
+- **Style (S):** Modest improvement (+0.09), the strongest style result among all interventions.
+
+#### 14.2.4 Failure Mode Comparison
+
+| Failure Mode | Baseline | Combined | Δ |
+|-------------|----------|----------|---|
+| Trait drift | 43 | 45 | +2 (+5%) |
+| Episodic fabrication | 194 | 165 | −29 (−15%) |
+| Capability overstatement | 111 | 114 | +3 (+3%) |
+| Register shift | 113 | 107 | −6 (−5%) |
+| **Total** | **461** | **431** | **−30 (−7%)** |
+
+Largest reduction in episodic fabrication of any single intervention (−15%). Trait drift is essentially unchanged from baseline, validating that refresh successfully counteracts the trait destabilization caused by RAG-alone (which had +21% trait drift).
+
+### 14.3 Interpretation
+
+The combined intervention is the best single result so far. Three observations:
+
+1. **The hypothesis is confirmed.** Refresh's trait grounding plus RAG's flattened curve combine cleanly. Trait scores stay at baseline (refresh preserves them), episodic scores improve over both individual interventions (RAG provides retrieval; refresh keeps the model engaged with the persona), and the late-conversation degradation is eliminated.
+2. **An emergent benefit:** late-conversation scores are *higher* than early-conversation scores. This is unique to the combined condition. The mechanism appears to be that the refresh at turn 13 catches the model just before it would degrade, and the RAG continues to feed correct episodic information when needed, so the model spends turns 15–40 in a more grounded state than it was at turns 5–10.
+3. **Episodic recall is still the bottleneck.** Despite the +0.39 improvement, E remains at 2.76 — far below the 3.5 threshold. The model can be helped, but cannot be made reliable at 7B.
+
+**Design implication:** For Phase 1 deployment of the CHA architecture with a 7B SLM transducer, **the recommended SCI strategy is: episodic content delivered via RAG, persona JSON refreshed every ~15 turns**.
+
+---
+
+## 15. Hybrid Episodic RAG (Task 5)
+
+### 15.1 Overview
+
+Section 12 found that fully removing `salient_past_events` from the SCI destabilized trait scores (T\* dropped from >40 to 10), suggesting the episodic narratives serve as implicit personality anchors. This experiment tests a hybrid strategy: keep one-line compressed summaries in the system prompt (preserving the implicit anchoring), inject full event details via RAG on E-probes.
+
+- **Intervention:** Compressed summaries (`session_id` + first sentence of each event) remain in the SCI under `salient_past_events_compressed`. Full event details (with emotional valence and complete narrative) are prepended to E-dimension probes.
+- **Subject model:** Qwen2.5-7B via Ollama on Google Colab L4 GPU
+- **Conversations:** Same 30 scripts as baseline
+- **Judge:** Sonnet 4.5 (primary and secondary)
+
+### 15.2 Results
+
+#### 15.2.1 PersonaScore Time Series
+
+| Turn | Baseline | Hybrid | Δ |
+|------|----------|--------|---|
+| 5 | 3.16 | 3.18 | +0.02 |
+| 10 | 3.13 | 3.17 | +0.04 |
+| 15 | 3.15 | 3.15 | 0.00 |
+| 20 | 3.11 | 3.39 | +0.28 |
+| 25 | 3.09 | 3.22 | +0.13 |
+| 30 | 3.04 | 3.12 | +0.08 |
+| 35 | 3.00 | 2.99 | −0.01 |
+| 40 | 2.96 | 3.11 | +0.15 |
+
+Mean improvement across turns 15–40: **+0.10 points**. The trajectory is non-monotonic with a peak at turn 20, suggesting some instability in the model's response pattern.
+
+#### 15.2.2 Dimension-Level Comparison
+
+| Dimension | Baseline T\* | Hybrid T\* | Mean (Baseline) | Mean (Hybrid) | Δ |
+|-----------|-------------|------------|-----------------|---------------|---|
+| Trait (T) | >40 | 5 | 3.67 | 3.60 | −0.07 |
+| Episodic (E) | 5 | 5 | 2.37 | 2.83 | +0.46 |
+| Capability (C) | 5 | 5 | 3.28 | 3.28 | 0.00 |
+| Style (S) | 5 | 5 | 3.00 | 2.96 | −0.04 |
+
+- **Trait (T):** **The hypothesis failed.** T\* dropped from >40 to 5 — *worse* than full RAG (which had T\*=10). Compressed summaries did not preserve implicit trait anchoring. Trait mean dropped slightly.
+- **Episodic (E):** Best E-dimension result of any single intervention (+0.46 over baseline). The compressed summaries do help retrieval (model has both topic anchors in SCI and full details in context).
+- **Style (S):** Slight regression (−0.04). Style is the only dimension where the hybrid approach underperforms both baseline and full RAG.
+
+#### 15.2.3 Failure Mode Comparison
+
+| Failure Mode | Baseline | Hybrid | Δ |
+|-------------|----------|--------|---|
+| Trait drift | 43 | 50 | +7 (+16%) |
+| Episodic fabrication | 194 | 160 | −34 (−18%) |
+| Capability overstatement | 111 | 114 | +3 (+3%) |
+| Register shift | 113 | 122 | +9 (+8%) |
+| **Total** | **461** | **446** | **−15 (−3%)** |
+
+Largest reduction in episodic fabrication of any condition (−18%). However, trait drift increased (+16%) and register shift worsened (+8%) — the latter being unique to this condition.
+
+### 15.3 Interpretation
+
+**The hypothesis was wrong.** Compressed one-line summaries do *not* preserve the implicit trait anchoring that full episodic narratives provide. Three possible explanations:
+
+1. **The full narratives carry trait-relevant content beyond their topical headers.** The original episodic entries include emotional valence ("emotionally_significant", "introspective") and behavioral descriptions ("Aria acknowledged without advice-giving") that implicitly demonstrate Aria's personality traits in action. The compressed summaries strip these, leaving only topic markers.
+2. **Token economy isn't the issue.** Removing ~200 tokens of episodic content frees space for nothing meaningful — the model doesn't reallocate attention to traits in a way that improves trait performance.
+3. **The compressed summaries create cognitive dissonance.** Having a partial reference in the SCI alongside RAG-injected full details may cause the model to anchor on the compressed (and vague) summary rather than the detailed retrieval, reducing both trait grounding and style coherence.
+
+**Episodic recall did improve more here than in any other condition** (+0.46), suggesting that having both an SCI anchor and a RAG retrieval is genuinely useful for the E dimension specifically. But this benefit is more than offset by losses in T and S.
+
+**Design implication:** This approach is not viable. Either keep full episodic narratives in the SCI (baseline) or move them entirely to RAG (Section 12 / Combined approach). The hybrid is the worst of both worlds for the non-E dimensions.
+
+---
+
+## 16. Multi-Refresh — Turns 13 and 28 (Task 6)
+
+### 16.1 Overview
+
+Section 11 found that single SCI refresh at turn 13 partially recovers scores but fades by turn 35. This experiment tests whether a second refresh at turn 28 covers the late-conversation fade window.
+
+- **Intervention:** SCI persona JSON re-injected at both turn 13 and turn 28.
+- **Subject model:** Qwen2.5-7B via Ollama on Google Colab L4 GPU
+- **Conversations:** Same 30 scripts as baseline
+- **Judge:** Sonnet 4.5 (primary and secondary)
+
+### 16.2 Results
+
+#### 16.2.1 PersonaScore Time Series
+
+| Turn | Baseline | Multi-Refresh | Δ |
+|------|----------|---------------|---|
+| 5 | 3.16 | 3.31 | +0.15 |
+| 10 | 3.13 | 3.20 | +0.07 |
+| 15 | 3.15 | 3.17 | +0.02 |
+| 20 | 3.11 | 3.18 | +0.07 |
+| 25 | 3.09 | 3.20 | +0.11 |
+| 30 | 3.04 | 3.17 | +0.13 |
+| 35 | 3.00 | 3.12 | +0.12 |
+| 40 | 2.96 | 3.27 | +0.31 |
+
+Mean improvement across turns 15–40: **+0.13 points**. Late-conversation scores (turns 25–40) improved by +0.17 on average. The turn 40 score (3.27) is the highest end-of-conversation result of any condition — single refresh faded to 2.98 at turn 40, while multi-refresh climbs to 3.27.
+
+#### 16.2.2 Degradation Profile Change
+
+| Condition | Best Fit | AIC | Key Parameters |
+|-----------|----------|-----|----------------|
+| Baseline | Piecewise | -67.1 | alpha=3.147, beta=0.008, T0=15 |
+| Multi-Refresh | Step | — | alpha=3.205, delta=−0.012, breakpoint=35 |
+
+The step fit shows a slight *upward* step at turn 35 (i.e. scores recover further after the second refresh), with effective β≈0 across the entire conversation.
+
+#### 16.2.3 Dimension-Level Comparison
+
+| Dimension | Baseline T\* | Multi-Refresh T\* | Mean (Baseline) | Mean (Multi) | Δ |
+|-----------|-------------|-------------------|-----------------|--------------|---|
+| Trait (T) | >40 | >40 | 3.67 | 3.86 | +0.19 |
+| Episodic (E) | 5 | 5 | 2.37 | 2.43 | +0.06 |
+| Capability (C) | 5 | 10 | 3.28 | 3.38 | +0.10 |
+| Style (S) | 5 | 10 | 3.00 | 3.14 | +0.14 |
+
+- **Trait (T):** Strongest trait performance of any condition (+0.19 over baseline). Refresh repeatedly reinforces the persona's trait specifications.
+- **Episodic (E):** Marginal improvement (+0.06). As expected, refresh does not address fabrication.
+- **Capability (C):** Moderate improvement (+0.10). T\* improved from 5 to 10.
+- **Style (S):** Strongest style performance of any single intervention (+0.14). T\* improved from 5 to 10.
+
+#### 16.2.4 Failure Mode Comparison
+
+| Failure Mode | Baseline | Multi-Refresh | Δ |
+|-------------|----------|---------------|---|
+| Trait drift | 43 | 31 | −12 (−28%) |
+| Episodic fabrication | 194 | 190 | −4 (−2%) |
+| Capability overstatement | 111 | 106 | −5 (−5%) |
+| Register shift | 113 | 101 | −12 (−11%) |
+| **Total** | **461** | **428** | **−33 (−7%)** |
+
+**Lowest total failures of any condition** (428). Largest reduction in trait drift (−28%) and substantial reduction in register shift (−11%).
+
+### 16.3 Interpretation
+
+Multi-refresh validates the single-refresh fade hypothesis: a second refresh at turn 28 successfully covers the late-conversation decline window that single refresh experienced. Key observations:
+
+1. **The second refresh works exactly as predicted.** Single refresh showed scores fading by turn 35 (2.98); multi-refresh keeps the curve flat through turn 40 (3.27). The mechanism is straightforward — periodic re-grounding maintains the model's engagement with the persona.
+2. **All non-episodic dimensions improve.** Trait, capability, and style all show their best (or near-best) results in this condition. This is consistent with refresh strengthening the system-prompt-based grounding that these dimensions rely on.
+3. **Episodic remains untouched.** Refresh re-presents the same `salient_past_events` JSON, but the model continues to fabricate. This confirms that episodic fabrication is a model capability limitation, not a context decay issue, regardless of how many times the events are re-presented.
+4. **No infrastructure overhead.** Unlike RAG-based interventions, multi-refresh requires no retrieval system — just a periodic message injection. This is the simplest deployable intervention.
+
+**Design implication:** Multi-refresh is the recommended baseline intervention for deployments without RAG infrastructure. For deployments with RAG, the Combined approach (Section 14) achieves slightly better episodic results.
+
+---
+
+## 17. Phase 2b Combined Analysis
+
+### 17.1 Six-Way Intervention Comparison
+
+| Condition | Mean | Mean 25–40 | β (deg. rate) | Total Failures | Episodic Mean | Trait Mean |
+|-----------|------|------------|---------------|----------------|---------------|------------|
+| Baseline | 3.08 | 3.02 | 0.008 | 461 | 2.37 | 3.67 |
+| Refresh-13 | 3.15 | 3.07 | 0.008 | 444 | 2.37 | 3.79 |
+| Episodic-RAG | 3.15 | 3.15 | 0.002 | 457 | 2.69 | 3.60 |
+| Hybrid-RAG | 3.17 | 3.11 | ~0 | 446 | 2.83 | 3.60 |
+| **Multi-Refresh** | **3.20** | **3.19** | **~0** | **428** | 2.43 | **3.86** |
+| **Combined (R13+RAG)** | **3.20** | **3.24** | **~0** | 431 | 2.76 | 3.69 |
+
+### 17.2 Winners by Metric
+
+| Metric | Best Condition | Value |
+|--------|----------------|-------|
+| Highest overall mean | Combined / Multi-Refresh | 3.20 |
+| Highest late-conversation (25–40) | Combined | 3.24 |
+| Lowest total failures | Multi-Refresh | 428 |
+| Best Trait dimension | Multi-Refresh | 3.86 |
+| Best Episodic dimension | Hybrid-RAG | 2.83 |
+| Best Capability dimension | Refresh-13 / Multi-Refresh | 3.38 |
+| Best Style dimension | Multi-Refresh | 3.14 |
+| Flattest degradation | Combined / Multi-Refresh / Hybrid | β ≈ 0 |
+
+### 17.3 Key Findings
+
+1. **Two interventions tie for best overall: Combined (R13+RAG) and Multi-Refresh (13+28).** Both achieve a mean PersonaScore of 3.20 and effective β ≈ 0. They differ in mechanism: Combined leverages retrieval; Multi-Refresh leverages periodic re-grounding.
+2. **Combined wins on late-conversation performance** (3.24 vs Multi-Refresh's 3.19), driven by the +0.39 episodic improvement that Multi-Refresh cannot match without RAG.
+3. **Multi-Refresh wins on simplicity and trait stability.** No retrieval infrastructure needed; trait scores reach their highest level (3.86) of any condition.
+4. **The compressed-summary hypothesis was wrong.** Hybrid-RAG underperformed full RAG on trait stability — the implicit anchoring effect requires the full narrative content, not just topic markers. This is the most important negative result of Phase 2b.
+5. **Episodic recall remains the unsolved problem.** Even the best condition (Hybrid-RAG, E=2.83) is well below the 3.5 threshold. No SCI-level intervention has fixed this. The remaining gap appears to require either model scale (14B+) or fine-tuning.
+6. **The 3.5 threshold is unreached by any intervention.** All six conditions sit between 3.08 and 3.20 mean PersonaScore. Architectural intervention can flatten the curve and lift it modestly, but cannot bridge the ~0.3-point gap to the threshold.
+
+### 17.4 Recommended Architecture
+
+Based on Phase 2b results, the recommended SCI strategy for Phase 1 deployment of the CHA architecture with a 7B SLM transducer:
+
+| Deployment Profile | Recommended Strategy |
+|--------------------|----------------------|
+| Full infrastructure available | **Combined**: Episodic content via RAG + SCI refresh every 15 turns |
+| Minimal infrastructure (no RAG) | **Multi-Refresh**: SCI refresh at turns 13 and 28 |
+| Maximum simplicity (no refresh logic) | **Baseline**: Accept piecewise degradation, plan for short conversations (<15 turns) |
+
+Avoid: Hybrid compressed-summary RAG. The trait destabilization outweighs the episodic improvement.
+
+### 17.5 Remaining Open Questions
+
+1. **Does 14B+ resolve episodic fabrication?** This is the most important unanswered question. None of the SCI interventions tested at 7B brought episodic scores above 3.0. A scale test is the natural next experiment.
+2. **Does fine-tuning (LoRA) on persona-consistent dialogue improve scores beyond architectural intervention?** This would test whether the remaining gap is a context-handling issue or a base capability issue.
+3. **Can refresh frequency be tuned more precisely?** The choice of turns 13 and 28 was based on the piecewise inflection at T0=15. Turns 13 and 25 (more aggressive) or turns 15 and 30 (less aggressive) might yield different results.
+4. **Does the combined intervention's emergent late-conversation peak generalize?** The unique pattern of scores being *higher* at turns 25–40 than at turns 5–10 suggests something specific about how RAG and refresh interact. Replication on different scenarios would confirm whether this is robust.
