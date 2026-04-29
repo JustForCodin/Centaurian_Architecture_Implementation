@@ -293,10 +293,18 @@ _SPEAKER_RE = re.compile(r"^(USER|ARIA):", re.IGNORECASE)
 _TURN_RE = re.compile(r"^(USER|ARIA):\s*(.+?)(?=^(?:USER|ARIA):|\Z)", re.MULTILINE | re.DOTALL | re.IGNORECASE)
 
 
-def parse_history(text: str, expected_turns: int) -> Optional[list[dict]]:
+MIN_PARSED_TURNS = 4   # ≥ 2 user/assistant pairs
+MAX_PARSED_TURNS = 50  # sanity bound; plan target is ≤ 40
+
+
+def parse_history(text: str) -> Optional[list[dict]]:
     """Parse USER:/ARIA: alternating block into a list of {role, content} dicts.
 
-    Returns None if format is malformed (wrong count, alternation broken, etc.).
+    Returns None if format is malformed: no speaker labels, broken alternation,
+    odd turn count (must end with assistant), or count outside [MIN, MAX].
+    The caller records the actual parsed length — this no longer requires the
+    parsed count to match the planned depth, since Claude often over/undershoots
+    by 1–2 turns and those examples are still valid training data.
     Strips any preamble Claude may have added before the first speaker label."""
     # Strip preamble: discard everything before the first speaker-label line
     lines = text.split("\n")
@@ -318,9 +326,11 @@ def parse_history(text: str, expected_turns: int) -> Optional[list[dict]]:
             return None
         turns.append({"role": role, "content": content})
 
-    # Validate alternation starting with user, ending with assistant
-    if len(turns) != expected_turns:
+    if len(turns) < MIN_PARSED_TURNS or len(turns) > MAX_PARSED_TURNS:
         return None
+    if len(turns) % 2 != 0:
+        return None  # must end with assistant
+    # Validate alternation starting with user, ending with assistant
     for i, t in enumerate(turns):
         expected_role = "user" if i % 2 == 0 else "assistant"
         if t["role"] != expected_role:
@@ -339,7 +349,7 @@ def generate_history(
         client, HISTORY_GEN_SYSTEM, user,
         temperature=GEN_TEMPERATURE, max_tokens=HISTORY_MAX_TOKENS,
     )
-    return parse_history(text, turn_depth)
+    return parse_history(text)
 
 
 # ── Target response generation (Appendix A) ─────────────────────────────
@@ -544,7 +554,8 @@ def generate_one(
         record = {
             "id": plan.id,
             "dimension": plan.dimension,
-            "turn_depth": plan.turn_depth,
+            "turn_depth": len(history),  # actual parsed length
+            "planned_turn_depth": plan.turn_depth,
             "adversarial": plan.adversarial,
             "scenario": plan.scenario,
             "system": A.build_system_prompt(),
