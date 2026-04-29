@@ -118,7 +118,7 @@ KNOWN_EVENT_KEYWORDS = [
     "you told me",
 ]
 
-PROBE_RELEVANCE_THRESHOLD = 0.5  # cosine sim probe<>response (MiniLM)
+PROBE_RELEVANCE_THRESHOLD = 0.35  # cosine sim probe<>response (MiniLM); lowered from 0.5 — therapy responses often deflect/redirect rather than directly addressing the probe
 TARGET_MIN_WORDS = 30
 TARGET_MAX_WORDS = 150
 
@@ -288,19 +288,31 @@ ARIA: <Aria's second response>
 Output ONLY the conversation in this format. No preamble, no commentary, no numbering."""
 
 
-_TURN_RE = re.compile(r"^(USER|ARIA):\s*(.+?)(?=^(?:USER|ARIA):|\Z)", re.MULTILINE | re.DOTALL)
+# Case-insensitive so "User:" / "Aria:" variants are accepted alongside "USER:" / "ARIA:"
+_SPEAKER_RE = re.compile(r"^(USER|ARIA):", re.IGNORECASE)
+_TURN_RE = re.compile(r"^(USER|ARIA):\s*(.+?)(?=^(?:USER|ARIA):|\Z)", re.MULTILINE | re.DOTALL | re.IGNORECASE)
 
 
 def parse_history(text: str, expected_turns: int) -> Optional[list[dict]]:
     """Parse USER:/ARIA: alternating block into a list of {role, content} dicts.
 
-    Returns None if format is malformed (wrong count, alternation broken, etc.)."""
+    Returns None if format is malformed (wrong count, alternation broken, etc.).
+    Strips any preamble Claude may have added before the first speaker label."""
+    # Strip preamble: discard everything before the first speaker-label line
+    lines = text.split("\n")
+    first_speaker = next(
+        (i for i, line in enumerate(lines) if _SPEAKER_RE.match(line)), None
+    )
+    if first_speaker is None:
+        return None
+    text = "\n".join(lines[first_speaker:])
+
     matches = _TURN_RE.findall(text)
     if not matches:
         return None
     turns = []
     for role_label, content in matches:
-        role = "user" if role_label == "USER" else "assistant"
+        role = "user" if role_label.upper() == "USER" else "assistant"
         content = content.strip().rstrip()
         if not content:
             return None
