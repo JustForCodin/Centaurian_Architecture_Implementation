@@ -264,15 +264,28 @@ def main():
           f"{len(train_ds) * args.num_epochs // (args.per_device_batch_size * args.grad_accum_steps)}")
 
     # ── Train ───────────────────────────────────────────────────────────
-    trainer = SFTTrainer(
-        model=model,
-        train_dataset=train_ds,
-        eval_dataset=val_ds,
-        peft_config=lora_config,
-        args=sft_config,
-        tokenizer=tokenizer,
-        data_collator=collator,
-    )
+    # SFTTrainer renamed tokenizer→processing_class in recent TRL (ecosystem-wide
+    # change for multimodal support). Try the new name first, fall back if needed.
+    try:
+        trainer = SFTTrainer(
+            model=model,
+            train_dataset=train_ds,
+            eval_dataset=val_ds,
+            peft_config=lora_config,
+            args=sft_config,
+            processing_class=tokenizer,
+            data_collator=collator,
+        )
+    except TypeError:
+        trainer = SFTTrainer(
+            model=model,
+            train_dataset=train_ds,
+            eval_dataset=val_ds,
+            peft_config=lora_config,
+            args=sft_config,
+            tokenizer=tokenizer,
+            data_collator=collator,
+        )
 
     # Auto-resume from latest checkpoint if any
     resume = any(out_dir.glob("checkpoint-*"))
