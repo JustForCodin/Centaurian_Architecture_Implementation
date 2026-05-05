@@ -149,7 +149,12 @@ def main():
     p.add_argument("--per-device-batch-size", type=int, default=4)
     p.add_argument("--grad-accum-steps", type=int, default=4)
     p.add_argument("--warmup-steps", type=int, default=100)
-    p.add_argument("--max-seq-length", type=int, default=2048)
+    p.add_argument("--max-seq-length", type=int, default=3072,
+                   help="Hard cap on tokens per example. Records above this are dropped during "
+                        "dataset build (truncating would corrupt the SCI grounding or probe alignment). "
+                        "Plan §4.4 specified 2048; raised to 3072 because the relaxed parser produced "
+                        "many >40-turn examples that exceed 2048. Bump to 4096 if VRAM allows and you "
+                        "want to recover more of the long-context training signal.")
     p.add_argument("--logging-steps", type=int, default=50)
     p.add_argument("--eval-steps", type=int, default=200)
     p.add_argument("--save-steps", type=int, default=500)
@@ -241,13 +246,13 @@ def main():
         load_best_model_at_end=True,
         metric_for_best_model="eval_loss",
         greater_is_better=False,
-        max_seq_length=args.max_seq_length,
-        packing=False,
-        dataset_text_field="text",
         seed=args.seed,
         report_to="none",
-        # Print effective batch info on startup
         dataloader_num_workers=2,
+        # Note: max_seq_length / packing / dataset_text_field were removed from
+        # SFTConfig in TRL v0.16+. We enforce the length limit during dataset
+        # build (build_dataset filters over-length records) so the trainer
+        # never sees them, and we let it auto-detect the text column.
     )
 
     print(f"\nEffective batch size: {args.per_device_batch_size * args.grad_accum_steps}")
