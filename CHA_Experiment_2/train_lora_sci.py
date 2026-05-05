@@ -146,8 +146,13 @@ def main():
     # Training schedule
     p.add_argument("--num-epochs", type=int, default=3)
     p.add_argument("--learning-rate", type=float, default=2e-4)
-    p.add_argument("--per-device-batch-size", type=int, default=4)
-    p.add_argument("--grad-accum-steps", type=int, default=4)
+    # Plan §4.4 specified batch=4 / accum=4 (effective 16). Halved batch_size to
+    # 2 and doubled accum to 8 (same effective 16) because the L4 OOMs on the
+    # logits.float() cast at seq=3072 batch=4 — Qwen2.5's 152K vocab makes the
+    # fp32 logits tensor ~7 GB at batch=4, which doesn't fit alongside the
+    # model. Same effective batch, ~half activation memory.
+    p.add_argument("--per-device-batch-size", type=int, default=2)
+    p.add_argument("--grad-accum-steps", type=int, default=8)
     p.add_argument("--warmup-steps", type=int, default=100)
     p.add_argument("--max-seq-length", type=int, default=3072,
                    help="Hard cap on tokens per example. Records above this are dropped during "
