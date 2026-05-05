@@ -157,7 +157,11 @@ def main():
                         "want to recover more of the long-context training signal.")
     p.add_argument("--logging-steps", type=int, default=50)
     p.add_argument("--eval-steps", type=int, default=200)
-    p.add_argument("--save-steps", type=int, default=500)
+    p.add_argument("--save-steps", type=int, default=200,
+                   help="Must be a multiple of --eval-steps when "
+                        "load_best_model_at_end=True. Default 200 = eval-steps so they always align. "
+                        "LoRA-2K has only ~375 total steps, so a coarser cadence (e.g. 500) would "
+                        "skip mid-training saves entirely.")
     p.add_argument("--seed", type=int, default=42)
     args = p.parse_args()
 
