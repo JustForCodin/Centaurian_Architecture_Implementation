@@ -30,7 +30,50 @@ from transformers import (
     BitsAndBytesConfig,
 )
 from peft import LoraConfig, prepare_model_for_kbit_training
-from trl import SFTTrainer, SFTConfig, DataCollatorForCompletionOnlyLM
+from trl import SFTTrainer, SFTConfig
+
+# DataCollatorForCompletionOnlyLM has moved across TRL versions:
+#   - older: top-level `trl`
+#   - mid:   `trl.trainer.utils`
+#   - latest: removed from top-level (deprecated)
+# Try the stable paths, then fall back to a minimal inline implementation.
+try:
+    from trl import DataCollatorForCompletionOnlyLM
+except ImportError:
+    try:
+        from trl.trainer.utils import DataCollatorForCompletionOnlyLM
+    except ImportError:
+        from transformers import DataCollatorForLanguageModeling
+
+        class DataCollatorForCompletionOnlyLM(DataCollatorForLanguageModeling):
+            """Mask labels before the last occurrence of response_template tokens.
+
+            Drop-in replacement for the (older) trl.DataCollatorForCompletionOnlyLM."""
+            def __init__(self, response_template, tokenizer, *args, **kwargs):
+                kwargs.setdefault("mlm", False)
+                super().__init__(tokenizer=tokenizer, *args, **kwargs)
+                self.response_template_ids = tokenizer.encode(
+                    response_template, add_special_tokens=False
+                )
+
+            def torch_call(self, examples):
+                batch = super().torch_call(examples)
+                tmpl = self.response_template_ids
+                tlen = len(tmpl)
+                for i in range(batch["labels"].size(0)):
+                    ids = batch["input_ids"][i].tolist()
+                    start = None
+                    # Find LAST occurrence of the response template
+                    for j in range(len(ids) - tlen, -1, -1):
+                        if ids[j:j + tlen] == tmpl:
+                            start = j + tlen
+                            break
+                    if start is not None:
+                        batch["labels"][i, :start] = -100
+                    else:
+                        # Template missing — mask the whole example so it doesn't bias training
+                        batch["labels"][i, :] = -100
+                return batch
 
 
 # ── Constants ────────────────────────────────────────────────────────────
