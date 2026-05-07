@@ -71,8 +71,11 @@ PASS_THRESHOLD = 3.5  # plan §2 H1
 # ── Data loading ─────────────────────────────────────────────────────────
 
 def load_condition(cond: str, logs_root: Path = LOGS_BASE) -> list[dict]:
-    """Load all score records for a condition."""
-    cond_dir = logs_root / f"condition_{cond}"
+    """Load all score records for a condition (primary log dir only)."""
+    return _load_logs_dir(logs_root / f"condition_{cond}")
+
+
+def _load_logs_dir(cond_dir: Path) -> list[dict]:
     if not cond_dir.exists():
         return []
     records = []
@@ -87,6 +90,47 @@ def load_condition(cond: str, logs_root: Path = LOGS_BASE) -> list[dict]:
                 except json.JSONDecodeError:
                     continue
     return records
+
+
+# Map adapter folder name → training-set size, for H5 auto-detection
+ADAPTER_SIZE_MAP = {
+    "lora_2k": 2000,
+    "lora_5k": 5000,
+    "lora_10k": 10000,  # primary Condition C
+}
+
+
+def auto_detect_h5_curve(logs_root: Path = LOGS_BASE) -> list[tuple[int, float]]:
+    """Scan logs/ for Condition C sub-runs and compute (n, mean_score) points.
+
+    Looks at:
+      - condition_C/                 → LoRA-10K (primary, n=10000)
+      - condition_C_lora_2k/         → n=2000
+      - condition_C_lora_5k/         → n=5000
+      - any condition_C_<other>/     → if the suffix matches ADAPTER_SIZE_MAP
+
+    Returns sorted list of (n, mean) where logs were found and non-empty."""
+    points: list[tuple[int, float]] = []
+
+    primary = _load_logs_dir(logs_root / "condition_C")
+    if primary:
+        points.append((ADAPTER_SIZE_MAP["lora_10k"],
+                       float(np.mean([r["score"] for r in primary]))))
+
+    for sub in sorted(logs_root.glob("condition_C_*")):
+        if not sub.is_dir():
+            continue
+        suffix = sub.name[len("condition_C_"):]
+        n = ADAPTER_SIZE_MAP.get(suffix)
+        if n is None:
+            continue
+        recs = _load_logs_dir(sub)
+        if not recs:
+            continue
+        points.append((n, float(np.mean([r["score"] for r in recs]))))
+
+    points.sort(key=lambda p: p[0])
+    return points
 
 
 # ── Stats ────────────────────────────────────────────────────────────────
@@ -553,19 +597,31 @@ def main():
         "anova": two_by_two_anova(data),
     }
 
-    # Optional H5 learning curve
+    # H5 learning curve: prefer manual data, fall back to auto-detection from logs
+    points: list[tuple[int, float]] = []
     if args.learning_curve_data:
         try:
-            points = []
             for chunk in args.learning_curve_data.split(","):
                 n_str, m_str = chunk.split(":")
                 points.append((int(n_str.strip()), float(m_str.strip())))
-            lc = plot_learning_curve(points, args.results_dir)
-            if lc:
-                lc["points"] = points
-            results["learning_curve"] = lc
+            print(f"H5: using {len(points)} manual data points from --learning-curve-data")
         except Exception as e:
             print(f"Failed to parse --learning-curve-data: {e}", file=sys.stderr)
+    else:
+        points = auto_detect_h5_curve(args.logs_root)
+        if points:
+            print(f"H5: auto-detected {len(points)} Condition-C sub-runs:")
+            for n, m in points:
+                print(f"  n={n:>5}: mean PersonaScore = {m:.3f}")
+
+    if len(points) >= 2:
+        lc = plot_learning_curve(points, args.results_dir)
+        if lc:
+            lc["points"] = points
+        results["learning_curve"] = lc
+    elif len(points) == 1:
+        print("H5: only 1 data point — need ≥2 for the log fit. Run Condition C with "
+              "another adapter (e.g., --adapter lora_2k --logs-suffix _lora_2k).")
 
     print("\nGenerating plots...")
     plot_persona_score_timeseries(results["per_turn"], args.results_dir)

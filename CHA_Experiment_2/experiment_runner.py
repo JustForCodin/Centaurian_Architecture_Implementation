@@ -432,6 +432,10 @@ def main():
                    help="Comma-separated script IDs or range, e.g. '1-10' or '1,2,3,81,82'")
     p.add_argument("--adapter", type=str, default=DEFAULT_ADAPTER,
                    help="Adapter folder under adapters/ for fine-tuned conditions (default: lora_10k)")
+    p.add_argument("--logs-suffix", type=str, default="",
+                   help="Suffix appended to logs/condition_<X>/ — used to keep H5 sub-runs "
+                        "(Condition C with LoRA-2K and LoRA-5K) separate from the primary "
+                        "Condition C run with LoRA-10K. Example: '_lora_2k'")
     args = p.parse_args()
 
     cond_key = args.condition
@@ -450,8 +454,8 @@ def main():
     else:
         script_ids = DEFAULT_SCRIPT_IDS
 
-    # Logs dir per condition
-    logs_dir = LOGS_BASE / f"condition_{cond_key}"
+    # Logs dir per condition (+ optional suffix for H5 sub-runs)
+    logs_dir = LOGS_BASE / f"condition_{cond_key}{args.logs_suffix}"
     logs_dir.mkdir(parents=True, exist_ok=True)
 
     print("=" * 60)
