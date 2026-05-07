@@ -72,8 +72,12 @@ MAX_CONTEXT_TOKENS = 16384  # Qwen2.5 supports more, but match Exp 1 for compara
 # Refresh turns for Combined SCI conditions (§5.1: "every 15 turns")
 REFRESH_TURNS = (15, 30)
 
-# Judge — Sonnet 4.6 per plan §5.2
-JUDGE_PRIMARY_MODEL = "claude-sonnet-4-6"
+# Judge — using Sonnet 4.5 to match Experiment 1 (the plan §5.2 specified
+# Sonnet 4.6, but the first Condition D run with 4.6 came in at 3.097 vs
+# Exp 1's 3.20 — borderline outside the ±0.10 replication tolerance, most
+# likely due to judge drift between 4.5 and 4.6. Using 4.5 here removes that
+# confound so cross-experiment comparisons are clean).
+JUDGE_PRIMARY_MODEL = "claude-sonnet-4-5"
 JUDGE_TEMPERATURE = 0
 
 

@@ -2,7 +2,7 @@
 
 **CHA Self-Modeling Research Program — Phase 2 Validation**
 **Version 1.1 | March 2026**
-*Updated: All judge and generation roles updated to Claude Sonnet 4.6 (primary, secondary, and dataset generation). Haiku 4.5 retired — too unstable for rubric scoring. Opus 4.6 retired — too strict. Cost figures updated accordingly.*
+*Updated: Dataset generation uses Claude Sonnet 4.6 (already produced the 10K training dataset). Judge (primary, secondary, and base capability test) uses Claude Sonnet 4.5 — matches Experiment 1 to keep the §6.5 replication check clean. The first Condition D run with Sonnet 4.6 came in at 3.097 vs Experiment 1's 3.20 (Δ = −0.103, just outside the ±0.10 tolerance), most likely due to judge drift between 4.5 and 4.6. Haiku 4.5 retired — too unstable for rubric scoring. Opus 4.6 retired — too strict. Pricing identical between 4.5 and 4.6 ($3/M input, $15/M output), so cost figures unchanged.*
 **Infrastructure:** Google Colab Pro (L4 GPU, 22.5 GB VRAM) + Anthropic API
 
 ---
@@ -91,7 +91,7 @@ graph TD
     subgraph "Evaluation Pipeline"
         SCRIPTS["30 scripts<br/>(same as Exp. 1)"]
         PROBES["Probe injection<br/>(turns 5,10,15,20,25,30,35,40)"]
-        JUDGE["Claude Sonnet 4.6<br/>(primary judge)"]
+        JUDGE["Claude Sonnet 4.5<br/>(primary judge)"]
         RESULTS["PersonaScore<br/>time series"]
         SCRIPTS --> PROBES --> JUDGE --> RESULTS
     end
@@ -332,8 +332,8 @@ Identical to Experiment 1:
 - 30 scripts (same IDs: 001–022 naturalistic + 081–088 adversarial)
 - Probe turns: 5, 10, 15, 20, 25, 30, 35, 40
 - Four dimensions: T, E, C, S
-- Primary judge: Claude Sonnet 4.6
-- Secondary judge (20% overlap): Claude Sonnet 4.6 (different temperature seed for intra-model consistency check)
+- Primary judge: Claude Sonnet 4.5 (matches Experiment 1)
+- Secondary judge (20% overlap): Claude Sonnet 4.5 (different temperature seed for intra-model consistency check)
 - Inter-rater reliability: Cohen's κ_w target ≥ 0.70
 
 Using identical scripts and probe questions ensures any PersonaScore difference between Experiment 1 and Experiment 2 is attributable to fine-tuning, not evaluation variation.
@@ -353,18 +353,18 @@ To verify fine-tuning does not degrade the base CHA linguistic transducer capabi
 }
 ```
 
-Each response is scored by Claude Sonnet 4.6 on register adherence, constraint satisfaction, and factual grounding (three of the four metrics from Section 5.8.5 of the CHA paper). Target: < 5% degradation versus base Qwen2.5-7B on the same 50 prompts.
+Each response is scored by Claude Sonnet 4.5 on register adherence, constraint satisfaction, and factual grounding (three of the four metrics from Section 5.8.5 of the CHA paper). Target: < 5% degradation versus base Qwen2.5-7B on the same 50 prompts.
 
 ### 5.4 Evaluation Cost
 
 | Component | Condition | Calls | Cost |
 |---|---|---|---|
-| Primary judge (Sonnet 4.6) | A, B, C, D × 960 probes | 3,840 | ~$14.40 |
-| Secondary judge (Sonnet 4.6) | 20% overlap sample | 192 | ~$0.72 |
-| Base capability test (Sonnet 4.6) | 50 prompts × 4 conditions | 200 | ~$0.72 |
+| Primary judge (Sonnet 4.5) | A, B, C, D × 960 probes | 3,840 | ~$14.40 |
+| Secondary judge (Sonnet 4.5) | 20% overlap sample | 192 | ~$0.72 |
+| Base capability test (Sonnet 4.5) | 50 prompts × 4 conditions | 200 | ~$0.72 |
 | **Total evaluation cost** | | | **~$15.84** |
 
-*Costs based on Claude Sonnet 4.6 pricing: $3/M input tokens, $15/M output tokens. Assumes ~1,000 input + ~50 output tokens per judge call.*
+*Costs based on Claude Sonnet 4.5 pricing: $3/M input tokens, $15/M output tokens (identical to 4.6). Assumes ~1,000 input + ~50 output tokens per judge call.*
 
 ---
 
@@ -551,7 +551,7 @@ The 50 base capability test prompts follow the Section 5.5 structured intent JSO
 }
 ```
 
-The fine-tuned model's response to each prompt is scored by Claude Sonnet 4.6 on:
+The fine-tuned model's response to each prompt is scored by Claude Sonnet 4.5 on:
 - **Register adherence** (1–5): Does the response match the specified register?
 - **Constraint satisfaction** (pass/fail): Are all constraints respected?
 - **Factual grounding** (1–5): Are all output facts traceable to provided KG triples?
