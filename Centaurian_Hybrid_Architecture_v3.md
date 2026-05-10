@@ -1562,7 +1562,45 @@ sequenceDiagram
 
 ### 10.5 Pipeline Parallelism and Double-Buffering
 
-The most latency-sensitive path is the Generation Layer (SLM inference at 50–200 ms). Double-buffering ensures this never blocks the render loop. The render loop runs continuously at 60+ Hz, consuming the latest available animation and audio data, while the generation pipeline processes the next utterance asynchronously.
+The most latency-sensitive path is the Generation Layer (SLM inference at 50–200 ms). Double-buffering ensures this never blocks the render loop. Concretely, the architecture maintains two concurrent rates with independent timing:
+
+- **Generation pipeline (async, per utterance):** QPM compute → BDI reasoning → KG/RAG retrieval → SLM inference → TTS synthesis. The total cost is dominated by SLM inference — typically ~150 ms for Qwen2.5-7B Q4_K_M on edge GPU/NPU (Snapdragon 8 Elite, Apple Silicon, Jetson Orin), with the surrounding symbolic stages contributing ~11 ms combined. The pipeline runs once per utterance and writes its output (animation parameters + audio samples) into a back buffer.
+- **Render loop (sync, 60+ Hz, ~16.67 ms per frame):** Reads animation parameters and audio samples from the current front buffer and emits to the display and audio device. The render loop never blocks on the generation pipeline; if a new utterance buffer is not yet ready, it continues consuming the previous one.
+
+When generation of utterance N completes, the back buffer is atomically promoted to the front buffer and the render loop picks up the new content on its next frame boundary. The user perceives a continuous render at 60 Hz with utterance transitions occurring on frame boundaries — utterances of variable SLM-inference latency never cause frame drops.
+
+```mermaid
+%%{init: {'gantt': {'leftPadding': 200, 'rightPadding': 30, 'barHeight': 24, 'barGap': 6, 'fontSize': 12, 'sectionFontSize': 13, 'topPadding': 50}}}%%
+gantt
+    title Pipeline Parallelism (v3 Quadripartite Architecture)
+    dateFormat X
+    axisFormat %L ms
+
+    section Utterance N (~191 ms async)
+    QPM compute               :a1, 0, 4
+    BDI reasoning             :a2, after a1, 2
+    KG / RAG retrieval        :a3, after a2, 5
+    SLM inference (50-200 ms) :crit, a4, after a3, 150
+    TTS synthesis             :a5, after a4, 30
+
+    section Utterance N+1 (async)
+    QPM compute               :b1, after a5, 4
+    BDI reasoning             :b2, after b1, 2
+    KG / RAG retrieval        :b3, after b2, 5
+    SLM inference             :crit, b4, after b3, 150
+    TTS synthesis             :b5, after b4, 30
+
+    section Render Loop (60 Hz sync)
+    Render frames consuming buffer for utterance N-1   :r1, 0, 191
+    Atomic swap to buffer N                            :milestone, m1, 191, 0
+    Render frames consuming buffer for utterance N     :r2, 191, 191
+    Atomic swap to buffer N+1                          :milestone, m2, 382, 0
+    Render frames consuming buffer for utterance N+1   :r3, 382, 100
+```
+
+*Figure 12.5: Pipeline parallelism in the v3 quadripartite architecture. The generation pipeline (top two sections) runs asynchronously per-utterance with SLM inference dominating its ~191 ms total cost. The render loop (bottom section) runs continuously at 60 Hz, consuming whichever buffer is currently front and swapping atomically when generation completes. The two rates are decoupled: long SLM inferences never stall the render loop, and short SLM inferences do not accelerate frame production. This is the core mechanism that lets a 50–200 ms generation pipeline coexist with a perceptually-required 16.67 ms render budget on the same edge device.*
+
+The double-buffering implementation is simple: two pre-allocated buffers (front and back), an atomic pointer swap on generation completion, and a "buffer ready" event that the render loop checks on each frame. The render loop never reads from a buffer being actively written, and the generation pipeline never writes to the buffer being actively read, so no locking is required on the hot path.
 
 ### 10.6 Middleware and IPC
 
