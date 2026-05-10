@@ -10,3 +10,4 @@ CHA_Experiment_2/data/lora_val.jsonl
 CHA_Experiment_2/data/lora_test.jsonl
 # LoRA adapters are large binaries; produced artifacts live on Drive
 CHA_Experiment_2/adapters/
+CHA_Experiment_2/.venv-slides/
