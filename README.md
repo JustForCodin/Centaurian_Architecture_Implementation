@@ -102,10 +102,14 @@ CHA_Experiment_2/
 ├── analyse_results.py                   # Multi-condition analysis + plots
 ├── make_slides.py                       # Generates the conference deck (python-pptx)
 ├── CHA_Experiment2_Colab.ipynb          # Google Colab notebook
+├── h4_probes.json                       # H4 base-capability probe set (100 prompts × 5 categories)
+├── run_h4.py                            # H4 runner — base vs LoRA-10K on out-of-domain probes
+├── analyse_h4.py                        # H4 analysis — paired t-test + per-category degradation
 ├── data/full.jsonl                      # 10K training examples (QC-passed)
 ├── adapters/lora_{2k,5k,10k}/           # LoRA adapter weights (gitignored)
 ├── logs/condition_{A,B,C,D,
 │   C_lora_2k,C_lora_5k}/                # Per-condition score & context logs
+├── logs/h4_{base,lora}/                 # H4 base-capability test logs
 └── results/                             # Plots, analysis_data.json, summary report
 ```
 
@@ -163,6 +167,23 @@ python analyse_results.py
 ```
 
 Or use [`CHA_Experiment_2/CHA_Experiment2_Colab.ipynb`](CHA_Experiment_2/CHA_Experiment2_Colab.ipynb) for the full pipeline end-to-end.
+
+### H4 base-capability test (Experiment 2 follow-up)
+
+Out-of-domain probe battery (100 prompts × 5 categories: general knowledge, code reasoning, math, instruction following, structured intent JSON) verifying that the LoRA-10K adapter does not cause catastrophic forgetting. Pass criterion: < 5% mean degradation on Sonnet 4.5 1-5 scoring.
+
+```bash
+cd CHA_Experiment_2
+
+# Generate responses from both conditions (A100 80GB, ~30 min each)
+python run_h4.py --condition base
+python run_h4.py --condition lora --adapter lora_10k
+
+# Analysis (paired t-test, per-category degradation, verdict)
+python analyse_h4.py
+```
+
+Outputs `results/h4_summary_report.md`, `results/h4_analysis_data.json`, and two comparison plots.
 
 ---
 
