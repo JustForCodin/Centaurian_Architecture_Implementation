@@ -6,7 +6,7 @@
 
 Modern large language models achieve remarkable linguistic fluency but remain opaque, resource-intensive, and fundamentally uninterpretable — every output is a stochastic sample from a trillion-parameter black box. This paper presents the **Centaurian Hybrid Architecture (CHA)**, a multi-layered system for human-like AI that preserves the interpretability and traceability of symbolic cognitive modeling while selectively incorporating lightweight neural components exactly where they demonstrably outperform rule-based alternatives. A critical preliminary clarification: the architecture's Quantum Personality Model (QPM) is an instance of **Quantum-Like AI (QLAI)** — it employs the mathematical formalism of quantum mechanics (Hilbert spaces, density matrices, unitary evolution) as a modeling language for cognition, running entirely on classical hardware. No quantum computer is required.
 
-The architecture integrates four core subsystems: (1) a **QPM** encoding the Five-Factor Model of personality into a 12-qubit Hilbert space formalism with empirically calibrated entanglement parameters and operationalized Lindblad decoherence dynamics; (2) **small language models** serving as linguistic transducers (1–4B parameters for the base architecture; 7B+ required for SMC-enabled Self-Model Component deployments, empirically established by Experiment 1) that convert structured cognitive outputs into natural language without performing reasoning; (3) **custom JA/LI procedural facial animation** synchronized with lightweight neural text-to-speech; and (4) a **domain-specific knowledge architecture** combining RDF/OWL ontologies with embedded vector retrieval for grounded, hallucination-resistant content generation. We provide complete specifications for the quantum circuit design, the formal QPM-measurement-to-SLM translation protocol, the ontology schema and vector retrieval pipeline, LoRA fine-tuning methodology, edge deployment resource estimates, empirical validation framework, the Self-Model Component architecture (Section 17), and an extension path from software-only virtual agents to physically embodied humanoid robots. The system's total memory footprint ranges from ~4 GB (base CHA) to ~6 GB (SMC-enabled with 7B SLM), enabling deployment on current edge hardware (NVIDIA Jetson Orin, Qualcomm Snapdragon 8 Elite, Apple Silicon) while maintaining end-to-end traceability — every behavioral decision is auditable from situative input through quantum state evolution to observable output, with neural components confined to bounded I/O transduction roles.
+The architecture integrates four core subsystems: (1) a **QPM** encoding the Five-Factor Model of personality into a 12-qubit Hilbert space formalism with empirically calibrated entanglement parameters and operationalized Lindblad decoherence dynamics; (2) **small language models** serving as linguistic transducers (Qwen2.5-7B-Instruct standardized across both deployment tiers; 7B is the empirically validated minimum, established by Experiment 1, with 3.8B incoherent on JSON-based SCI prompts) that convert structured cognitive outputs into natural language without performing reasoning; (3) **custom JA/LI procedural facial animation** synchronized with lightweight neural text-to-speech; and (4) a **domain-specific knowledge architecture** combining RDF/OWL ontologies with embedded vector retrieval for grounded, hallucination-resistant content generation. We provide complete specifications for the quantum circuit design, the formal QPM-measurement-to-SLM translation protocol, the ontology schema and vector retrieval pipeline, LoRA fine-tuning methodology, edge deployment resource estimates, empirical validation framework (Experiments 1 and 2), the Self-Model Component architecture (Section 17), and an extension path from software-only virtual agents to physically embodied humanoid robots. The system's total memory footprint is ~5 GB (base CHA, Tier 1) to ~6 GB (SMC-enabled, Tier 2 with the LoRA-10K SCI grounding adapter), enabling deployment on current edge hardware (NVIDIA Jetson Orin, Qualcomm Snapdragon 8 Elite, Apple Silicon) while maintaining end-to-end traceability — every behavioral decision is auditable from situative input through quantum state evolution to observable output, with neural components confined to bounded I/O transduction roles.
 
 ---
 
@@ -548,7 +548,7 @@ graph LR
         BDI --> STRUCT["Structured Output<br/>{intent, triples,<br/>emotion, register}"]
     end
     subgraph "Neural Periphery (Bounded I/O)"
-        STRUCT --> SLM["Small LM<br/>(1-4B params)"]
+        STRUCT --> SLM["SLM<br/>(Qwen2.5-7B,<br/>±LoRA adapter)"]
         SLM --> NL["Natural Language<br/>Utterance"]
     end
     subgraph "Audit Interface"
@@ -584,9 +584,9 @@ CHA deployment requires a **two-tier SLM specification** based on whether the Se
 | **SmolLM3 3B** | 3.0B | 64.8% | — | ~1.8 GB | Apache 2.0 | Not tested |
 | **Gemma 3 4B** | 3.9B | 66.1% | — | ~2.3 GB | Gemma License | Not tested |
 
-*Table 12: SLMs evaluated for the linguistic transducer role [30][31][32][33]. The SCI Validated column reflects empirical testing on JSON-based Structured Context Injector prompts (Drozd, 2026 [65]).*
+*Table 12: SLMs evaluated for the linguistic transducer role [30][31][32][33]. The SCI Validated column reflects empirical testing on JSON-based Structured Context Injector prompts (Drozd, 2026 [65][67]).*
 
-The two-tier specification is now complete and empirically validated end-to-end by Experiments 1 and 2 [65]. The deployment tier is selected based on whether episodic self-modeling is required; both tiers use the same base SLM, which simplifies operations (one model image, optional adapter overlay).
+The two-tier specification is now complete and empirically validated end-to-end by Experiments 1 [65] and 2 [67]. The deployment tier is selected based on whether episodic self-modeling is required; both tiers use the same base SLM, which simplifies operations (one model image, optional adapter overlay).
 
 **Tier 1 — Base CHA (no SMC, transduction only):** **Qwen2.5-7B-Instruct**, no LoRA required. The transducer role for stateless workloads requires only structured-intent-JSON to natural-language conversion (Section 5.5), and the validated 7B baseline handles this without further specialization. Phi-4-mini (3.8B) was originally proposed as a Tier 1 candidate but was not validated in isolation on the base structured intent format and produced incoherent output on the SCI grounding task; the production recommendation is to standardize on Qwen2.5-7B-Instruct across both tiers for deployment simplicity.
 
@@ -594,18 +594,18 @@ The two-tier specification is now complete and empirically validated end-to-end 
 
 ### 5.4 Quantization and Edge Deployment
 
-Quantization has standardized around **Q4_K_M** as the optimal precision-efficiency tradeoff [34]. A 3B model compresses to approximately 1.8–2.2 GB with under 5% quality degradation. K-quant methods apply mixed precision — attention weights at higher precision than feed-forward layers [34].
+Quantization has standardized around **Q4_K_M** as the optimal precision-efficiency tradeoff [34]. A 3B model compresses to approximately 1.8–2.2 GB with under 5% quality degradation; the standardized 7B deployment SLM (Qwen2.5-7B-Instruct) compresses to approximately 4.3 GB. K-quant methods apply mixed precision — attention weights at higher precision than feed-forward layers [34].
 
-| Hardware Platform | NPU TOPS | 3B Model Speed (Q4) | Deployment Runtime |
-|---|---|---|---|
-| NVIDIA Jetson Orin NX | 100–157 | ~30 tokens/s | llama.cpp / TensorRT |
-| Qualcomm Snapdragon 8 Elite | ~60 | ~40–60 tokens/s | QNN + ExecuTorch |
-| Apple M4 (MacBook) | ~38 | ~50–80 tokens/s | MLX |
-| Apple A17 Pro (iPhone 15 Pro) | ~35 | ~20–30 tokens/s | MLX / ExecuTorch |
-| Raspberry Pi 5 (8GB) | — (CPU only) | ~3–5 tokens/s | llama.cpp |
-| Intel Lunar Lake NPU | ~40 | ~15–25 tokens/s | OpenVINO |
+| Hardware Platform | NPU TOPS | 3B Model Speed (Q4) | **7B Model Speed (Q4)** | Deployment Runtime |
+|---|---|---|---|---|
+| NVIDIA Jetson Orin NX | 100–157 | ~30 tokens/s | **~15–20 tokens/s** | llama.cpp / TensorRT |
+| Qualcomm Snapdragon 8 Elite | ~60 | ~40–60 tokens/s | **~20–30 tokens/s** | QNN + ExecuTorch |
+| Apple M4 (MacBook) | ~38 | ~50–80 tokens/s | **~25–40 tokens/s** | MLX |
+| Apple A17 Pro (iPhone 15 Pro) | ~35 | ~20–30 tokens/s | **~8–12 tokens/s** | MLX / ExecuTorch |
+| Raspberry Pi 5 (8GB) | — (CPU only) | ~3–5 tokens/s | **~1–2 tokens/s** *(below interactive threshold)* | llama.cpp |
+| Intel Lunar Lake NPU | ~40 | ~15–25 tokens/s | **~6–10 tokens/s** | OpenVINO |
 
-*Table 13: Edge inference performance for quantized 3B models [30][35][36].*
+*Table 13: Edge inference performance for quantized SLMs at Q4_K_M [30][35][36]. The 3B column corresponds to legacy Tier 1 candidates (e.g. Phi-4-mini, no longer recommended per Section 5.3); the 7B column corresponds to the standardized deployment SLM Qwen2.5-7B-Instruct (~4.3 GB quantized) used across both tiers. Figures assume typical 256–512 token generation; per-token latency scales with prompt length. The Snapdragon 8 Elite, Apple M4, and Apple A17 Pro all comfortably exceed the 8–10 tok/s interactive-conversation threshold; Jetson Orin NX is borderline; Raspberry Pi 5 in CPU-only mode is below practical interactive latency for 7B inference.*
 
 ### 5.5 The Structured Input Protocol
 
@@ -897,7 +897,7 @@ The **Personality Consistency Score** is the primary novel metric: for each pers
 
 #### 5.8.6 SCI Grounding Adaptation (Tier 2 LoRA)
 
-The Tier 2 SLM (Section 5.3) requires a domain-agnostic LoRA adapter trained specifically for SCI grounding — not domain knowledge, but persona-consistent surface generation under JSON-based Structured Context Injector prompts. This subsection specifies that adaptation, validated end-to-end by Experiment 2 [65].
+The Tier 2 SLM (Section 5.3) requires a domain-agnostic LoRA adapter trained specifically for SCI grounding — not domain knowledge, but persona-consistent surface generation under JSON-based Structured Context Injector prompts. This subsection specifies that adaptation, validated end-to-end by Experiment 2 [67].
 
 **Training corpus.** 10,000 (system_prompt, conversation_history, probe, target_response) tuples generated by Claude Sonnet 4.6 with a five-rule QC filter (no token leakage from compressed event summaries, episodic grounding against `salient_past_events` by session ID, target length 30–150 words, trait/style marker vocabulary present, MiniLM cosine similarity ≥ 0.35 between probe and target). Steady-state acceptance rate: ~80% on first-pass examples. Stratification across the four probe dimensions deliberately overrepresents Episodic — the dimension the LoRA must teach the base model — and includes a 15% adversarial subset designed to elicit fabrication, capability overstatement, or register breaks. Hamilton's largest-remainder method is used for stratum allocation to prevent rounding away rare cells.
 
@@ -924,7 +924,7 @@ The corpus is split 80/10/10 into train/validation/test (8,000 / 1,000 / 1,000 e
 
 **Training profile.** A100 80GB; ~8 hours for 10K examples at effective batch size 16 (per-device 2 × gradient accumulation 8) with paged 8-bit AdamW. Held-out eval loss converges to 0.69 at 10K examples; intermediate checkpoints at 2K (loss 0.91) and 5K (loss 0.77) characterize a clean log scaling curve that mirrors the downstream Episodic dimension scaling (Section 15.4.2). Adapter size: ~60 MB.
 
-**Validation thresholds.** Beyond the four metrics from Section 5.8.5 (Register Adherence, Constraint Satisfaction, Factual Grounding, PCS), the SCI grounding adapter must pass three SMC-specific thresholds derived from the Experiment 2 pre-registered hypotheses [65]:
+**Validation thresholds.** Beyond the four metrics from Section 5.8.5 (Register Adherence, Constraint Satisfaction, Factual Grounding, PCS), the SCI grounding adapter must pass three SMC-specific thresholds derived from the Experiment 2 pre-registered hypotheses [67]:
 
 | Hypothesis | Pass criterion |
 |------------|----------------|
@@ -1962,25 +1962,26 @@ The 150–400 ms total falls within the **natural conversational turn gap** of 2
 | Component | Per-Agent Resource | Scaling Property |
 |---|---|---|
 | QPM Circuit (12 qubits) | ~200 MB GPU memory | **Linear** — each agent requires independent simulator instance |
-| SLM Base Model | Shared ~2.2 GB | **Sub-linear** — shared model, per-agent LoRA adapter only |
-| LoRA Adapter | ~60 MB per agent | **Linear** — per-domain adapter per agent |
+| SLM Base Model (Qwen2.5-7B Q4_K_M) | Shared ~4.4 GB | **Sub-linear** — shared model, per-agent LoRA adapters only |
+| SCI Grounding Adapter (Tier 2 only) | ~60 MB per agent | **Linear** — required for SMC-enabled agents |
+| Domain LoRA Adapter | ~60 MB per agent | **Linear** — per-domain adapter per agent (composes with SCI adapter) |
 | Knowledge Graph | ~200 MB per domain | **Shared** — agents in same domain share KG |
 | BDI Reasoning Engine | ~10 MB per agent | **Linear** — independent belief states |
 | 3D Rendering (Unity) | ~50 MB per character + ~2 ms GPU | **Sub-linear** — GPU batching amortizes overhead |
 
-*Table 37: Per-agent resource scaling.*
+*Table 37: Per-agent resource scaling. SLM base model is shared across all agents (one copy in GPU/NPU memory); each agent layers its own SCI grounding adapter (Tier 2 only) and optional domain adapter on top via PEFT adapter stacking.*
 
-For a **50-agent virtual meeting** scenario:
+For a **50-agent virtual meeting** scenario (all agents Tier 2, SMC-enabled with both SCI and domain adapters):
 
 | Resource | Single Agent | 50 Agents | Mitigation |
 |---|---|---|---|
-| SLM memory | 2.2 GB | 2.2 GB (shared) + 3 GB (adapters) | Model sharing; only adapter is per-agent |
+| SLM memory | 4.4 GB | 4.4 GB (shared) + 6 GB (50 × SCI + 50 × domain adapters) | Model sharing; only ~120 MB of adapters is per-agent |
 | QPM GPU memory | 200 MB | 10 GB | Single A100 (80 GB) handles 50+ agents |
 | QPM latency | 2–4 ms | 2–4 ms (parallelized) | Batch 50 circuits in single GPU kernel |
 | Render overhead | 11 ms | ~30 ms (batched) | LOD reduction for non-focal agents |
-| Total memory | ~4 GB | ~20 GB | Within dual-A100 server envelope |
+| Total memory | ~5–6 GB | ~22 GB | Within dual-A100 server envelope (or single H100) |
 
-*Table 38: 50-agent scaling estimates.*
+*Table 38: 50-agent scaling estimates with the standardized Qwen2.5-7B Q4_K_M base SLM. The total memory figure assumes Tier 2 SMC-enabled deployment for every agent (SCI grounding adapter + one domain adapter per agent). For mixed-tier deployments, subtract ~60 MB per Tier 1 agent.*
 
 ### 14.2 Multi-Agent Interaction Dynamics
 
@@ -2059,8 +2060,8 @@ Establish the minimum viable SLM scale and SCI degradation profile for the SMC s
 
 **Experiment 2 (LoRA fine-tuning resolves the gap):**
 
-7. **The 7B episodic gap is capability-shaped, not architectural** — Experiment 2's H2 test gave ΔE = +0.579, well above the +0.30 threshold for "fine-tuning meaningfully addresses fabrication" and far above the <+0.15 prediction of the architectural-ceiling hypothesis. The 7B model has the parameters; the base distribution simply lacked Aria-shaped data [65].
-8. **The full Condition C architecture (LoRA-10K + Combined SCI) achieves mean PersonaScore 4.42/5.0** — clearing the 3.5 threshold by +0.92 points, with Cohen's d = 7.51 and p ≈ 1.4 × 10⁻²³ on n = 30 paired scripts versus the no-LoRA control. **H1 PASSED, Decision Rule Outcome A triggered**, retiring the previously planned 14B model test from the critical path [65].
+7. **The 7B episodic gap is capability-shaped, not architectural** — Experiment 2's H2 test gave ΔE = +0.579, well above the +0.30 threshold for "fine-tuning meaningfully addresses fabrication" and far above the <+0.15 prediction of the architectural-ceiling hypothesis. The 7B model has the parameters; the base distribution simply lacked Aria-shaped data [67].
+8. **The full Condition C architecture (LoRA-10K + Combined SCI) achieves mean PersonaScore 4.42/5.0** — clearing the 3.5 threshold by +0.92 points, with Cohen's d = 7.51 and p ≈ 1.4 × 10⁻²³ on n = 30 paired scripts versus the no-LoRA control. **H1 PASSED, Decision Rule Outcome A triggered**, retiring the previously planned 14B model test from the critical path [67].
 9. **Style was a parallel hidden bottleneck** under Sonnet 4.5 grading — joint-bottom with Episodic at the no-LoRA baseline (S = 3.06, E = 2.77). Fine-tuning crushes both: Style improves +1.88 points (the largest single-dimension lift in the program), Episodic +0.58. Failure-mode count (probes scoring ≤ 2) collapses from 436 in the no-LoRA control to 106 in Condition C — a 75% reduction.
 10. **Persona consistency scales logarithmically with LoRA training data size** (H5) — E(n) = 0.291·log(n) + 0.633, predicted threshold-clearing on the Episodic dimension at n ≈ 20K examples. Diminishing returns argue that further E gains are more cost-effective via improved RAG retrieval than via continued LoRA scaling beyond 10K.
 
@@ -2424,11 +2425,11 @@ The UAM may propose parameter updates **between sessions only**, never within a 
 
 ### 17.5 Phase 1 Implementation Scope
 
-The full Condition C architecture is validated end-to-end by Experiment 2 [65]: **SCI + LoRA-10K SCI grounding adapter (Section 5.8.6) + Combined SCI strategy (refresh at turns 15 and 30, plus episodic RAG on E-dimension probes) constitutes the Phase 1 SMC implementation.** The pre-registered Decision Rule (Section 15.4.2) triggered Outcome A on the strength of Experiment 2's headline result (mean PersonaScore 4.42, ΔE = +0.579 versus the base Qwen2.5-7B + Combined SCI control), retiring the previously planned 14B model test from the critical path.
+The full Condition C architecture is validated end-to-end by Experiment 2 [67]: **SCI + LoRA-10K SCI grounding adapter (Section 5.8.6) + Combined SCI strategy (refresh at turns 15 and 30, plus episodic RAG on E-dimension probes) constitutes the Phase 1 SMC implementation.** The pre-registered Decision Rule (Section 15.4.2) triggered Outcome A on the strength of Experiment 2's headline result (mean PersonaScore 4.42, ΔE = +0.579 versus the base Qwen2.5-7B + Combined SCI control), retiring the previously planned 14B model test from the critical path.
 
 | Component | Phase 1 Status |
 |-----------|----------------|
-| **SCI** | Fully specified and implementable now. **Empirically validated at 7B with the LoRA-10K SCI grounding adapter** (Section 5.8.6): mean PersonaScore 4.42/5.0 under Condition C (FT + Combined SCI), Cohen's d = 7.51 versus the no-LoRA control, p ≈ 1.4 × 10⁻²³ on n = 30 paired scripts [65]. |
+| **SCI** | Fully specified and implementable now. **Empirically validated at 7B with the LoRA-10K SCI grounding adapter** (Section 5.8.6): mean PersonaScore 4.42/5.0 under Condition C (FT + Combined SCI), Cohen's d = 7.51 versus the no-LoRA control, p ≈ 1.4 × 10⁻²³ on n = 30 paired scripts [67]. |
 | **Episodic Register** | Implementable now using SQLite with session, topic, and emotional valence indexing. RAG injection on E-dimension probes is part of the validated Combined SCI strategy. |
 | **PSBG** | Implementable now using existing Kuzu KG infrastructure (Section 6.3) with `cent:` ontology schema. |
 | **UAM** | **Phase 2 only** — deferred not for capability reasons (the LoRA-10K adapter resolves the 7B episodic recall gap that previously gated the 50-indicator threshold), but pending multi-session production data. The UAM consumes long-horizon behavioral indicators that require multi-day, multi-session usage logs that Phase 1 deployment is intended to collect. |
@@ -2463,19 +2464,19 @@ The architecture integrates **four core subsystems**:
 
 1. **The Cognitive Core** employs the Five-Factor Model mapped to an 11-qubit register (12 with ancilla) in a 2,048-dimensional Hilbert space, with personality dynamics governed by operationalized Lindblad noise channels and entanglement calibrated against meta-analytic data (van der Linden et al., 2010; N = 144,117) [14]. This is an instance of Quantum-Like AI running on classical GPU hardware — no quantum computer is required. The Relational Resolution threshold R = min(d_{i-1} − d_i) prevents behavioral jitter. The Quantum-BDI engine maps beliefs, desires, and intentions to quantum operations. Every cognitive decision is fully traceable.
 
-2. **The Neural Periphery** confines neural components to bounded I/O transduction: a 7B+-parameter SLM (e.g. Qwen2.5-7B, Q4_K_M quantized to ~4.5 GB) converts structured cognitive outputs to natural language, and a lightweight neural TTS model (Kokoro-82M at 350 MB or Piper at 63 MB) synthesizes speech. Neither neural component performs reasoning or knowledge retrieval — the symbolic core handles all cognitive processing. The formal QPM-measurement-to-JSON translation protocol (Section 5.7) specifies exactly how the quantum measurement distribution maps to the structured intent that the SLM consumes, closing the most critical interface gap in prior formulations. Empirical validation (Experiment 1) confirmed that 3.8B models are below the minimum viable threshold for JSON-based SCI maintenance.
+2. **The Neural Periphery** confines neural components to bounded I/O transduction: Qwen2.5-7B-Instruct (Q4_K_M quantized to ~4.3 GB), optionally augmented with the LoRA-10K SCI grounding adapter (~60 MB) for SMC-enabled deployments, converts structured cognitive outputs to natural language, and a lightweight neural TTS model (Kokoro-82M at 350 MB or Piper at 63 MB) synthesizes speech. Neither neural component performs reasoning or knowledge retrieval — the symbolic core handles all cognitive processing. The formal QPM-measurement-to-JSON translation protocol (Section 5.7) specifies exactly how the quantum measurement distribution maps to the structured intent that the SLM consumes, closing the most critical interface gap in prior formulations. Empirical validation across Experiments 1 and 2 confirmed that 3.8B models are below the minimum viable threshold for JSON-based SCI maintenance and that 7B + LoRA-10K + Combined SCI achieves mean PersonaScore 4.42/5.0 (Cohen's d = 7.51 versus the no-LoRA control).
 
 3. **The Domain Knowledge Architecture** combines RDF/OWL ontologies (Section 6.3) with a formally specified vector retrieval pipeline (Section 6.4) and a KG-RAG contradiction resolution protocol (Section 6.5). Domain-specific LoRA adaptation (Section 5.8) requires ~$10–15 GPU compute per domain — orders of magnitude cheaper than training domain-specific LLMs.
 
 4. **The Visual Layer** implements a custom open-source phoneme-to-viseme engine based on the JA/LI two-channel decomposition from Edwards et al. (2016) [45]. The engine consumes TTS-native phoneme timing metadata at zero additional latency and produces deterministic FACS AU weights through a fully auditable pipeline with no proprietary dependencies (0.5 ms/phoneme, CPU-only), with a formally specified extension path to physical robot actuators through FACS Action Unit mapping and a System 2 → System 1 command interface (Section 11.3).
 
-The base CHA system fits within a **~4 GB memory envelope** (Phi-4-mini, pending validation); SMC-enabled deployments require **~6 GB** with Qwen2.5-7B as the empirically established minimum SLM. Both configurations are deployable on current edge hardware from NVIDIA Jetson Orin to flagship smartphones. The three-phase roadmap progresses from software-only virtual agents (implementable today, all interfaces fully specified) through physically embodied humanoid robots (2026–2028) to quantum-hardware-enhanced systems (2030+).
+The base CHA system fits within a **~5 GB memory envelope** (Tier 1: Qwen2.5-7B-Instruct Q4_K_M, no LoRA, no SCI infrastructure); SMC-enabled deployments require **~6 GB** (Tier 2: same base SLM plus the ~60 MB LoRA-10K SCI grounding adapter and Combined SCI infrastructure). Both configurations are deployable on current edge hardware from NVIDIA Jetson Orin to flagship smartphones. The three-phase roadmap progresses from software-only virtual agents (implementable today, all interfaces fully specified) through physically embodied humanoid robots (2026–2028) to quantum-hardware-enhanced systems (2030+).
 
 The architecture's foundational principle — **apply neural networks exactly where they shine, exclude them where interpretability matters** — offers a practical alternative to the all-neural paradigm. The skeleton is auditable. The skin is natural. And the combination is deployable on the hardware that actually exists at the edge of the network, where embodied AI must ultimately live.
 
-Empirical validation of the self-modeling extension (Section 17) establishes that 7B is the minimum viable SLM scale for Structured Context Injector deployment, with 3.8B producing incoherent output on JSON-based persona grounding tasks. The Combined SCI strategy — episodic content via RAG with system-prompt retention for implicit anchoring, plus SCI refresh every 15 turns — achieves a near-flat degradation profile (β≈0) across 40-turn conversations. Episodic fabrication remains the dominant unresolved failure mode at 7B scale, with the best tested condition achieving an episodic dimension score of 2.83/5.0 against a 3.5 threshold. Resolution of this gap is the primary objective of Phase 2 research, targeting 14B scale testing and domain-specific LoRA fine-tuning of the episodic recall capability.
+Empirical validation of the self-modeling extension (Section 17) is now complete across Experiments 1 and 2. Experiment 1 [65] established that 7B is the minimum viable SLM scale (3.8B incoherent on JSON-based SCI prompts) and that prompt-time architectural strategies cap mean PersonaScore at 3.20/5.0 — below the 3.5 pre-registered threshold, with the Combined SCI strategy producing a near-flat degradation profile (β≈0). Experiment 2 [67] resolved the residual gap with LoRA fine-tuning: the full Condition C architecture (Qwen2.5-7B + LoRA-10K SCI grounding adapter + Combined SCI) reaches mean PersonaScore 4.42/5.0, ΔE = +0.579 on the Episodic dimension, Cohen's d = 7.51 versus the no-LoRA control. The pre-registered Decision Rule (Section 15.4.2) triggered Outcome A, validating the full Phase 1 SMC architecture at 7B and retiring the previously planned 14B model test from the critical path.
 
-Future work should prioritize: (a) testing 14B+ models (e.g. Qwen2.5-14B, Llama 3.1 13B) to determine whether the episodic fabrication ceiling is a model-scale limitation or a context-handling issue; (b) LoRA fine-tuning on persona-consistent dialogue to close the gap to the 3.5 PersonaScore threshold; (c) ablation studies comparing QPM-driven personality consistency against prompt-engineered LLM baselines; (d) field trials of domain-specialized agents in controlled therapeutic and educational settings; (e) physical prototype integration with an open humanoid platform; and (f) investigation of QPM parameter optimization via behavioral consistency feedback.
+Future work should prioritize: (a) the **H4 base-capability test** — an out-of-domain probe battery on the LoRA-10K adapter to verify no catastrophic forgetting on coding, math, and general-knowledge tasks (gates publication and deployment); (b) **cross-model replication** on Llama 3.1 8B and Gemma 2 9B to promote Outcome A from a Qwen2.5-7B-specific finding to a 7B-class generalization; (c) **Episodic-stratified follow-up training** (~15K examples, ~50% E-dimension) to clear the Episodic threshold cheaper than the H5 curve's predicted ~20K under overall scaling; (d) **multi-session persistence testing** (200+ turn / multi-day scripts) to validate persona consistency beyond the 40-turn experimental ceiling; (e) ablation studies comparing QPM-driven personality consistency against prompt-engineered LLM baselines; (f) field trials of domain-specialized agents in controlled therapeutic and educational settings; (g) physical prototype integration with an open humanoid platform; and (h) investigation of QPM parameter optimization via behavioral consistency feedback. A 14B + LoRA scale test remains scientifically informative as off-critical-path follow-up but is not required for the Phase 1 SMC deployment claim.
 
 ---
 
@@ -2547,3 +2548,4 @@ Future work should prioritize: (a) testing 14B+ models (e.g. Qwen2.5-14B, Llama 
 64. Knowledge-Enhanced Large Language Models — Fraunhofer FIT. https://www.fit.fraunhofer.de/en/business-areas/data-science-and-artificial-intelligence/knowledge-enhanced-large-language-models.html
 65. Drozd, O. (2026). CHA Experiment 1: SCI Context Window Degradation Study — Six-Condition Empirical Report. Unpublished manuscript.
 66. Roberts, B. W., & Mroczek, D. (2008). Personality trait change in adulthood. *Current Directions in Psychological Science, 17*(1), 31–35.
+67. Drozd, O. (2026). CHA Experiment 2: LoRA Fine-Tuning for SCI Persona Consistency — Final Report. Unpublished manuscript.
