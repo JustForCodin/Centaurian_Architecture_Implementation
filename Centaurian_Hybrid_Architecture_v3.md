@@ -602,10 +602,11 @@ Quantization has standardized around **Q4_K_M** as the optimal precision-efficie
 | Qualcomm Snapdragon 8 Elite | ~60 | ~40–60 tokens/s | **~20–30 tokens/s** | QNN + ExecuTorch |
 | Apple M4 (MacBook) | ~38 | ~50–80 tokens/s | **~25–40 tokens/s** | MLX |
 | Apple A17 Pro (iPhone 15 Pro) | ~35 | ~20–30 tokens/s | **~8–12 tokens/s** | MLX / ExecuTorch |
+| Modern x86 CPU (AVX-512, no NPU) | — (CPU only) | ~15–25 tokens/s | **~4–6 tokens/s** | llama.cpp |
 | Raspberry Pi 5 (8GB) | — (CPU only) | ~3–5 tokens/s | **~1–2 tokens/s** *(below interactive threshold)* | llama.cpp |
 | Intel Lunar Lake NPU | ~40 | ~15–25 tokens/s | **~6–10 tokens/s** | OpenVINO |
 
-*Table 13: Edge inference performance for quantized SLMs at Q4_K_M [30][35][36]. The 3B column corresponds to legacy Tier 1 candidates (e.g. Phi-4-mini, no longer recommended per Section 5.3); the 7B column corresponds to the standardized deployment SLM Qwen2.5-7B-Instruct (~4.3 GB quantized) used across both tiers. Figures assume typical 256–512 token generation; per-token latency scales with prompt length. The Snapdragon 8 Elite, Apple M4, and Apple A17 Pro all comfortably exceed the 8–10 tok/s interactive-conversation threshold; Jetson Orin NX is borderline; Raspberry Pi 5 in CPU-only mode is below practical interactive latency for 7B inference.*
+*Table 13: Edge inference performance for quantized SLMs at Q4_K_M [30][35][36]. The 3B column corresponds to legacy Tier 1 candidates (e.g. Phi-4-mini, no longer recommended per Section 5.3); the 7B column corresponds to the standardized deployment SLM Qwen2.5-7B-Instruct (~4.3 GB quantized) used across both tiers. Figures assume typical 256–512 token generation; per-token latency scales with prompt length. The Snapdragon 8 Elite, Apple M4, and Apple A17 Pro all comfortably exceed the 8–10 tok/s interactive-conversation threshold; Jetson Orin NX and Intel Lunar Lake NPU are borderline. The "Modern x86 CPU (AVX-512, no NPU)" row represents a typical Intel Core or AMD Ryzen laptop/desktop with no dedicated NPU — useful as a development and fallback baseline (~4–6 tok/s on 7B, noticeably slow but workable for non-real-time use). Raspberry Pi 5 ARM CPU is below practical interactive latency for 7B inference.*
 
 ### 5.5 The Structured Input Protocol
 
