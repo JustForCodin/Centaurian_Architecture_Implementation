@@ -1,5 +1,7 @@
 # Centaurian Hybrid Intelligence: A Quantum-Cognitive Architecture for Interpretable, Embodied AI with Neural Periphery
 
+**Authors:** Oleksii Drozd (alexmason.developer@proton.me)
+
 ---
 
 ## Abstract
