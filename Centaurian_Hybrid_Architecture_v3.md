@@ -52,7 +52,7 @@ This paper proposes that the path to interpretable, resource-efficient, behavior
 
 > *Neural networks should be applied exactly where they demonstrably outperform rule-based systems — natural language generation, speech synthesis, perceptual encoding — and excluded from the cognitive architecture where interpretability, traceability, and behavioral consistency are paramount.*
 
-This "thin neural periphery" model preserves the audit trail that symbolic and quantum-inspired systems provide while conceding linguistic fluency and acoustic naturalness to small, efficient neural models that have achieved sufficient quality at sub-4B parameter scales.
+This "thin neural periphery" model preserves the audit trail that symbolic and quantum-inspired systems provide while conceding linguistic fluency and acoustic naturalness to small, efficient neural models that have achieved sufficient quality at 7B parameter scales, as empirically validated by the architecture's own experimental program (Experiments 1 and 2; Section 15).
 
 ### 1.3 What "Quantum" Means in This Architecture
 
@@ -125,8 +125,9 @@ This paper makes the following contributions:
 4. A **LoRA fine-tuning methodology** for domain-specific SLM adaptation with evaluation protocol.
 5. A **domain specialization framework** enabling rapid deployment of personality-consistent agentic systems across arbitrary professional domains.
 6. An **embodiment pathway** from software-only virtual agents to physically embodied humanoid robots, with a formal System 2 → System 1 interface specification.
-7. A **partially executed empirical validation framework**: behavioral consistency testing completed (Experiment 1, six conditions); MOS evaluation and uncanny valley study remain proposed.
+7. A **two-experiment empirical validation program**: Experiment 1 (six prompt-time SCI architectural strategies, establishing 3.8B as incoherent and 7B as the minimum viable SLM scale, with a piecewise degradation profile inflecting at turn 15) and Experiment 2 (four-condition LoRA fine-tuning study, achieving mean PersonaScore 4.42/5.0 under Condition C with Cohen's d = 7.51, resolving the episodic fabrication ceiling, and triggering Decision Rule Outcome A). MOS evaluation and uncanny valley study remain proposed for Phase 2.
 8. **Complete resource estimates** demonstrating the full architecture fits within a 4–6 GB memory envelope on current edge hardware.
+9. A **transparent agent UI architecture** exposing the QPM state vector, BDI intent JSON, and live knowledge graph traversal as real-time user-facing panels — making interpretability a first-class feature of the interaction rather than an internal audit mechanism. This constitutes a novel deployment pattern in which the agent's cognitive state is observable and discussable by users during the interaction itself (Section 8.1, Section 16.2).
 
 ---
 
@@ -588,7 +589,7 @@ Quantization has standardized around **Q4_K_M** as the optimal precision-efficie
 | Raspberry Pi 5 (8GB) | — (CPU only) | ~3–5 tokens/s | **~1–2 tokens/s** *(below interactive threshold)* | llama.cpp |
 | Intel Lunar Lake NPU | ~40 | ~15–25 tokens/s | **~6–10 tokens/s** | OpenVINO |
 
-*Table 13: Edge inference performance for quantized SLMs at Q4_K_M [30][35][36]. The 3B column corresponds to legacy Tier 1 candidates (e.g. Phi-4-mini, no longer recommended per Section 5.3); the 7B column corresponds to the standardized deployment SLM Qwen2.5-7B-Instruct (~4.3 GB quantized) used across both tiers. Figures assume typical 256–512 token generation; per-token latency scales with prompt length. The Snapdragon 8 Elite, Apple M4, and Apple A17 Pro all comfortably exceed the 8–10 tok/s interactive-conversation threshold; Jetson Orin NX and Intel Lunar Lake NPU are borderline. The "Modern x86 CPU (AVX-512, no NPU)" row represents a typical Intel Core or AMD Ryzen laptop/desktop with no dedicated NPU — useful as a development and fallback baseline (~4–6 tok/s on 7B, noticeably slow but workable for non-real-time use). Raspberry Pi 5 ARM CPU is below practical interactive latency for 7B inference.*
+*Table 13: Edge inference performance for quantized SLM models at Q4_K_M [30][35][36][67]. The 3B column corresponds to legacy Tier 1 candidates (e.g. Phi-4-mini, no longer recommended per Section 5.3); the 7B column corresponds to the standardized deployment SLM Qwen2.5-7B-Instruct (~4.3 GB quantized) used across both tiers. Figures assume typical 256–512 token generation; per-token latency scales with prompt length. The Snapdragon 8 Elite, Apple M4, and Apple A17 Pro all comfortably exceed the 8–10 tok/s interactive-conversation threshold; Jetson Orin NX and Intel Lunar Lake NPU are borderline. The "Modern x86 CPU (AVX-512, no NPU)" row represents a typical Intel Core or AMD Ryzen laptop/desktop with no dedicated NPU — useful as a development and fallback baseline (~4–6 tok/s on 7B, noticeably slow but workable for non-real-time use). Raspberry Pi 5 ARM CPU is below practical interactive latency for 7B inference. Qwen2.5-7B estimates derived from Experiment 2 infrastructure benchmarks [67] and llama.cpp community benchmarks for Q4_K_M 7B models on Jetson Orin NX class hardware.*
 
 ### 5.5 The Structured Input Protocol
 
@@ -785,7 +786,7 @@ This section specifies the complete methodology for domain-specific SLM adaptati
 
 #### 5.8.1 Objective and Rationale
 
-Full fine-tuning of a 3.8B parameter model requires ~15 GB GPU memory and substantial compute. LoRA [Hu et al., 2022] introduces trainable low-rank decomposition matrices into each attention layer, reducing trainable parameters from ~3.8B to ~15–50M while achieving equivalent task-specific performance. For the Centaurian architecture, the fine-tuning objective is not domain knowledge injection (handled by the KG) but **register and format conditioning**: training the model to reliably produce personality-appropriate surface forms from structured intent JSON.
+Full fine-tuning of a 7B parameter model (Qwen2.5-7B-Instruct) requires ~30 GB GPU memory and substantial compute. LoRA [Hu et al., 2022] introduces trainable low-rank decomposition matrices into each attention layer, reducing trainable parameters from ~7B to ~15–50M while achieving equivalent task-specific performance. For the Centaurian architecture, the fine-tuning objective is not domain knowledge injection (handled by the KG) but **register and format conditioning**: training the model to reliably produce personality-appropriate surface forms from structured intent JSON.
 
 #### 5.8.2 Training Data Format
 
@@ -832,7 +833,7 @@ Training corpus composition per domain:
 ```bash
 # QLoRA fine-tuning with HuggingFace + PEFT
 python train_lora.py \
-  --model_name "microsoft/Phi-4-mini-instruct" \
+  --model_name "Qwen/Qwen2.5-7B-Instruct" \
   --dataset_path "data/domain_therapy_train.jsonl" \
   --output_dir "adapters/therapy_lora_r16" \
   --lora_r 16 \
@@ -860,6 +861,8 @@ Estimated cost on a single NVIDIA A100 (80 GB):
 | **Per domain total** | | **~3–5 hours** | **~$10–15** | **~60 MB** |
 
 *Table 17: LoRA fine-tuning cost estimates.*
+
+> *Training time and cost estimates reflect Qwen2.5-7B-Instruct on A100 80GB. Actual Experiment 2 training of LoRA-10K required approximately 8 hours on A100 80GB at ~$30 compute cost [67], consistent with the upper end of the estimates above scaled for 7B parameter count. Estimates for smaller datasets (2K, 5K) scale proportionally.*
 
 #### 5.8.5 Evaluation Protocol
 
@@ -1829,38 +1832,40 @@ graph TD
         CONST_SWE["Constraints:<br/>Cite docs<br/>Test-driven"]
         PERS_SWE["Personality:<br/>High C_ind, O_int<br/>High E_ass"]
     end
-    subgraph "Domain: Elder Care"
-        KG_ELDER["Care KG<br/>(Health, daily<br/>routines, medication)"]
-        LORA_ELDER["Caregiver LoRA<br/>(patient, clear)"]
-        VEC_ELDER["Care Protocol<br/>Corpus"]
-        CONST_ELDER["Constraints:<br/>Remind medications<br/>Emergency escalation"]
-        PERS_ELDER["Personality:<br/>High A_com, E_ent<br/>High C_ord"]
+    subgraph "Domain: Education (K-12)"
+        KG_EDU["Education KG<br/>(Curriculum, Bloom's taxonomy,<br/>learning objectives)"]
+        LORA_EDU["Educator LoRA<br/>(Socratic, scaffolded)"]
+        VEC_EDU["Curriculum<br/>Corpus"]
+        CONST_EDU["Constraints:<br/>Age-appropriate language<br/>Track learning objectives"]
+        PERS_EDU["Personality:<br/>High E_ent, A_com<br/>Moderate C_ord"]
     end
     SLM_BASE --> LORA_PSY
     SLM_BASE --> LORA_SWE
-    SLM_BASE --> LORA_ELDER
+    SLM_BASE --> LORA_EDU
     QPM_CORE --> PERS_PSY
     QPM_CORE --> PERS_SWE
-    QPM_CORE --> PERS_ELDER
+    QPM_CORE --> PERS_EDU
 ```
 
 &nbsp;
 
-*Figure 14: Domain specialization framework showing shared core components and per-domain customization.*
+*Figure 14: Domain specialization framework showing shared core components and per-domain customization. Phase 1 domains shown; Elder Care and Psychotherapy are Phase 2 (embodied) deployments.*
 
 &nbsp;
 
 ### 12.2 Domain Templates
 
-| Domain | KG Scope | LoRA Training Data | Personality Profile | Key Constraints |
-|---|---|---|---|---|
-| **Psychotherapy** | CBT/DBT/ACT techniques, emotional vocabulary, therapeutic frameworks | Anonymized therapy transcripts, empathic dialog corpora | High A_com, High A_pol, Low N_vol, Moderate O_exp | No diagnosis, no medication advice, escalation to human therapist for crisis |
-| **Software Engineering** | APIs, design patterns, testing frameworks, language specs | Code review comments, technical documentation, Stack Overflow Q&A | High C_ind, High O_int, High E_ass | Cite documentation, suggest tests, flag security concerns |
-| **Education (K-12)** | Curriculum ontology, learning objectives, Bloom's taxonomy | Teacher-student dialog, Socratic questioning, scaffolded explanations | High E_ent, High A_com, Moderate C_ord | Age-appropriate language, encourage rather than solve, track learning objectives |
-| **Elder Care** | Medication schedules, health monitoring, daily routines, emergency protocols | Caregiver communication, patient-friendly medical explanations | High E_ent, High C_ord, Low N_vol, High A_com | Medication reminders, fall detection escalation, family notification triggers |
-| **Customer Service** | Product catalog, FAQ, policy ontology, escalation paths | Customer interaction logs, resolution scripts | Moderate E_ent, High A_pol, High C_ind | Stay within policy, escalate to human for complex complaints |
+| Deployment Phase | Domain | KG Scope | LoRA Training Data | Personality Profile | Key Constraints |
+|---|---|---|---|---|---|
+| **Phase 2 (embodied)** | **Psychotherapy** | CBT/DBT/ACT techniques, emotional vocabulary, therapeutic frameworks | Anonymized therapy transcripts, empathic dialog corpora | High A_com, High A_pol, Low N_vol, Moderate O_exp | No diagnosis, no medication advice, escalation to human therapist for crisis |
+| **Phase 1** | **Software Engineering** | APIs, design patterns, testing frameworks, language specs | Code review comments, technical documentation, Stack Overflow Q&A | High C_ind, High O_int, High E_ass | Cite documentation, suggest tests, flag security concerns |
+| **Phase 1** | **Education (K-12)** | Curriculum ontology, learning objectives, Bloom's taxonomy | Teacher-student dialog, Socratic questioning, scaffolded explanations | High E_ent, High A_com, Moderate C_ord | Age-appropriate language, encourage rather than solve, track learning objectives |
+| **Phase 2 (embodied)** | **Elder Care** | Medication schedules, health monitoring, daily routines, emergency protocols | Caregiver communication, patient-friendly medical explanations | High E_ent, High C_ord, Low N_vol, High A_com | Medication reminders, fall detection escalation, family notification triggers |
+| **Phase 1** | **Customer Service** | Product catalog, FAQ, policy ontology, escalation paths | Customer interaction logs, resolution scripts | Moderate E_ent, High A_pol, High C_ind | Stay within policy, escalate to human for complex complaints |
 
 *Table 32: Domain specialization templates.*
+
+> Phase 1 domains target cognitive-domain workloads suited to the clearly-AI digital presence and wireframe visual register of Phase 1 (Section 8.1, Section 16.2). Phase 2 domains require physical co-location, embodied warmth, and higher episodic reliability than Phase 1 delivers — they are activated by the humanoid embodiment transition described in Section 16.3. The domain specialization framework (KG, LoRA, personality profile, constraint set) is identical across phases; what changes is the surface representation and the deployment hardware.
 
 ### 12.3 Personality Initialization by Domain
 
