@@ -107,9 +107,6 @@ graph TD
     V2 --- KEEP3
     V2 --- KEEP4
     V2 --- KEEP5
-    style V1 fill:#ffcdd2
-    style V2 fill:#c8e6c9
-    style V3 fill:#bbdefb
 ```
 
 &nbsp;
@@ -425,13 +422,6 @@ graph LR
         CTX --> LINDBLAD["Lindblad Noise<br/>Channels"]
         LINDBLAD --> MEAS["Measurement<br/>(1024 shots)"]
     end
-    style INIT fill:#e1f5fe
-    style RY fill:#fff3e0
-    style INTRA fill:#e8eaf6
-    style INTER fill:#f3e5f5
-    style CTX fill:#e8f5e9
-    style LINDBLAD fill:#fff9c4
-    style MEAS fill:#fce4ec
 ```
 
 &nbsp;
@@ -555,14 +545,6 @@ graph LR
         STRUCT --> LOG["Cognitive Audit Log<br/>(Every field traceable)"]
         NL --> COMPARE["Surface Form ↔<br/>Structured Intent<br/>Comparison"]
     end
-    style QPM fill:#e8f5e9
-    style BDI fill:#e8f5e9
-    style KG fill:#e8f5e9
-    style STRUCT fill:#e8f5e9
-    style SLM fill:#fff3e0
-    style NL fill:#fff3e0
-    style LOG fill:#e1f5fe
-    style COMPARE fill:#e1f5fe
 ```
 
 &nbsp;
@@ -789,10 +771,6 @@ graph TD
         COHERENCE --> BDI_OUT
         JSON_OUT --> SLM["SLM Transducer<br/>(7B+, SMC-enabled;<br/>see §5.3)"]
     end
-    style SHOTS fill:#fce4ec
-    style MARGINALS fill:#e8f5e9
-    style JSON_OUT fill:#fff3e0
-    style SLM fill:#ffecb3
 ```
 
 &nbsp;
@@ -979,11 +957,6 @@ graph TD
         MERGE --> SLM_G
         SLM_G --> OUTPUT["Grounded Natural<br/>Language Response"]
     end
-    style KG fill:#e8f5e9
-    style SPARQL fill:#e8f5e9
-    style EMBED fill:#fff3e0
-    style VDB fill:#fff3e0
-    style SLM_G fill:#ffecb3
 ```
 
 &nbsp;
@@ -1241,9 +1214,23 @@ The neural component is a **bounded black box** with fully specified, logged inp
 
 ---
 
-## 8. Multimodal Synthesis: Custom JA/LI Visual Layer
+## 8. Visual Layer: Interpretable Node-Graph Rendering of FACS-Driven Animation
 
-### 8.1 Why a Custom Rule-Based Viseme Engine Over Neural Facial Animation
+### 8.1 Abstract Node-Graph Rendering Target
+
+The Phase 1 visual surface is **not** a photorealistic 3D character. The Centaurian agent presents itself through an abstract **node-graph rendering of the underlying FACS-driven mesh** — a luminous wireframe in which the same FACS muscle rig described in Sections 8.4 and 8.5 drives the vertices, but the renderer replaces filled triangles and skin shading with thin edges and emissive nodes over a dark background. The agent is identifiable as a face — orientation, expression, viseme — but the surface itself is unmistakably synthetic. The visual UI surrounds this central rendering with live panels exposing the agent's internal state at the moment of speech: the QPM measurement distribution, the structured intent JSON the BDI engine just emitted, the active subgraph of the knowledge graph used for the current response, and a streaming transcript with speaker attribution.
+
+**Why a wireframe surface rather than a photorealistic one.** This is a deliberate interpretability decision, not a compromise dictated by edge-compute constraints. The cognitive core is symbolic, quantum, and fully auditable; presenting it through a photorealistic skin would create a *representational mismatch* — a system whose every internal decision is traceable would project an outward face whose only legible signal is "human-like." A node-graph rendering keeps the visual layer **coherent with the rest of the stack**: the user sees what the agent is, not what the agent is trying to imitate. Every interface — symbolic core, structured intent, surface rendering — speaks the same language of explicit, inspectable structure. This is the interpretability thesis applied one layer further out.
+
+**FACS-region color coding as an explicit interpretability contribution.** Beyond the wireframe aesthetic, the renderer uses **color to expose the FACS Action Unit activations themselves**. The 28 muscle patches (Section 8.4) are grouped into anatomical regions (forehead/brow, eyes, midface, mouth, jaw), each assigned a distinct hue. As the FACS rig fires (smile, surprise, brow furrow, viseme), the vertices and edges in the activated region glow with intensity proportional to AU weight. The result is that *the AI's emotional and articulatory state is directly readable from the surface* — a worried agent literally has visibly active corrugator nodes; an emphatic viseme lights up the orbicularis oris region in real time. This is a novel design contribution: prior interpretable-AI systems expose internal state through side panels or instrumentation; the CHA visual layer makes the face itself a continuous interpretability surface, with no hidden affect channel. The color mapping is a fixed lookup table, deterministic, and trivially auditable.
+
+**Stack.** The Phase 1 rendering implementation uses **Odin + Raylib** (CPU-side mesh transform plus a thin GPU pass through Raylib's OpenGL/Metal back end) rather than Unity/C#. The choice is consistent with the rest of the architecture: Odin compiles to a small native binary with no proprietary runtime dependency, Raylib is open-source under a permissive zlib license, and the combined toolchain is auditable end-to-end alongside the QPM, BDI, and SLM components. The renderer consumes the same FACS AU weight stream specified in Section 8.3.2 (VisemeRig) applied through the Section 8.4 muscle rig — the rig does not change, only the surface representation does — so any future Phase 2 swap to a different renderer (textured mesh, holographic display, robot actuator) requires no upstream modification.
+
+**Phase 1 domain framing.** This rendering choice positions Phase 1 explicitly as an **interpretable, edge-deployable, clearly-AI digital presence** optimized for *cognitive-domain* applications — engineering assistance, education, knowledge work, customer service, technical advising — where the user's task is reasoning and information exchange, and the value of the agent is its inspectable, traceable internal process rather than the warmth of its physical presence. Phase 2 (Section 16.3) addresses the orthogonal *affective-domain* problem (therapy, elder care, companionship) where physical embodiment becomes the warmth-carrying medium and a different visual register is appropriate. Each phase has a coherent application domain rather than a universal mandate; the Phase 1 wireframe deliberately leans into "clearly AI" as a feature, not a limitation to be hidden.
+
+The remaining subsections of Section 8 specify the FACS-driven animation pipeline that the node-graph renderer reads from. The pipeline is rendering-agnostic: the same JA/LI viseme engine and the same 28-muscle rig drive whatever surface is bolted on at the output.
+
+### 8.2 Why a Custom Rule-Based Viseme Engine Over Neural Facial Animation
 
 For facial animation, the architecture implements a **custom open-source phoneme-to-viseme engine** rather than adopting neural alternatives (NVIDIA Audio2Face, neural motion retargeting). This engine combines two approaches: (a) a **clean-room reimplementation of the JA/LI two-channel decomposition algorithm** published in Edwards et al. (2016) [45], and (b) **direct consumption of phoneme timing metadata emitted natively by the TTS engine** (Kokoro/Piper via Sherpa-ONNX), eliminating any separate audio analysis step and its associated latency. This design is consistent with the paper's core interpretability thesis — every component of the animation pipeline is fully specified, auditable, and carries no proprietary SDK dependency.
 
@@ -1256,7 +1243,7 @@ The custom JA/LI implementation provides four engineering advantages:
 
 NVIDIA Audio2Face, while producing high-quality results, requires RTX-class GPU hardware and introduces non-deterministic neural inference into the animation pipeline [46] — an unnecessary resource expenditure when the custom JA/LI implementation achieves equivalent perceptual quality for lip synchronization.
 
-### 8.2 The Custom JA/LI Pipeline
+### 8.3 The Custom JA/LI Pipeline
 
 The custom phoneme-to-viseme engine decomposes speech animation into two independent anatomical channels [45]:
 
@@ -1278,7 +1265,7 @@ The custom phoneme-to-viseme engine decomposes speech animation into two indepen
 %%{init: {"flowchart": {"defaultRenderer": "elk"}} }%%
 graph LR
     subgraph "Custom JA/LI Pipeline"
-        TTS["TTS Engine<br/>(Kokoro/Piper)"] -->|"Audio waveform"| RENDER["Render Engine<br/>(Unity/Unreal)"]
+        TTS["TTS Engine<br/>(Kokoro/Piper)"] -->|"Audio waveform"| RENDER["Node-Graph Renderer<br/>(Odin + Raylib)"]
         TTS -->|"Phoneme timing metadata<br/>(zero additional latency —<br/>emitted at synthesis time)"| VSYNC["VisemeSync<br/>(0.5ms/phoneme)<br/>JA/LI coordinate<br/>mapping"]
         VSYNC --> VRIG["VisemeRig<br/>JA/LI → FACS<br/>Action Units"]
         VRIG --> AMBIENT["AmbientMotion<br/>Blink, brow,<br/>gaze sync"]
@@ -1292,7 +1279,7 @@ graph LR
 
 &nbsp;
 
-### 8.2.1 JA/LI Viseme Field Implementation
+### 8.3.1 JA/LI Viseme Field Implementation
 
 This subsection describes a **clean-room reimplementation** of the JA/LI two-channel decomposition algorithm published in Edwards et al. (2016) [45]. The implementation has no proprietary SDK dependency and is publishable as an original open-source contribution.
 
@@ -1337,7 +1324,7 @@ $$\text{LI}(t) = 0.6 \cdot \text{LI}_{\text{current}} + 0.4 \cdot \text{LI}_{\te
 - **Brow position**: AU1/AU2 raised proportionally to $O_{\text{exp}}$; AU4 lowered proportionally to $N_{\text{wth}}$.
 - **Gaze saccades**: Interval $= 2.5 - 1.5 \times E_{\text{ent}}$ seconds; target drawn from zero-centered Gaussian with $\sigma_h = 0.08$, $\sigma_v = 0.04$.
 
-### 8.2.2 VisemeRig: JA/LI to FACS Action Unit Mapping
+### 8.3.2 VisemeRig: JA/LI to FACS Action Unit Mapping
 
 The VisemeRig module translates JA and LI coordinates produced by VisemeSync into FACS Action Unit weights. All six AU weights are deterministic functions of the (JA, LI) pair produced upstream — the mapping is fully auditable and has no proprietary dependency:
 
@@ -1350,7 +1337,7 @@ The VisemeRig module translates JA and LI coordinates produced by VisemeSync int
 | **AU10** (Upper Lip Raiser) | $\text{AU10} = \text{LI} \times \text{JA} \times 0.4$ | Combined articulation |
 | **AU17** (Chin Raiser) | $\text{AU17} = \max(0, \; \text{JA} - 0.5) \times 0.6$ | Active only at high jaw opening |
 
-### 8.3 The Anatomical Muscle Rig
+### 8.4 The Anatomical Muscle Rig
 
 The 3D facial model uses 28 template muscle patches corresponding to the primary muscles of human expression [47]:
 
@@ -1369,7 +1356,7 @@ The 3D facial model uses 28 template muscle patches corresponding to the primary
 
 Each muscle drives **FACS Action Units** through parallel parameterization, with intensities controlled by the QPM emotional state output [48].
 
-### 8.4 Real-Time Vertex Deformation
+### 8.5 Real-Time Vertex Deformation
 
 - **Radial Basis Function (RBF) warping**: Retargets animations from generic rig to specific character morphology.
 - **Free-Form Deformation (FFD)**: Smooth, volume-preserving deformations.
@@ -1417,55 +1404,54 @@ The hybrid architecture extends a prior Tripartite Model to a **Quadripartite Mo
 &nbsp;
 
 ```mermaid
-%%{init: {"flowchart": {"defaultRenderer": "elk"}} }%%
+%%{init: {"flowchart": {"defaultRenderer": "elk", "nodeSpacing": 70, "rankSpacing": 110, "padding": 20}} }%%
 graph TB
-    subgraph "SURFACE LAYER (60+ Hz)"
+    subgraph OBSERVATION ["OBSERVATION LAYER (30–60 Hz)"]
         direction LR
-        UNITY["Unity/Unreal Engine<br/>3D Rendering + JA/LI Engine"]
-        TTS_OUT["Neural TTS<br/>(Kokoro/Piper)"]
-        DISPLAY["Video/Robot<br/>Output"]
-        UNITY --> DISPLAY
-        TTS_OUT --> DISPLAY
+        ASR["Neural ASR<br/>(Whisper-tiny / Sherpa)"]
+        FEAT["Feature Decoder<br/>(d₁–d₅ Extraction)"]
+        ASR -->|"Transcript"| FEAT
     end
-    subgraph "GENERATION LAYER (5-15 Hz)"
+    subgraph COMPUTATION ["COMPUTATION LAYER (10–30 Hz)"]
         direction LR
-        SLM_MAIN["SLM Transducer<br/>(7B+, SMC-enabled;<br/>base: Phi-4-mini†)"]
-        PROSODY["Prosody Mapper<br/>(QPM → SSML)"]
-        SLM_MAIN --> PROSODY
-    end
-    subgraph "COMPUTATION LAYER (10-30 Hz)"
-        direction LR
-        QPM_MAIN["QPM Core<br/>(12-qubit Circuit)"]
-        BDI_MAIN["Quantum-BDI<br/>Reasoning Engine"]
         KG_MAIN["Knowledge Graph<br/>+ Vector RAG"]
-        QPM_MAIN --> BDI_MAIN
-        KG_MAIN --> BDI_MAIN
+        BDI_MAIN["Quantum-BDI<br/>Reasoning Engine"]
+        QPM_MAIN["QPM Core<br/>(12-qubit Circuit)"]
+        KG_MAIN -->|"Triples + passages"| BDI_MAIN
+        QPM_MAIN -->|"Aspect marginals"| BDI_MAIN
     end
-    subgraph "OBSERVATION LAYER (30-60 Hz)"
+    subgraph GENERATION ["GENERATION LAYER (5–15 Hz)"]
         direction LR
-        ASR["Neural ASR<br/>(Whisper-tiny/Sherpa)"]
-        FEAT["Feature Decoder<br/>(d₁-d₅ Extraction)"]
-        ASR --> FEAT
+        SLM_MAIN["SLM Transducer<br/>(Qwen2.5-7B; SMC-enabled)"]
+        PROSODY["Prosody Mapper<br/>(QPM → SSML)"]
     end
-    subgraph "DATA LAYER"
+    subgraph SURFACE ["SURFACE LAYER (60+ Hz)"]
+        direction LR
+        RENDERER["Odin + Raylib<br/>Node-Graph Renderer<br/>+ JA/LI Engine"]
+        TTS_OUT["Neural TTS<br/>(Kokoro / Piper)"]
+        DISPLAY["Video / Robot<br/>Output"]
+        TTS_OUT -->|"Audio"| DISPLAY
+        RENDERER -->|"Wireframe frames"| DISPLAY
+    end
+    subgraph DATA ["DATA LAYER"]
         direction LR
         KG_DB["Domain KG<br/>(Kuzu)"]
         VEC_DB["Vector Index<br/>(SQLite-vec)"]
         VOICE_DB["TTS Voice<br/>Model"]
         ANIM_DB["Character<br/>Model + Rig"]
     end
-    OBSERVATION --> COMPUTATION
-    COMPUTATION --> GENERATION
-    GENERATION --> SURFACE
+
+    FEAT -->|"Situative variables d₁–d₅"| BDI_MAIN
+    BDI_MAIN -->|"Structured intent JSON (§5.5)"| SLM_MAIN
+    QPM_MAIN -->|"Personality state"| PROSODY
+    SLM_MAIN -->|"Generated text"| TTS_OUT
+    PROSODY -->|"SSML / prosody params"| TTS_OUT
+    TTS_OUT -->|"Phoneme timing"| RENDERER
+
     KG_DB --> KG_MAIN
     VEC_DB --> KG_MAIN
     VOICE_DB --> TTS_OUT
-    ANIM_DB --> UNITY
-    style SURFACE fill:#e1f5fe
-    style GENERATION fill:#fff3e0
-    style COMPUTATION fill:#e8f5e9
-    style OBSERVATION fill:#f3e5f5
-    style DATA fill:#fce4ec
+    ANIM_DB --> RENDERER
 ```
 
 &nbsp;
@@ -1486,7 +1472,7 @@ graph TB
 | **Generation** | SLM Transducer | 5–15 Hz | Qwen2.5-7B Q4_K_M (SMC-enabled) / Phi-4-mini† (base CHA) + LoRA via llama.cpp | 50–200 ms (GPU); ~2,500–5,000 ms (CPU, 7B) | ~2.3–4.5 GB |
 | **Generation** | Prosody Mapper | Per-utterance | QPM state → SSML parameters | <1 ms | ~1 MB |
 | **Surface** | Neural TTS | Streaming | Kokoro-82M / Piper via Sherpa-ONNX | 30–100 ms | 63–350 MB |
-| **Surface** | 3D Rendering + JA/LI Engine | 60+ Hz | Unity/Unreal + custom JA/LI CPU pipeline | 8–11 ms | ~100 MB |
+| **Surface** | Node-Graph Renderer + JA/LI Engine | 60+ Hz | Odin + Raylib node-graph renderer over FACS rig + custom JA/LI CPU pipeline | 8–11 ms | ~40 MB |
 | **Surface** | A/V Sync | 60+ Hz | Custom JA/LI pipeline alignment | <1 ms | — |
 | | **Inter-component IPC** | | gRPC + ZeroMQ + shared memory | 1–2 ms | — |
 
@@ -1705,11 +1691,6 @@ graph TD
     end
     SLM_R -->|"High-level commands<br/>(5-15 Hz)"| VMP
     VMP -->|"Joint trajectories<br/>(200 Hz)"| MOTOR
-    style QPM_R fill:#e8f5e9
-    style BDI_R fill:#e8f5e9
-    style SLM_R fill:#fff3e0
-    style VMP fill:#e1f5fe
-    style MOTOR fill:#e1f5fe
 ```
 
 &nbsp;
@@ -1861,9 +1842,6 @@ graph TD
     QPM_CORE --> PERS_PSY
     QPM_CORE --> PERS_SWE
     QPM_CORE --> PERS_ELDER
-    style QPM_CORE fill:#e8f5e9
-    style BDI_CORE fill:#e8f5e9
-    style SLM_BASE fill:#fff3e0
 ```
 
 &nbsp;
@@ -1968,7 +1946,7 @@ The 150–400 ms total falls within the **natural conversational turn gap** of 2
 | Domain LoRA Adapter | ~60 MB per agent | **Linear** — per-domain adapter per agent (composes with SCI adapter) |
 | Knowledge Graph | ~200 MB per domain | **Shared** — agents in same domain share KG |
 | BDI Reasoning Engine | ~10 MB per agent | **Linear** — independent belief states |
-| 3D Rendering (Unity) | ~50 MB per character + ~2 ms GPU | **Sub-linear** — GPU batching amortizes overhead |
+| Node-Graph Renderer (Odin + Raylib) | ~20 MB per character + ~1 ms GPU | **Sub-linear** — wireframe rendering is light; instanced edge batching amortizes overhead |
 
 *Table 37: Per-agent resource scaling. SLM base model is shared across all agents (one copy in GPU/NPU memory); each agent layers its own SCI grounding adapter (Tier 2 only) and optional domain adapter on top via PEFT adapter stacking.*
 
@@ -2027,7 +2005,7 @@ graph TD
 
 ## 15. Empirical Validation Framework
 
-This section specifies the evaluation methodology for the Centaurian Hybrid Architecture. **Experiments 1 and 2 (Behavioral Consistency — SCI/SMC component)** are complete. Experiment 1 established the 7B baseline and tested six prompt-time architectural strategies; Experiment 2 added LoRA fine-tuning under a 4-condition design with H5 data-scaling sub-runs, achieving Outcome A under the pre-registered decision rule and validating the full Phase 1 SMC architecture (Section 17.5). See Section 15.2 for high-level findings and Sections 15.4.1, 15.4.2 for detailed protocols. The remaining evaluation dimensions (Speech Naturalness, Interaction Realism, Uncanny Valley) are deferred to future work. The validation framework is designed to be executable with Phase 1 components (Section 16.2).
+This section specifies the evaluation methodology for the Centaurian Hybrid Architecture. **Experiments 1 and 2 (Behavioral Consistency — SCI/SMC component)** are complete. Experiment 1 established the 7B baseline and tested six prompt-time architectural strategies; Experiment 2 added LoRA fine-tuning under a 4-condition design with H5 data-scaling sub-runs, achieving Outcome A under the pre-registered decision rule and validating the full Phase 1 SMC architecture (Section 17.5). See Section 15.2 for high-level findings and Sections 15.4.1, 15.4.2 for detailed protocols. The remaining evaluation dimensions (Speech Naturalness, Persona Coherence Over Time, Uncanny Valley) are deferred to future work. The validation framework is designed to be executable with Phase 1 components (Section 16.2).
 
 ### 15.1 Evaluation Dimensions
 
@@ -2037,7 +2015,7 @@ Four orthogonal evaluation dimensions are proposed:
 |---|---|---|---|
 | **Speech Naturalness (MOS)** | Perceptual quality of the auditory output | Acoustic engineers, product evaluators | Proposed |
 | **Behavioral Consistency** | Stability of personality across interactions | AI researchers, domain deployers | Completed (Experiments 1 and 2; H4 base-capability test deferred — see Section 17.5) |
-| **Interaction Realism (Turing-style)** | Degree to which naive judges mistake agent for human | Human-computer interaction researchers | Proposed |
+| **Persona Coherence Over Time** | Whether the agent presents as a consistent, recognizable persona across long and multi-session interactions (rather than whether it can be mistaken for human) | Human-computer interaction researchers | Proposed |
 | **Uncanny Valley Measurement** | Perceptual discomfort from visual avatar | Animation, robotics researchers | Proposed |
 
 *Table 39: Evaluation dimensions, primary audiences, and completion status.*
@@ -2201,34 +2179,33 @@ H5 sub-runs hold Condition C constant and swap the LoRA adapter (LoRA-2K, LoRA-5
 
 **Deferred follow-ups (not blocking Phase 1 deployment, listed in priority order in Section 17.5):** the H4 base-capability test (out-of-domain probe battery to verify the SCI grounding adapter does not cause catastrophic forgetting), cross-model replication on Llama 3.1 8B and Gemma 2 9B, Episodic-stratified follow-up training to clear the E threshold with smaller data than overall scaling would require, multi-session persistence testing (200+ turns / multi-day), and the optional 14B + LoRA scientific question (now off critical path).
 
-### 15.5 Behavioral Turing Test Protocol
+### 15.5 Persona Coherence Protocol
 
-A modified Turing test targeting the specific "Zoom-call" format of the architecture:
+Phase 1's design choice to present the agent through an abstract node-graph rendering (Section 8.1) makes the Turing question — "can the AI be mistaken for human" — the wrong question to ask of this system. The architecture does not optimize for human imitation; it optimizes for *coherent, inspectable persona presentation* over long horizons. This subsection therefore replaces the previously proposed deception-rate protocol with a persona-coherence protocol that measures what the architecture is actually built to deliver, and what the Experiment 1 / Experiment 2 validation data already supports.
 
 **Design:**
 - 24 judges (12 expert: HCI researchers, AI practitioners; 12 naive: general public recruited via Prolific)
-- 5-minute video call interactions with either a CHA instance or a human confederate matched on domain
-- Domains: psychotherapy support (3 scenarios), software Q&A (3 scenarios), general conversation (3 scenarios)
-- Judges complete the interaction then answer: "Were you talking to a human or AI?" with confidence rating
-- Followed by a 10-item questionnaire measuring specific suspicion triggers (unnatural pauses, visual artifacts, off-topic responses, inconsistent personality)
+- Three CHA-mediated interaction sessions per judge with the same agent, spaced 24–72 hours apart (multi-session — beyond the 40-turn single-session ceiling of Experiments 1 and 2)
+- Domains: technical advising (3 scenarios), educational tutoring (3 scenarios), customer-service knowledge work (3 scenarios) — all cognitive-domain workloads matched to the Phase 1 application profile
+- After the third session, judges complete a structured questionnaire rating the agent across coherence facets (Section 15.4 dimensions extended to multi-session): trait consistency, episodic continuity, capability/limitation stability, register and style stability, and the *recognizability* of the agent ("if you spoke to this agent again in a week, would you recognize it as the same persona?")
 
-**Primary metric:** Deception rate = fraction of interactions judged as human.
+**Primary metric:** **Composite Persona Coherence Score (CPCS)** — a 1-5 scale derived from the questionnaire, averaged across all judges and sessions. The construct is parallel to the Experiment 1/2 PersonaScore but extended across sessions rather than within a single conversation. A CPCS-coherence threshold of ≥ 3.5 indicates "judges recognize a stable persona"; ≥ 4.0 indicates "judges report the agent feels distinctively itself, not generically helpful."
 
 **Predicted outcomes by component maturity:**
 
-| Architecture Variant | Predicted Deception Rate | Limiting Factor |
+| Architecture Variant | Predicted CPCS | Limiting Factor |
 |---|---|---|
-| Phase 1 (software, no domain KG) | 25–40% | Content flexibility gaps expose off-topology failures |
-| Phase 1 + domain KG + LoRA | 45–60% | Visual layer (uncanny valley) likely primary failure |
-| Phase 2 (embodied) | 35–55% | Uncanny valley may worsen with physical form |
+| Phase 1 (no LoRA, no domain KG) | 3.0–3.4 | Within-session degradation propagates across sessions (Exp 1 ceiling at 3.20) |
+| Phase 1 + LoRA-10K SCI grounding + Combined SCI | 4.0–4.5 | Episodic recall across sessions is the remaining bottleneck (Exp 2 within-session result: 4.42) |
+| Phase 1 + LoRA-10K + domain KG | 4.2–4.6 | KG grounding stabilizes capability/style across sessions; episodic remains the open dimension |
 
-*Table 40: Predicted Turing test deception rates by variant.*
+*Table 40: Predicted CPCS values by variant. The Phase 1 + LoRA range is anchored to the Experiment 2 Condition C single-session result (mean PersonaScore 4.42), with a modest downward correction for the multi-session generalization gap pending the multi-session persistence test (Section 17.5 deferred follow-ups).*
 
-These predictions are conservative and consistent with prior literature on virtual agent Turing tests, which typically show deception rates of 30–60% for domain-constrained interactions.
+**Why this is the right question.** The CPCS protocol tests the property the CHA architecture is actually built to deliver — *the same recognizable agent, every time you talk to it, however long the conversation has been* — rather than the property an architecture with a wireframe visual layer was never going to deliver (passing as human). The Experiment 1 and Experiment 2 within-session data already supplies the empirical ground for the CPCS predictions; the multi-session extension is the natural follow-up rather than a stand-alone risky bet.
 
 ### 15.6 Uncanny Valley Measurement
 
-**Motivation:** The architecture relies on procedural facial animation (custom JA/LI engine) whose uncanny valley profile is currently unquantified.
+**Motivation:** The architecture relies on procedural facial animation (custom JA/LI engine) whose uncanny valley profile is currently unquantified. Note that Phase 1's node-graph rendering target (Section 8.1) is *deliberately positioned below the uncanny valley zone* — wireframe rendering does not aspire to human-likeness and therefore should not trigger the eeriness response that filled-skin photorealistic avatars do. This protocol is therefore primarily a **Phase 2 evaluation** for the embodied humanoid form, where physical presence reintroduces the uncanny-valley question; for Phase 1 it serves as a confirmatory baseline that the wireframe representation is perceived as "stylized AI" rather than "almost-human and wrong."
 
 **Protocol:** Following Mathur & Reichling (2016) Godspeed Questionnaire Series:
 
@@ -2245,16 +2222,16 @@ These predictions are conservative and consistent with prior literature on virtu
 
 Beyond perceptual evaluations, the following ablation studies quantify the contribution of each architectural component:
 
-| Ablation | Component Removed | Expected Effect on PCS | Expected Effect on Turing Rate |
+| Ablation | Component Removed | Expected Effect on PCS | Expected Effect on CPCS (Section 15.5) |
 |---|---|---|---|
-| No QPM (random personality) | QPM core | PCS ↓ ~40% | Turing rate ↓ ~20pp |
-| No Relational Resolution | R threshold | PCS ↓ ~25% | Turing rate ↓ ~10pp |
-| No KG grounding | Knowledge graph | Hallucination rate ↑ | Turing rate ↓ ~15pp (domain failures) |
-| No LoRA (base model) | Domain LoRA adapter | Register adherence ↓ ~30% | Expert judge detection ↑ |
-| No JA/LI engine (static face) | Facial animation | — | Turing rate ↓ ~30pp |
-| No prosody modulation | Prosody Mapper | MOS ↓ ~0.3 | Turing rate ↓ ~10pp |
+| No QPM (random personality) | QPM core | PCS ↓ ~40% | CPCS ↓ ~1.0–1.5 points (trait facet collapses) |
+| No Relational Resolution | R threshold | PCS ↓ ~25% | CPCS ↓ ~0.5 points (within-session jitter accumulates across sessions) |
+| No KG grounding | Knowledge graph | Hallucination rate ↑ | CPCS ↓ ~0.4 points (capability facet destabilizes domain claims) |
+| No LoRA (base model) | LoRA-10K SCI grounding adapter | Register adherence ↓ ~30%; Episodic facet near floor | CPCS ↓ ~1.2 points (Exp 2 C vs D delta: 1.19 points within-session) |
+| No JA/LI engine (static face) | Facial animation | — | Minimal — Phase 1 is cognitive-domain; static face is consistent with the abstract rendering target |
+| No prosody modulation | Prosody Mapper | MOS ↓ ~0.3 | CPCS ↓ ~0.2 points (style facet softens; trait facet stable) |
 
-*Table 41: Proposed ablation study design.*
+*Table 41: Proposed ablation study design. CPCS = Composite Persona Coherence Score (Section 15.5). The previous Turing-rate column was replaced with CPCS because Phase 1's clearly-AI visual register makes deception rate the wrong dependent variable; coherence is what the architecture optimizes for.*
 
 ### 15.8 Evaluation Infrastructure
 
@@ -2275,7 +2252,7 @@ graph LR
         P1A["GPU Quantum Simulator<br/>(12 qubits + Lindblad)"]
         P1B["SLM Transducer<br/>(Phi-4-mini† base / 7B+ SMC)"]
         P1C["Neural TTS<br/>(Kokoro/Piper)"]
-        P1D["JA/LI Engine + Unity<br/>Rendering"]
+        P1D["JA/LI Engine + Odin/Raylib<br/>Node-Graph Renderer"]
         P1E["KG + Vector RAG"]
     end
     subgraph "Phase 2: Embodied Agent (2026-2028)"
@@ -2293,18 +2270,6 @@ graph LR
     P1B -.-> P2A
     P1D -.-> P2C
     P2A -.-> P3B
-    style P1A fill:#c8e6c9
-    style P1B fill:#c8e6c9
-    style P1C fill:#c8e6c9
-    style P1D fill:#c8e6c9
-    style P1E fill:#c8e6c9
-    style P2A fill:#fff9c4
-    style P2B fill:#fff9c4
-    style P2C fill:#fff9c4
-    style P2D fill:#fff9c4
-    style P3A fill:#bbdefb
-    style P3B fill:#bbdefb
-    style P3C fill:#bbdefb
 ```
 
 &nbsp;
@@ -2314,6 +2279,8 @@ graph LR
 &nbsp;
 
 ### 16.2 Phase 1: Software Agent (Current Technology — Implementable Now)
+
+**Target domain.** Phase 1 is an **interpretable, edge-deployable, clearly-AI digital presence** for *cognitive-domain* applications: engineering assistance, education and tutoring, knowledge work, technical advising, software-engineering pair work, and customer-service deployments where the user's task is reasoning, exchange of information, and structured problem-solving. The deliberately abstract visual surface (Section 8.1) is selected to match this domain — the value proposition is the agent's *inspectable, traceable internal process*, not the warmth of its physical presence. Phase 2 (below) addresses the orthogonal affective domain where embodiment becomes the dominant signal.
 
 | Component | Technology | Status |
 |---|---|---|
@@ -2328,13 +2295,15 @@ graph LR
 | Vector RAG | SQLite-vec + all-MiniLM-L6-v2 (Section 6.4 pipeline) | **Ready** |
 | KG Ontology | OWL schema (Section 6.3) + Kuzu embedded graph | **Specified** |
 | Contradiction Resolution | KG-RAG resolution protocol (Section 6.5) | **Specified** |
-| 3D Rendering | Unity/Unreal + custom JA/LI engine | **Ready** |
+| Node-Graph Renderer | Odin + Raylib wireframe/FACS-color rendering over the muscle rig (Section 8.1) + custom JA/LI engine | **Ready** |
 | Entanglement Calibration | Meta-analytic ρ matrix [14] | **Integrated** |
-| Evaluation Framework | MOS, PCS, Turing test, Uncanny valley (Section 15) | **Specified** |
+| Evaluation Framework | MOS, PCS, Persona Coherence Over Time (CPCS, Section 15.5), Uncanny valley (Section 15) | **Specified** |
 
 *Table 42: Phase 1 component readiness — all components available today, all interfaces fully specified.*
 
 ### 16.3 Phase 2: Embodied Agent (2026–2028)
+
+**Target domain.** Phase 2 extends the architecture into *affective-domain* applications — therapeutic support, elder care, companionship, and the long-running presence work that depends on physical co-location and embodied warmth as the load-bearing perceptual channel. The Phase 1 cognitive stack (QPM, BDI, KG/Vector RAG, SLM, JA/LI) ports forward unchanged; what changes is the surface representation. The same FACS rig that drives the Phase 1 node-graph renderer drives physical facial actuators on a humanoid platform (Table 31), so the Phase 1 → Phase 2 transition is a renderer swap, not a re-architecture. Each phase has a coherent application domain rather than a universal mandate: Phase 1's "clearly-AI digital presence" is a feature for cognitive-domain users; Phase 2's embodied warmth-carrying form is a feature for affective-domain users; neither is required to do the other's job.
 
 | Milestone | Technology | Estimated Timeline |
 |---|---|---|
@@ -2388,10 +2357,6 @@ graph TD
         UAM --> PSBG
         SCI -->|"Episodic RAG on<br/>relevant turns"| ER
     end
-    style PSBG fill:#e8f5e9
-    style ER fill:#e8f5e9
-    style UAM fill:#fff9c4
-    style SCI fill:#e1f5fe
 ```
 
 &nbsp;
@@ -2469,9 +2434,9 @@ The architecture integrates **four core subsystems**:
 
 3. **The Domain Knowledge Architecture** combines RDF/OWL ontologies (Section 6.3) with a formally specified vector retrieval pipeline (Section 6.4) and a KG-RAG contradiction resolution protocol (Section 6.5). Domain-specific LoRA adaptation (Section 5.8) requires ~$10–15 GPU compute per domain — orders of magnitude cheaper than training domain-specific LLMs.
 
-4. **The Visual Layer** implements a custom open-source phoneme-to-viseme engine based on the JA/LI two-channel decomposition from Edwards et al. (2016) [45]. The engine consumes TTS-native phoneme timing metadata at zero additional latency and produces deterministic FACS AU weights through a fully auditable pipeline with no proprietary dependencies (0.5 ms/phoneme, CPU-only), with a formally specified extension path to physical robot actuators through FACS Action Unit mapping and a System 2 → System 1 command interface (Section 11.3).
+4. **The Visual Layer** implements a custom open-source phoneme-to-viseme engine based on the JA/LI two-channel decomposition from Edwards et al. (2016) [45]. The engine consumes TTS-native phoneme timing metadata at zero additional latency and produces deterministic FACS AU weights through a fully auditable pipeline with no proprietary dependencies (0.5 ms/phoneme, CPU-only). For Phase 1, the FACS rig is rendered as an **abstract node-graph wireframe** (Section 8.1) using Odin + Raylib — a clearly-AI digital presence chosen for *interpretability coherence with the symbolic cognitive core*, with FACS-region color coding that makes the agent's affective and articulatory state directly readable from the surface itself. The same FACS rig has a formally specified extension path to physical robot actuators through FACS Action Unit mapping and a System 2 → System 1 command interface (Section 11.3); the Phase 1 → Phase 2 transition is a renderer swap, not a re-architecture.
 
-The base CHA system fits within a **~5 GB memory envelope** (Tier 1: Qwen2.5-7B-Instruct Q4_K_M, no LoRA, no SCI infrastructure); SMC-enabled deployments require **~6 GB** (Tier 2: same base SLM plus the ~60 MB LoRA-10K SCI grounding adapter and Combined SCI infrastructure). Both configurations are deployable on current edge hardware from NVIDIA Jetson Orin to flagship smartphones. The three-phase roadmap progresses from software-only virtual agents (implementable today, all interfaces fully specified) through physically embodied humanoid robots (2026–2028) to quantum-hardware-enhanced systems (2030+).
+The base CHA system fits within a **~5 GB memory envelope** (Tier 1: Qwen2.5-7B-Instruct Q4_K_M, no LoRA, no SCI infrastructure); SMC-enabled deployments require **~6 GB** (Tier 2: same base SLM plus the ~60 MB LoRA-10K SCI grounding adapter and Combined SCI infrastructure). Both configurations are deployable on current edge hardware from NVIDIA Jetson Orin to flagship smartphones. The three-phase roadmap is organized by **application domain**, not by capability accumulation: Phase 1 (now) is a clearly-AI digital presence optimized for *cognitive-domain* applications — engineering, education, knowledge work, customer service — where inspectability and traceability are the differentiating values; Phase 2 (2026–2028) extends the same cognitive stack into a physically embodied humanoid form for *affective-domain* applications — therapy, elder care, companionship — where physical co-location is the warmth-carrying medium; Phase 3 (2030+) introduces quantum-hardware-enhanced systems. Each phase has a coherent application domain rather than a universal mandate.
 
 The architecture's foundational principle — **apply neural networks exactly where they shine, exclude them where interpretability matters** — offers a practical alternative to the all-neural paradigm. The skeleton is auditable. The skin is natural. And the combination is deployable on the hardware that actually exists at the edge of the network, where embodied AI must ultimately live.
 
