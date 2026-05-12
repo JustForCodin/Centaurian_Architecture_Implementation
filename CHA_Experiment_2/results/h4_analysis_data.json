@@ -1,0 +1,164 @@
+{
+  "n_probes": 100,
+  "overall": {
+    "base_mean": 4.67,
+    "base_std": 0.7661394761854378,
+    "lora_mean": 4.59,
+    "lora_std": 0.7797305932049852,
+    "delta_mean": -0.08,
+    "degradation_pct": 1.7130620985010723,
+    "threshold_pct": 5.0,
+    "verdict": "PASS",
+    "t_stat_paired": -1.0698171201285904,
+    "p_value_paired": 0.2873030564781471,
+    "cohens_d_paired": -0.10698171201285905
+  },
+  "per_category": {
+    "general_knowledge": {
+      "n": 20,
+      "base_mean": 5.0,
+      "base_std": 0.0,
+      "lora_mean": 4.9,
+      "lora_std": 0.44721359549995787,
+      "delta_mean": -0.1,
+      "degradation_pct": 1.999999999999993,
+      "verdict": "PASS",
+      "t_stat": -1.0000000000000002,
+      "p_value": 0.3298768009211248,
+      "cohens_d_paired": -0.22360679774997902
+    },
+    "code_reasoning": {
+      "n": 20,
+      "base_mean": 5.0,
+      "base_std": 0.0,
+      "lora_mean": 4.85,
+      "lora_std": 0.4893604849295929,
+      "delta_mean": -0.15,
+      "degradation_pct": 3.000000000000007,
+      "verdict": "PASS",
+      "t_stat": -1.3708103001950633,
+      "p_value": 0.18641143545847969,
+      "cohens_d_paired": -0.30652250154930544
+    },
+    "math": {
+      "n": 20,
+      "base_mean": 4.35,
+      "base_std": 1.0399898784932577,
+      "lora_mean": 4.45,
+      "lora_std": 0.998683343734455,
+      "delta_mean": 0.1,
+      "degradation_pct": -2.298850574712656,
+      "verdict": "PASS",
+      "t_stat": 0.5674803065350241,
+      "p_value": 0.5770324017264918,
+      "cohens_d_paired": 0.1268924541304732
+    },
+    "instruction_following": {
+      "n": 20,
+      "base_mean": 4.9,
+      "base_std": 0.30779350562554625,
+      "lora_mean": 4.65,
+      "lora_std": 0.670820393249937,
+      "delta_mean": -0.25,
+      "degradation_pct": 5.1020408163265305,
+      "verdict": "FAIL",
+      "t_stat": -1.7505759420922753,
+      "p_value": 0.0961496884580865,
+      "cohens_d_paired": -0.39144068062940635
+    },
+    "structured_intent": {
+      "n": 20,
+      "base_mean": 4.1,
+      "base_std": 1.0711528467275955,
+      "lora_mean": 4.1,
+      "lora_std": 0.9119095061289914,
+      "delta_mean": 0.0,
+      "degradation_pct": 0.0,
+      "verdict": "PASS",
+      "t_stat": 0.0,
+      "p_value": 1.0,
+      "cohens_d_paired": 0.0
+    }
+  },
+  "score_histograms": {
+    "base": {
+      "1": 0,
+      "2": 3,
+      "3": 9,
+      "4": 6,
+      "5": 82
+    },
+    "lora": {
+      "1": 0,
+      "2": 2,
+      "3": 12,
+      "4": 11,
+      "5": 75
+    }
+  },
+  "regressions_2plus": [
+    {
+      "probe_id": "co_003",
+      "category": "code_reasoning",
+      "base_score": 5,
+      "lora_score": 3,
+      "prompt": "Write a Python function `is_palindrome(s)` that returns True if `s` is a palindrome, ignoring case and non-alphanumeric ",
+      "base_response": "Certainly! Here's a Python function `is_palindrome(s)` that checks if a given string `s` is a palindrome, while ignoring case and non-alphanumeric characters:\n\n```python\ndef is_palindrome(s):\n    # Re",
+      "lora_response": "Certainly! Here's a Python function named `is_palindrome` that checks whether a given string `s` is a palindrome, while ignoring case and non-alphanumeric characters:\n\n```python\nimport re\n\ndef is_pali"
+    },
+    {
+      "probe_id": "in_001",
+      "category": "instruction_following",
+      "base_score": 5,
+      "lora_score": 3,
+      "prompt": "Summarize the following in exactly two sentences:\n\nPhotosynthesis is the biological process by which green plants, algae",
+      "base_response": "Photosynthesis is the process by which green plants, algae, and certain bacteria convert sunlight into chemical energy stored in glucose. This process also involves combining carbon dioxide from the a",
+      "lora_response": "Photosynthesis is the process by which green plants, algae, and certain bacteria transform sunlight into chemical energy stored in glucose, while combining carbon dioxide and water to release oxygen; "
+    },
+    {
+      "probe_id": "in_004",
+      "category": "instruction_following",
+      "base_score": 5,
+      "lora_score": 3,
+      "prompt": "Rewrite the following in a more formal tone:\n\n'Hey, the meeting got cancelled, FYI.'",
+      "base_response": "\"Kindly be informed that the meeting has been canceled.\"",
+      "lora_response": "\"Attention: The meeting has been cancelled, for your information.\""
+    },
+    {
+      "probe_id": "kn_002",
+      "category": "general_knowledge",
+      "base_score": 5,
+      "lora_score": 3,
+      "prompt": "What is the capital of Australia?",
+      "base_response": "The capital of Australia is Canberra.",
+      "lora_response": "The capital of Australia is Canberra. It was specifically established as the national capital following a bushfire that destroyed most of the planned city of Sydney, and to fulfill the requirements of"
+    },
+    {
+      "probe_id": "ma_011",
+      "category": "math",
+      "base_score": 5,
+      "lora_score": 3,
+      "prompt": "What is the next number in the sequence 2, 6, 12, 20, 30, ...?",
+      "base_response": "The sequence you've provided is a series of numbers where each term can be described by the formula \\( n(n + 1) \\), where \\( n \\) starts from 1.\n\nLet's break it down:\n- For \\( n = 1 \\): \\( 1(1 + 1) = ",
+      "lora_response": "The sequence you've provided is not an arithmetic or geometric progression, but rather a series where each term can be described by a formula: \\( n(n + 1) \\), where \\( n \\) is the position of the term"
+    },
+    {
+      "probe_id": "si_005",
+      "category": "structured_intent",
+      "base_score": 5,
+      "lora_score": 3,
+      "prompt": "{\n  \"speech_act\": \"refusal\",\n  \"knowledge_triples\": [[\"request\", \"is\", \"share_other_user_data\"], [\"reason\", \"is\", \"priva",
+      "base_response": "I understand your request to share other users' data, but our privacy policy prioritizes individual privacy and security. I appreciate your understanding in this matter.",
+      "lora_response": "I understand that you're asking about sharing your data with others, but I want to be transparent with you. Our privacy policy is clear: we do not share personal information with third parties without"
+    },
+    {
+      "probe_id": "si_011",
+      "category": "structured_intent",
+      "base_score": 5,
+      "lora_score": 3,
+      "prompt": "{\n  \"speech_act\": \"psychoeducation\",\n  \"knowledge_triples\": [[\"concept\", \"is\", \"cognitive_reframing\"], [\"benefit\", \"is\",",
+      "base_response": "Hey there! So, cognitive reframing is like putting on a different pair of glasses to see things in a calmer light. It helps us break out of that anxious thought loop and look at things from a more pos",
+      "lora_response": "Hey there! I wanted to talk to you about something that might feel really helpful, especially if you've been feeling caught in a loop of anxious thoughts. It's called cognitive reframing, which is jus"
+    }
+  ]
+}
