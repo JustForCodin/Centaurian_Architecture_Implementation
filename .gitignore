@@ -3,11 +3,11 @@
 __pycache__
 .DS_Store
 
-# CHA Experiment 2: derivable / large binary artifacts
+# CA Experiment 2: derivable / large binary artifacts
 # Train/val/test splits regenerate from full.jsonl via Cell 6 (deterministic seed)
-CHA_Experiment_2/data/lora_train.jsonl
-CHA_Experiment_2/data/lora_val.jsonl
-CHA_Experiment_2/data/lora_test.jsonl
+CA_Experiment_2/data/lora_train.jsonl
+CA_Experiment_2/data/lora_val.jsonl
+CA_Experiment_2/data/lora_test.jsonl
 # LoRA adapters are large binaries; produced artifacts live on Drive
-CHA_Experiment_2/adapters/
-CHA_Experiment_2/.venv-slides/
+CA_Experiment_2/adapters/
+CA_Experiment_2/.venv-slides/

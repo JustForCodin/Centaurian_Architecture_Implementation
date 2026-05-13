@@ -1,10 +1,10 @@
-# Centaurian Hybrid Architecture — Implementation
+# Centaurian Architecture — Implementation
 
-Empirical validation of the **Centaurian Hybrid Architecture (CHA)**, a multi-layered AI system that pairs a symbolic/quantum cognitive core with a lightweight neural periphery (small language models, neural TTS, procedural animation). The architecture encodes personality via a Quantum Personality Model (QPM) running on classical hardware and confines neural networks to bounded I/O transduction roles, preserving end-to-end traceability of every behavioral decision.
+Empirical validation of the **Centaurian Architecture (CA)**, a multi-layered AI system that pairs a symbolic/quantum cognitive core with a lightweight neural periphery (small language models, neural TTS, procedural animation). The architecture encodes personality via a Quantum Personality Model (QPM) running on classical hardware and confines neural networks to bounded I/O transduction roles, preserving end-to-end traceability of every behavioral decision.
 
 **Architecture specifications:**
-- [`Centaurian_Hybrid_Architecture_v3.md`](Centaurian_Hybrid_Architecture_v3.md) — current spec
-- [`Centaurian_Hybrid_Architecture_v2.md`](Centaurian_Hybrid_Architecture_v2.md) — previous version (kept for reference)
+- [`Centaurian_Architecture_v3.md`](Centaurian_Architecture_v3.md) — current spec
+- [`Centaurian_Architecture_v2.md`](Centaurian_Architecture_v2.md) — previous version (kept for reference)
 - [`Interpretable_Architectures_Revised_v1.md`](Interpretable_Architectures_Revised_v1.md) — interpretable-architectures position paper
 
 The empirical work in this repository validates the **Self-Model Component (SMC)** sub-architecture — i.e., whether a 7B SLM can serve as the linguistic transducer **and** hold an Aria-grade Structured Cognitive Identity (SCI) reliably across long conversations.
@@ -40,7 +40,7 @@ The empirical work in this repository validates the **Self-Model Component (SMC)
 
 **Phase 2 takeaway:** all six strategies converge in [3.08, 3.20] — a 0.12-point band, far below the 3.5 threshold. No condition crosses E = 3.0. The closing question for Phase 3: is the residual gap architectural (need 14B) or capability-shaped (LoRA can fix)?
 
-Full Phase 1 + 2 report: [`CHA_Experiment_1/EXPERIMENT_REPORT.md`](CHA_Experiment_1/EXPERIMENT_REPORT.md)
+Full Phase 1 + 2 report: [`CA_Experiment_1/EXPERIMENT_REPORT.md`](CA_Experiment_1/EXPERIMENT_REPORT.md)
 
 ---
 
@@ -69,39 +69,39 @@ Full Phase 1 + 2 report: [`CHA_Experiment_1/EXPERIMENT_REPORT.md`](CHA_Experimen
 - **Replication check:** D = 3.224 vs Exp 1's 3.20, |Δ| = 0.024 (within ±0.10 tolerance) → judge stable
 - **Decision Rule Outcome A triggered:** SMC sub-architecture complete at 7B; the planned 14B model test is retired from the critical path
 
-Full Experiment 2 report: [`CHA_Experiment_2/EXPERIMENT_REPORT.md`](CHA_Experiment_2/EXPERIMENT_REPORT.md)
+Full Experiment 2 report: [`CA_Experiment_2/EXPERIMENT_REPORT.md`](CA_Experiment_2/EXPERIMENT_REPORT.md)
 
 ---
 
 ## Repository layout
 
 ```
-Centaurian_Hybrid_Architecture_v3.md     # Current architecture spec
-Centaurian_Hybrid_Architecture_v2.md     # Previous architecture spec
+Centaurian_Architecture_v3.md     # Current architecture spec
+Centaurian_Architecture_v2.md     # Previous architecture spec
 Interpretable_Architectures_Revised_v1.md  # Position paper
 
-CHA_Experiment_1/
+CA_Experiment_1/
 ├── EXPERIMENT_REPORT.md                 # Full Phase 1 + 2 report
 ├── experiment_runner.py                 # Main experiment pipeline
 ├── generate_scripts.py                  # Template-based script generator
 ├── analyse_results.py                   # Analysis and visualization
 ├── interrater_check.py                  # Inter-rater reliability checker
-├── CHA_Experiment1_Colab.ipynb          # Google Colab notebook
+├── CA_Experiment1_Colab.ipynb          # Google Colab notebook
 ├── logs_qwen2.5_7b{,_refresh13,_refresh13_28,
 │   _episodic_rag,_episodic_rag_hybrid,
 │   _refresh13_episodic_rag}/            # Per-condition score & context logs
 └── results_qwen2.5_7b*/                 # Charts, fits, summary reports
 
-CHA_Experiment_2/
+CA_Experiment_2/
 ├── EXPERIMENT_REPORT.md                 # Full Experiment 2 report
-├── CHA_Experiment2_Plan.md              # Pre-registered plan
-├── cha_assets.py                        # Shared persona, probes, rubrics, RAG helpers
+├── CA_Experiment2_Plan.md              # Pre-registered plan
+├── ca_assets.py                        # Shared persona, probes, rubrics, RAG helpers
 ├── generate_lora_dataset.py             # Sonnet 4.6 dataset generator with QC
 ├── train_lora_sci.py                    # QLoRA training (transformers + PEFT + TRL)
 ├── experiment_runner.py                 # 4-condition + H5 evaluator (HF + PEFT)
 ├── analyse_results.py                   # Multi-condition analysis + plots
 ├── make_slides.py                       # Generates the conference deck (python-pptx)
-├── CHA_Experiment2_Colab.ipynb          # Google Colab notebook
+├── CA_Experiment2_Colab.ipynb          # Google Colab notebook
 ├── h4_probes.json                       # H4 base-capability probe set (100 prompts × 5 categories)
 ├── run_h4.py                            # H4 runner — base vs LoRA-10K on out-of-domain probes
 ├── analyse_h4.py                        # H4 analysis — paired t-test + per-category degradation
@@ -122,7 +122,7 @@ CHA_Experiment_2/
 ### Experiment 1
 
 ```bash
-cd CHA_Experiment_1
+cd CA_Experiment_1
 pip install ollama anthropic python-dotenv numpy scipy matplotlib
 echo "CHA_EXPERIMENT_SONNET_KEY=sk-..." > .env
 
@@ -137,12 +137,12 @@ python experiment_runner.py --model qwen2.5:7b --refresh-turn 13 --episodic-rag
 python experiment_runner.py --model qwen2.5:7b --refresh-turns 13,28
 ```
 
-Or use [`CHA_Experiment_1/CHA_Experiment1_Colab.ipynb`](CHA_Experiment_1/CHA_Experiment1_Colab.ipynb) for GPU-accelerated runs.
+Or use [`CA_Experiment_1/CA_Experiment1_Colab.ipynb`](CA_Experiment_1/CA_Experiment1_Colab.ipynb) for GPU-accelerated runs.
 
 ### Experiment 2
 
 ```bash
-cd CHA_Experiment_2
+cd CA_Experiment_2
 pip install transformers peft trl bitsandbytes accelerate datasets \
             anthropic python-dotenv sentence-transformers numpy scipy matplotlib
 
@@ -166,14 +166,14 @@ python experiment_runner.py --condition C --adapter adapters/lora_5k --logs-suff
 python analyse_results.py
 ```
 
-Or use [`CHA_Experiment_2/CHA_Experiment2_Colab.ipynb`](CHA_Experiment_2/CHA_Experiment2_Colab.ipynb) for the full pipeline end-to-end.
+Or use [`CA_Experiment_2/CA_Experiment2_Colab.ipynb`](CA_Experiment_2/CA_Experiment2_Colab.ipynb) for the full pipeline end-to-end.
 
 ### H4 base-capability test (Experiment 2 follow-up)
 
 Out-of-domain probe battery (100 prompts × 5 categories: general knowledge, code reasoning, math, instruction following, structured intent JSON) verifying that the LoRA-10K adapter does not cause catastrophic forgetting. Pass criterion: < 5% mean degradation on Sonnet 4.5 1-5 scoring.
 
 ```bash
-cd CHA_Experiment_2
+cd CA_Experiment_2
 
 # Generate responses from both conditions (A100 80GB, ~30 min each)
 python run_h4.py --condition base
