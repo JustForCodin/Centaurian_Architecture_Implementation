@@ -623,7 +623,7 @@ The SLM's system prompt enforces the transducer role:
 
 ### 5.6 Function Calling for Agentic Behavior
 
-Beyond linguistic generation, the SLM enables **structured function calling** for agentic tasks [37][38]. Models like Phi-4-mini and Llama 3.2 3B support tool-use schemas, allowing the agent to query the knowledge graph, trigger calendar reminders, execute code snippets, or log session notes. The **Tool RAG** technique [39] selects only relevant tools per query context, averaging 4 tools instead of the full toolkit per interaction — critical for small context windows.
+Beyond linguistic generation, the SLM enables **structured function calling** for agentic tasks [37][38]. Models like Qwen2.5-7B-Instruct and Llama 3.1 8B support tool-use schemas, allowing the agent to query the knowledge graph, trigger calendar reminders, execute code snippets, or log session notes. The **Tool RAG** technique [39] selects only relevant tools per query context, averaging 4 tools instead of the full toolkit per interaction — critical for small context windows.
 
 ### 5.7 Formal QPM-Measurement-to-JSON Translation Protocol
 
