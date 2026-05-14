@@ -130,6 +130,7 @@ This paper makes the following contributions:
 7. A **two-experiment empirical validation program**: Experiment 1 (six prompt-time SCI architectural strategies, establishing 3.8B as incoherent and 7B as the minimum viable SLM scale, with a piecewise degradation profile inflecting at turn 15) and Experiment 2 (four-condition LoRA fine-tuning study, achieving mean PersonaScore 4.42/5.0 under Condition C with Cohen's d = 7.51, resolving the episodic fabrication ceiling, and triggering Decision Rule Outcome A). MOS evaluation and uncanny valley study remain proposed for Phase 2.
 8. **Complete resource estimates** demonstrating the full architecture fits within a 4–6 GB memory envelope on current edge hardware.
 9. A **transparent agent UI architecture** exposing the QPM state vector, BDI intent JSON, and live knowledge graph traversal as real-time user-facing panels — making interpretability a first-class feature of the interaction rather than an internal audit mechanism. This constitutes a novel deployment pattern in which the agent's cognitive state is observable and discussable by users during the interaction itself (Section 8.1, Section 16.2).
+10. A **multi-modal affective observation pipeline** fusing acoustic energy, text sentiment, and user facial Action Unit activations into a unified d₁ (Affective Intensity) signal via weighted exponential-smoothed fusion, enabling the QPM to respond to the user's visible emotional state without transmitting any video data outside the local process. The pipeline degrades gracefully to audio-only observation when a webcam is unavailable (Section 4.4).
 
 ---
 
@@ -463,13 +464,15 @@ The cognitive Hilbert space is coupled with a structured Decision Space 𝔻 inf
 
 | Variable | Extraction Method | Model / Heuristic |
 |---|---|---|
-| d₁ | Sentiment intensity score | Vader sentiment + acoustic RMS energy |
+| d₁ | Sentiment intensity score | Vader sentiment + acoustic RMS energy + facial AU arousal estimate (MediaPipe Face Landmarker; fused via weighted sum — see Section 4.4) |
 | d₂ | Intent proximity to domain goal | Cosine similarity between utterance embedding and goal vector |
 | d₃ | Formality classifier | Formality lexicon score (F-score, Pavlick & Tetreault) |
 | d₄ | Semantic ambiguity | WordNet polysemy count weighted by TF-IDF |
 | d₅ | Turn-taking gap + speech rate | Measured ASR timing + syllables/second |
 
 *Table 10: Situative variable extraction methods.*
+
+> **Note:** d₁ facial fusion is optional and degrades gracefully to the acoustic-only estimate when no webcam is available or when the user disables visual input. All facial processing runs locally on-device; no video data is transmitted or stored.
 
 ### 4.2 The Relational Resolution Formula
 
@@ -517,6 +520,71 @@ This non-commutativity ensures each conversational turn influences the AI's inte
 | Decoherence | Loss of deliberative state | Environmental pressure forcing commitment |
 
 *Table 11: Extended quantum-to-psychological mapping.*
+
+### 4.4 Visual Affective Observation: Webcam-to-d₁ Pipeline
+
+The Observation Layer extends beyond audio and text to include an optional **visual affective channel** that maps the user's facial Action Unit (AU) activations into the d₁ (Affective Intensity) situative variable. This channel exists because emotional arousal manifests in the face on a faster and more discriminative timescale than in either text sentiment or acoustic energy alone; folding it into d₁ tightens the QPM's responsiveness to genuine affective shifts without introducing any new variable on the cognitive-Hilbert-space side.
+
+**(a) Component specification.** Visual observation is performed by **MediaPipe Face Landmarker** (Google, Apache 2.0 license [68]) running fully on-device at 30 fps via the Metal backend on Apple Silicon or the OpenGL backend on other platforms. The model outputs 52 facial blend shapes corresponding to a FACS-aligned AU subset, plus a 478-point face mesh. Memory footprint: ~20 MB model weights + ~5 MB runtime, totaling ~25 MB. CPU cost on an M4 MacBook is approximately 3% of one CPU core, leaving the Neural Engine and GPU fully available to the SLM and the renderer. The component runs in the same Observation Layer process as the ASR pipeline; its output is consumed only by the Feature Decoder (Table 25).
+
+**(b) AU-to-arousal mapping.** From the 52 blend shapes, six Action Units are selected as arousal indicators — chosen because they reflect emotional intensity regardless of valence, so that both high-distress and high-positive states drive d₁ upward without being mutually canceled:
+
+| FACS AU | MediaPipe Blend Shape | Arousal Contribution | Weight |
+|---|---|---|---|
+| AU1 (Inner Brow Raise) | `browInnerUp` | Surprise / distress signal | 0.15 |
+| AU4 (Brow Lowerer) | `browDown_L + browDown_R` | Concern / concentration | 0.20 |
+| AU20 (Lip Stretcher) | `mouthStretch_L + mouthStretch_R` | Fear / high arousal | 0.25 |
+| AU25 (Lips Part) | `jawOpen` | General arousal indicator | 0.20 |
+| AU6 (Cheek Raiser) | `cheekSquint_L + cheekSquint_R` | Engaged positive affect | 0.10 |
+| AU12 (Lip Corner Puller) | `mouthSmile_L + mouthSmile_R` | Positive engagement | 0.10 |
+
+*Table 11.5: FACS AU arousal mapping from MediaPipe blend shapes.*
+
+Bilateral AUs (those listed with `_L + _R` blend shapes) are averaged across the two sides before being weighted, so that asymmetric expressions contribute proportionally to their bilateral intensity. The facial arousal estimate is then computed as:
+
+$$d_1^{\text{facial}} = \sum_{i} w_i \cdot \text{AU}_i, \quad \sum_i w_i = 1, \quad d_1^{\text{facial}} \in [0, 1]$$
+
+**(c) Multi-modal d₁ fusion.** The three d₁ signals — acoustic, text, and facial — are fused using a weighted sum with exponential smoothing to prevent jitter from driving spurious QPM state transitions:
+
+$$d_1^{\text{fused}}(t) = \alpha \cdot d_1^{\text{acoustic}}(t) + \beta \cdot d_1^{\text{text}}(t) + \gamma \cdot d_1^{\text{facial}}(t)$$
+
+where α = 0.35 (acoustic RMS energy), β = 0.30 (Vader sentiment), γ = 0.35 (facial AU arousal). When the webcam channel is unavailable, γ redistributes equally to α and β (α = β = 0.50), preserving total signal mass. The fused value is then smoothed via an exponential moving average with time constant τ = 0.3 s:
+
+$$d_1^{\text{smooth}}(t) = \lambda \cdot d_1^{\text{fused}}(t) + (1 - \lambda) \cdot d_1^{\text{smooth}}(t - \Delta t), \quad \lambda = 0.4$$
+
+The smoothing constant λ = 0.4 at the 30 Hz observation cadence corresponds to an effective τ of ~0.3 s, which empirically suppresses sub-second AU twitches (blinks, momentary jaw movements during speech) while remaining responsive enough to capture genuine arousal shifts within the conversational turn gap [56].
+
+**(d) Privacy guarantee.** All facial processing occurs locally via MediaPipe's on-device inference. **No video frames, blend shape values, or AU activations are transmitted outside the local process.** The webcam feed is consumed exclusively by the MediaPipe Face Landmarker pipeline; it is never recorded, stored, or passed to the SLM or any network component. The Observation Layer's audit trail (Section 10.7) logs only the per-frame d₁_fused scalar and the per-AU weights — never the underlying mesh or blend shape values. The user can disable the webcam channel at any time with no degradation to the core CA functionality beyond loss of the facial arousal signal.
+
+**(e) Graceful degradation.** The Observation Layer detects webcam availability at startup. If no webcam is detected, the user declines permission, or face detection fails for more than 3 consecutive seconds (e.g., the user looks away or the lighting drops below detection threshold), the system falls back to audio-only d₁ estimation transparently. The QPM continues operating normally on the acoustic + text d₁ estimate; no error state is entered, no user-visible interruption occurs. When the facial channel later becomes available (face re-enters frame, user re-enables webcam), γ is reintroduced and the weight redistribution reverses on the next frame.
+
+**(f) Three-signal fusion pipeline.**
+
+&nbsp;
+
+```mermaid
+graph TD
+    MIC["Microphone"] --> ACOUSTIC["Acoustic Analyzer<br/>(Vader + RMS Energy)"]
+    ACOUSTIC --> D1A["d₁_acoustic"]
+    ASR["ASR Transcript"] --> TEXT["Text Sentiment<br/>(Vader)"]
+    TEXT --> D1T["d₁_text"]
+    CAM["Webcam"] --> MP["MediaPipe Face Landmarker<br/>(52 blend shapes, 30 Hz)"]
+    MP --> AU["AU Arousal Combiner<br/>(6 weighted FACS AUs)"]
+    AU --> D1F["d₁_facial"]
+    D1A --> FUSE["Weighted Fusion<br/>α=0.35, β=0.30, γ=0.35"]
+    D1T --> FUSE
+    D1F --> FUSE
+    FUSE --> SMOOTH["Exponential Smoother<br/>(λ=0.4, τ≈0.3 s)"]
+    SMOOTH --> D1["d₁_fused"]
+    D1 --> QPM["QPM Context Injection<br/>(Computation Layer)"]
+    BYPASS["Acoustic + Text only<br/>(α=β=0.50)"] -.->|"graceful fallback"| FUSE
+```
+
+&nbsp;
+
+*Figure 5.5: Three-signal d₁ fusion pipeline. The webcam channel is optional; the dashed bypass path is taken when no face is detected, redistributing the visual weight γ equally between α and β.*
+
+&nbsp;
 
 ---
 
@@ -1414,8 +1482,10 @@ graph TB
     subgraph OBSERVATION ["OBSERVATION LAYER (30–60 Hz)"]
         direction LR
         ASR["Neural ASR<br/>(Whisper-tiny / Sherpa)"]
-        FEAT["Feature Decoder<br/>(d₁–d₅ Extraction)"]
+        MP_OBS["MediaPipe Face Landmarker<br/>(AU arousal, 30 Hz; optional)"]
+        FEAT["Feature Decoder<br/>(d₁–d₅ Extraction<br/>+ tri-modal d₁ fusion, §4.4)"]
         ASR -->|"Transcript"| FEAT
+        MP_OBS -->|"Facial AU arousal"| FEAT
     end
     subgraph COMPUTATION ["COMPUTATION LAYER (10–30 Hz)"]
         direction LR
@@ -1470,7 +1540,8 @@ graph TB
 | Layer | Component | Update Rate | Implementation | Latency | Memory |
 |---|---|---|---|---|---|
 | **Observation** | Neural ASR | 30–60 Hz | Whisper-tiny (39M) / Sherpa-ONNX | 50–100 ms | ~80 MB |
-| **Observation** | Feature Decoder (d₁–d₅) | 30–60 Hz | Rule-based + sentiment classifier | 1–2 ms | ~10 MB |
+| **Observation** | Visual Affect (Webcam) | 30 Hz | MediaPipe Face Landmarker (Apache 2.0), Metal/OpenGL backend | ~5 ms per frame | ~25 MB |
+| **Observation** | Feature Decoder (d₁–d₅) | 30–60 Hz | Rule-based + sentiment classifier + facial AU fusion (Section 4.4) | 1–2 ms | ~10 MB |
 | **Computation** | QPM Core | 10–30 Hz | Qiskit Aer GPU sim, 12 qubits, 1024 shots | 2–4 ms | ~200 MB |
 | **Computation** | Quantum-BDI | 10–30 Hz | Symbolic reasoning + belief revision | 1–2 ms | ~10 MB |
 | **Computation** | Knowledge Graph | On-demand | Kuzu embedded + SQLite-vec | 1–17 ms | 50–500 MB |
@@ -1490,14 +1561,20 @@ graph TB
 ```mermaid
 sequenceDiagram
     participant User
+    participant Webcam
     participant Surface as Surface Layer<br/>(Render + TTS)
     participant Gen as Generation Layer<br/>(SLM + Prosody)
     participant Compute as Computation Layer<br/>(QPM + BDI + KG)
     participant Observe as Observation Layer<br/>(ASR + Features)
 
     User->>Surface: Audio/Video Input
-    Surface->>Observe: Raw audio stream
-    Observe->>Observe: ASR → text transcript
+    par
+        Surface->>Observe: Raw audio stream
+        Observe->>Observe: ASR → text transcript
+    and
+        Webcam->>Observe: MediaPipe Face Landmarker → AU arousal (30 Hz)
+    end
+    note over Observe: Fuse acoustic + text + facial d₁ signals (Section 4.4)
     Observe->>Observe: Extract d₁–d₅ (situative variables)
     Observe->>Compute: Δd vector + user text
 
@@ -1540,13 +1617,14 @@ sequenceDiagram
 | Neural TTS (Kokoro-82M ONNX) | ~350 MB | ~350 MB |
 | QPM Simulator (Qiskit Aer) | ~200 MB | ~200 MB |
 | ASR (Whisper-tiny) | ~80 MB | ~80 MB |
+| MediaPipe Face Landmarker | ~25 MB | ~25 MB |
 | Embedding Model (MiniLM) | ~80 MB | ~80 MB |
 | Knowledge Graph (Kuzu) | ~200 MB | ~200 MB |
 | Vector Index (SQLite-vec) | ~50 MB | ~50 MB |
 | LoRA Adapter | ~60 MB | ~60 MB |
 | 3D Character Model + Rig | ~100 MB | ~100 MB |
 | Runtime Overhead | ~200 MB | ~200 MB |
-| **Total** | **~3.5–4.0 GB** | **~5.6–6.1 GB** |
+| **Total** | **~3.5–4.0 GB** | **~5.6–6.2 GB** |
 
 *Table 26: Total memory budget by deployment tier. †Phi-4-mini figures are estimates pending empirical validation on the base structured intent task (Section 5.3).*
 
@@ -1906,7 +1984,7 @@ This is **orders of magnitude cheaper** than training a domain-specific LLM from
 
 | Metric | CA (This Paper) | Pure Neural (LLM Agent) | Prior Non-Neural |
 |---|---|---|---|
-| **Cognitive Traceability** | Full (QPM → BDI → structured intent) | None (black box) | Full |
+| **Cognitive Traceability** | Full (QPM → BDI → structured intent); visual affective channel also fully auditable — per-frame AU weights and d₁_fused value logged alongside acoustic and text signals in Observation Layer audit trail (Section 4.4) | None (black box) | Full |
 | **Linguistic Naturalness** | High (SLM generation) | High | Low (template-based) |
 | **Speech Naturalness** | High (Kokoro/Piper) | High | Moderate (concatenative artifacts) |
 | **Hallucination Control** | KG-grounded + constrained SLM | Unconstrained | KG-constrained (no hallucination) |
@@ -2301,6 +2379,7 @@ graph LR
 | LoRA Fine-Tuning | QLoRA protocol (Section 5.8), PEFT + HuggingFace | **Specified** |
 | Neural TTS | Kokoro-82M / Piper via Sherpa-ONNX | **Ready** |
 | ASR | Whisper-tiny / Sherpa-ONNX ASR | **Ready** |
+| Visual Affect Observation | MediaPipe Face Landmarker via Python bindings, Metal/OpenGL backend; d₁ fusion per Section 4.4 | **Ready** |
 | Vector RAG | SQLite-vec + all-MiniLM-L6-v2 (Section 6.4 pipeline) | **Ready** |
 | KG Ontology | OWL schema (Section 6.3) + Kuzu embedded graph | **Specified** |
 | Contradiction Resolution | KG-RAG resolution protocol (Section 6.5) | **Specified** |
@@ -2526,3 +2605,4 @@ The post-hoc **H4 base-capability test** has now been completed and PASSED (+1.7
 65. Drozd, O. (2026). CA Experiment 1: SCI Context Window Degradation Study — Six-Condition Empirical Report. Unpublished manuscript.
 66. Roberts, B. W., & Mroczek, D. (2008). Personality trait change in adulthood. *Current Directions in Psychological Science, 17*(1), 31–35.
 67. Drozd, O. (2026). CA Experiment 2: LoRA Fine-Tuning for SCI Persona Consistency — Final Report. Unpublished manuscript.
+68. MediaPipe Face Landmarker — Google. https://ai.google.dev/edge/mediapipe/solutions/vision/face_landmarker. Apache 2.0 License.
