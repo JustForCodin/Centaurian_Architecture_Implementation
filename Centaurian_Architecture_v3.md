@@ -476,9 +476,21 @@ The cognitive Hilbert space is coupled with a structured Decision Space 𝔻 inf
 
 ### 4.2 The Relational Resolution Formula
 
-$$R = \min(d_{i-1} - d_i)$$
+At each conversational turn t, the system computes the maximum absolute change across all five situative dimensions:
 
-R represents the minimum threshold of change required to trigger a cognitive state transition [19]. If |d_current − d_previous| < R, the system maintains **behavioral continuity**, preventing jittery responses common in data-driven models by mimicking the emotional inertia of biological humans [19].
+$$\Delta d(t) = \max_{i \in \{1,2,3,4,5\}} \left( |d_i(t) - d_i(t-1)| \right)$$
+
+where t is the conversational turn index (advancing once per user utterance), and i indexes the five situative variables d₁–d₅. Δd(t) is the maximum absolute change across all five situative dimensions at turn t.
+
+**R** is a calibrated scalar threshold constant (default value **R = 0.15**) representing the minimum change magnitude required to trigger a cognitive state transition [19]. R is a per-deployment parameter reflecting the desired tradeoff between behavioral responsiveness and continuity — a lower R produces a more reactive agent; a higher R produces a more inertially stable one. For personality-consistent calibration, R may be set as a function of the QPM initialization profile: agents initialized with high Neuroticism (N_vol, N_wth) may use a lower R (higher reactivity), while agents initialized with high Conscientiousness (C_ind, C_ord) may use a higher R (greater stability).
+
+The gate condition is then:
+
+$$\text{if } \Delta d(t) < R \Rightarrow \text{maintain behavioral continuity (retain current } \rho \text{, dephasing only)}$$
+
+$$\text{if } \Delta d(t) \geq R \Rightarrow \text{trigger state collapse (run QPM circuit, project } |\psi\rangle \text{)}$$
+
+At t = 1 (the first conversational turn) no prior state exists, so Δd is undefined and a state transition is triggered by default — the QPM circuit runs fresh from the personality initialization angles θ_k. For all subsequent turns, Δd(t) is computed from the full five-dimensional situative vector and compared against R before any QPM computation is initiated. This prevents unnecessary circuit executions on turns where the situative context has not changed meaningfully, reducing computational load and preventing the behavioral jitter characteristic of purely reactive data-driven systems [19]. The use of `max` rather than `min` or `mean` is deliberate: the agent should respond to a significant shift in any single situative dimension — for example, a sudden spike in d₁ (Affective Intensity) during an emotionally charged user utterance — regardless of whether the other four dimensions remain stable.
 
 &nbsp;
 
@@ -488,8 +500,8 @@ graph TD
     subgraph "Relational Resolution Gate Logic"
         INPUT["Incoming Situative<br/>State d_i"] --> DELTA["Compute Δ =<br/>|d_{i-1} - d_i|"]
         DELTA --> CHECK{"Δ > R ?"}
-        CHECK -->|"No"| HOLD["Maintain Current<br/>Behavioral State<br/>(Continuity)"]
-        CHECK -->|"Yes"| COLLAPSE["Trigger State<br/>Collapse<br/>(Project |ψ⟩)"]
+        CHECK -->|"Δd(t) < R"| HOLD["Maintain Current<br/>Behavioral State<br/>(Continuity)"]
+        CHECK -->|"Δd(t) ≥ R"| COLLAPSE["Trigger State<br/>Collapse<br/>(Project |ψ⟩)"]
         COLLAPSE --> UPDATE["Update Personality<br/>State Vector"]
         HOLD --> NEXT["Continue to<br/>Next Frame"]
         UPDATE --> NEXT
@@ -2518,7 +2530,7 @@ The Centaurian Architecture demonstrates that interpretable, traceable AI and ne
 
 The architecture integrates **four core subsystems**:
 
-1. **The Cognitive Core** employs the Five-Factor Model mapped to an 11-qubit register (12 with ancilla) in a 2,048-dimensional Hilbert space, with personality dynamics governed by operationalized Lindblad noise channels and entanglement calibrated against meta-analytic data (van der Linden et al., 2010; N = 144,117) [14]. This is an instance of Quantum-Like AI running on classical GPU hardware — no quantum computer is required. The Relational Resolution threshold R = min(d_{i-1} − d_i) prevents behavioral jitter. The Quantum-BDI engine maps beliefs, desires, and intentions to quantum operations. Every cognitive decision is fully traceable.
+1. **The Cognitive Core** employs the Five-Factor Model mapped to an 11-qubit register (12 with ancilla) in a 2,048-dimensional Hilbert space, with personality dynamics governed by operationalized Lindblad noise channels and entanglement calibrated against meta-analytic data (van der Linden et al., 2010; N = 144,117) [14]. This is an instance of Quantum-Like AI running on classical GPU hardware — no quantum computer is required. The Relational Resolution threshold (Δd(t) ≥ R gating, with default R = 0.15; Section 4.2) prevents behavioral jitter. The Quantum-BDI engine maps beliefs, desires, and intentions to quantum operations. Every cognitive decision is fully traceable.
 
 2. **The Neural Periphery** confines neural components to bounded I/O transduction: Qwen2.5-7B-Instruct (Q4_K_M quantized to ~4.3 GB), optionally augmented with the LoRA-10K SCI grounding adapter (~60 MB) for SMC-enabled deployments, converts structured cognitive outputs to natural language, and a lightweight neural TTS model (Kokoro-82M at 350 MB or Piper at 63 MB) synthesizes speech. Neither neural component performs reasoning or knowledge retrieval — the symbolic core handles all cognitive processing. The formal QPM-measurement-to-JSON translation protocol (Section 5.7) specifies exactly how the quantum measurement distribution maps to the structured intent that the SLM consumes, closing the most critical interface gap in prior formulations. Empirical validation across Experiments 1 and 2 confirmed that 3.8B models are below the minimum viable threshold for JSON-based SCI maintenance and that 7B + LoRA-10K + Combined SCI achieves mean PersonaScore 4.42/5.0 (Cohen's d = 7.51 versus the no-LoRA control).
 
