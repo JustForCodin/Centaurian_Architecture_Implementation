@@ -11,3 +11,9 @@ CA_Experiment_2/data/lora_test.jsonl
 # LoRA adapters are large binaries; produced artifacts live on Drive
 CA_Experiment_2/adapters/
 CA_Experiment_2/.venv-slides/
+
+# CA Experiment 3: generated at runtime on Colab, live on Drive
+CA_Experiment_3/logs/
+CA_Experiment_3/results/
+CA_Experiment_3/__pycache__/
+.venv/
