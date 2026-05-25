@@ -3,16 +3,16 @@
 Experiment runner for CA Experiment 3: QPM vs. CMG-CDK ablation.
 
 Three batteries (plan §5):
-  A — Order effects (H1): 30 sequence pairs × 2 orderings × 2 models → JSD
-  B — Ambivalence (H2):   20 conflict scenarios × 2 models → Shannon entropy
-  C — PersonaScore (H3):  30 scripts × 2 models × 8 probe turns → Sonnet judge
-  V — Variance calibration (H4): 10 QPM repeats → SNR check
+  A  — Order effects (H1): 30 sequence pairs × 2 orderings × 2 models → JSD
+  B  — Ambivalence (H2):   20 conflict scenarios × 2 models → Shannon entropy
+  C  — PersonaScore (H3):  30 scripts × 2 models × 8 probe turns → Sonnet judge
+  H4 — Variance calibration (H4): 10 QPM repeats → SNR check
 
 Usage:
   python3 experiment_runner.py --battery A
   python3 experiment_runner.py --battery B
   python3 experiment_runner.py --battery C --profile psychotherapy
-  python3 experiment_runner.py --battery V
+  python3 experiment_runner.py --battery H4
   python3 experiment_runner.py --battery A --profile software_eng
   python3 experiment_runner.py --battery C --scripts 1-10
 
@@ -677,8 +677,8 @@ def main():
     p = argparse.ArgumentParser(description="CA Experiment 3 Runner")
     p.add_argument(
         "--battery", required=True,
-        choices=["A", "B", "C", "V"],
-        help="A=order effects  B=ambivalence  C=PersonaScore  V=variance calibration",
+        choices=["A", "B", "C", "H4"],
+        help="A=order effects  B=ambivalence  C=PersonaScore  H4=variance calibration",
     )
     p.add_argument(
         "--profile", default="psychotherapy",
@@ -713,7 +713,7 @@ def main():
             n_shots=args.shots,
             adapter_name=args.adapter,
         )
-    elif args.battery == "V":
+    elif args.battery == "H4":
         run_variance_calibration(args.profile, logs_dir, n_shots=args.shots)
 
 

@@ -122,16 +122,19 @@ def _phi(rho: float) -> float:
 
 
 def _build_noise_model(d5: float = 0.5) -> NoiseModel:
-    """Lindblad-discretized noise model (amplitude damping + phase damping)."""
+    """Lindblad-discretized noise model (amplitude damping + phase damping).
+
+    Both channels are composed into a single QuantumError per qubit before
+    being added to the NoiseModel, avoiding Qiskit Aer's duplicate-channel
+    warning that fires when two errors are added to the same gate+qubit.
+    """
     nm = NoiseModel()
     for idx, label in enumerate(QUBIT_LABELS):
         gamma_k, lambda_k = _DECOHERENCE[label]
-        nm.add_quantum_error(
-            amplitude_damping_error(gamma_k * _DELTA_T), ["ry", "id"], [idx]
+        combined = amplitude_damping_error(gamma_k * _DELTA_T).compose(
+            phase_damping_error(lambda_k * _DELTA_T)
         )
-        nm.add_quantum_error(
-            phase_damping_error(lambda_k * _DELTA_T), ["ry", "id"], [idx]
-        )
+        nm.add_quantum_error(combined, ["ry", "id"], [idx])
     # Temporal-pressure depolarising noise on ancilla
     pressure = float(np.clip(d5, 0.0, 1.0))
     nm.add_quantum_error(
@@ -281,34 +284,20 @@ class QPM:
         self,
         d_sequence: list | list[list[float]],
         n_shots: int | None = None,
-        n_bins: int = 20,
     ) -> float:
-        """Mean Shannon entropy across trait dimensions (Battery B metric).
+        """Mean Bernoulli entropy across trait qubits (Battery B metric).
 
-        Samples the bitstring distribution, bins each qubit's marginal into
-        n_bins over [0, 1], and computes the average entropy.
+        H = -mean_k[ p̂_k·ln(p̂_k) + (1−p̂_k)·ln(1−p̂_k) ]  ∈ [0, ln 2]
+
+        Directly comparable with CMG-CDK which uses the same formula over its
+        marginals.  Avoids the histogram degeneracy that arises from QPM's
+        binary shot outcomes.
         """
-        shots = n_shots or self.n_shots
-        result = self.run(d_sequence, n_shots=shots)
-        counts = result["counts"]
-        total = result["n_shots"]
-
-        # Reconstruct per-qubit value arrays from bitstring counts
-        per_qubit: list[list[float]] = [[] for _ in range(N_TRAIT_QUBITS)]
-        for bitstring, count in counts.items():
-            bs = bitstring.replace(" ", "")
-            n_bits = len(bs)
-            for idx in range(N_TRAIT_QUBITS):
-                pos = n_bits - 1 - idx
-                val = 1.0 if (0 <= pos < n_bits and bs[pos] == "1") else 0.0
-                per_qubit[idx].extend([val] * count)
-
+        result = self.run(d_sequence, n_shots=n_shots)
         entropies = []
-        for idx in range(N_TRAIT_QUBITS):
-            arr = np.array(per_qubit[idx])
-            hist, _ = np.histogram(arr, bins=n_bins, range=(0.0, 1.0), density=True)
-            h = hist[hist > 0]
-            entropies.append(-float(np.sum(h * np.log(h + 1e-10))) / n_bins)
+        for lbl in QUBIT_LABELS:
+            p = float(np.clip(result["marginals"][lbl], 1e-10, 1.0 - 1e-10))
+            entropies.append(-p * math.log(p) - (1.0 - p) * math.log(1.0 - p))
         return float(np.mean(entropies))
 
 

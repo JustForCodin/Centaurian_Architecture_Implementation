@@ -17,6 +17,7 @@ initialization, or context sensitivity.
 
 from __future__ import annotations
 
+import math
 import numpy as np
 
 from qpm import QUBIT_LABELS, N_TRAIT_QUBITS, DELTA, _CONTEXT_COUPLINGS, _purity_approx
@@ -209,25 +210,17 @@ class CMG_CDK:
         self,
         d_sequence: list | list[list[float]],
         n_samples: int | None = None,
-        n_bins: int = 20,
     ) -> float:
-        """Mean Shannon entropy of the output distribution (Battery B metric).
+        """Mean Bernoulli entropy across trait dimensions (Battery B metric).
 
-        Matched exactly to QPM.entropy() for direct comparison.
+        H = -mean_k[ p̂_k·ln(p̂_k) + (1−p̂_k)·ln(1−p̂_k) ]  ∈ [0, ln 2]
+
+        Uses the same formula as QPM.entropy() so the two values are directly
+        comparable — both derived from the run() marginals.
         """
-        n = n_samples or self.n_samples
-        if d_sequence and not isinstance(d_sequence[0], (list, tuple, np.ndarray)):
-            d_sequence = [list(d_sequence)]
-
-        mu = self._apply_sequence(d_sequence)
-        samples = self._rng.multivariate_normal(mu, SIGMA * 0.01, size=n)
-        samples = np.clip(samples, 0.0, 1.0)
-
+        result = self.run(d_sequence, n_samples=n_samples)
         entropies = []
-        for k in range(N_TRAIT_QUBITS):
-            hist, _ = np.histogram(
-                samples[:, k], bins=n_bins, range=(0.0, 1.0), density=True
-            )
-            h = hist[hist > 0]
-            entropies.append(-float(np.sum(h * np.log(h + 1e-10))) / n_bins)
+        for lbl in QUBIT_LABELS:
+            p = float(np.clip(result["marginals"][lbl], 1e-10, 1.0 - 1e-10))
+            entropies.append(-p * math.log(p) - (1.0 - p) * math.log(1.0 - p))
         return float(np.mean(entropies))

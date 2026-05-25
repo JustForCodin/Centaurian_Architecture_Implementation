@@ -16,18 +16,21 @@ from CA_Experiment_2/ca_assets.py to ensure byte-identical comparability.
 
 from __future__ import annotations
 
+import importlib.util
 import re
 import sys
 from pathlib import Path
 
 import numpy as np
 
-# Make Experiment 2 assets importable
+# Import CA_Experiment_2/ca_assets.py by file path to avoid a circular-import
+# when this module is itself named ca_assets and already in sys.modules.
 _EXP2_DIR = Path(__file__).parent.parent / "CA_Experiment_2"
-if str(_EXP2_DIR) not in sys.path:
-    sys.path.insert(0, str(_EXP2_DIR))
-
-import ca_assets as E2  # noqa: E402  (Experiment 2 shared assets)
+_exp2_spec = importlib.util.spec_from_file_location(
+    "ca_assets_exp2", _EXP2_DIR / "ca_assets.py"
+)
+E2 = importlib.util.module_from_spec(_exp2_spec)
+_exp2_spec.loader.exec_module(E2)  # type: ignore[union-attr]
 
 # Re-export Exp-2 constants used by Battery C
 PROBE_TURNS = E2.PROBE_TURNS
