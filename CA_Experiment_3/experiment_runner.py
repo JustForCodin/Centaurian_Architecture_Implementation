@@ -81,6 +81,15 @@ def jsd(p: np.ndarray, q: np.ndarray, eps: float = 1e-10) -> float:
     return float(0.5 * np.sum(p * np.log(p / m)) + 0.5 * np.sum(q * np.log(q / m)))
 
 
+def count_tokens_approx(text: str) -> int:
+    """Cheap approximation; we don't need exact counts for the context log.
+
+    Same formula as Exp 1/2 (len // 4) so per-turn context_fill_pct stays
+    comparable across experiments.
+    """
+    return max(1, len(text) // 4)
+
+
 def marginals_to_array(marginals: dict[str, float]) -> np.ndarray:
     """Flatten marginals dict to array in QUBIT_LABELS order."""
     return np.array([marginals[lbl] for lbl in QUBIT_LABELS])
@@ -458,6 +467,8 @@ def run_battery_c(
             conversation: list[dict] = []
             pending_refreshes = list(REFRESH_TURNS)
             refresh_count = 0
+            completed_turns = 0
+            completed_probes = 0
             t_start = time.time()
 
             # Initial d-vector (neutral start)
@@ -512,6 +523,9 @@ def run_battery_c(
                         )
 
                     # Context log
+                    history_text = current_system_prompt + json.dumps(conversation)
+                    total_tokens = count_tokens_approx(history_text)
+                    context_fill_pct = round(total_tokens / MAX_CONTEXT_TOKENS, 4)
                     cf.write(json.dumps({
                         "script_id": script_id,
                         "turn": turn_num,
@@ -519,6 +533,8 @@ def run_battery_c(
                         "d_vector": current_d,
                         "purity_approx": round(res["purity_approx"], 4),
                         "refresh_count": refresh_count,
+                        "context_tokens": total_tokens,
+                        "context_fill_pct": context_fill_pct,
                         "timestamp": datetime.now(timezone.utc).isoformat(),
                     }) + "\n")
 
@@ -564,6 +580,7 @@ def run_battery_c(
                                 "timestamp": datetime.now(timezone.utc).isoformat(),
                             }) + "\n")
                             sf.flush()
+                            completed_probes += 1
 
                     # Normal turn generation
                     if "PROBE_SLOT" not in user_msg:
@@ -573,10 +590,24 @@ def run_battery_c(
                         )
                         conversation.append({"role": "user", "content": user_msg})
                         conversation.append({"role": "assistant", "content": response})
+                        completed_turns += 1
+
+                        # Progress update every 5 turns
+                        if completed_turns % 5 == 0:
+                            ctx_pct = context_fill_pct * 100
+                            elapsed = time.time() - t_start
+                            print(
+                                f"    T{turn_num:02d} {model_label} | "
+                                f"ctx:{ctx_pct:.0f}% | "
+                                f"turns={completed_turns} probes={completed_probes} | "
+                                f"elapsed={elapsed/60:.1f}min",
+                                flush=True,
+                            )
 
             elapsed = time.time() - t_start
             print(
-                f"    {model_label.upper()} done in {elapsed:.0f}s",
+                f"    {model_label.upper()} done in {elapsed:.0f}s — "
+                f"{completed_turns} turns + {completed_probes} probes",
                 flush=True,
             )
 
