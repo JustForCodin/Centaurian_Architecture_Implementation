@@ -301,22 +301,6 @@ Both models use **identical** initialization and context coupling parameters. No
 
 Battery A and Battery B require no LLM judge — all metrics (JSD, entropy) are computed analytically from model outputs.
 
-### 7.2 Evaluation Cost
-
-| Component | Runs | Cost |
-|---|---|---|
-| Battery A — QPM (30 pairs × 2 orders × 1024 shots) | 61,440 QPM circuit executions | ~$0 (local Qiskit Aer) |
-| Battery A — CMG-CDK (same) | 61,440 Gaussian samples | ~$0 (NumPy) |
-| Battery B — QPM (20 scenarios × 1024 shots) | 20,480 QPM circuit executions | ~$0 |
-| Battery B — CMG-CDK (same) | 20,480 samples | ~$0 |
-| Battery C — SLM inference (30 scripts × 2 models × 40 turns) | 2,400 Qwen2.5-7B calls | ~$0 (local Ollama) |
-| Battery C — Judge (30 scripts × 2 models × 8 turns × 4 probes) | 1,920 Sonnet 4.5 calls | ~$7.20 |
-| Battery C — Reliability (20% rescore) | 384 calls | ~$1.44 |
-| Variance calibration | 10 QPM repeats | ~$0 |
-| **Total** | | **~$8.64** |
-
-*Table 4: Experiment 3 cost estimates.*
-
 ---
 
 ## 8. Analysis Plan
@@ -357,7 +341,7 @@ Run all batteries on both the Psychotherapy personality profile (high A_com, low
 | H1 ✗, H2 ✗, H3 ✓ | Classical model produces better behavior | Investigate: QPM stochasticity may be helping PersonaScore incidentally; redesign QPM to increase Tr(ρ²) divergence from classical |
 | H1 ✗, H2 ✗, H3 ✗ | Classical matches QPM on all dimensions | Revise paper framing: QPM offers equivalent expressiveness with superior interpretability and auditability — not a stronger performance claim |
 
-*Table 5: Decision rules mapping experimental outcomes to paper updates.*
+*Table 4: Decision rules mapping experimental outcomes to paper updates.*
 
 ---
 
@@ -389,7 +373,7 @@ Run all batteries on both the Psychotherapy personality profile (high A_com, low
 | | 4 | Profile analysis (Psychotherapy vs Software Eng.) |
 | | 5 | Produce all deliverables; write decision rule outcome summary; update paper |
 
-**Total: 2 weeks, ~$9 total cost.**
+**Total: 2 weeks**
 
 ---
 
