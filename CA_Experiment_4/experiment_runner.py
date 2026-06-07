@@ -233,28 +233,41 @@ def _llm_judge(client, probe: str, response: str, dimension: str,
 
 def _qpm_intent(
     qpm: QPM, condition: str, d_vector: list[float], n_shots: int,
+    qpm_cal: QPM | None = None,
 ) -> tuple[dict, dict]:
-    """Run QPM once and build the per-condition structured intent.
+    """Run QPM and build the per-condition structured intent.
 
-    Returns (qpm_result, structured_intent).  Conditions A and C also receive
-    counts + purity to keep audit logs uniform across all four conditions.
+    Returns (qpm_result, structured_intent).  For Condition C, a second
+    QPM run at CAL_SHOTS_C=8192 shots provides a low-noise ambivalence
+    estimate for the firing threshold (plan Appendix rev 1); the standard
+    1024-shot marginals still drive the personality_state JSON, keeping
+    all four conditions consistent on their JSON content.
     """
     res = qpm.run(d_vector, n_shots=n_shots)
     # purity_approx in qpm.py == 1 - mean(p²+(1-p)²) == plan's ambivalence
     ambivalence = float(res["purity_approx"])
     purity_proxy = round(1.0 - ambivalence, 4)
 
+    # Condition C: high-shot firing estimate (separate from JSON marginals)
+    cal_ambivalence: float | None = None
+    if condition == "C" and qpm_cal is not None:
+        cal_res = qpm_cal.run(d_vector, n_shots=A.CAL_SHOTS_C)
+        cal_ambivalence = float(cal_res["purity_approx"])
+
     intent = A.qpm_to_structured_intent(
         condition=condition,
         marginals=res["marginals"],
         d_vector=d_vector,
         purity_proxy=purity_proxy if condition in ("B", "C", "D") else None,
+        cal_ambivalence=cal_ambivalence,
         counts=res["counts"] if condition == "D" else None,
     )
     # Attach audit metadata used by the context log even for A
     intent.setdefault("_audit", {})
     intent["_audit"]["ambivalence"] = round(ambivalence, 4)
     intent["_audit"]["purity_proxy"] = purity_proxy
+    if cal_ambivalence is not None:
+        intent["_audit"]["cal_ambivalence"] = round(cal_ambivalence, 4)
     return res, intent
 
 
@@ -277,6 +290,8 @@ def run_condition(
     ids = script_ids or DEFAULT_SCRIPT_IDS
     profile = A.PROFILES[PROFILE_NAME]
     qpm = QPM(profile, n_shots=n_shots)
+    # Condition C only: second QPM instance at CAL_SHOTS_C for firing decision
+    qpm_cal = QPM(profile, n_shots=A.CAL_SHOTS_C) if condition == "C" else None
 
     model, tokenizer = _load_slm(adapter_name)
     client = _judge_client()
@@ -318,7 +333,7 @@ def run_condition(
 
         # Initial neutral d-vector
         current_d = [0.5, 0.5, 0.5, 0.5, 0.3]
-        res, intent = _qpm_intent(qpm, condition, current_d, n_shots)
+        res, intent = _qpm_intent(qpm, condition, current_d, n_shots, qpm_cal=qpm_cal)
         current_system_prompt = A.build_condition_system_prompt(condition, intent)
 
         with scores_path.open("w") as sf, context_path.open("w") as cf:
@@ -328,7 +343,7 @@ def run_condition(
 
                 # SCI refresh injection (same as Exp 2/3 Combined SCI)
                 while pending_refreshes and turn_num >= pending_refreshes[0]:
-                    res_r, intent_r = _qpm_intent(qpm, condition, current_d, n_shots)
+                    res_r, intent_r = _qpm_intent(qpm, condition, current_d, n_shots, qpm_cal=qpm_cal)
                     refresh_prompt = A.build_condition_system_prompt(condition, intent_r)
                     # Persona JSON snapshot for the refresh user-message —
                     # use the same per-condition persona body the system prompt
@@ -371,7 +386,7 @@ def run_condition(
                 user_msg = turn_data["user_message"]
                 if "PROBE_SLOT" not in user_msg:
                     current_d = A.extract_d_vector(user_msg)
-                    res, intent = _qpm_intent(qpm, condition, current_d, n_shots)
+                    res, intent = _qpm_intent(qpm, condition, current_d, n_shots, qpm_cal=qpm_cal)
                     current_system_prompt = A.build_condition_system_prompt(
                         condition, intent
                     )

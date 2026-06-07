@@ -21,8 +21,13 @@ Implementation notes
   to the same scalar quantity: ``1 - mean_k[p̂_k² + (1-p̂_k)²]``.  The
   ``purity_proxy`` field stored in the structured intent is its complement,
   ``mean_k[p̂_k² + (1-p̂_k)²]``, matching the plan's §4.2 definition.
-- Condition C thresholds (ambivalence > 0.45 high, < 0.15 low) are fixed per
-  plan Appendix; they were chosen *before* observing Exp 4 results.
+- Condition C firing thresholds are percentile-based (p30/p70) derived from a
+  judge-blind 8192-shot calibration pass over the 30-script bank (plan Appendix
+  rev 1).  The original absolute thresholds (0.45/0.15) assumed ambivalence ∈
+  [0,1] but the metric is bounded to [0,0.5]; see plan Appendix for the
+  corrected derivation.  The firing ambivalence estimate uses CAL_SHOTS_C=8192
+  shots (separate QPM call per turn) to reduce shot noise below the ~0.015
+  conflict-driven signal range.
 """
 
 from __future__ import annotations
@@ -85,11 +90,15 @@ CONDITION_DESCRIPTIONS: dict[str, str] = {
     "D": "Marginals + purity + bivariate co-activations",
 }
 
-# Condition C ambivalence thresholds (plan Appendix)
-#   ambivalence > AMBIV_HIGH  → speech_act gets __with_expressed_uncertainty
-#   ambivalence < AMBIV_LOW   → speech_act gets __grounded
-AMBIV_HIGH = 0.45
-AMBIV_LOW = 0.15
+# Condition C firing thresholds — p30/p70 of the 8192-shot calibration pass
+# over the 30-script bank (judge-blind, pre-committed before any judged run).
+# The original absolute thresholds (0.45 / 0.15) assumed ambivalence ∈ [0,1]
+# but 1-mean(p̂²+(1-p̂)²) is bounded to [0, 0.5] (0.5 = maximally mixed).
+# Calibration distribution: min=0.4115 p30=0.4193 mean=0.4204 p70=0.4217 max=0.4286 sd=0.0026
+# Fire rate: 30% HIGH / 40% moderate / 30% GROUNDED  (plan Appendix rev 1)
+AMBIV_FIRE_HIGH = 0.4217   # p70 → "with_expressed_uncertainty"
+AMBIV_FIRE_LOW  = 0.4193   # p30 → "grounded"
+CAL_SHOTS_C = 8192         # shot count for the per-turn Condition C firing estimate
 
 
 # ── CRz-coupled qubit pairs for Condition D bivariate joints (plan §4.4) ──
@@ -247,32 +256,46 @@ def qpm_to_structured_intent_c(
     d_vector: list[float],
     *,
     purity_proxy: float,
+    cal_ambivalence: float | None = None,
     speech_act: str = "active_listening",
     knowledge_triples: list | None = None,
     max_tokens: int = 80,
     domain_constraints: list | None = None,
 ) -> dict:
-    """Plan §4.3 — Condition C.
+    """Plan §4.3 — Condition C (thresholds revised per plan Appendix rev 1).
 
     Modifies the *speech_act* and *constraints* fields rather than adding
     a new top-level JSON block.  Per §8.3, the recommended implementation
     splits the ``__`` modifier into a separate constraint string so the
     SLM system prompt does not need a new vocabulary-handling instruction.
+
+    Parameters
+    ----------
+    purity_proxy : float
+        From the standard 1024-shot QPM run — used for the personality_state
+        JSON (consistent with Conditions A/B/D).
+    cal_ambivalence : float | None
+        Ambivalence estimate from a separate CAL_SHOTS_C=8192 QPM run.
+        Used for the firing threshold comparison to reduce shot noise.
+        Falls back to 1-purity_proxy when None (backward-compatible).
     """
+    # Use high-shot ambivalence for firing if available; fall back to 1024-shot
+    firing_amb = cal_ambivalence if cal_ambivalence is not None else ambivalence_from_purity_proxy(purity_proxy)
+    # purity_proxy complement for the cognitive_state record (unchanged)
     amb = ambivalence_from_purity_proxy(purity_proxy)
 
     constraints = list(domain_constraints or [])
     modifier_label: str | None = None
     c_directives: list[str] = []   # the Condition-C-injected constraint lines
 
-    if amb > AMBIV_HIGH:
+    if firing_amb > AMBIV_FIRE_HIGH:
         modifier_label = "with_expressed_uncertainty"
         c_directives.append(
             "Do not resolve the tension in the agent's current state. "
             "The agent is genuinely uncertain — let this ambivalence be "
             "audible in the response rather than projecting false confidence."
         )
-    elif amb < AMBIV_LOW:
+    elif firing_amb < AMBIV_FIRE_LOW:
         modifier_label = "grounded"
         c_directives.append(
             "The agent's internal state is definite and resolved. "
@@ -300,6 +323,7 @@ def qpm_to_structured_intent_c(
     intent["cognitive_state"] = {
         "ambivalence":         amb,
         "purity_proxy":        round(float(purity_proxy), 3),
+        "firing_ambivalence":  round(float(firing_amb), 4),   # 8192-shot estimate used for threshold
         "speech_act_modifier": modifier_label,   # None in moderate band
         "c_directives":        c_directives,     # [] in moderate band
     }
@@ -344,6 +368,7 @@ def qpm_to_structured_intent(
     d_vector: list[float],
     *,
     purity_proxy: float | None = None,
+    cal_ambivalence: float | None = None,
     counts: dict[str, int] | None = None,
     speech_act: str = "active_listening",
     knowledge_triples: list | None = None,
@@ -374,6 +399,7 @@ def qpm_to_structured_intent(
             raise ValueError("Condition C requires purity_proxy")
         return qpm_to_structured_intent_c(
             marginals, d_vector, purity_proxy=purity_proxy,
+            cal_ambivalence=cal_ambivalence,
             speech_act=speech_act, knowledge_triples=knowledge_triples,
             max_tokens=max_tokens, domain_constraints=domain_constraints,
         )

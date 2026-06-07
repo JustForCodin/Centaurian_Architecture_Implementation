@@ -505,12 +505,48 @@ integrated personality state beyond what individual trait levels convey.
 
 ## Appendix: Condition C Ambivalence Threshold Justification
 
-The Condition C thresholds (ambivalence > 0.45 → high; < 0.15 → low) are derived from the Experiment 3 Battery B purity proxy results:
+### Original derivation (rev 0 — superseded; retained for audit trail)
+
+The original thresholds (ambivalence > 0.45 → high; < 0.15 → low) were derived from the Experiment 3 Battery B purity proxy results:
 
 - Mean purity_proxy under conflict scenarios (psychotherapy profile): 0.4186
 - Mean purity_proxy under non-conflict baseline: ~0.55 (estimated from H4 variance calibration)
 - Mean purity_proxy for CMG-CDK under conflict: 0.3236
 
-The threshold of 0.45 ambivalence (= 0.55 purity) places the "high ambivalence" trigger at the point where the QPM's conflict-scenario purity is reliably above the CMG-CDK level. The threshold of 0.15 ambivalence (= 0.85 purity) captures the "definite state" regime where QPM and CMG-CDK are closest to each other and the coherence-conditional modifier would add noise rather than signal.
+**Error identified before observing Condition C results:** The derivation confused the ambivalence metric's scale. The metric `1 − mean_k[p̂_k² + (1−p̂_k)²]` is bounded to **[0, 0.5]** (0.5 = maximally mixed), not [0, 1] as the original thresholds assumed. The comment "ambivalence = 1 − purity_proxy … 0=definite, 1=maximally mixed" in §4.2 pseudocode described the intended interpretation but not the metric's actual range.
 
-These thresholds are fixed before observing any Experiment 4 results. They are not tuned to maximize PersonaScore.
+Consequence: the HIGH threshold (0.45) sits above the metric's empirically realized maximum (~0.43) under any d-vector on the psychotherapy profile. Condition C would fire 0% of turns — degenerating to Condition A by construction. Verified locally by a 120-turn probe (0/120 fires) before any judged Condition C script completed.
+
+### Corrected derivation (rev 1 — active)
+
+**Pre-registered correction:** A units error in the Appendix derivation is corrected. The thresholds are replaced with percentile cutpoints from a judge-blind calibration pass. No Condition C judge scores had been observed at the time of this correction (7/30 scripts completed under the broken 0.45/0.15 thresholds; those 7 scripts are re-run under the corrected thresholds).
+
+**Calibration methodology:**
+1. Replay the runner's per-turn d-vector logic over all 30 scripts (exact replication of `extract_d_vector` + neutral initial d-vector, no SLM, no judge).
+2. For each non-PROBE_SLOT turn, run QPM at **8192 shots** (separate from the 1024-shot JSON-content run) to reduce shot noise below the ~0.015 conflict-driven signal range (1024-shot sd ≈ 0.0041; 8192-shot sd ≈ 0.0026).
+3. Record the 8192-shot `purity_approx` (= ambivalence) for all 990 turns across 30 scripts.
+4. Fix thresholds at p30 and p70 of this distribution, judge-blind and before any Condition C run.
+
+**Calibration results (990 QPM reads @ 8192 shots, psychotherapy profile, 30 scripts):**
+
+| Stat | Value |
+|---|---:|
+| min | 0.4115 |
+| p10 | 0.4172 |
+| **p30 (GROUNDED threshold)** | **0.4193** |
+| mean | 0.4204 |
+| **p70 (UNCERTAINTY threshold)** | **0.4217** |
+| p90 | 0.4237 |
+| max | 0.4286 |
+| sd | 0.0026 |
+
+**Active thresholds:**
+- `AMBIV_FIRE_HIGH = 0.4217` — turns above p70 fire `with_expressed_uncertainty` (~30% of turns)
+- `AMBIV_FIRE_LOW  = 0.4193` — turns below p30 fire `grounded` (~30% of turns)
+- Moderate band [0.4193, 0.4217] — no modifier (~40% of turns)
+
+**Fire rate by design:** 30% HIGH / 40% moderate / 30% GROUNDED.
+
+**Shot count:** At inference time (Colab), the firing decision uses a separate 8192-shot QPM read per turn (`qpm_cal`). The 1024-shot read drives the `personality_state` JSON content, keeping all four conditions consistent on JSON content. The 8192-shot read is CPU-side and negligible relative to GPU SLM inference.
+
+These thresholds are fixed before observing any Experiment 4 judge results. They are not tuned to maximize PersonaScore.
