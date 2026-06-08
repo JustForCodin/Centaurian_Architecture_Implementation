@@ -434,51 +434,67 @@ def _plot_dimension_bars(summary: dict, conditions: list[str]):
 
 def _plot_ambivalence_distribution(context_by_cond: dict[str, list[dict]]):
     """Histogram of per-turn ambivalence across all Battery C turns, overlaid
-    by condition, with the Condition C decision thresholds drawn as vlines.
+    by condition, with the Condition C p30/p70 decision thresholds drawn as
+    vlines.
+
+    The ambivalence metric is bounded to [0, 0.5] and the psychotherapy profile
+    produces values in roughly [0.41, 0.43].  Bins are focused on the actual
+    data range rather than the full [0, 1] scale.
     """
-    fig, ax = plt.subplots(figsize=(9, 5.5))
-    bins = np.linspace(0.0, 1.0, 31)  # 30 bins of width ~0.033
-    plotted = False
+    all_amb: list[float] = []
+    by_cond_amb: dict[str, list[float]] = {}
     for cond, rows in context_by_cond.items():
-        amb = [r.get("ambivalence") for r in rows if r.get("ambivalence") is not None]
-        if not amb:
-            continue
-        ax.hist(
-            amb, bins=bins, histtype="step", linewidth=2.0,
-            color=_COND_COLOURS.get(cond, "black"),
-            label=f"Condition {cond} (n={len(amb)}, mean={np.mean(amb):.3f})",
-        )
-        plotted = True
-    if not plotted:
-        plt.close(fig)
+        vals = [r["ambivalence"] for r in rows if r.get("ambivalence") is not None]
+        by_cond_amb[cond] = vals
+        all_amb.extend(vals)
+    if not all_amb:
         return
 
-    # Condition C decision thresholds (plan Appendix).  Shade the three
-    # behavioural bands and label them inside the panel; the per-condition
-    # legend is moved outside the axes to avoid covering the right-hand
-    # 'expressed uncertainty' band label.
-    ymax_now = ax.get_ylim()[1]
-    ax.set_ylim(0, ymax_now * 1.18)
-    label_y = ymax_now * 1.08
-    ax.axvspan(0.00, 0.15, color="#9ecae1", alpha=0.10)
-    ax.axvspan(0.15, 0.45, color="#bdbdbd", alpha=0.08)
-    ax.axvspan(0.45, 1.00, color="#fdae6b", alpha=0.12)
-    ax.axvline(0.15, color="grey", linestyle="--", alpha=0.7)
-    ax.axvline(0.45, color="grey", linestyle="--", alpha=0.7)
-    ax.text(0.075, label_y, "C: 'grounded'",
-            ha="center", fontsize=9, color="dimgrey")
-    ax.text(0.30, label_y, "C: no directive\n(moderate band)",
-            ha="center", fontsize=9, color="dimgrey")
-    ax.text(0.725, label_y,
-            "C: 'with expressed\nuncertainty'",
-            ha="center", fontsize=9, color="dimgrey")
+    lo = max(0.0, float(np.min(all_amb)) - 0.005)
+    hi = min(0.5, float(np.max(all_amb)) + 0.005)
+    bins = np.linspace(lo, hi, 51)   # 50 bins over actual data range
 
-    ax.set_xlabel("QPM ambivalence (= 1 − purity_proxy)")
+    fig, ax = plt.subplots(figsize=(10, 5.5))
+    for cond, vals in by_cond_amb.items():
+        if not vals:
+            continue
+        ax.hist(
+            vals, bins=bins, histtype="step", linewidth=2.0,
+            color=_COND_COLOURS.get(cond, "black"),
+            label=f"Condition {cond} (n={len(vals)}, mean={np.mean(vals):.4f})",
+        )
+
+    # Condition C firing thresholds (plan Appendix rev 1 — p30/p70 of
+    # 8192-shot calibration pass over 30-script bank).
+    lo_thresh = A.AMBIV_FIRE_LOW   # p30 = 0.4193
+    hi_thresh = A.AMBIV_FIRE_HIGH  # p70 = 0.4217
+    ymax_now = ax.get_ylim()[1] or 1.0
+    ax.set_ylim(0, ymax_now * 1.22)
+    label_y = ymax_now * 1.10
+
+    ax.axvspan(lo, lo_thresh, color="#9ecae1", alpha=0.15)
+    ax.axvspan(lo_thresh, hi_thresh, color="#bdbdbd", alpha=0.12)
+    ax.axvspan(hi_thresh, hi, color="#fdae6b", alpha=0.18)
+    ax.axvline(lo_thresh, color="#2171b5", linestyle="--", alpha=0.8,
+               label=f"p30 = {lo_thresh} (C: grounded)")
+    ax.axvline(hi_thresh, color="#d94801", linestyle="--", alpha=0.8,
+               label=f"p70 = {hi_thresh} (C: with expressed uncertainty)")
+
+    mid_lo   = (lo + lo_thresh) / 2
+    mid_band = (lo_thresh + hi_thresh) / 2
+    mid_hi   = (hi_thresh + hi) / 2
+    ax.text(mid_lo,   label_y, "C: grounded\n(p30)",        ha="center", fontsize=8, color="#2171b5")
+    ax.text(mid_band, label_y, "C: moderate\n(no directive)", ha="center", fontsize=8, color="dimgrey")
+    ax.text(mid_hi,   label_y, "C: uncertainty\n(p70)",     ha="center", fontsize=8, color="#d94801")
+
+    ax.set_xlabel("QPM ambivalence  (= 1 − purity_proxy,  bounded [0, 0.5])")
     ax.set_ylabel("Turns")
-    ax.set_title("Experiment 4 — per-turn ambivalence distribution, "
-                 "by condition")
-    ax.legend(loc="center left", bbox_to_anchor=(1.02, 0.5),
-              fontsize=9, framealpha=0.95)
+    ax.set_title(
+        "Experiment 4 — per-turn ambivalence distribution by condition\n"
+        f"Condition C thresholds: p30={lo_thresh} / p70={hi_thresh}  "
+        f"(8192-shot calibration, Appendix rev 1)"
+    )
+    ax.legend(loc="upper right", fontsize=9, framealpha=0.95)
     ax.grid(alpha=0.3)
     savefig(fig, "exp4_ambivalence_distribution", RESULTS_DIR)
 

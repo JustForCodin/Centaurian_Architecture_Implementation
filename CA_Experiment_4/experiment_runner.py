@@ -410,6 +410,7 @@ def run_condition(
                     "d_vector":         current_d,
                     "ambivalence":      intent["_audit"]["ambivalence"],
                     "purity_proxy":     intent["_audit"]["purity_proxy"],
+                    "cal_ambivalence":  intent["_audit"].get("cal_ambivalence"),
                     "c_modifier":       intent.get("cognitive_state", {}).get(
                         "speech_act_modifier"
                     ) if condition == "C" else None,
