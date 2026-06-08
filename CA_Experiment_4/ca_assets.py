@@ -150,7 +150,9 @@ def ambivalence_from_purity_proxy(purity_proxy: float) -> float:
 
 
 def ambivalence_label(ambivalence: float) -> str:
-    if ambivalence > AMBIV_HIGH:
+    # Condition B display thresholds — semantic labels for the SLM, independent
+    # of the Condition C firing thresholds (AMBIV_FIRE_HIGH/LOW).
+    if ambivalence > 0.45:
         return "high — agent holds genuinely conflicting trait poles simultaneously"
     if ambivalence > 0.25:
         return "moderate — agent's state is partially unresolved"
