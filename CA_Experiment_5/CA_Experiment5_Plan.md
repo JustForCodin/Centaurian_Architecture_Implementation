@@ -238,6 +238,7 @@ When delta_purity > 0 (purity above baseline, more definite state), the coherenc
 ### 5.1 Overview
 
 ```mermaid
+%%{init: {"flowchart": {"defaultRenderer": "elk"}} }%%
 graph TD
     subgraph "Shared QPM (Unchanged from Exp 3/4)"
         QPM["QPM 12-qubit Circuit\n(1024 shots, Lindblad noise\npsychotherapy profile)"]
