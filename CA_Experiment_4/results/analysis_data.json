@@ -1,0 +1,240 @@
+{
+  "profile": "psychotherapy",
+  "conditions": [
+    "A",
+    "B",
+    "C",
+    "D"
+  ],
+  "per_condition": {
+    "A": {
+      "n": 960,
+      "mean": 4.4385,
+      "sd": 1.0305,
+      "by_dim": {
+        "C": 4.4792,
+        "E": 3.3958,
+        "S": 4.975,
+        "T": 4.9042
+      },
+      "by_turn": {
+        "5": 4.5,
+        "10": 4.475,
+        "15": 4.3,
+        "20": 4.5417,
+        "25": 4.4,
+        "30": 4.45,
+        "35": 4.55,
+        "40": 4.2917
+      }
+    },
+    "B": {
+      "n": 960,
+      "mean": 4.4271,
+      "sd": 1.0408,
+      "by_dim": {
+        "C": 4.5375,
+        "E": 3.2542,
+        "S": 4.9917,
+        "T": 4.925
+      },
+      "by_turn": {
+        "5": 4.3417,
+        "10": 4.5,
+        "15": 4.4417,
+        "20": 4.525,
+        "25": 4.4083,
+        "30": 4.375,
+        "35": 4.4667,
+        "40": 4.3583
+      }
+    },
+    "C": {
+      "n": 960,
+      "mean": 4.4042,
+      "sd": 1.0706,
+      "by_dim": {
+        "C": 4.525,
+        "E": 3.2167,
+        "S": 4.95,
+        "T": 4.925
+      },
+      "by_turn": {
+        "5": 4.525,
+        "10": 4.4083,
+        "15": 4.3333,
+        "20": 4.4583,
+        "25": 4.4167,
+        "30": 4.325,
+        "35": 4.3833,
+        "40": 4.3833
+      }
+    },
+    "D": {
+      "n": 960,
+      "mean": 4.3792,
+      "sd": 1.0865,
+      "by_dim": {
+        "C": 4.5208,
+        "E": 3.15,
+        "S": 4.9583,
+        "T": 4.8875
+      },
+      "by_turn": {
+        "5": 4.4333,
+        "10": 4.4667,
+        "15": 4.3167,
+        "20": 4.4167,
+        "25": 4.2833,
+        "30": 4.3417,
+        "35": 4.4,
+        "40": 4.375
+      }
+    }
+  },
+  "continuity_check": {
+    "exp3_qpm_mean": 4.41,
+    "exp4_cond_a_mean": 4.4385,
+    "deviation": 0.0285,
+    "tolerance": 0.05,
+    "within_tolerance": true
+  },
+  "pairwise_vs_A": {
+    "B": {
+      "n": 960,
+      "mean_a": 4.4271,
+      "mean_b": 4.4385,
+      "mean_diff": -0.0115,
+      "ci_95": [
+        -0.0602,
+        0.0372
+      ],
+      "t": -0.4618,
+      "p": 0.6443529725311548,
+      "cohens_d": -0.0149,
+      "sd_diff": 0.7688,
+      "passes": false
+    },
+    "C": {
+      "n": 960,
+      "mean_a": 4.4042,
+      "mean_b": 4.4385,
+      "mean_diff": -0.0344,
+      "ci_95": [
+        -0.084,
+        0.0152
+      ],
+      "t": -1.3603,
+      "p": 0.1740408975107024,
+      "cohens_d": -0.0439,
+      "sd_diff": 0.7829,
+      "passes": false
+    },
+    "D": {
+      "n": 960,
+      "mean_a": 4.3792,
+      "mean_b": 4.4385,
+      "mean_diff": -0.0594,
+      "ci_95": [
+        -0.1102,
+        -0.0085
+      ],
+      "t": -2.2924,
+      "p": 0.022098697876253844,
+      "cohens_d": -0.074,
+      "sd_diff": 0.8025,
+      "passes": false
+    }
+  },
+  "dimension_deltas": {
+    "B": {
+      "C": 0.0583,
+      "E": -0.1416,
+      "S": 0.0167,
+      "T": 0.0208
+    },
+    "C": {
+      "C": 0.0458,
+      "E": -0.1791,
+      "S": -0.025,
+      "T": 0.0208
+    },
+    "D": {
+      "C": 0.0416,
+      "E": -0.2458,
+      "S": -0.0167,
+      "T": -0.0167
+    }
+  },
+  "hypotheses": {
+    "H_interface": false,
+    "H_C_wins": false,
+    "H_capability": true,
+    "H_purity_episodic": false
+  },
+  "best_condition": null,
+  "best_cohens_d": 0.0,
+  "effect_size_ladder": [
+    {
+      "experiment": "Exp 3 H1",
+      "metric": "Order effects (JSD QPM vs CMG)",
+      "d": 21.51
+    },
+    {
+      "experiment": "Exp 3 H2",
+      "metric": "Ambivalence (entropy QPM vs CMG)",
+      "d": 2.59
+    },
+    {
+      "experiment": "Exp 3 H3",
+      "metric": "PersonaScore (QPM vs CMG, A)",
+      "d": 0.032
+    },
+    {
+      "experiment": "Exp 4 best",
+      "metric": "PersonaScore (\u2014 vs A)",
+      "d": 0.0
+    }
+  ],
+  "decision_rule_outcome": "H_interface FAILED \u2014 no enriched interface reaches d_z \u2265 0.2.  JSON-mediated interface appears unable to transmit QPM advantage at 7B model scale.",
+  "paper_update": "Strengthen Section 2.3 scope note.  Add Section 5.7.5 'Interface Limitations'.  Add logits-level QPM\u2192SLM steering as Experiment 5 in Section 18 Future Work.",
+  "c_firing_rate": {
+    "total_turns": 1200,
+    "total_fires": 750,
+    "fire_rate": 0.625,
+    "with_expressed_uncertainty": 407,
+    "grounded": 343,
+    "per_script_fire_rate": {
+      "1": 0.475,
+      "2": 0.7,
+      "3": 0.55,
+      "4": 0.625,
+      "5": 0.65,
+      "6": 0.45,
+      "7": 0.725,
+      "8": 0.65,
+      "9": 0.55,
+      "10": 0.5,
+      "11": 0.75,
+      "12": 0.5,
+      "13": 0.575,
+      "14": 0.7,
+      "15": 0.525,
+      "16": 0.65,
+      "17": 0.825,
+      "18": 0.525,
+      "19": 0.825,
+      "20": 0.625,
+      "21": 0.675,
+      "22": 0.7,
+      "81": 0.625,
+      "82": 0.7,
+      "83": 0.525,
+      "84": 0.6,
+      "85": 0.65,
+      "86": 0.55,
+      "87": 0.725,
+      "88": 0.625
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "n": 48,
+  "kappa_w": 0.9736,
+  "threshold": 0.7,
+  "passes": true,
+  "verdict": "PASS",
+  "timestamp": "2026-06-10T12:18:12.736069+00:00"
+}
