@@ -238,30 +238,30 @@ When delta_purity > 0 (purity above baseline, more definite state), the coherenc
 ### 5.1 Overview
 
 ```mermaid
-%%{init: {"flowchart": {"defaultRenderer": "elk"}} }%%
+%%{init: {"flowchart": {"defaultRenderer": "elk", "htmlLabels": true}} }%%
 graph TD
     subgraph "Shared QPM (Unchanged from Exp 3/4)"
-        QPM["QPM 12-qubit Circuit\n(1024 shots, Lindblad noise\npsychotherapy profile)"]
-        MARG["11 Marginals p̂_k\n+ purity_proxy"]
+        QPM["QPM 12-qubit Circuit<br>(1024 shots, Lindblad noise<br>psychotherapy profile)"]
+        MARG["11 Marginals p̂_k<br>+ purity_proxy"]
     end
 
     subgraph "Phase 0 (Setup — Run Once, Locked Before Exp)"
-        STEER["Steering Vector Store\nv̂_k × 11 + v̂_coh\nat layer L*"]
+        STEER["Steering Vector Store<br>v̂_k × 11 + v̂_coh<br>at layer L*"]
     end
 
     subgraph "Interface Layer (Experimental Variable)"
-        COND_A["Condition A\nJSON marginals\n(Exp 4/3 control)"]
-        COND_B["Condition B\nDiagonal steering\nno JSON personality"]
-        COND_C["Condition C\nJSON marginals\n+ diagonal steering"]
-        COND_D["Condition D\nDiagonal + coherence steering\nno JSON personality"]
+        COND_A["Condition A<br>JSON marginals<br>(Exp 4/3 control)"]
+        COND_B["Condition B<br>Diagonal steering<br>no JSON personality"]
+        COND_C["Condition C<br>JSON marginals<br>+ diagonal steering"]
+        COND_D["Condition D<br>Diagonal + coherence steering<br>no JSON personality"]
     end
 
     subgraph "SLM Stack (Unchanged from Exp 3/4)"
-        SLM["Qwen2.5-7B-Instruct\n+ LoRA-10K adapter\n+ Combined SCI\nResidual stream: layer L*"]
+        SLM["Qwen2.5-7B-Instruct<br>+ LoRA-10K adapter<br>+ Combined SCI<br>Residual stream: layer L*"]
     end
 
     subgraph "Evaluation"
-        JUDGE["Claude Sonnet 4.5\n(primary judge)"]
+        JUDGE["Claude Sonnet 4.5<br>(primary judge)"]
         SCORE["PersonaScore (T/E/C/S)"]
     end
 
@@ -271,11 +271,16 @@ graph TD
     COND_A & COND_B & COND_C & COND_D --> SLM
     SLM --> JUDGE --> SCORE
 
-    style COND_A fill:#e1f5fe
-    style COND_B fill:#e8f5e9
-    style COND_C fill:#fff3e0
-    style COND_D fill:#f3e5f5
-    style STEER fill:#fce4ec
+    style QPM   fill:#000,color:#fff,stroke:#555
+    style MARG  fill:#000,color:#fff,stroke:#555
+    style STEER fill:#000,color:#fff,stroke:#555
+    style COND_A fill:#000,color:#fff,stroke:#555
+    style COND_B fill:#000,color:#fff,stroke:#555
+    style COND_C fill:#000,color:#fff,stroke:#555
+    style COND_D fill:#000,color:#fff,stroke:#555
+    style SLM   fill:#000,color:#fff,stroke:#555
+    style JUDGE fill:#000,color:#fff,stroke:#555
+    style SCORE fill:#000,color:#fff,stroke:#555
 ```
 
 *Figure 1: Experiment 5 design. QPM and SLM stack are held constant. The steering vector store (Phase 0) is computed once and locked. The experimental variable is the interface layer: what enters the JSON field vs. what is injected into the residual stream.*
