@@ -248,7 +248,7 @@ def extract_all_activations(
 
     handles = []
     for L in candidate_layers:
-        h = model.model.layers[L].register_forward_hook(make_hook(L))
+        h = _get_layer(model, L).register_forward_hook(make_hook(L))
         handles.append(h)
 
     def _forward(input_ids_list: list):
@@ -777,6 +777,32 @@ def build_composite_vector(
     return torch.tensor(v)
 
 
+# ── Layer accessor (PEFT/LoRA wrapper navigation) ────────────────────────
+
+def _get_layer(model, layer_idx: int):
+    """Return the transformer decoder layer at layer_idx, unwrapping PEFT/LoRA.
+
+    PEFT wraps the base model two levels deep:
+      PeftModel → LoraModel (base_model) → Qwen2ForCausalLM (base_model.model)
+                                           → Qwen2Model (.model) → .layers[i]
+
+    model.model.layers fails because model.model resolves to Qwen2ForCausalLM,
+    which has no .layers attribute (that lives one level deeper in .model.layers).
+    """
+    m = model
+    while hasattr(m, "base_model"):
+        m = m.base_model
+    # m is now the unwrapped base model (e.g. Qwen2ForCausalLM)
+    if hasattr(m, "model") and hasattr(m.model, "layers"):
+        return m.model.layers[layer_idx]
+    if hasattr(m, "layers"):
+        return m.layers[layer_idx]
+    raise AttributeError(
+        f"Cannot locate transformer layers on {type(m).__name__}. "
+        "Expected .model.layers or .layers."
+    )
+
+
 # ── Steering hook (used by experiment_runner.py) ──────────────────────────
 
 class SteeringHook:
@@ -792,7 +818,7 @@ class SteeringHook:
         self.handle = None
 
     def register(self, model, layer_idx: int) -> "SteeringHook":
-        layer = model.model.layers[layer_idx]
+        layer = _get_layer(model, layer_idx)
         self.handle = layer.register_forward_hook(self._hook_fn)
         return self
 
