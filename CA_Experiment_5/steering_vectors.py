@@ -24,8 +24,10 @@ import os
 import random
 import re
 import sys
+import threading
 import time
 from collections import defaultdict
+
 from pathlib import Path
 from typing import Any
 
@@ -233,7 +235,9 @@ def extract_all_activations(
     n_turns = contrastive_inputs["n_turns"]
     total_passes = (len(TRAIT_KEYS) * 2 + 2) * n_turns  # 24 per turn
     print(f"  Running {total_passes} forward passes across "
-          f"{len(candidate_layers)} candidate layers...", flush=True)
+          f"{len(candidate_layers)} candidate layers "
+          f"({n_turns} turns × {len(TRAIT_KEYS)} traits × 2 + {n_turns} × 2 coherence)...",
+          flush=True)
 
     # Capture hooks
     captured: dict[int, list] = defaultdict(list)
@@ -257,13 +261,38 @@ def extract_all_activations(
         with torch.no_grad():
             model(input_ids=ids)
 
+    t0 = time.time()
     done = 0
+    _progress_label = ["starting"]
+
+    def _progress_daemon() -> None:
+        """Background thread: prints a status line every 15 s via time.sleep(),
+        which releases the GIL and lets the IPython IO thread flush to Colab."""
+        while True:
+            time.sleep(15)
+            elapsed = time.time() - t0
+            d = done  # local snapshot (GIL makes int reads atomic in CPython)
+            if d >= total_passes:
+                break
+            rate = d / elapsed if elapsed > 0 else 0.0
+            eta = (total_passes - d) / rate if rate > 0 else float("inf")
+            eta_str = f"{eta:.0f}s" if eta < float("inf") else "?"
+            print(
+                f"  [{d:4d}/{total_passes}]  {_progress_label[0]:<28s}  "
+                f"elapsed={elapsed:.0f}s  {rate:.2f}/s  ETA={eta_str}",
+                flush=True,
+            )
+
+    _t = threading.Thread(target=_progress_daemon, daemon=True)
+    _t.start()
 
     # Per-trait contrastive passes
     trait_acts: dict[str, dict[int, dict[str, list]]] = {}
+
     for k in TRAIT_KEYS:
         trait_acts[k] = {L: {"high": [], "low": []} for L in candidate_layers}
         for polarity in ("high", "low"):
+            _progress_label[0] = f"{k} {polarity}"
             for ids in contrastive_inputs["trait"][k][polarity]:
                 for L in candidate_layers:
                     captured[L].clear()
@@ -272,12 +301,11 @@ def extract_all_activations(
                     vec = captured[L][-1]  # shape (1, d_model) → squeeze
                     trait_acts[k][L][polarity].append(vec[0])
                 done += 1
-                if done % 100 == 0:
-                    print(f"    {done}/{total_passes} forward passes done", flush=True)
 
     # Coherence contrastive passes
     coh_acts: dict[int, dict[str, list]] = {L: {"high": [], "low": []} for L in candidate_layers}
     for polarity in ("high", "low"):
+        _progress_label[0] = f"coherence {polarity}"
         for ids in contrastive_inputs["coherence"][polarity]:
             for L in candidate_layers:
                 captured[L].clear()
@@ -782,24 +810,36 @@ def build_composite_vector(
 def _get_layer(model, layer_idx: int):
     """Return the transformer decoder layer at layer_idx, unwrapping PEFT/LoRA.
 
-    PEFT wraps the base model two levels deep:
-      PeftModel → LoraModel (base_model) → Qwen2ForCausalLM (base_model.model)
-                                           → Qwen2Model (.model) → .layers[i]
+    transformers.PreTrainedModel exposes a `base_model` property on every class,
+    including leaf models where it returns `self`. A plain `while hasattr(m,
+    "base_model")` loop therefore spins forever on Qwen2Model. We stop as soon
+    as we see a cycle (next is self or already visited).
 
-    model.model.layers fails because model.model resolves to Qwen2ForCausalLM,
-    which has no .layers attribute (that lives one level deeper in .model.layers).
+    After unwrapping PEFT wrappers we walk `.model` up to 4 levels looking for
+    a `.layers` attribute, which handles both:
+      - old PEFT: stops at LoraModel  → .model → Qwen2ForCausalLM → .model → Qwen2Model → .layers
+      - new PEFT: stops at Qwen2Model → .layers directly
     """
     m = model
+    seen: set[int] = set()
     while hasattr(m, "base_model"):
-        m = m.base_model
-    # m is now the unwrapped base model (e.g. Qwen2ForCausalLM)
-    if hasattr(m, "model") and hasattr(m.model, "layers"):
-        return m.model.layers[layer_idx]
-    if hasattr(m, "layers"):
-        return m.layers[layer_idx]
+        nxt = m.base_model
+        if nxt is m or id(nxt) in seen:
+            break
+        seen.add(id(m))
+        m = nxt
+    # Walk .model until we find .layers
+    for _ in range(4):
+        if hasattr(m, "layers"):
+            return m.layers[layer_idx]
+        if hasattr(m, "model"):
+            m = m.model
+        else:
+            break
     raise AttributeError(
-        f"Cannot locate transformer layers on {type(m).__name__}. "
-        "Expected .model.layers or .layers."
+        f"Cannot locate transformer layers at index {layer_idx}; "
+        f"stopped at {type(m).__name__}. "
+        "Expected a .layers attribute somewhere in the .model chain."
     )
 
 
