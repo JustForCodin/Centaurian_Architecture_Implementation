@@ -429,31 +429,40 @@ def calibrate_layer(
             turns = script.get("turns", [])
             conversation: list[dict] = []
             current_d = [0.5, 0.5, 0.5, 0.5, 0.3]
+            # Seed sys_prompt / v_comp with baseline profile so probe turns
+            # before the first normal turn (shouldn't happen, but safe).
+            marginals = dict(profile)
+            intent0 = import_ca.qpm_to_structured_intent_b(marginals, current_d)
+            sys_prompt = import_ca.build_condition_system_prompt("B", intent0)
+            v_comp = _build_composite_vector_np(marginals, vecs, alpha_initial)
 
             for turn_data in turns:
                 t = turn_data["turn"]
                 user_msg = turn_data["user_message"]
-                if "PROBE_SLOT" in user_msg:
-                    continue
+                is_probe = t in import_ca.PROBE_TURNS
 
-                res = qpm.run(current_d)
-                marginals = res["marginals"]
-                current_d = import_ca.extract_d_vector(user_msg)
-                intent = import_ca.qpm_to_structured_intent_b(
-                    marginals, current_d
-                )
-                sys_prompt = import_ca.build_condition_system_prompt("B", intent)
-                v_comp = _build_composite_vector_np(marginals, vecs, alpha_initial)
-
-                response = _generate_steered(
-                    model, tokenizer, sys_prompt, conversation, user_msg,
-                    v_comp, L
-                )
-                conversation.append({"role": "user", "content": user_msg})
-                conversation.append({"role": "assistant", "content": response})
-
-                # Judge probe turns
-                if t in import_ca.PROBE_TURNS:
+                if not is_probe:
+                    # Normal turn: run QPM, generate, append to conversation.
+                    # PROBE_SLOT user_msg here means a mis-tagged turn — skip.
+                    if "PROBE_SLOT" in user_msg:
+                        continue
+                    res = qpm.run(current_d)
+                    marginals = res["marginals"]
+                    current_d = import_ca.extract_d_vector(user_msg)
+                    intent = import_ca.qpm_to_structured_intent_b(
+                        marginals, current_d
+                    )
+                    sys_prompt = import_ca.build_condition_system_prompt("B", intent)
+                    v_comp = _build_composite_vector_np(marginals, vecs, alpha_initial)
+                    response = _generate_steered(
+                        model, tokenizer, sys_prompt, conversation, user_msg,
+                        v_comp, L
+                    )
+                    conversation.append({"role": "user", "content": user_msg})
+                    conversation.append({"role": "assistant", "content": response})
+                else:
+                    # Probe turn: score with sys_prompt/v_comp from previous turn.
+                    turn_scores = []
                     for dim, probe in import_ca.get_probes_for_turn(t, script.get("script_id", 0)):
                         probe_actual = probe
                         if dim == "E":
@@ -469,6 +478,16 @@ def calibrate_layer(
                             judge_client, probe, probe_resp, dim, import_ca
                         )
                         scores_by_layer[L].append(float(score))
+                        turn_scores.append(float(score))
+                    # API call just completed → kernel can flush stdout
+                    running_mean = float(np.mean(scores_by_layer[L]))
+                    print(
+                        f"    L={L}  turn={t:02d}  "
+                        f"scores={[round(s,1) for s in turn_scores]}  "
+                        f"running_mean={running_mean:.3f}  "
+                        f"n={len(scores_by_layer[L])}",
+                        flush=True,
+                    )
 
         mean_score = float(np.mean(scores_by_layer[L])) if scores_by_layer[L] else 0.0
         print(f"  Layer {L}: n={len(scores_by_layer[L])}  "
