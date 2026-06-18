@@ -572,9 +572,31 @@ def calibrate_alpha(
 
     grammar_rates: dict[float, float] = {}
 
+    _alpha_progress: list = [0, 0, "starting"]  # [done, total, label]
+    _alpha_progress[1] = len(alpha_candidates) * len(probe_turns)
+    _alpha_t0 = time.time()
+
+    def _alpha_daemon() -> None:
+        while True:
+            time.sleep(15)
+            d, total, label = _alpha_progress
+            if d >= total:
+                break
+            elapsed = time.time() - _alpha_t0
+            rate = d / elapsed if elapsed > 0 else 0.0
+            eta = (total - d) / rate if rate > 0 else float("inf")
+            print(
+                f"    [{d:3d}/{total}]  {label}  "
+                f"elapsed={elapsed:.0f}s  ETA={eta:.0f}s",
+                flush=True,
+            )
+
+    threading.Thread(target=_alpha_daemon, daemon=True).start()
+
     for alpha in alpha_candidates:
         n_grammatical = 0
-        for turn in probe_turns:
+        for i, turn in enumerate(probe_turns):
+            _alpha_progress[2] = f"alpha={alpha:.1f}  turn={i+1}/{len(probe_turns)}"
             res = qpm.run([0.5, 0.5, 0.5, 0.5, 0.3])
             marginals = res["marginals"]
             purity_proxy = 1.0 - float(res["purity_approx"])
@@ -593,6 +615,7 @@ def calibrate_alpha(
             )
             if _is_grammatical(response):
                 n_grammatical += 1
+            _alpha_progress[0] += 1
 
         rate = n_grammatical / max(len(probe_turns), 1)
         grammar_rates[alpha] = rate
