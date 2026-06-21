@@ -1,0 +1,223 @@
+{
+  "profile": "psychotherapy",
+  "conditions": [
+    "A",
+    "B",
+    "C",
+    "D"
+  ],
+  "per_condition": {
+    "A": {
+      "n": 960,
+      "mean": 4.3896,
+      "sd": 1.0495,
+      "by_dim": {
+        "C": 4.4708,
+        "E": 3.2625,
+        "S": 4.9625,
+        "T": 4.8625
+      },
+      "by_turn": {
+        "5": 4.4,
+        "10": 4.3583,
+        "15": 4.3667,
+        "20": 4.525,
+        "25": 4.3667,
+        "30": 4.3,
+        "35": 4.3833,
+        "40": 4.4167
+      }
+    },
+    "B": {
+      "n": 960,
+      "mean": 4.2229,
+      "sd": 1.191,
+      "by_dim": {
+        "C": 4.3417,
+        "E": 2.7875,
+        "S": 4.9125,
+        "T": 4.85
+      },
+      "by_turn": {
+        "5": 4.25,
+        "10": 4.175,
+        "15": 4.2083,
+        "20": 4.325,
+        "25": 4.2417,
+        "30": 4.1667,
+        "35": 4.3,
+        "40": 4.1167
+      }
+    },
+    "C": {
+      "n": 960,
+      "mean": 4.2417,
+      "sd": 1.182,
+      "by_dim": {
+        "C": 4.3167,
+        "E": 2.875,
+        "S": 4.925,
+        "T": 4.85
+      },
+      "by_turn": {
+        "5": 4.3667,
+        "10": 4.325,
+        "15": 4.2,
+        "20": 4.375,
+        "25": 4.225,
+        "30": 4.1333,
+        "35": 4.15,
+        "40": 4.1583
+      }
+    },
+    "D": {
+      "n": 960,
+      "mean": 4.2135,
+      "sd": 1.1966,
+      "by_dim": {
+        "C": 4.2917,
+        "E": 2.8417,
+        "S": 4.9083,
+        "T": 4.8125
+      },
+      "by_turn": {
+        "5": 4.2417,
+        "10": 4.225,
+        "15": 4.225,
+        "20": 4.325,
+        "25": 4.2,
+        "30": 4.1583,
+        "35": 4.2,
+        "40": 4.1333
+      }
+    }
+  },
+  "continuity_check": {
+    "exp4_cond_a_mean": 4.4385,
+    "exp5_cond_a_mean": 4.3896,
+    "deviation": -0.0489,
+    "tolerance": 0.05,
+    "within_tolerance": true
+  },
+  "h_logits": {
+    "n": 960,
+    "mean_a": 4.2229,
+    "mean_b": 4.3896,
+    "mean_diff": -0.1667,
+    "ci_95": [
+      -0.221,
+      -0.1123
+    ],
+    "t": -6.0214,
+    "p": 2.460469813418632e-09,
+    "cohens_d": -0.1943,
+    "sd_diff": 0.8576,
+    "passes": false
+  },
+  "h_coherence": {
+    "n": 960,
+    "mean_a": 4.2135,
+    "mean_b": 4.2229,
+    "mean_diff": -0.0094,
+    "ci_95": [
+      -0.0608,
+      0.0421
+    ],
+    "t": -0.3576,
+    "p": 0.7207547669862491,
+    "cohens_d": -0.0115,
+    "sd_diff": 0.8124,
+    "passes": false
+  },
+  "h_channel": {
+    "c_vs_a": {
+      "n": 960,
+      "mean_a": 4.2417,
+      "mean_b": 4.3896,
+      "mean_diff": -0.1479,
+      "ci_95": [
+        -0.2022,
+        -0.0936
+      ],
+      "t": -5.3453,
+      "p": 1.1286090838227125e-07,
+      "cohens_d": -0.1725,
+      "sd_diff": 0.8574
+    },
+    "c_vs_b": {
+      "n": 960,
+      "mean_a": 4.2417,
+      "mean_b": 4.2229,
+      "mean_diff": 0.0187,
+      "ci_95": [
+        -0.0325,
+        0.07
+      ],
+      "t": 0.7181,
+      "p": 0.47287238939887655,
+      "cohens_d": 0.0232,
+      "sd_diff": 0.809
+    },
+    "interaction": "Dominant_B"
+  },
+  "dimension_deltas": {
+    "B": {
+      "C": -0.1291,
+      "E": -0.475,
+      "S": -0.05,
+      "T": -0.0125
+    },
+    "C": {
+      "C": -0.1541,
+      "E": -0.3875,
+      "S": -0.0375,
+      "T": -0.0125
+    },
+    "D": {
+      "C": -0.1791,
+      "E": -0.4208,
+      "S": -0.0542,
+      "T": -0.05
+    }
+  },
+  "hypotheses": {
+    "H_logits": false,
+    "H_coherence": false,
+    "H_channel": "Dominant_B"
+  },
+  "effect_size_ladder": [
+    {
+      "experiment": "Exp 3 H1",
+      "metric": "Order effects (JSD QPM vs CMG)",
+      "d": 21.51
+    },
+    {
+      "experiment": "Exp 3 H2",
+      "metric": "Ambivalence (entropy QPM vs CMG)",
+      "d": 2.59
+    },
+    {
+      "experiment": "Exp 3 H3",
+      "metric": "PersonaScore (QPM vs CMG, JSON marginals)",
+      "d": 0.032
+    },
+    {
+      "experiment": "Exp 4 best",
+      "metric": "PersonaScore (D vs A, bivariate coactivations)",
+      "d": -0.074
+    },
+    {
+      "experiment": "Exp 5 B",
+      "metric": "PersonaScore (B vs A, diagonal steering)",
+      "d": -0.1943
+    },
+    {
+      "experiment": "Exp 5 D",
+      "metric": "PersonaScore (D vs A, diagonal+coherence)",
+      "d": -0.1973
+    }
+  ],
+  "decision_rule_outcome": "H_logits FAILED \u2014 logits-level interface did not recover QPM advantage (d_z(B\u2212A) = -0.1943). QPM advantage unrecoverable at 7B output level via this mechanism.",
+  "h_channel_note": "",
+  "paper_update": "Add \u00a75.7.5 'Fundamental Interface Limitations'. Exp 6 recommendation: smaller (3B) model or task domain shift."
+}

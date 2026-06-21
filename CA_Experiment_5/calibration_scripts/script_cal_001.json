@@ -1,0 +1,166 @@
+{
+  "scenario": "A client seeks help managing workplace anxiety and learns breathing techniques to cope with stress.",
+  "turns": [
+    {
+      "turn": 1,
+      "user_message": "Hi Aria, I've been feeling really overwhelmed at work lately. My anxiety has been getting worse and I don't know how to handle it."
+    },
+    {
+      "turn": 2,
+      "user_message": "It's mainly during meetings and presentations. My heart races and I feel like I can't breathe properly."
+    },
+    {
+      "turn": 3,
+      "user_message": "Yeah, it happens almost every time now. I used to be fine with public speaking, but lately it's been terrible."
+    },
+    {
+      "turn": 4,
+      "user_message": "I've tried just pushing through it, but that doesn't seem to help. Sometimes I have to excuse myself from the room."
+    },
+    {
+      "turn": 5,
+      "user_message": "PROBE_SLOT"
+    },
+    {
+      "turn": 6,
+      "user_message": "That makes sense. I never really thought about my breathing patterns during those moments."
+    },
+    {
+      "turn": 7,
+      "user_message": "I'm willing to try anything at this point. What kind of breathing exercises do you recommend?"
+    },
+    {
+      "turn": 8,
+      "user_message": "Okay, I'm ready to try it now. Should I close my eyes or keep them open?"
+    },
+    {
+      "turn": 9,
+      "user_message": "That actually feels calming already. How long should I practice this each day?"
+    },
+    {
+      "turn": 10,
+      "user_message": "PROBE_SLOT"
+    },
+    {
+      "turn": 11,
+      "user_message": "I can definitely do that. Do you think this will help me during the actual stressful moments, or is it more preventative?"
+    },
+    {
+      "turn": 12,
+      "user_message": "That's really helpful to know. I have a big presentation coming up next week and I'm already dreading it."
+    },
+    {
+      "turn": 13,
+      "user_message": "It's a quarterly review for the entire department. I'll be presenting our team's results to about thirty people including senior management."
+    },
+    {
+      "turn": 14,
+      "user_message": "I think it's partly the fear of being judged and partly the fear that I'll have a panic attack in front of everyone."
+    },
+    {
+      "turn": 15,
+      "user_message": "PROBE_SLOT"
+    },
+    {
+      "turn": 16,
+      "user_message": "No, I've never had a full panic attack during a presentation. But I came close last month and had to cut my talk short."
+    },
+    {
+      "turn": 17,
+      "user_message": "I told them I wasn't feeling well, which was true I guess. My manager was understanding but I felt so embarrassed."
+    },
+    {
+      "turn": 18,
+      "user_message": "I worry that if it happens again, people will think I'm not capable of handling my role."
+    },
+    {
+      "turn": 19,
+      "user_message": "You're right, I am assuming the worst. But it feels so real in the moment."
+    },
+    {
+      "turn": 20,
+      "user_message": "PROBE_SLOT"
+    },
+    {
+      "turn": 21,
+      "user_message": "That's a good point. I should try the breathing technique before my next meeting tomorrow."
+    },
+    {
+      "turn": 22,
+      "user_message": "It's just a team meeting, nothing major. But it would be good practice."
+    },
+    {
+      "turn": 23,
+      "user_message": "I like that idea. Maybe if I can stay calm in the small meetings, I'll build confidence for the bigger presentation."
+    },
+    {
+      "turn": 24,
+      "user_message": "Should I practice the breathing right before I go in, or is it better to do it earlier in the day?"
+    },
+    {
+      "turn": 25,
+      "user_message": "PROBE_SLOT"
+    },
+    {
+      "turn": 26,
+      "user_message": "Both times makes sense. I'll set reminders on my phone so I don't forget."
+    },
+    {
+      "turn": 27,
+      "user_message": "What should I do if I start feeling anxious in the middle of speaking? Can I pause and breathe then?"
+    },
+    {
+      "turn": 28,
+      "user_message": "That's reassuring. I always thought pausing would make me look unprepared or nervous."
+    },
+    {
+      "turn": 29,
+      "user_message": "You're right, I need to be less hard on myself. It's just difficult when I feel like everyone's watching."
+    },
+    {
+      "turn": 30,
+      "user_message": "PROBE_SLOT"
+    },
+    {
+      "turn": 31,
+      "user_message": "I haven't really talked to anyone about this. I thought I should be able to handle it on my own."
+    },
+    {
+      "turn": 32,
+      "user_message": "Maybe I could mention it to my manager. She's been supportive in the past about work-life balance stuff."
+    },
+    {
+      "turn": 33,
+      "user_message": "I guess I'm afraid she'll think I can't handle pressure or that I'm not executive material."
+    },
+    {
+      "turn": 34,
+      "user_message": "That's true. She did tell me she values honesty and communication when we had our last one-on-one."
+    },
+    {
+      "turn": 35,
+      "user_message": "PROBE_SLOT"
+    },
+    {
+      "turn": 36,
+      "user_message": "I feel more hopeful now. Having a concrete technique to use makes it feel more manageable."
+    },
+    {
+      "turn": 37,
+      "user_message": "I'm going to practice the breathing exercises tonight and tomorrow morning before my meeting."
+    },
+    {
+      "turn": 38,
+      "user_message": "Should I check in with you after the meeting to let you know how it went?"
+    },
+    {
+      "turn": 39,
+      "user_message": "Great, I'll do that. Thank you so much for your help today, Aria."
+    },
+    {
+      "turn": 40,
+      "user_message": "PROBE_SLOT"
+    }
+  ],
+  "script_id": "cal_001"
+}

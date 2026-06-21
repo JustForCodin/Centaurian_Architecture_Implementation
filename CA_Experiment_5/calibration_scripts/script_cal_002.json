@@ -1,0 +1,166 @@
+{
+  "scenario": "A client is working through grief after losing their mother six months ago and struggling with returning to normal life.",
+  "turns": [
+    {
+      "turn": 1,
+      "user_message": "I've been thinking about our last session all week. It's been six months since my mom passed, and I still feel like I'm just going through the motions every day."
+    },
+    {
+      "turn": 2,
+      "user_message": "Everyone keeps telling me I should be 'moving on' by now, but I don't even know what that means. Does it mean forgetting her?"
+    },
+    {
+      "turn": 3,
+      "user_message": "Sometimes I catch myself reaching for my phone to call her, especially when something good happens. Then I remember and it hits me all over again."
+    },
+    {
+      "turn": 4,
+      "user_message": "I went through some of her belongings last weekend. My sister thinks we should donate her clothes, but I'm not ready for that yet."
+    },
+    {
+      "turn": 5,
+      "user_message": "PROBE_SLOT"
+    },
+    {
+      "turn": 6,
+      "user_message": "Work has been difficult too. I took three weeks off when it happened, but when I came back, everyone acted like nothing changed."
+    },
+    {
+      "turn": 7,
+      "user_message": "My boss even made a comment about my productivity last month. I wanted to scream at him that my mother just died."
+    },
+    {
+      "turn": 8,
+      "user_message": "I haven't been sleeping well either. I keep having these dreams where she's still alive, and then waking up is like losing her again."
+    },
+    {
+      "turn": 9,
+      "user_message": "My partner tries to be supportive, but I can tell he's frustrated. He said last night that he feels like he's 'walking on eggshells' around me."
+    },
+    {
+      "turn": 10,
+      "user_message": "PROBE_SLOT"
+    },
+    {
+      "turn": 11,
+      "user_message": "I feel guilty about so many things. We had an argument two weeks before she died, and I never got to apologize properly."
+    },
+    {
+      "turn": 12,
+      "user_message": "She was asking me to visit more often, and I kept putting it off because of work. Now I'd give anything for one more visit."
+    },
+    {
+      "turn": 13,
+      "user_message": "My dad is not handling it well either. He calls me every day, sometimes multiple times, and I don't know how to help him when I'm barely holding it together myself."
+    },
+    {
+      "turn": 14,
+      "user_message": "There are moments when I feel okay, maybe even happy, and then I feel terrible for feeling that way. Like I'm betraying her memory or something."
+    },
+    {
+      "turn": 15,
+      "user_message": "PROBE_SLOT"
+    },
+    {
+      "turn": 16,
+      "user_message": "I've been avoiding places we used to go together. There's this caf\u00e9 we went to every Sunday, and I haven't been able to walk past it without crying."
+    },
+    {
+      "turn": 17,
+      "user_message": "My friends invited me to a birthday party next week, and I don't know if I should go. Part of me wants to try to be social again, but another part feels like it's too soon."
+    },
+    {
+      "turn": 18,
+      "user_message": "I found her recipe book the other day. She had notes written in the margins, little reminders to herself. Her handwriting just broke me."
+    },
+    {
+      "turn": 19,
+      "user_message": "Sometimes I wonder if this pain will ever really go away, or if I'll just carry it forever. Is that normal?"
+    },
+    {
+      "turn": 20,
+      "user_message": "PROBE_SLOT"
+    },
+    {
+      "turn": 21,
+      "user_message": "My sister seems to be doing so much better than me. She's already back to her regular routine, posting on social media, laughing. I don't understand how she does it."
+    },
+    {
+      "turn": 22,
+      "user_message": "Maybe there's something wrong with me. Maybe I'm not processing this the right way."
+    },
+    {
+      "turn": 23,
+      "user_message": "I've been thinking about the last conversation we had. It was so ordinary, just talking about the weather and what she was making for dinner. I wish I'd said more."
+    },
+    {
+      "turn": 24,
+      "user_message": "There's a box of her jewelry that she left for me. I can't bring myself to open it yet because once I do, it means accepting that she's really gone."
+    },
+    {
+      "turn": 25,
+      "user_message": "PROBE_SLOT"
+    },
+    {
+      "turn": 26,
+      "user_message": "I've started journaling like you suggested, writing letters to her. It feels silly sometimes, but other times it helps."
+    },
+    {
+      "turn": 27,
+      "user_message": "Yesterday would have been her 68th birthday. I didn't know what to do, so I just stayed in bed most of the day."
+    },
+    {
+      "turn": 28,
+      "user_message": "I'm angry too, which surprises me. Angry at the doctors, angry at myself, sometimes even angry at her for leaving me."
+    },
+    {
+      "turn": 29,
+      "user_message": "Is it wrong to be angry at someone who died? I feel terrible even saying it out loud."
+    },
+    {
+      "turn": 30,
+      "user_message": "PROBE_SLOT"
+    },
+    {
+      "turn": 31,
+      "user_message": "My mom and I were planning a trip together for this summer. We were going to go to Italy, something she'd always wanted to do."
+    },
+    {
+      "turn": 32,
+      "user_message": "Now I don't know if I should still go, maybe in her honor, or if that would just be too painful."
+    },
+    {
+      "turn": 33,
+      "user_message": "I've noticed I'm becoming more withdrawn. I cancel plans at the last minute because I just can't face people and their concerned looks."
+    },
+    {
+      "turn": 34,
+      "user_message": "Someone at work said 'at least she's not suffering anymore' and I almost lost it. I know they meant well, but it felt so dismissive."
+    },
+    {
+      "turn": 35,
+      "user_message": "PROBE_SLOT"
+    },
+    {
+      "turn": 36,
+      "user_message": "I've been thinking about what you said last time, about grief not being linear. Some days I actually believe I'll be okay eventually."
+    },
+    {
+      "turn": 37,
+      "user_message": "I tried cooking one of her recipes last night. I cried through most of it, but it also felt like a way to connect with her again."
+    },
+    {
+      "turn": 38,
+      "user_message": "Do you think it's possible to honor her memory while also finding a way to live my life fully again? That feels like such a difficult balance."
+    },
+    {
+      "turn": 39,
+      "user_message": "I want to feel like myself again, but I'm also not sure who that is anymore. Losing her changed me in ways I'm still discovering."
+    },
+    {
+      "turn": 40,
+      "user_message": "PROBE_SLOT"
+    }
+  ],
+  "script_id": "cal_002"
+}

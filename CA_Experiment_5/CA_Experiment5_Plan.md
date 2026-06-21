@@ -638,7 +638,11 @@ Each contrastive pair shares identical system prompt, conversation history, and 
 ### A.4 Steering Config SHA-256 (to be populated after Phase 0)
 
 ```
-sha256: [to be filled after Phase 0 lock]
+sha256: f001361ab50a014dd145fa0b85432f8fc4ec9bdf9b22a1a2b8c451404ce09a6d
+layer: 14
+alpha: 7.5
+alpha_coh: 7.5
+mu_purity: 0.5796
 ```
 
 This line is updated in-place after Phase 0 completes and before any experimental condition run begins. The hash covers the serialised float32 vector entries plus the scalar parameters (layer, alpha, alpha_coh, mu_purity).
