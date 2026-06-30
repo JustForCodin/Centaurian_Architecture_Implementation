@@ -1,10 +1,14 @@
-# Interpretable Architectures for Human-Like Synthetic Intelligence: A Non-Neural Approach to Behavioral Realism
+# Interpretable Architectures for Human-Like Synthetic Intelligence: An Interpretable-Core, Thin-Periphery Approach to Behavioral Realism
 
 ---
 
 ## Abstract
 
-The pursuit of human-like artificial intelligence has traditionally been dominated by stochastic neural network models that, while capable of high-level pattern recognition, often lack the interpretability and auditability required for truly seamless interpersonal interaction. This paper presents a unified, multi-layered architecture for a human-like AI system designed to operate with the visual and behavioral fidelity of a standard video communication interface — indistinguishable from a Zoom call. The system eschews the black-box nature of neural networks in favor of symbolic AI, quantum-inspired cognitive modeling, and procedural animation techniques. By integrating the Five-Factor Model of personality into a Hilbert space formalism using empirically calibrated multi-qubit trait encodings, coupling it with Quantum Random Access Memory (QRAM) for scalable data retrieval, and synchronizing procedural facial animation with concatenative speech synthesis, the architecture achieves behavioral realism with full interpretive transparency — every behavioral decision is traceable from situative input through quantum state evolution to observable output. We provide complete specifications for the quantum circuit design — including gate sequences, qubit requirements, empirically grounded entanglement parameters derived from meta-analytic personality data, and measurement protocols — alongside a hybrid quantum-classical system architecture, a phased implementation roadmap, multi-agent scalability analysis, and resource estimates for fault-tolerant deployment. We distinguish between the system's core property of *traceability* (every output is auditable) and strict *determinism* (which the probabilistic quantum measurement formalism does not provide at the individual-shot level), and identify this interpretability as the architecture's primary value proposition over neural approaches.
+The pursuit of human-like artificial intelligence has been dominated by stochastic neural-network models that, while powerful at pattern recognition, lack the interpretability and auditability required for trustworthy interpersonal interaction. This paper presents a unified, multi-layered architecture for a human-like AI system designed to operate with the behavioral fidelity of a standard video-communication interface. Rather than eliminating neural networks entirely, the architecture confines them to a **thin perceptual periphery** — input transduction only (speech recognition, vision, OCR) — while keeping all **cognition and all output generation symbolic and fully traceable**. We term this the *interpretable-core, thin-periphery* design.
+
+The cognitive core integrates the Five-Factor Model of personality into a Hilbert-space formalism using empirically calibrated multi-qubit trait encodings (the Quantum Personality Model, QPM), with open-system dynamics realized through Lindblad noise channels and a Relational Resolution gate governing behavioral continuity. The agent's behavior — both natural language and program code — is produced by a **symbolic generation layer**: classical natural-language generation parameterized by the QPM state, and program synthesis over a purpose-designed stack-based language. We argue this layer is not a weaker substitute for a learned generator but a *necessary* one: the QPM's distinctive content — the off-diagonal coherences and mixed-state purity of its density matrix — cannot survive transmission across any interface to a black-box generator, which can consume only the diagonal marginals. A symbolic generator that reads the full density matrix directly is therefore the only output channel capable of expressing what the QPM computes. For code, this property strengthens from *traceability* to *verifiability*.
+
+We provide the quantum circuit design (gate sequences, empirically grounded entanglement derived from meta-analytic personality data, measurement protocols), the refined Relational Resolution formula, an interpretable **wireframe** visual surface that renders the agent's affective and articulatory state directly from a node-graph of its FACS rig, a hybrid system architecture, multi-agent scalability analysis, and a concrete embodiment — ADA, an Advanced Discovery Assistant — as a clearly-AI, fully-local personal agent. We distinguish the system's core property of *traceability* (every output is auditable) from strict *determinism* (which probabilistic quantum measurement does not provide at the single-shot level), and identify this interpretability as the architecture's primary value proposition over neural approaches.
 
 ---
 
@@ -13,16 +17,18 @@ The pursuit of human-like artificial intelligence has traditionally been dominat
 1. [Theoretical Foundations of Synthetic Personality](#1-theoretical-foundations-of-synthetic-personality)
 2. [Quantum Personality Model: Algorithmic Design](#2-quantum-personality-model-algorithmic-design)
 3. [Decision Space and Relational Resolution](#3-decision-space-and-relational-resolution)
-4. [Addressing the Memory Bottleneck: QRAM](#4-addressing-the-memory-bottleneck-qram)
+4. [Addressing the Memory Bottleneck: QRAM (Long-Horizon)](#4-addressing-the-memory-bottleneck-qram-long-horizon)
 5. [Multimodal Synthesis: Auditory Layer](#5-multimodal-synthesis-auditory-layer)
-6. [Multimodal Synthesis: Visual Layer](#6-multimodal-synthesis-visual-layer)
+6. [Multimodal Synthesis: Visual Layer — Interpretable Wireframe Surface](#6-multimodal-synthesis-visual-layer--interpretable-wireframe-surface)
 7. [System Integration and Synchronization](#7-system-integration-and-synchronization)
 8. [Integrated Hybrid System Architecture](#8-integrated-hybrid-system-architecture)
 9. [Engineering Constraints and Performance](#9-engineering-constraints-and-performance)
 10. [Multi-Agent Scalability](#10-multi-agent-scalability)
 11. [Implementation Roadmap](#11-implementation-roadmap)
-12. [Conclusions](#12-conclusions)
-13. [Works Cited](#13-works-cited)
+12. [Symbolic Generation: Language and Code](#12-symbolic-generation-language-and-code)
+13. [Embodiment: ADA — Advanced Discovery Assistant](#13-embodiment-ada--advanced-discovery-assistant)
+14. [Conclusions](#14-conclusions)
+15. [Works Cited](#15-works-cited)
 
 ---
 
@@ -48,9 +54,10 @@ Critically, the five domains are **not orthogonal**. Large-scale meta-analyses r
 
 ### 1.2 From Traits to Behavior: The ABCD Mediation Model
 
-In a non-neural architecture, these traits are not "learned" from data but are defined as inherent parameters of the system's cognitive engine [3]. The relationship between personality and behavior is mediated by the individual's enduring patterns of **Affect, Behavior, Cognition, and Desire (ABCD)** [4]. Personality traits serve as distal causes, leading to the development of contextualized adaptations that interact with the opportunities and demands of the environment [5].
+In this architecture, these traits are not "learned" from data but are defined as inherent parameters of the symbolic cognitive core [3]. The relationship between personality and behavior is mediated by the individual's enduring patterns of **Affect, Behavior, Cognition, and Desire (ABCD)** [4]. Personality traits serve as distal causes, leading to the development of contextualized adaptations that interact with the opportunities and demands of the environment [5].
 
 ```mermaid
+%%{init: {"flowchart": {"defaultRenderer": "elk"}} }%%
 graph TD
     subgraph "Personality → Behavior Mediation"
         FFM["FFM Trait Vector<br/>(O, C, E, A, N)"]
@@ -118,6 +125,7 @@ $$|\Psi\rangle = |O_{\text{exp}}\rangle \otimes |O_{\text{int}}\rangle \otimes |
 This 11-qubit trait system spans a **2,048-dimensional Hilbert space**, enabling representation of personality configurations such as "high experiential Openness with low intellectual Openness" or "high Volatility with low Withdrawal" as distinct basis states — distinctions impossible in a single-qubit-per-domain scheme.
 
 ```mermaid
+%%{init: {"flowchart": {"defaultRenderer": "elk"}} }%%
 graph LR
     subgraph "Multi-Qubit Domain Encoding"
         subgraph "Openness (3 qubits)"
@@ -219,6 +227,7 @@ The decoherence rates γ_k and λ_k are calibrated per domain:
 *Table 3: Per-aspect decoherence parameters for Lindblad noise channel implementation.*
 
 ```mermaid
+%%{init: {"flowchart": {"defaultRenderer": "elk"}} }%%
 graph TD
     subgraph "Lindblad-Operationalized Simulation Loop"
         CIRCUIT["Execute QPM Circuit<br/>(State Preparation +<br/>Entanglement + Context)"] --> NOISE["Apply Noise Channels<br/>AmplDamp(γ_k·Δt)<br/>PhaseDamp(λ_k·Δt)<br/>Depolar(μ·d₅·Δt)"]
@@ -304,7 +313,7 @@ The sign of ρ determines whether the entanglement is **correlating** (positive:
 
 **Step 2 — Empirically calibrated inter-domain entanglement:**
 
-The entangling gates are organized by the higher-order factor structure, with gate strengths directly proportional to the meta-analytic ρ values. Only the six strongest correlations (|ρ| ≥ .26) receive dedicated entangling gates; weaker pairs (O–C = .20, O–A = .21) are captured through indirect paths via the ancilla.
+The entangling gates are organized by the higher-order factor structure, with gate strengths directly proportional to the meta-analytic ρ values. Only the eight strongest correlations (|ρ| ≥ .26) receive dedicated entangling gates; weaker pairs (O–C = .20, O–A = .21) are captured through indirect paths via the ancilla.
 
 | Gate | Qubits | Empirical Basis | ρ | φ (radians) | Higher-Order Factor |
 |---|---|---|---|---|---|
@@ -350,6 +359,7 @@ q₁₀: ── ... ── Ry(δ₁₀·d₅) ──  (Temporal Pressure modulat
 Where δᵢ are coupling constants calibrated to empirical personality–context interaction data.
 
 ```mermaid
+%%{init: {"flowchart": {"defaultRenderer": "elk"}} }%%
 graph LR
     subgraph "Revised QPM Circuit Flow (12 qubits)"
         INIT["Initialize<br/>|000000000000⟩"] --> RY["Ry Gates<br/>(11 Aspect Scores)"]
@@ -422,6 +432,7 @@ The Quantum-BDI model [11] maps the classical Belief-Desire-Intention (BDI) agen
 *Table 7: Quantum-BDI mapping [11].*
 
 ```mermaid
+%%{init: {"flowchart": {"defaultRenderer": "elk"}} }%%
 graph TD
     subgraph "Quantum-BDI Agent Cycle"
         PERCEPT["Perception<br/>(User Input)"] --> BELIEF["Belief Revision<br/>(Projection ρ' = Π_a ρ Π_a / Tr(ρΠ_a))"]
@@ -456,32 +467,43 @@ In a behavioral AI context designed for human interaction, these variables corre
 
 *Table 8: Situative variables defining the fitness landscape of interaction [13].*
 
-These variables define a "fitness landscape" where the agent's behavioral rules guide its movement [12]. In a non-neural architecture, these rules are implemented as a **hierarchy of decision trees** merged into a single interpretable structure [14]. Unlike black-box neural networks, this structure identifies the key variables influencing every classification outcome [14].
+These variables define a "fitness landscape" where the agent's behavioral rules guide its movement [12]. In the symbolic core, these rules are implemented as a **hierarchy of decision trees** merged into a single interpretable structure [14]. Unlike black-box neural networks, this structure identifies the key variables influencing every classification outcome [14].
 
 ### 3.3 The Relational Resolution Formula
 
-The stability of the system's behavior is governed by the **Relational Resolution formula**:
+The stability of the system's behavior is governed by the **Relational Resolution** mechanism, which gates whether the cognitive state is allowed to transition on a given turn. The original formulation collapsed the *change being measured* and the *threshold it is compared against* into a single expression and did not specify how the five situative dimensions combine; the formulation below separates the two.
 
-$$R = \min(d_{i-1} - d_i)$$
+At each conversational turn t, the system computes the **maximum absolute change** across all five situative dimensions:
 
-In this framework, R represents the **minimum threshold of change** required in the decision space to trigger a transition in the cognitive state [7]. If the delta between the previous situative state d_{i-1} and the current state d_i is less than R, the system maintains **behavioral continuity** [7]. This prevents the "hyper-consistent" or "jittery" responses common in data-driven models by introducing a buffer that mimics the emotional inertia of biological humans [7].
+$$\Delta d(t) = \max_{i \in \{1,2,3,4,5\}} \left| d_i(t) - d_i(t-1) \right|$$
 
-When the threshold R is exceeded, the state vector |ψ⟩ is projected onto the appropriate axis of behavioral expression [7]. Affective pressure is modeled as the length of the vector; an increase in this length makes a "collapse" into a specific behavioral pole — such as an impulsive act or a sudden change in tone — more mathematically likely [7].
+where t is the conversational turn index (advancing once per user utterance) and i indexes the situative variables d₁–d₅.
+
+**R** is a calibrated scalar threshold (default **R = 0.15**) representing the minimum change magnitude required to trigger a cognitive state transition [7]. The gate condition is:
+
+$$\Delta d(t) < R \;\Rightarrow\; \text{maintain behavioral continuity (retain current } \rho, \text{ dephasing only)}$$
+
+$$\Delta d(t) \geq R \;\Rightarrow\; \text{trigger state collapse (run QPM circuit, project } |\psi\rangle)$$
+
+At t = 1 no prior state exists, so Δd is undefined and a transition fires by default — the QPM circuit runs fresh from the personality initialization angles θ_k. The use of **max** (rather than min or mean) is deliberate: the agent should respond to a significant shift in *any single* situative dimension — for example a sudden spike in d₁ (Affective Intensity) during an emotionally charged utterance — regardless of whether the other four remain stable. Gating on Δd prevents unnecessary circuit executions on turns where context has not changed meaningfully, and suppresses the "hyper-consistent" or "jittery" responses characteristic of purely reactive data-driven models, mimicking the emotional inertia of biological humans [7]. When the threshold is exceeded, affective pressure — modeled as the length of the state vector — makes a "collapse" into a specific behavioral pole more mathematically likely.
+
+R is a per-deployment parameter trading behavioral responsiveness against continuity — a lower R yields a more reactive agent, a higher R a more inertially stable one. It may further be made **personality-consistent**: agents initialized with high Neuroticism (N_vol, N_wth) take a lower R (higher reactivity), while agents high in Conscientiousness (C_ind, C_ord) take a higher R (greater stability), coupling the stability mechanism back to the trait substrate rather than treating R as a free constant.
 
 ```mermaid
+%%{init: {"flowchart": {"defaultRenderer": "elk"}} }%%
 graph TD
     subgraph "Relational Resolution Gate Logic"
-        INPUT["Incoming Situative<br/>State d_i"] --> DELTA["Compute Δ =<br/>|d_{i-1} - d_i|"]
-        DELTA --> CHECK{"Δ > R ?"}
-        CHECK -->|"No"| HOLD["Maintain Current<br/>Behavioral State<br/>(Continuity)"]
-        CHECK -->|"Yes"| COLLAPSE["Trigger State<br/>Collapse<br/>(Project |ψ⟩)"]
+        INPUT["Incoming Situative<br/>Vector d(t)"] --> DELTA["Compute Δd(t) =<br/>max_i |d_i(t) − d_i(t−1)|"]
+        DELTA --> CHECK{"Δd(t) ≥ R ?"}
+        CHECK -->|"Δd(t) < R"| HOLD["Maintain Current<br/>Behavioral State<br/>(retain ρ, dephasing only)"]
+        CHECK -->|"Δd(t) ≥ R"| COLLAPSE["Trigger State<br/>Collapse<br/>(run QPM, project |ψ⟩)"]
         COLLAPSE --> UPDATE["Update Personality<br/>State Vector"]
-        HOLD --> NEXT["Continue to<br/>Next Frame"]
+        HOLD --> NEXT["Continue to<br/>Next Turn"]
         UPDATE --> NEXT
     end
 ```
 
-*Figure 6: The Relational Resolution gating mechanism.*
+*Figure 6: The refined Relational Resolution gating mechanism.*
 
 ### 3.4 Interference and Contextuality
 
@@ -505,11 +527,13 @@ This non-commutativity ensures that the AI's behavior is not a static response t
 
 ---
 
-## 4. Addressing the Memory Bottleneck: QRAM
+## 4. Addressing the Memory Bottleneck: QRAM (Long-Horizon)
+
+> **Scope note.** This section is retained as a **long-horizon research direction**, not a near-term dependency. Classical approximate-nearest-neighbour and tree/LSH indexing already solve concatenative unit-selection search in milliseconds today (see Section 11.2), so QRAM is not required for any implementable-now deployment; and full-database QRAM requires on the order of 10⁷ physical qubits, roughly four orders of magnitude beyond current hardware. The only quantum-*like* component on the critical path is the GPU-simulated QPM (Section 2). The material below documents the future scaling pathway for the speech-unit memory.
 
 ### 4.1 The Storage Problem
 
-A non-neural concatenative synthesis system requires a massive database of pre-recorded human speech and interaction segments. A typical concatenative TTS database stores ~10⁶ diphone or polyphone units, each comprising approximately 50 ms of audio at 16 kHz (800 samples × 16 bits = **12,800 bits per unit**), totaling ~12.8 gigabits of raw classical data [15]. When this is extended to include laughter segments, emotional variants, prosodic variations, and multi-speaker databases, the storage requirement grows to the **exabyte scale** — an "astronomical memory" cost that classical storage can handle in capacity but not in search latency for real-time unit selection.
+A concatenative synthesis system requires a massive database of pre-recorded human speech and interaction segments. A typical concatenative TTS database stores ~10⁶ diphone or polyphone units, each comprising approximately 50 ms of audio at 16 kHz (800 samples × 16 bits = **12,800 bits per unit**), totaling ~12.8 gigabits of raw classical data [15]. When this is extended to include laughter segments, emotional variants, prosodic variations, and multi-speaker databases, the storage requirement grows to the **exabyte scale** — an "astronomical memory" cost that classical storage can handle in capacity but not in search latency for real-time unit selection.
 
 ### 4.2 QRAM: Coherent Retrieval in Superposition
 
@@ -524,6 +548,7 @@ Where |i⟩ is an n-qubit address register indexing N = 2ⁿ memory cells and D_
 The bucket-brigade design, introduced by Giovannetti, Lloyd, and Maccone [16], arranges **N − 1 quantum routers** in a binary tree with n levels. Each router is a three-state system (qutrit) with states |0⟩ (route left), |1⟩ (route right), and |W⟩ (wait/idle).
 
 ```mermaid
+%%{init: {"flowchart": {"defaultRenderer": "elk"}} }%%
 graph TD
     subgraph "Bucket-Brigade QRAM Tree (n=3, N=8)"
         ROOT["Router R₁<br/>(Level 0)"] --> L1A["Router R₂<br/>(Level 1)"]
@@ -633,6 +658,7 @@ Recent experimental milestones demonstrate the trajectory:
 **Quantum autoencoders** [28] can compress high-dimensional classical interaction data into lower-dimensional latent spaces within the Hilbert space:
 
 ```mermaid
+%%{init: {"flowchart": {"defaultRenderer": "elk"}} }%%
 graph LR
     subgraph "Quantum Autoencoder"
         IN["n-qubit Input<br/>(Personality Log)"] --> ENC["Parametric<br/>Encoder U(θ)"]
@@ -653,6 +679,7 @@ Experimental demonstrations have achieved compression ratios of 2:1 with fidelit
 The three-tier architecture for QRAM-accelerated unit selection integrates quantum search with the classical TTS pipeline:
 
 ```mermaid
+%%{init: {"flowchart": {"defaultRenderer": "elk"}} }%%
 graph TD
     subgraph "Tier 1: Classical Preprocessing (~1 ms)"
         TEXT["Input Text"] --> NLP["Text Analysis<br/>Pipeline"]
@@ -729,15 +756,27 @@ The AI injects affective content into speech through a rule-based emotion synthe
 
 ### 5.5 Limitations and Boundary Effects
 
-It should be acknowledged that even the highest-quality concatenative systems produce audible artifacts at segment boundaries. Modern neural TTS systems (e.g., VITS, XTTS) have objectively surpassed concatenative synthesis in naturalness, prosodic variation, and Mean Opinion Scores (MOS) for general-purpose speech generation. The choice of concatenative synthesis in this architecture is motivated by three specific engineering properties: (1) full traceability of the synthesis process — every output segment can be traced to a specific database entry; (2) CPU-bound operation eliminating GPU dependency at the synthesis stage; and (3) guaranteed absence of hallucinated phonemes or prosodic patterns. Whether these traceability benefits outweigh the naturalness gap depends on the deployment context and tolerance for minor boundary artifacts. In a Zoom-call context with typical compression artifacts and variable audio quality, the gap is partially masked, but it remains a genuine limitation. Section 12 discusses a potential hybrid approach where the interpretable symbolic core is retained while a lightweight neural vocoder handles final audio synthesis.
+It should be acknowledged that even the highest-quality concatenative systems produce audible artifacts at segment boundaries. Modern neural TTS systems (e.g., VITS, XTTS) have objectively surpassed concatenative synthesis in naturalness, prosodic variation, and Mean Opinion Scores (MOS) for general-purpose speech generation. The choice of concatenative synthesis in this architecture is motivated by three specific engineering properties: (1) full traceability of the synthesis process — every output segment can be traced to a specific database entry; (2) CPU-bound operation eliminating GPU dependency at the synthesis stage; and (3) guaranteed absence of hallucinated phonemes or prosodic patterns. Whether these traceability benefits outweigh the naturalness gap depends on the deployment context and tolerance for minor boundary artifacts. In a Zoom-call context with typical compression artifacts and variable audio quality, the gap is partially masked, but it remains a genuine limitation. Under the interpretable-core, thin-periphery framing established in Section 8.1, a lightweight neural vocoder is an admissible *output-side* periphery component where naturalness is paramount — the symbolic core and the *content* of speech are unaffected by that choice.
 
 ---
 
-## 6. Multimodal Synthesis: Visual Layer
+## 6. Multimodal Synthesis: Visual Layer — Interpretable Wireframe Surface
 
-### 6.1 The Anatomical Muscle Rig
+### 6.1 An Interpretable Wireframe Surface
 
-The visual parity of a Zoom call requires a 3D facial model exhibiting realistic dynamics and micro-expressions. The system utilizes a "Muscle Rig" — an anatomy-inspired parameterization module consisting of **28 template muscle patches** corresponding to the primary muscles involved in human expression [34].
+The visual surface is **not** a photorealistic 3D character. The agent presents itself through an abstract **node-graph rendering** of the underlying FACS-driven mesh — a luminous wireframe of the agent's **face and shoulders** in which the same muscle rig described below drives the vertices, but the renderer replaces filled triangles and skin shading with thin emissive edges and nodes over a dark background. The agent is unmistakably identifiable as a face — orientation, expression, viseme — and unmistakably synthetic.
+
+**Why a wireframe rather than a photorealistic surface.** This is a deliberate interpretability decision, not a compute compromise. The cognitive core is symbolic, quantum-like, and fully auditable; presenting it through a photorealistic skin would create a *representational mismatch* — a system whose every internal decision is traceable would project an outward face whose only legible signal is "human-like." A node-graph rendering keeps the visual layer coherent with the rest of the stack: the user sees *what the agent is*, not what it is trying to imitate. Every interface — symbolic core, structured intent, surface rendering — speaks the same language of explicit, inspectable structure. The choice also positions the agent deliberately *below* the uncanny-valley zone: a wireframe does not aspire to human-likeness and so does not trigger the eeriness response that almost-human filled-skin avatars do.
+
+**FACS-region colour coding as a continuous interpretability surface.** Beyond the wireframe aesthetic, the renderer uses **colour to expose the FACS Action-Unit activations themselves**. The 28 muscle patches (Section 6.2) are grouped into anatomical regions (forehead/brow, eyes, midface, mouth, jaw), each assigned a distinct hue; as the rig fires, the vertices and edges in the activated region glow with intensity proportional to AU weight. A worried agent literally has visibly active corrugator nodes; an emphatic viseme lights up the orbicularis-oris region in real time. The agent's emotional and articulatory state is thus *directly readable from the surface itself*, with no hidden affect channel. The colour map is a fixed, deterministic, trivially auditable lookup table. Where prior interpretable systems expose internal state only through side panels, the surface here is itself a live interpretability display.
+
+**Surrounding instrumentation.** The central rendering is framed by live panels exposing the agent's internal state at the moment of speech: the QPM measurement distribution, the structured intent the BDI engine just emitted, the active subgraph of the knowledge graph used for the current response, and a streaming transcript with speaker attribution.
+
+**Stack.** The wireframe surface is rendered with **Odin + Raylib** — CPU-side mesh transform plus a thin GPU pass through Raylib's OpenGL/Metal back end — rather than a general game engine such as Unity/C#. This is consistent with the architecture's interpretability thesis: Odin compiles to a small native binary with no proprietary runtime dependency, Raylib is open-source under the permissive zlib license, and the combined toolchain is auditable end-to-end alongside the symbolic core. The renderer consumes the same FACS Action-Unit weight stream that drives the muscle rig (Section 6.2); only the surface representation is a wireframe, so a future swap to a different surface (textured mesh, robot actuator) requires no upstream change.
+
+### 6.2 The Anatomical Muscle Rig
+
+Beneath the wireframe renderer, expression is parameterized by a "Muscle Rig" — an anatomy-inspired module consisting of **28 template muscle patches** corresponding to the primary muscles involved in human expression [34].
 
 | Muscle Patch | Anatomical Equivalent | Visual Expression |
 |---|---|---|
@@ -754,7 +793,7 @@ The visual parity of a Zoom call requires a 3D facial model exhibiting realistic
 
 Each muscle abstraction has its own local deformation space, covering both active contraction and passive movement. The rig uses local blendshapes describing a muscle's independent status, enabling "parallel parameterization" where captured or procedurally generated intensities drive the **Action Units (AUs) of the Facial Action Coding System (FACS)** [35].
 
-### 6.2 The JALI Viseme Field
+### 6.3 The JALI Viseme Field
 
 Speech-driven facial animation is governed by the **JALI (Jaw and Lip) model** [36], based on the psycholinguistic observation that visual speech variation is primarily controlled by two independent anatomical actions: jaw motion and lower-face muscle (lip) action [36].
 
@@ -769,7 +808,7 @@ Instead of a one-to-one mapping from phoneme to viseme, JALI defines a **2D "vis
 
 *Table 14: JALI speaking styles linked to cognitive state [36].*
 
-### 6.3 Real-Time Vertex Deformation
+### 6.4 Real-Time Vertex Deformation
 
 The 3D model is updated in real time using hardware-accelerated vertex movement [37]. Techniques include:
 
@@ -810,14 +849,53 @@ The system includes biofeedback responses, such as a "laughter cycle" where the 
 
 The unified architecture follows a **Centaurian Tripartite Model** where classical and quantum components coexist in a unified computational graph. The three layers operate at different timescales using appropriate hardware:
 
+**The interpretable-core, thin-periphery principle.** Before the runtime layering, it is worth stating the principle that fixes *where* neural and symbolic components are allowed to live — a boundary dictated by where each paradigm is irreducible rather than chosen by preference. The agent's capabilities partition into three tiers:
+
+- **Tier A — Perception (input transduction): neural, by necessity.** Recognizing a spoken utterance (ASR), a face's expression for the d₁ arousal estimate, an object in a photograph, or text on a scanned document (OCR) are learned-features problems with no symbolic route. These components form a **thin neural periphery** and are *input-only* — they transduce the world into structured signals; they never generate the agent's behavior.
+- **Tier B — Cognition: symbolic, traceable.** The QPM (Section 2), the knowledge graph, the Quantum-BDI engine, and the Relational Resolution gate (Section 3.3).
+- **Tier C — Generation: symbolic, traceable → verifiable.** Language and code (Section 12), realized symbolically so the QPM's full state can drive output and every utterance or program remains auditable.
+
+The one genuinely hard seam is between A and B *for language*: natural-language **understanding** — turning an arbitrary utterance into a structured intent the core can act on. Bounded or templated phrasings yield to grammar-based semantic parsing and stay symbolic; fully open phrasing is where a periphery component earns its place. The depth of the neural periphery at this seam is therefore a deployment decision, stated explicitly rather than hidden.
+
 ```mermaid
+%%{init: {"flowchart": {"defaultRenderer": "elk"}} }%%
+graph LR
+    subgraph IN["WORLD (input)"]
+        SRC["speech · video<br/>image · scan"]
+    end
+    subgraph A["Tier A — Perception<br/>(neural periphery, input-only)"]
+        PERC["ASR · vision · OCR<br/>arousal estimate"]
+    end
+    subgraph B["Tier B — Cognition<br/>(symbolic, traceable)"]
+        CORE["QPM · Knowledge Graph<br/>Quantum-BDI · Relational Resolution"]
+    end
+    subgraph C["Tier C — Generation<br/>(symbolic, traceable → verifiable)"]
+        GEN["NLG · program synthesis"]
+    end
+    subgraph OUT["WORLD (output)"]
+        SINK["words · code<br/>wireframe surface"]
+    end
+
+    SRC --> PERC
+    PERC -->|"structured signals"| CORE
+    CORE -->|"full density matrix ρ"| GEN
+    GEN --> SINK
+    PERC -. "NLU seam:<br/>bounded → symbolic,<br/>open → periphery" .-> CORE
+```
+
+*Figure 11: The interpretable-core, thin-periphery partition. Only Tier A is neural and it is input-only; cognition and generation are symbolic and auditable. The hard seam is natural-language understanding between A and B.*
+
+The runtime realization of these tiers across hardware timescales follows the layered model below:
+
+```mermaid
+%%{init: {"flowchart": {"defaultRenderer": "elk"}} }%%
 graph TB
     subgraph "SURFACE LAYER (60+ Hz)"
         direction LR
-        UNITY["Unity/C# Engine<br/>3D Rendering"]
+        RENDER["Node-Graph Renderer<br/>(Odin + Raylib) + JALI"]
         TTS_OUT["Concatenative TTS<br/>Audio Streaming"]
         DISPLAY["Zoom-Call<br/>Display Output"]
-        UNITY --> DISPLAY
+        RENDER --> DISPLAY
         TTS_OUT --> DISPLAY
     end
 
@@ -834,7 +912,7 @@ graph TB
         direction LR
         QPM["QPM Core<br/>(12-qubit Circuit)"]
         BDI["Quantum-BDI<br/>Reasoning Engine"]
-        KG["Symbolic<br/>Knowledge Graph"]
+        KG["Symbolic KG (grounding)<br/>+ Wikidata/QLever<br/>+ Kiwix/ZIM (breadth)"]
         QPM --> BDI
         KG --> BDI
     end
@@ -847,16 +925,16 @@ graph TB
     end
 
     DISPLAY -->|"User Audio/Video"| STT
-    MAP -->|"Animation Params<br/>Prosody Params"| UNITY
+    MAP -->|"Animation Params<br/>Prosody Params"| RENDER
     MAP -->|"LPC Coefficients<br/>Unit Selection"| TTS_OUT
     DECODE -->|"Situative Variables<br/>d₁-d₅"| QPM
     BDI -->|"Intentions &<br/>Beliefs"| MAP
     QRAM_SYS --> TTS_OUT
     SPEECH_DB --> QRAM_SYS
-    ANIM_DB --> UNITY
+    ANIM_DB --> RENDER
 ```
 
-*Figure 11: Complete Centaurian Tripartite System Architecture.*
+*Figure 12: Complete Centaurian Tripartite System Architecture.*
 
 ### 8.2 Layer Specifications
 
@@ -864,11 +942,13 @@ graph TB
 |---|---|---|---|---|
 | **Computation** | QPM Core | 10–30 Hz | GPU quantum simulator (Qiskit Aer), 12 qubits, 1024 shots | 2–4 ms |
 | **Computation** | Quantum-BDI Reasoning | 10–30 Hz | Cached plan lookup + belief revision | 1–2 ms |
-| **Computation** | Knowledge Graph | On-demand | RDF/OWL ontology (Apache Jena) | < 1 ms |
+| **Computation** | Domain ontology (grounding) | On-demand | RDF/OWL ontology (Apache Jena) | < 1 ms |
+| **Computation** | Breadth KG (encyclopedic) | On-demand | Wikidata via QLever | ~ms–sub-s (off frame path) |
+| **Computation** | Text store (explanations) | On-demand | Offline Wikipedia (Kiwix/ZIM) | ~ms (off frame path) |
 | **Observation** | Speech-to-Text | 30–60 Hz | Classical ASR pipeline | 2–3 ms |
 | **Observation** | Feature Decoder (d₁–d₅) | 30–60 Hz | Rule-based extraction on GPU | 1–2 ms |
 | **Observation** | Observable Mapper | 30–60 Hz | Tr(ρÂ) → parameter mapping | 1 ms |
-| **Surface** | 3D Rendering (Unity) | 60+ Hz | GPU-accelerated muscle rig + JALI | 8–11 ms |
+| **Surface** | Node-Graph Renderer (Odin + Raylib) | 60+ Hz | Wireframe over muscle rig + JALI (CPU transform + thin GPU pass) | 8–11 ms |
 | **Surface** | Concatenative TTS | Real-time | CPU-bound LPC + unit selection | 2–3 ms |
 | **Surface** | A/V Sync | 60+ Hz | HMM forced alignment | < 1 ms |
 | | **Inter-component IPC** | | ZeroMQ IPC / shared memory | 1–2 ms |
@@ -881,7 +961,7 @@ graph TB
 ```mermaid
 sequenceDiagram
     participant User
-    participant Surface as Surface Layer<br/>(Unity + TTS)
+    participant Surface as Surface Layer<br/>(Odin + Raylib + TTS)
     participant Observe as Observation Layer<br/>(Feature Decoder)
     participant Compute as Computation Layer<br/>(QPM + BDI)
     participant KG as Knowledge Graph
@@ -916,7 +996,7 @@ sequenceDiagram
     Surface->>User: Synchronized A/V output
 ```
 
-*Figure 12: Complete data flow sequence diagram for one interaction frame.*
+*Figure 13: Complete data flow sequence diagram for one interaction frame.*
 
 ### 8.4 Knowledge Graph Grounding (Anti-Hallucination)
 
@@ -931,6 +1011,7 @@ The Symbolic Knowledge Graph constrains all quantum cognitive outputs to semanti
 **A note on "hallucination" vs. "semantic invalidity":** The knowledge graph grounding eliminates one class of error — generating outputs that fall outside the system's ontology. However, the system can still produce *contextually inappropriate* outputs — selecting a valid action that does not match human expectations for the given situation. The correct characterization is that the system's outputs are **semantically grounded** (constrained to valid subgraphs) and **fully traceable** (every selection is auditable), not that they are infallible. Traceability enables rapid diagnosis and correction of inappropriate outputs, which is a genuine advantage over opaque neural systems — but it should not be conflated with correctness.
 
 ```mermaid
+%%{init: {"flowchart": {"defaultRenderer": "elk"}} }%%
 graph TD
     subgraph "Knowledge-Grounded Quantum Cognition"
         QPM_OUT["QPM Output<br/>(2048-dim probability<br/>distribution)"] --> FILTER["Semantic<br/>Validity Filter"]
@@ -941,7 +1022,14 @@ graph TD
     end
 ```
 
-*Figure 13: Knowledge graph filtering constrains outputs to valid behavioral options.*
+*Figure 14: Knowledge graph filtering constrains outputs to valid behavioral options.*
+
+**Two knowledge tiers: grounding ontology + encyclopedic breadth.** The grounding filter above operates over the bespoke domain ontology — a small, hand-curated RDF/OWL graph whose value is its auditable constraint and safety semantics; it is the authority for *semantic validity*, not a store of world facts. ADA's factoid capability (Section 13 — "what is Planck's constant?") needs breadth the bespoke ontology will never carry, so the knowledge layer is two-tiered:
+
+- **Breadth graph — Wikidata, served via QLever.** Embedded triplestores do not hold Wikidata's ~19 billion triples at usable query latency; QLever is purpose-built for it, building a compact compressed index that answers SPARQL (and combined full-text) queries over full Wikidata on a single machine. This supplies entity/attribute facts for encyclopedic QA while remaining fully local and traceable — every answer still resolves to specific triples.
+- **Explanatory text — offline Wikipedia (Kiwix/ZIM).** Triples answer *what*; prose answers *explain*. A local ZIM store provides explanatory passages for questions whose answer is a description rather than a value.
+
+The tiers do not overlap in role: the bespoke ontology supplies grounding and constraint (the anti-hallucination authority of this section), the breadth graph supplies coverage, and the text store supplies explanation. All three run with no network — consistent with ADA's fully-local design (Section 13) — and scale by target: a desktop hosts the full QLever-Wikidata index plus the ZIM store; a phone hosts a curated Wikidata subset and a domain-scoped ZIM.
 
 ### 8.5 Pipeline Parallelism and Double-Buffering
 
@@ -972,13 +1060,13 @@ gantt
     Render + TTS    :c4, after c3, 11
 ```
 
-*Figure 14: Pipeline parallelism showing overlapped computation across frames.*
+*Figure 15: Pipeline parallelism showing overlapped computation across frames.*
 
 ### 8.6 Middleware and Inter-Process Communication
 
 | Boundary | Protocol | Serialization | Latency |
 |---|---|---|---|
-| Python QPM ↔ C# Unity | gRPC | Protocol Buffers | ~1 ms |
+| Python QPM ↔ Odin/Raylib renderer | gRPC | Protocol Buffers | ~1 ms |
 | Co-located processes | ZeroMQ IPC (pub/sub) | MessagePack | < 0.5 ms |
 | QPM ↔ Knowledge Graph | In-process SPARQL | RDF triples | < 0.3 ms |
 | Offline training (cloud QPU) | Qiskit Runtime | JSON + binary | 3–13 s (acceptable) |
@@ -988,7 +1076,7 @@ gantt
 Event bus topics:
 - `quantum.state.updated` → triggers BDI belief revision
 - `bdi.intention.changed` → triggers Observation Layer parameter update
-- `render.params.ready` → consumed by Unity render loop
+- `render.params.ready` → consumed by the Odin/Raylib render loop
 - `user.input.processed` → triggers QPM context injection
 
 ---
@@ -1020,7 +1108,7 @@ Event bus topics:
 
 ### 9.3 Strategic Decision Making
 
-Complex situations (e.g., strategic interactions during a call) are modeled using **production rules** rather than reinforcement learning [42]. This allows the designer to define state variables and decision matrices that govern strategy while ensuring the system always acts within its defined personality profile, adhering to the R = min(d_{i-1} − d_i) stability criterion [7].
+Complex situations (e.g., strategic interactions during a call) are modeled using **production rules** rather than reinforcement learning [42]. This allows the designer to define state variables and decision matrices that govern strategy while ensuring the system always acts within its defined personality profile, adhering to the Relational Resolution stability criterion (Δd(t) < R; Section 3.3) [7].
 
 ---
 
@@ -1040,7 +1128,7 @@ The per-agent resource footprint is dominated by three components:
 | Speech Unit Database | ~1.6 GB per speaker voice | **Multiplicative** — distinct voices require distinct databases |
 | Knowledge Graph | ~50–500 MB per domain ontology | **Shared** — agents in the same domain can share the KG with personality-specific traversal weights |
 | BDI Reasoning Engine | ~10 MB per agent (belief state + plan cache) | **Linear** — independent belief states |
-| 3D Rendering (Unity) | ~50 MB per character model + ~2 ms GPU per agent | **Sub-linear** — GPU batching amortizes rendering overhead |
+| Node-Graph Renderer (Odin + Raylib) | ~20 MB per character model + ~1 ms GPU per agent | **Sub-linear** — wireframe rendering is light; instanced edge batching amortizes overhead |
 
 *Table 19: Per-agent resource scaling for multi-agent deployment.*
 
@@ -1059,12 +1147,13 @@ For a **50-agent virtual meeting** scenario:
 ### 10.3 Architectural Strategies for Multi-Agent Efficiency
 
 ```mermaid
+%%{init: {"flowchart": {"defaultRenderer": "elk"}} }%%
 graph TD
     subgraph "Multi-Agent Architecture"
         subgraph "Shared Resources"
             KG_SHARED["Shared Knowledge<br/>Graph (RDF/OWL)"]
             PHONEME_DB["Shared Phoneme<br/>Inventory"]
-            RENDER_ENG["Batched Rendering<br/>Engine (Unity)"]
+            RENDER_ENG["Batched Node-Graph<br/>Renderer (Odin + Raylib)"]
         end
 
         subgraph "Per-Agent Instances"
@@ -1097,7 +1186,7 @@ graph TD
     end
 ```
 
-*Figure 15: Multi-agent architecture showing shared vs. per-agent resources.*
+*Figure 16: Multi-agent architecture showing shared vs. per-agent resources.*
 
 Key efficiency strategies:
 
@@ -1124,11 +1213,12 @@ The Relational Resolution threshold R operates independently per agent, ensuring
 ### 11.1 Two-Phase Architecture
 
 ```mermaid
+%%{init: {"flowchart": {"defaultRenderer": "elk"}} }%%
 graph LR
     subgraph "Phase 1: Near-Term (Implementable Now)"
         P1A["GPU Quantum<br/>Simulator<br/>(12 qubits + noise)"]
         P1B["Classical Indexed<br/>Unit Selection<br/>(KD-trees, LSH)"]
-        P1C["Unity + JALI<br/>Procedural Animation"]
+        P1C["Odin + Raylib + JALI<br/>Node-Graph Renderer"]
         P1D["Concatenative TTS<br/>+ LPC"]
         P1A --> P1C
         P1B --> P1D
@@ -1146,7 +1236,7 @@ graph LR
     P1B -.->|"Replace with<br/>QRAM"| P2B
 ```
 
-*Figure 16: Two-phase implementation roadmap.*
+*Figure 17: Two-phase implementation roadmap.*
 
 ### 11.2 Phase 1 Specifications (Current Technology)
 
@@ -1156,7 +1246,7 @@ graph LR
 | Lindblad Dynamics | Qiskit noise model (AmplitudeDamping + PhaseDamping channels) | **Ready** |
 | BDI Engine | Python symbolic reasoning + KG (RDFLib) | **Ready** |
 | Observation Layer | Classical NLP + prosodic analysis | **Ready** |
-| 3D Rendering | Unity/C# with muscle rig + JALI | **Ready** |
+| Node-Graph Renderer | Odin + Raylib wireframe over muscle rig + JALI | **Ready** |
 | TTS | Concatenative unit selection + LPC | **Ready** |
 | Unit Selection Search | Classical KD-tree / VP-tree indexing | **Ready** |
 | Offline QPM Training | Qiskit Runtime on IBM Heron (156 qubits) | **Available** |
@@ -1177,29 +1267,139 @@ graph LR
 
 ---
 
-## 12. Conclusions
+## 12. Symbolic Generation: Language and Code
 
-The engineering of a human-like AI system that satisfies the "Zoom call" requirement without neural networks is a multifaceted challenge that is viable through the integration of **four core interpretable layers**:
+Sections 1–3 specify the agent's personality dynamics; Sections 5–8 specify how speech is rendered, animated, and synchronized. This section specifies the layer that produces the agent's actual *content* — the words it says and the code it writes. This is the output organ of the cognitive core: the QPM and knowledge graph decide *what* to express and *in what manner*; the symbolic generation layer realizes that decision as surface text.
 
-1. **The Cognitive Layer** utilizes the Five-Factor Model mapped to Hilbert space state vectors in a 12-qubit quantum circuit (21 Ry gates, 5 intra-domain CNOTs, 8 empirically calibrated inter-domain CRz gates), with personality dynamics governed by operationalized Lindblad noise channels implementing amplitude damping and phase damping at domain-specific rates. The entanglement structure is grounded in the meta-analytic correlation matrix of van der Linden et al. (2010; N = 144,117), ensuring that the circuit's inter-trait coupling reproduces empirically observed personality covariance including the Stability/Plasticity higher-order factor structure.
+### 12.1 Generating Language
 
-2. **The Situational Layer** employs the decision space variables d₁–d₅ and the Relational Resolution threshold R = min(d_{i-1} − d_i) to maintain behavioral continuity and prevent stochastic jitter.
+Language is produced by the classical **natural-language generation (NLG) pipeline** [60]: **content planning** (selecting and ordering knowledge-graph material for the communicative goal), **microplanning** (lexical choice, aggregation of propositions into fluent sentences, referring-expression generation), and **surface realization** (an abstract syntactic specification → a grammatical string, handling agreement, morphology, ordering, and function words). Surface realization is the solved stage; a realizer such as SimpleNLG [61] produces grammatically correct, varied output from a feature structure. The domain-bound effort lives upstream, in content and microplanning. This pipeline is excellent in narrow, well-specified domains and does not generalize to open conversation — the same property that makes it auditable makes its coverage bounded. The symbolic generator is therefore the agent's *primary, trustworthy* voice within its domains, with the neural periphery (Section 8.1) handling open-ended understanding at the input boundary.
 
-3. **The Auditory Layer** leverages the high intelligibility of concatenative unit selection and the parametric flexibility of Linear Predictive Coding to deliver emotionally resonant, clear speech, with QRAM-accelerated Grover search as a future scaling pathway. The concatenative approach provides full traceability of the synthesis process at the cost of some naturalness compared to neural vocoders — an acknowledged limitation.
+**Personality-parameterized generation.** The QPM does not merely supply facts to express; it supplies the *manner* of expression. This follows a direct line of prior work — Mairesse & Walker's PERSONAGE [62], a generator whose decisions are driven by Big-Five trait values and whose output human raters reliably perceive as having the intended personality. The trait → generation mapping is concrete:
 
-4. **The Visual Layer** uses anatomically inspired muscle rigging (28 muscle patches, FACS Action Units) and the JALI 2D viseme field to ensure realistic, synchronized facial dynamics.
+| QPM aspect (high) | Generation decisions |
+|---|---|
+| Extraversion (E_ent, E_ass) | verbosity, content volume, positive-valence lexicon, emphatics ("really", "very") |
+| Neuroticism (N_vol, N_wth) / low confidence | hedges and softeners ("sort of", "I think"), self-repairs, qualification |
+| Agreeableness (A_com, A_pol) | politeness strategies, concessions, softened directives |
+| Openness/Intellect (O_exp, O_int) | lexical sophistication, syntactic complexity, aggregation depth |
+| Conscientiousness (C_ind, C_ord) | explicit structure, justifications, hedge-free assertion |
 
-These systems are unified through the **Centaurian Tripartite Architecture** — a middleware-orchestrated pipeline of Computation (QPM + BDI), Observation (feature decoder), and Surface (3D rendering + TTS) layers maintaining end-to-end latency under 24 ms through pipeline parallelism and double-buffering. The architecture scales to multi-agent scenarios through batched QPM execution, shared knowledge graphs, and LOD rendering strategies.
+*Table 23: Mapping QPM aspect marginals to symbolic generation decisions (after PERSONAGE [62]).*
 
-The system's core property is **interpretive transparency**: every behavioral decision is traceable from situative input through quantum state evolution to observable output. This should be distinguished from strict determinism — the probabilistic nature of quantum measurement means individual-shot outcomes vary, though the 1024-shot distribution is statistically convergent. This traceability enables rapid diagnosis and correction of inappropriate behaviors, which is a genuine and important advantage over opaque neural systems, without overclaiming infallibility.
+### 12.2 Why the Generator Must Be Symbolic
 
-The QRAM component addresses the "astronomical memory" bottleneck of non-neural concatenative synthesis. While full deployment requires ~10⁷ physical qubits (four orders of magnitude beyond current hardware), the two-phase roadmap ensures the architecture is **implementable today** using GPU quantum simulators for personality modeling and classical indexed search for unit selection, with a clear upgrade path to fault-tolerant quantum hardware as it matures through the 2030s.
+PERSONAGE took *static* Big-Five scores. The QPM provides something strictly richer: **aspect-level** marginals (eleven, not five), **context-evolved** values that move turn to turn under the Relational Resolution gate, and — uniquely — **purity and off-diagonal coherence** (Section 2.3). This last component is the crux.
 
-The result is a robust, interpretable virtual entity — a "Centaurian" intelligence — capable of mirroring the presence and social intelligence of a biological human within a real-time communication interface, with every behavioral decision fully traceable from situative input through quantum state evolution to observable output. Future work should prioritize empirical validation through perceptual studies (MOS scores, behavioral Turing tests, uncanny valley measurements) and exploration of a "thin neural periphery" model where lightweight neural components handle I/O transduction (ASR, vocoding) while the symbolic cognitive core retains full interpretability.
+Consider what any interface to a black-box learned generator can carry. A density matrix ρ is, in a chosen basis, a set of diagonal entries (the marginal probabilities) and off-diagonal entries (the coherences). Any serialization of the QPM state into a learned model's input — a JSON field, a numeric vector, an injected activation — transmits at best the **diagonal marginals**. The off-diagonal coherences and the purity are either discarded by the serialization or, even if numerically appended, are uninterpretable to a model never trained to associate them with behavior. A learned generator therefore necessarily consumes a **diagonal projection** of the QPM — precisely the part a *classical* multivariate model could also have produced. The quantum-distinctive content does not cross the boundary.
+
+A symbolic generator that you author has no such boundary. It can read the **entire** density matrix — diagonal and off-diagonal — and map specific structural features to specific generation decisions, deterministically and traceably:
+
+- **Low purity (high ambivalence)** → explicit ambivalence constructions in the content plan ("on the one hand … on the other …"), increased hedging in microplanning.
+- **Near-equal amplitudes between opposing aspects** → concession/qualification structures rather than flat assertion.
+- **Strong off-diagonal coherence between two aspects** → co-expression of their associated stylistic features in the same utterance.
+
+This yields the central architectural claim of the design: **the symbolic generation layer is not the interpretable-but-weaker alternative to a neural generator — it is the only generator that can express what the QPM computes.** A learned generator, however capable, structurally discards the coherence and purity that make the QPM non-classical. Quantum-like cognition and symbolic generation are not bolted together; each is the other's necessary condition.
+
+### 12.3 Generating Code
+
+The same architecture — a planner over a grammar plus a realizer — generates code, and code *inverts* the difficulty profile of language in the agent's favour:
+
+- **Realization is exact.** A programming language has a formal grammar; a grammar-based generator emits syntactically perfect code by construction. The fluency tail that dogs NLG vanishes.
+- **There is a correctness oracle.** Code can be executed, type-checked, and tested. The planner no longer has to be right by construction — it can **search and verify**.
+
+The bottleneck thus moves upstream into the planner, where it is the well-studied problem of **program synthesis**: syntax-guided synthesis (SyGuS) and counterexample-guided inductive synthesis (CEGIS) [63], type-directed synthesis [64], and programming-by-example. A grammar bounds the search space and a checkable specification closes the loop — the same skeleton as the NLG pipeline, with an executor replacing the human reader.
+
+**A stack-based target designed for synthesis.** The architecture specifies a purpose-built target: a **typed concatenative (stack-based) language with stack-to-register mapping and a JIT**. The design maximizes the value of the correctness oracle:
+
+- *Concatenation is composition.* `f g h` denotes `h ∘ g ∘ f`; programs are linear token sequences, not trees — simpler to enumerate and search.
+- *Stack effects are types, and every prefix is a valid program.* A stack signature `( a b -- c )` is a lightweight type; at each search step only words whose input type matches the stack top are applicable, so type-directed pruning is local and free.
+- *No naming, no scoping.* Point-free code eliminates the variable-naming (referring-expression) problem, removing a whole class of synthesis decisions.
+- *The JIT accelerates the inner loop.* Synthesis evaluates enormous numbers of candidates; stack-to-register JIT compilation makes each run near-native, and because a stack VM's entire state *is* the stack, intermediate states are cheap to snapshot — enabling observational-equivalence pruning almost for free.
+
+**The QPM's role in code is search control, not correctness.** Personality must never decide whether a program is correct, but it has a principled role in search strategy and style: Conscientiousness/Orderliness → explicit, defensive, well-structured solutions with more checks; Openness/Intellect → general combinators over inlined special cases; Temporal Pressure (d₅) → depth-bounded search, first-found over optimal. And the structurally sound analog of hedging: **ambivalence/superposition → a maintained portfolio of candidate programs**, held until a disambiguating test collapses them — again an output decision a learned synthesizer could not take from a diagonal projection.
+
+**Traceability becomes verifiability.** In language, interpretability yields *traceability* — every word traces to a rule, a knowledge-graph node, and the QPM parameter that set its control feature. In code, with a correctness oracle in the loop, traceability **upgrades to verifiability**: every emitted program traces to a specification and a verified search path, and can be *proven* to meet that specification. Code is therefore the domain where the architecture's central claim is strengthened — where "every behavioral output is auditable" becomes "every behavioral output is certified." Generated programs are delivered in reviewable batches, each carrying its specification and verification status for human accept/reject.
+
+```mermaid
+%%{init: {"flowchart": {"defaultRenderer": "elk"}} }%%
+graph TD
+    subgraph "Symbolic Generation Layer"
+        QPM["QPM density matrix ρ<br/>(marginals + purity + coherences)"] --> CTRL["Generation control vector"]
+        KG["Knowledge Graph<br/>(content)"] --> PLAN["Content + sentence planner"]
+        CTRL --> PLAN
+        PLAN -->|"language"| NLG["Surface realizer<br/>(SimpleNLG-style)"]
+        PLAN -->|"code"| SYN["Program synthesizer<br/>(SyGuS / CEGIS over<br/>typed stack language)"]
+        NLG --> TXT["Traceable utterance"]
+        SYN --> ORACLE{"Executor / type<br/>check / tests"}
+        ORACLE -->|"fail: counterexample"| SYN
+        ORACLE -->|"pass"| CODE["Certified program"]
+    end
+```
+
+*Figure 18: The symbolic generation layer. Language is realized by traceable surface realization; code is synthesized against a correctness oracle, upgrading traceability to verifiability.*
 
 ---
 
-## 13. Works Cited
+## 13. Embodiment: ADA — Advanced Discovery Assistant
+
+ADA is the concrete agent that ties the layers together: a clearly-AI, fully-local personal assistant, optionally decomposed into named specialist sub-agents. Its capabilities exercise all three tiers (Section 8.1) and demonstrate where each paradigm carries the load.
+
+**Orchestration.** A dialogue manager — built on the Decision Space and the Relational Resolution gate (Section 3) — routes each structured intent to a specialist and arbitrates turn-taking with personality-appropriate inertia. The QPM gives the specialists a shared, or deliberately differentiated, personality.
+
+```mermaid
+%%{init: {"flowchart": {"defaultRenderer": "elk"}} }%%
+graph TD
+    USER["User input<br/>(voice / text / image)"] --> PERC["Perception agent<br/>(ASR · vision · OCR)<br/>— neural periphery"]
+    PERC --> ORCH["Orchestrator<br/>(dialogue manager · Decision Space · R gate)<br/>— symbolic"]
+    ORCH --> KNOW["Knowledge agent<br/>(domain KG + Wikidata/QLever<br/>+ Kiwix/ZIM)"]
+    ORCH --> SYNTH["Synthesis agent<br/>(stack-language code)"]
+    ORCH --> PERSONA["Persona / therapy agent<br/>(QPM-parameterized NLG)"]
+    KNOW --> ORCH
+    SYNTH --> ORCH
+    PERSONA --> ORCH
+    ORCH --> OUT["Wireframe surface + speech<br/>+ reviewable code batches"]
+```
+
+*Figure 19: ADA as a three-tier multi-agent system. Only the perception agent is neural; the orchestrator and all generation specialists are symbolic and traceable.*
+
+**Representative interactions, mapped to tiers:**
+
+- *Activation greeting* ("Good morning, Alex — it's 08:14, light rain today; your afternoon is clear."): pure symbolic — clock, a weather API (cached when offline), a rule/KG recommendation, realized through QPM-parameterized NLG (Section 12.1). The easiest capability and a showcase for the persona layer.
+- *Factual question* ("What is Planck's constant?"): **retrieval**, not generation — an exact, citable, hallucination-free answer when the fact is in the knowledge base. Coverage is extended by shipping a large structured knowledge base on-device — **Wikidata served via QLever**, with **offline Wikipedia (Kiwix/ZIM)** for explanatory text (Section 8.4) — turning factoid QA into a real, fully-local capability. Understanding the question is the NLU seam of Section 8.1.
+- *Code request* ("Build an app to scan invoices into a local SQLite database"): the program-synthesis pillar (Section 12.3), delivered in reviewable batches. The vague intent is decomposed into small, formally specifiable components — either through a clarifying dialogue ADA conducts or by a periphery component proposing the task graph — each of which then lands in the symbolic synthesis sweet spot. (The app's *own* invoice scanning needs OCR — a Tier-A neural component — independent of how its code is generated.)
+- *Visual identification* ("What plant is this?" + photo): recognition is irreducibly neural (Tier A). The *epistemic honesty* around it is the architectural contribution: a classifier with a calibrated confidence threshold against a closed-world knowledge base lets ADA answer "I don't have data related to this" rather than confabulate a species — the anti-hallucination property (Section 8.4) applied to perception.
+- *Therapy / supportive conversation*: bounded-domain personality-parameterized NLG (Section 12.1). Coherent, in-character, and safe — and here the auditable generator is a feature: it can be guaranteed never to depart from protocol.
+
+**Epistemic honesty as a cross-cutting property.** Across both facts and perception, knowledge-base grounding plus calibrated confidence gives ADA a principled "I don't know." Most assistants confabulate at the edge of their competence; ADA's edge is explicit and auditable.
+
+**Offline means all-local, not non-neural.** The "in the woods, no signal" scenario is solved by *local* models — an on-device vision classifier, on-device ASR, a local knowledge base — running alongside the local symbolic core, not by abandoning neural networks. This is the honest statement of the edge-deployment story: a trustworthy assistant that runs entirely on the device, with a thin neural periphery for its senses and a symbolic core for its mind.
+
+---
+
+## 14. Conclusions
+
+The engineering of a trustworthy, human-like AI system is viable through an **interpretable-core, thin-periphery** architecture: neural networks are admitted exactly where they are irreducible — perception, at the input boundary — and nowhere else, while all cognition and all output generation remain symbolic and fully traceable. The system integrates:
+
+1. **The Cognitive Layer** — the Five-Factor Model mapped to an 11-trait-qubit (12 with ancilla) Hilbert-space circuit with operationalized Lindblad dynamics and entanglement grounded in the meta-analytic correlation matrix of van der Linden et al. (2010; N = 144,117), reproducing the Stability/Plasticity higher-order structure.
+
+2. **The Situational Layer** — the decision-space variables d₁–d₅ and the refined Relational Resolution gate (Δd(t) = maxᵢ|dᵢ(t) − dᵢ(t−1)| compared against a calibrated threshold R, default 0.15), maintaining behavioral continuity and preventing stochastic jitter.
+
+3. **The Generation Layer** — symbolic natural-language generation and program synthesis, parameterized by the QPM. This layer carries the architecture's central argument: the QPM's quantum-distinctive output — its purity and off-diagonal coherence — cannot survive any interface to a black-box generator, which consumes only a diagonal projection of the personality state. A symbolic generator that reads the full density matrix directly is therefore the *only* output channel capable of expressing what the QPM computes. For code, the property strengthens from traceability to verifiability.
+
+4. **The Auditory Layer** — concatenative unit selection and Linear Predictive Coding for traceable, intelligible speech, with a lightweight neural vocoder admissible as an output-side periphery component where naturalness is paramount.
+
+5. **The Visual Layer** — an interpretable **wireframe** surface that renders the agent's affective and articulatory state directly from a node-graph of its FACS rig, extending the interpretability thesis to the agent's own face and positioning it deliberately below the uncanny valley.
+
+These layers are unified through the Centaurian Tripartite runtime and embodied in **ADA**, a clearly-AI, fully-local personal agent whose defining properties — persona coherence, calibrated epistemic honesty, and certified code — are precisely the properties a black-box assistant cannot offer.
+
+The system's core property is **interpretive transparency**: every behavioral decision is traceable from situative input through quantum state evolution to observable output. This is distinct from strict determinism — probabilistic measurement means single-shot outcomes vary, though the 1024-shot distribution is statistically convergent. Traceability enables rapid diagnosis and correction of inappropriate behavior, a genuine advantage over opaque systems, without overclaiming infallibility.
+
+Future work should prioritize empirical validation of behavioral consistency and of the wireframe surface's sub-uncanny-valley perception; characterization of the NLU periphery depth as a deployment study; the stack-language synthesis engine as a standalone system; and QRAM (Section 4) as long-horizon memory scaling.
+
+---
+
+## 15. Works Cited
 
 1. The Five Factor Model of personality structure: an update — PMC, https://pmc.ncbi.nlm.nih.gov/articles/PMC6732674/
 2. Big Five personality traits | Research Starters — EBSCO, https://www.ebsco.com/research-starters/social-sciences-and-humanities/big-five-personality-traits
@@ -1260,3 +1460,8 @@ The result is a robust, interpretable virtual entity — a "Centaurian" intellig
 57. van der Linden, D., te Nijenhuis, J., & Bakker, A. B. (2010). The General Factor of Personality: A meta-analysis of Big Five intercorrelations and a criterion-related validity study. *Journal of Research in Personality, 44*(3), 315–327.
 58. Park, H. S., & Wiernik, B. M. (2020). Meta-analytic five-factor model personality intercorrelations: Eeny, meeny, miney, moe, how, which, why, and where to go. *Journal of Applied Psychology, 105*(12), 1490–1529.
 59. Newgent, R. A., Parr, P. E., Newman, I., & Higgins, K. K. (2004). The Agreeableness dimension of the NEO PI-R: A construct validity study. *Measurement and Evaluation in Counseling and Development, 36*(4), 231–245.
+60. Reiter, E., & Dale, R. (2000). *Building Natural Language Generation Systems.* Cambridge University Press.
+61. Gatt, A., & Reiter, E. (2009). SimpleNLG: A realisation engine for practical applications. *Proceedings of the 12th European Workshop on Natural Language Generation (ENLG 2009).*
+62. Mairesse, F., & Walker, M. A. (2011). Controlling user perceptions of linguistic style: Trainable generation of personality traits. *Computational Linguistics, 37*(3), 455–488.
+63. Solar-Lezama, A. (2008). *Program Synthesis by Sketching.* Ph.D. dissertation, University of California, Berkeley; Alur, R., et al. (2013). Syntax-guided synthesis. *Formal Methods in Computer-Aided Design (FMCAD 2013).*
+64. Polikarpova, N., Kuraj, I., & Solar-Lezama, A. (2016). Program synthesis from polymorphic refinement types. *Proceedings of PLDI 2016.*

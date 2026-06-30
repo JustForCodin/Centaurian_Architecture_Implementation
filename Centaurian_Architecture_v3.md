@@ -1000,6 +1000,14 @@ The corpus is split 80/10/10 into train/validation/test (8,000 / 1,000 / 1,000 e
 
 **Two-tier deployment policy.** The SCI grounding adapter is loaded only on Tier 2 SMC-enabled deployments. Tier 1 base CA workloads (transduction-only, no persistent self-model) load the unmodified Qwen2.5-7B-Instruct base. This separation preserves the option to compose the SCI grounding adapter with domain-specific LoRA adapters (Section 12) on the same base model — the SCI adapter handles persona consistency, the domain adapter handles register and constraint specialization. Combining the two adapters is straightforward via PEFT's adapter-stacking API at inference time and does not require retraining either. The full deployment policy by workload profile is given in Section 17.6.
 
+### 5.9 Direction Update (Post-Experiment 5): Per-Scenario Owned Small Models
+
+Sections 5.1–5.8 specify a single standardized transducer — Qwen2.5-7B-Instruct, optionally LoRA-adapted — and that specification remains the **empirically validated baseline** (Experiments 1–2) and the deployment fallback. Experiments 3–5, however, established a second result that reframes the periphery's design trajectory: the QPM's genuinely non-classical internal dynamics (order effects, ambivalence) **do not propagate to downstream behaviour through any inference-time interface** tested at 7B scale — JSON marginals (Exp 3, d = 0.032), JSON enrichment (Exp 4, best d = −0.074), or residual-stream activation steering (Exp 5, d = −0.194). The diagnosis is *prior-dominance*: a strongly pretrained 7B style prior overrides inference-time personality conditioning regardless of channel, and the off-diagonal coherence signal in particular added no measurable effect (Exp 5 Condition D vs B, p = 0.72).
+
+This motivates a directional shift, pursued from Experiment 6 onward: rather than steering one large frozen transducer, **ADA is built as a set of small, per-scenario language models that are trained and fully owned** — with any QPM/persona conditioning installed at the *weight* level (the mechanism that already succeeded for persona in Experiment 2, d = 7.51) rather than injected at inference. The driving requirements are **offline resilience and full local ownership**: a self-contained `(corpus, weights)` artifact that needs no network to run or to retrain. The first test of this direction (Experiment 6, v2.0) trains an ~80M model **from scratch** as ADA's *daily-QA* specialist — the cheapest scenario, since its facts come from retrieval (Section 6), so the model need only read context, answer or abstain, and stay in character.
+
+Two scope boundaries hold for this trajectory. **Persona, the Self-Model Component, the SCI (and its refresh policy), and PersonaScore remain first-class** and are measured on every owned model — a model that answers but cannot hold ADA in character is not ADA. The **QPM's quantum dynamics** (Lindblad evolution, the d-vector circuit, and the off-diagonal coherences) are *deferred* to the therapy/persona scenario, where manner-of-expression is the payload and where the coherence-distinguishability question left open by Experiment 5's null is owed. Static FFM trait expression belongs to persona and is retained; the dynamic coherence engine is what waits. The owned-small-model results — and, if they fall short of usability, a fine-tuned small *pretrained* base of 0.5–1.5B — will be compared against the validated 7B baseline that the remainder of this section specifies.
+
 ---
 
 ## 6. Domain-Specific Knowledge Architecture
@@ -1022,14 +1030,18 @@ The KG's role evolves from **sole content source** to **semantic anchor** — it
 %%{init: {"flowchart": {"defaultRenderer": "elk"}} }%%
 graph TD
     subgraph "Knowledge Architecture"
-        subgraph "Layer 1: Structured Knowledge Graph"
-            KG["RDF/OWL Ontology<br/>(Domain Schema)"]
+        subgraph "Layer 1: Structured Knowledge Graphs"
+            KG["Domain-safety KG<br/>RDF/OWL (Kuzu)<br/>constraints + grounding"]
+            WD["Breadth KG<br/>Wikidata (QLever)<br/>general facts"]
             SPARQL["SPARQL Query<br/>Engine"]
             KG --> SPARQL
+            WD --> SPARQL
         end
         subgraph "Layer 2: Vector Retrieval (RAG)"
+            ZIM["Offline Wikipedia<br/>(Kiwix/ZIM)<br/>explanatory text"]
             EMBED["Embedding Model<br/>(all-MiniLM-L6-v2,<br/>~80 MB)"]
             VDB["Vector Database<br/>(SQLite-vec or<br/>ObjectBox, <5 MB)"]
+            ZIM --> EMBED
             EMBED --> VDB
         end
         subgraph "Layer 3: SLM Generation"
@@ -1046,17 +1058,19 @@ graph TD
 
 &nbsp;
 
-*Figure 8: Three-layer hybrid knowledge architecture.*
+*Figure 8: Hybrid knowledge architecture. Layer 1 holds two structured graphs — a bespoke domain-safety KG (Kuzu) for constraints and grounding, and Wikidata-via-QLever for breadth; Layer 2 is vector RAG fed by offline Wikipedia (Kiwix/ZIM) for explanatory text; Layer 3 is the SLM that wraps retrieved facts in natural language. See §6.8.*
 
 &nbsp;
 
 | Layer | Technology | Size on Disk | Function | Traceability |
 |---|---|---|---|---|
-| **Structured KG** | Kuzu (embedded) or FalkorDB | 50–500 MB per domain | Schema-level facts, entity relations, constraints | Full — every triple is auditable |
+| **Domain-safety KG** | Kuzu (embedded) or FalkorDB | 50–500 MB per domain | Bespoke `cent:`/`psy:` schema: constraints, entity relations, anti-hallucination grounding (§6.7) | Full — every triple is auditable |
+| **Breadth KG** (§6.8) | Wikidata via QLever | tens of GB (full Wikidata index, desktop) / curated subset (phone) | General entity/attribute facts for daily QA | Full — every triple is auditable |
+| **Text store** (§6.8) | Offline Wikipedia (Kiwix/ZIM) | tens of GB / domain-scoped subset | Explanatory prose ("explain", not just "what"); also a Layer-2 RAG corpus | Passage-level — cited |
 | **Vector RAG** | SQLite-vec + all-MiniLM-L6-v2 | ~80 MB model + variable index | Long-form domain documents, procedures, guidelines | Passage-level — retrieved chunks are cited |
 | **SLM Generation** | Qwen2.5-7B Q4_K_M (SMC-enabled) / Phi-4-mini† (base CA) + LoRA | ~2.3–4.4 GB + 50 MB adapter | Natural language surface form | Interface-level — structured input is logged |
 
-*Table 18: Hybrid knowledge architecture components.*
+*Table 18: Hybrid knowledge architecture components. The Breadth KG and Text store (§6.8) are desktop-scale at full size; on phone they ship as curated subsets.*
 
 ### 6.3 Ontology Schema Specification
 
@@ -1223,6 +1237,18 @@ After the SLM produces a candidate utterance, a validation step checks that:
 3. Constraint violations are enforced at the structured input level.
 
 This eliminates the most dangerous failure mode of pure neural generation: confidently stated fabrications.
+
+### 6.8 Knowledge Breadth: A Two-Graph Design (Bespoke Safety Ontology + Wikidata/QLever + Offline Wikipedia)
+
+The ontology of Section 6.3 is a **domain schema and safety/reasoning layer**, not a broad world-fact store. Its content is constraints and reasoning relations — contraindications, escalation triggers, evidence grades (`cent:contraindicates`, `cent:hasEvidenceLevel`, `psy:requiresEscalation`) — curated and small (≈2,400 triples), and it is the authority for the anti-hallucination filter of Section 6.7. It will never carry general encyclopedic breadth, and should not: its value is precisely its hand-audited safety semantics.
+
+ADA's daily-QA capability (e.g. "what is Planck's constant?") needs the breadth the bespoke graph lacks. The design therefore adopts a **two-graph knowledge layer**:
+
+- **Domain-safety graph (existing):** the bespoke `cent:`/`psy:` ontology on an embedded triplestore (**Kuzu**), retained unchanged as the reasoning, constraint, and grounding authority. *(Engine note: this paper standardizes on Kuzu/FalkorDB for this role; the earlier Interpretable-Architectures paper named Apache Jena for the same role — the discrepancy is reconciled here in favour of the embedded Kuzu store.)*
+- **Breadth graph (new):** **Wikidata served via QLever.** Embedded stores do not hold Wikidata's ~19 billion triples at usable query latency; QLever is purpose-built for it, building a compact compressed index that answers SPARQL (and combined full-text) queries over full Wikidata on a single machine. It supplies entity/attribute facts for general QA.
+- **Explanatory text (new):** triples answer *what*; prose answers *explain*. An **offline Wikipedia** store (**Kiwix/ZIM**) provides explanatory passages and simultaneously serves as a corpus for the vector-RAG layer of Section 6.4.
+
+The roles do not overlap: the breadth graph supplies coverage, the domain-safety graph supplies the constraints and the anti-hallucination authority, and the text store supplies explanation. All three are downloadable in advance and run with no network, consistent with the offline-resilience goal (Section 5.9). Deployment scales by target: a desktop hosts the full QLever-Wikidata index plus the ZIM store; a phone hosts a curated Wikidata subset, the (tiny) bespoke graph, and a domain-scoped ZIM.
 
 ---
 
@@ -1522,7 +1548,9 @@ graph TB
     end
     subgraph DATA ["DATA LAYER"]
         direction LR
-        KG_DB["Domain KG<br/>(Kuzu)"]
+        KG_DB["Domain-safety KG<br/>(Kuzu)"]
+        WD_DB["Breadth KG<br/>Wikidata (QLever)"]
+        ZIM_DB["Offline Wikipedia<br/>(Kiwix/ZIM)"]
         VEC_DB["Vector Index<br/>(SQLite-vec)"]
         VOICE_DB["TTS Voice<br/>Model"]
         ANIM_DB["Character<br/>Model + Rig"]
@@ -1536,6 +1564,8 @@ graph TB
     TTS_OUT -->|"Phoneme timing"| RENDERER
 
     KG_DB --> KG_MAIN
+    WD_DB --> KG_MAIN
+    ZIM_DB --> VEC_DB
     VEC_DB --> KG_MAIN
     VOICE_DB --> TTS_OUT
     ANIM_DB --> RENDERER
@@ -1556,7 +1586,9 @@ graph TB
 | **Observation** | Feature Decoder (d₁–d₅) | 30–60 Hz | Rule-based + sentiment classifier + facial AU fusion (Section 4.4) | 1–2 ms | ~10 MB |
 | **Computation** | QPM Core | 10–30 Hz | Qiskit Aer GPU sim, 12 qubits, 1024 shots | 2–4 ms | ~200 MB |
 | **Computation** | Quantum-BDI | 10–30 Hz | Symbolic reasoning + belief revision | 1–2 ms | ~10 MB |
-| **Computation** | Knowledge Graph | On-demand | Kuzu embedded + SQLite-vec | 1–17 ms | 50–500 MB |
+| **Computation** | Domain-safety KG | On-demand | Kuzu embedded + SQLite-vec | 1–17 ms | 50–500 MB (RAM≈disk) |
+| **Computation** | Breadth KG (§6.8) | On-demand | Wikidata via QLever | ~ms–sub-s | RAM ~1–2 GB (mmap working set) / disk tens of GB full Wikidata (desktop); curated subset (phone) |
+| **Computation** | Text store (§6.8) | On-demand | Offline Wikipedia (Kiwix/ZIM) | — | RAM minimal (mmap) / disk tens of GB (desktop); domain-scoped ZIM (phone) |
 | **Generation** | SLM Transducer | 5–15 Hz | Qwen2.5-7B Q4_K_M (SMC-enabled) / Phi-4-mini† (base CA) + LoRA via llama.cpp | 50–200 ms (GPU); ~2,500–5,000 ms (CPU, 7B) | ~2.3–4.5 GB |
 | **Generation** | Prosody Mapper | Per-utterance | QPM state → SSML parameters | <1 ms | ~1 MB |
 | **Surface** | Neural TTS | Streaming | Kokoro-82M / Piper via Sherpa-ONNX | 30–100 ms | 63–350 MB |
@@ -1631,7 +1663,7 @@ sequenceDiagram
 | ASR (Whisper-tiny) | ~80 MB | ~80 MB |
 | MediaPipe Face Landmarker | ~25 MB | ~25 MB |
 | Embedding Model (MiniLM) | ~80 MB | ~80 MB |
-| Knowledge Graph (Kuzu) | ~200 MB | ~200 MB |
+| Domain-safety KG (Kuzu) | ~200 MB | ~200 MB |
 | Vector Index (SQLite-vec) | ~50 MB | ~50 MB |
 | LoRA Adapter | ~60 MB | ~60 MB |
 | 3D Character Model + Rig | ~100 MB | ~100 MB |
@@ -1641,6 +1673,8 @@ sequenceDiagram
 *Table 26: Total memory budget by deployment tier. †Phi-4-mini figures are estimates pending empirical validation on the base structured intent task (Section 5.3).*
 
 > **Note:** SMC-enabled deployments require a minimum 8 GB device with tight headroom; 16 GB recommended for development. Base CA deployments retain the original 4 GB envelope pending Phi-4-mini validation on the base structured intent task.
+>
+> **Note (knowledge breadth, §6.8):** The Wikidata-via-QLever breadth graph and the Kiwix/ZIM text store are **disk-resident** additions, not part of the RAM envelope above. On a desktop deployment they add tens of GB of *storage* (full Wikidata index + offline-Wikipedia ZIM); on phone they ship as curated subsets sized to the device. QLever memory-maps its index, so the resident RAM cost is only ~1–2 GB working set on top of the totals above — the RAM envelope is otherwise preserved. The domain-safety KG row above remains the small (~200 MB) bespoke `cent:`/`psy:` graph.
 
 ### 10.5 Pipeline Parallelism and Double-Buffering
 
