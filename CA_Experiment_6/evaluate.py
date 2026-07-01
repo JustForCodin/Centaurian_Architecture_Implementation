@@ -1,0 +1,548 @@
+#!/usr/bin/env python3
+"""Evaluation for Experiment 6 — H1/H2 QA, H3 PersonaScore, H4 refresh (plan §6).
+
+Subcommands
+-----------
+qa                Generate on eval_answerable + eval_unanswerable; score H1
+                  (correct-and-grounded %, judged) + SQuAD2 EM/F1, and H2
+                  (abstention P/R/F1, hallucination rate).  → results/qa_results.json
+persona           Run the §6.2 PersonaScore harness over the eval scripts for a
+                  refresh condition (R0 or R1). Probes at turns 5/10/.../40, dims
+                  T/E/C/S, Sonnet judge.       → results/persona_<R>/scores_*.jsonl
+judge-reliability Re-score 5% of a scores dir at T=0; weighted-kappa gate (§6.5).
+analyse           Aggregate everything into the H1-H4 decision table (§3).
+                                                → results/analysis_data.json
+
+Model generation runs locally/on Colab GPU; judging calls Sonnet 4.5 (same judge
+role as Exp 1-5). Set --dry-run-judge to score with a stub (pipeline test only).
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+import os
+import re
+import sys
+import time
+from collections import Counter, defaultdict
+from pathlib import Path
+
+import ca_assets as A
+from ca_assets import (
+    DIMENSIONS, PROBE_TURNS, get_probes_for_turn, build_judge_user_prompt,
+    JUDGE_SYSTEM_PROMPT, is_abstention, ABSTENTION_CANONICAL,
+    format_prompt_for_generation, build_system_prompt, ADA_SCI, ADA_SCI_STR,
+    SCI_REFRESH_USER, SCI_REFRESH_ASSISTANT, cohens_kappa,
+)
+
+JUDGE_MODEL = "claude-sonnet-4-5"          # same judge id as Exp 1-5
+JUDGE_TEMPERATURE = 0
+
+
+# ── Model runner ─────────────────────────────────────────────────────────
+
+class ADAGenerator:
+    """Load a trained checkpoint + tokenizer and generate ADA responses.
+
+    When use_qpm is on, a per-turn QPM persona_state is computed from the user
+    turns and injected via the <|persona|> channel — so the QPM output conditions
+    generation at eval time exactly as it did at training time (QPM-in-scope)."""
+
+    def __init__(self, checkpoint: str, tokenizer: str, device: str | None = None,
+                 use_qpm: bool = True):
+        import torch
+        from tokenizer_util import ADATokenizer
+        from train_common import load_checkpoint, build_model_from_ckpt
+        self.torch = torch
+        self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
+        ck = load_checkpoint(checkpoint, map_location=self.device)
+        self.model = build_model_from_ckpt(ck, map_location=self.device).eval()
+        self.tok = ADATokenizer.load(tokenizer)
+        self.max_seq = self.model.cfg.max_seq_len
+        self.use_qpm = use_qpm
+        self._qpm = None
+        if use_qpm:
+            import qpm_bridge
+            self._qpm = qpm_bridge
+
+    def _persona_state(self, question, history):
+        if not self.use_qpm:
+            return None
+        users = [m["content"] for m in (history or []) if m["role"] == "user"]
+        users.append(question)
+        d_seq = [self._qpm.extract_d_vector(u) for u in users[-8:]]  # bounded d_sequence
+        return self._qpm.build_persona_state(d_seq)
+
+    def _fit_prompt_ids(self, question, context, history, persona_state):
+        """Build prompt ids, truncating history so it fits the model context."""
+        hist = list(history or [])
+        while True:
+            text = format_prompt_for_generation(question, context, history=hist,
+                                                persona_state=persona_state)
+            ids = self.tok.encode(text)
+            if len(ids) <= self.max_seq - 8 or len(hist) < 2:
+                return ids[-(self.max_seq - 8):]
+            hist = hist[2:]                    # drop oldest (user, assistant) pair
+
+    def generate(self, question, context=None, history=None,
+                 max_new_tokens=160, temperature=0.0):
+        torch = self.torch
+        persona_state = self._persona_state(question, history)
+        ids = self._fit_prompt_ids(question, context, history, persona_state)
+        x = torch.tensor([ids], dtype=torch.long, device=self.device)
+        out = self.model.generate(x, max_new_tokens=max_new_tokens,
+                                  temperature=temperature,
+                                  top_k=None if temperature == 0 else 50,
+                                  eos_id=self.tok.eot_id)
+        new = out[0, len(ids):].tolist()
+        if self.tok.eot_id in new:
+            new = new[:new.index(self.tok.eot_id)]
+        return self.tok.decode(new, skip_special=True).strip()
+
+
+# ── Judge client (mechanics identical to Exp 2 llm_judge) ────────────────
+
+_client = None
+
+
+def _judge_client():
+    global _client
+    if _client is None:
+        import anthropic
+        from dotenv import load_dotenv
+        load_dotenv()
+        key = os.environ.get("CHA_EXPERIMENT_SONNET_KEY") or os.environ.get("ANTHROPIC_API_KEY")
+        if not key:
+            raise SystemExit("Set CHA_EXPERIMENT_SONNET_KEY / ANTHROPIC_API_KEY for judging")
+        _client = anthropic.Anthropic(api_key=key)
+    return _client
+
+
+def _parse_json(text):
+    text = text.strip()
+    if text.startswith("```"):
+        text = re.sub(r"^```(?:json)?\s*\n?", "", text)
+        text = re.sub(r"\n?```\s*$", "", text).strip()
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError:
+        m = re.search(r"\{.*\}", text, re.DOTALL)
+        if not m:
+            raise
+        return json.loads(m.group(0))
+
+
+def persona_judge(probe, response, dimension, model=JUDGE_MODEL, temperature=JUDGE_TEMPERATURE):
+    """Score a probe response 1-5 (T/E/C/S). Returns (score, reason)."""
+    if not response or not response.strip():
+        return 1, "empty_response"
+    user = build_judge_user_prompt(probe, response, dimension)
+    for attempt in range(5):
+        try:
+            r = _judge_client().messages.create(
+                model=model, max_tokens=150, temperature=temperature,
+                system=JUDGE_SYSTEM_PROMPT,
+                messages=[{"role": "user", "content": user}])
+            obj = _parse_json(r.content[0].text.strip())
+            return int(obj["score"]), obj.get("reason", "")
+        except Exception as e:                       # noqa: BLE001
+            if attempt < 4:
+                time.sleep(2 ** attempt)
+            last = f"{type(e).__name__}: {e}"
+    print(f"  persona_judge failed: {last}", file=sys.stderr)
+    return 1, f"judge_error:{last[:80]}"
+
+
+QA_JUDGE_SYSTEM = """You judge whether an AI assistant's answer to a factual question is CORRECT and GROUNDED in the provided context. Rules:
+- CORRECT: the answer matches the gold answer(s) in meaning (paraphrases are fine).
+- GROUNDED: the answer is supported by the context and does not add unsupported claims.
+- If the assistant abstained ("I don't have data...") on an answerable question, it is NOT correct.
+Return ONLY: {"correct_and_grounded": true|false, "reason": "one sentence"}."""
+
+
+def qa_judge(question, context, gold_answers, response, model=JUDGE_MODEL):
+    if not response or not response.strip():
+        return False, "empty_response"
+    user = (f"Question:\n{question}\n\nContext:\n{context}\n\n"
+            f"Gold answer(s):\n{gold_answers}\n\nAssistant's answer:\n{response}\n\n"
+            'Return ONLY: {"correct_and_grounded": true|false, "reason": "one sentence"}')
+    for attempt in range(5):
+        try:
+            r = _judge_client().messages.create(
+                model=model, max_tokens=120, temperature=0,
+                system=QA_JUDGE_SYSTEM,
+                messages=[{"role": "user", "content": user}])
+            obj = _parse_json(r.content[0].text.strip())
+            return bool(obj["correct_and_grounded"]), obj.get("reason", "")
+        except Exception as e:                       # noqa: BLE001
+            if attempt < 4:
+                time.sleep(2 ** attempt)
+            last = f"{type(e).__name__}: {e}"
+    return False, f"judge_error:{last[:80]}"
+
+
+# ── SQuAD EM/F1 (standard normalisation) ─────────────────────────────────
+
+def _normalize(s):
+    s = s.lower()
+    s = re.sub(r"\b(a|an|the)\b", " ", s)
+    s = re.sub(r"[^\w\s]", " ", s)
+    return " ".join(s.split())
+
+
+def _em(pred, golds):
+    p = _normalize(pred)
+    return float(any(p == _normalize(g) for g in golds))
+
+
+def _f1(pred, golds):
+    best = 0.0
+    pt = _normalize(pred).split()
+    for g in golds:
+        gt = _normalize(g).split()
+        common = Counter(pt) & Counter(gt)
+        ns = sum(common.values())
+        if ns == 0 or not pt or not gt:
+            best = max(best, 1.0 if (not pt and not gt) else 0.0)
+            continue
+        prec, rec = ns / len(pt), ns / len(gt)
+        best = max(best, 2 * prec * rec / (prec + rec))
+    return best
+
+
+# ── H1/H2 QA evaluation ──────────────────────────────────────────────────
+
+def _load_jsonl(path):
+    with open(path) as f:
+        return [json.loads(l) for l in f if l.strip()]
+
+
+def cmd_qa(args):
+    qpm_tag = "OFF" if args.no_qpm else "ON"
+    gen = ADAGenerator(args.checkpoint, args.tokenizer, device=args.device,
+                       use_qpm=not args.no_qpm)
+    ans = _load_jsonl(args.answerable)
+    una = _load_jsonl(args.unanswerable)
+    if args.limit:
+        ans, una = ans[:args.limit], una[:args.limit]
+    judge_tag = "dry-stub" if args.dry_run_judge else JUDGE_MODEL
+
+    print("=" * 68, flush=True)
+    print(f"=== QA eval (H1/H2) | ckpt={Path(args.checkpoint).name} device={gen.device} "
+          f"QPM={qpm_tag} judge={judge_tag} ===", flush=True)
+    print(f"    answerable={len(ans)}  unanswerable={len(una)}", flush=True)
+    print("=" * 68, flush=True)
+
+    results = {"answerable": [], "unanswerable": []}
+    t0 = time.time()
+    # Answerable → H1 (judge) + EM/F1 + abstention decision
+    n_cg = n_abst = 0
+    for i, rec in enumerate(ans, 1):
+        q = next(m["content"] for m in rec["messages"] if m["role"] == "user")
+        resp = gen.generate(q, context=rec["context"], temperature=0.0)
+        gold = rec.get("gold_answers", [])
+        abstained = is_abstention(resp)
+        cg, reason = (False, "abstained") if abstained else (
+            (None, "") if args.dry_run_judge else qa_judge(q, rec["context"], gold, resp))
+        if args.dry_run_judge and not abstained:
+            cg = True
+        n_cg += bool(cg); n_abst += bool(abstained)
+        results["answerable"].append({
+            "id": rec["id"], "question": q, "response": resp, "gold": gold,
+            "correct_and_grounded": cg, "abstained": abstained,
+            "em": _em(resp, gold) if gold else None,
+            "f1": _f1(resp, gold) if gold else None, "judge_reason": reason})
+        if i % max(1, len(ans) // 20) == 0 or i == len(ans):
+            eta = (time.time() - t0) / i * (len(ans) - i)
+            print(f"  answerable [{i:4d}/{len(ans)}]  running H1={n_cg/i:.2f}  "
+                  f"over-refusal={n_abst/i:.2f}  ETA {eta:4.0f}s", flush=True)
+
+    t1 = time.time()
+    n_hall = 0
+    for i, rec in enumerate(una, 1):
+        q = next(m["content"] for m in rec["messages"] if m["role"] == "user")
+        resp = gen.generate(q, context=rec["context"], temperature=0.0)
+        abst = is_abstention(resp)
+        n_hall += (not abst)
+        results["unanswerable"].append({
+            "id": rec["id"], "question": q, "response": resp, "abstained": abst})
+        if i % max(1, len(una) // 20) == 0 or i == len(una):
+            eta = (time.time() - t1) / i * (len(una) - i)
+            print(f"  unanswerable [{i:4d}/{len(una)}]  running abstain={1-n_hall/i:.2f}  "
+                  f"hallucination={n_hall/i:.2f}  ETA {eta:4.0f}s", flush=True)
+
+    metrics = _qa_metrics(results)
+    out = Path(args.out)
+    out.parent.mkdir(parents=True, exist_ok=True)
+    json.dump({"metrics": metrics, "items": results}, out.open("w"), indent=2)
+    print("-" * 68, flush=True)
+    print(json.dumps(metrics, indent=2), flush=True)
+    print(f"→ {out}  ({time.time()-t0:.0f}s total)", flush=True)
+
+
+def _qa_metrics(results):
+    ans, una = results["answerable"], results["unanswerable"]
+    judged = [r for r in ans if r["correct_and_grounded"] is not None]
+    h1 = (sum(r["correct_and_grounded"] for r in judged) / len(judged)) if judged else 0.0
+    em = [r["em"] for r in ans if r["em"] is not None]
+    f1 = [r["f1"] for r in ans if r["f1"] is not None]
+    # Abstention confusion (positive = "should abstain")
+    tp = sum(r["abstained"] for r in una)            # unanswerable & abstained
+    fn = len(una) - tp                               # unanswerable & answered = hallucination
+    fp = sum(r["abstained"] for r in ans)            # answerable & abstained (over-refusal)
+    tn = len(ans) - fp
+    prec = tp / (tp + fp) if (tp + fp) else 0.0
+    rec = tp / (tp + fn) if (tp + fn) else 0.0
+    f1_ab = 2 * prec * rec / (prec + rec) if (prec + rec) else 0.0
+    return {
+        "H1_correct_grounded_rate": round(h1, 4), "H1_n_judged": len(judged),
+        "squad_EM": round(sum(em) / len(em), 4) if em else None,
+        "squad_F1": round(sum(f1) / len(f1), 4) if f1 else None,
+        "H2_abstention_precision": round(prec, 4),
+        "H2_abstention_recall": round(rec, 4),
+        "H2_abstention_F1": round(f1_ab, 4),
+        "hallucination_rate": round(fn / len(una), 4) if una else None,
+        "over_refusal_rate": round(fp / len(ans), 4) if ans else None,
+        "n_answerable": len(ans), "n_unanswerable": len(una),
+        "H1_pass": h1 >= 0.70, "H2_pass": f1_ab >= 0.80,
+    }
+
+
+# ── H3 PersonaScore harness (R0 / R1) ────────────────────────────────────
+
+def _refresh_turns(condition):
+    return {15, 30} if condition == "R1" else set()
+
+
+def cmd_persona(args):
+    qpm_tag = "OFF" if args.no_qpm else "ON"
+    gen = ADAGenerator(args.checkpoint, args.tokenizer, device=args.device,
+                       use_qpm=not args.no_qpm)
+    scripts = sorted(Path(args.scripts_dir).glob("script_*.json"))
+    if args.limit:
+        scripts = scripts[:args.limit]
+    out_dir = Path(args.out_dir) / f"persona_{args.condition}"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    refresh_at = _refresh_turns(args.condition)
+    total = len(scripts)
+    judge_tag = "dry-stub" if args.dry_run_judge else JUDGE_MODEL
+
+    print("=" * 68, flush=True)
+    print(f"=== PersonaScore harness — condition {args.condition} "
+          f"(refresh @ {sorted(refresh_at) or 'none'}) ===", flush=True)
+    print(f"    scripts={total}  probe_turns={PROBE_TURNS}  dims={DIMENSIONS}  "
+          f"QPM={qpm_tag}  judge={judge_tag}  device={gen.device}", flush=True)
+    print("=" * 68, flush=True)
+
+    run_t0 = time.time()
+    for si, sp in enumerate(scripts, 1):
+        script = json.loads(sp.read_text())
+        sid = int(script.get("script_id", re.search(r"(\d+)", sp.stem).group(1)))
+        scores_path = out_dir / f"scores_{sid:03d}.jsonl"
+        if scores_path.exists() and args.resume:
+            print(f"  [{si:3d}/{total}] script {sid:03d} — skipped (already done)", flush=True)
+            continue
+        topic = str(script.get("topic", ""))[:48]
+        print(f"\n  [{si:3d}/{total}] script {sid:03d} — {topic}", flush=True)
+        turns = script["turns"][:args.n_turns]
+        history: list[dict] = []
+        rows = []
+        t_start = time.time()
+        for ti, turn in enumerate(turns, start=1):
+            if ti in refresh_at:                     # R1: re-inject the SCI
+                history.append({"role": "user",
+                                "content": SCI_REFRESH_USER.format(sci_json=ADA_SCI_STR)})
+                history.append({"role": "assistant", "content": SCI_REFRESH_ASSISTANT})
+                print(f"      ★ SCI refresh at turn {ti} ({args.condition})", flush=True)
+            user_msg, ctx = turn["user"], turn.get("context")
+            reply = gen.generate(user_msg, context=ctx, history=history, temperature=0.0)
+            # Side-channel probes (scored, NOT added to history) — Exp 1/2 protocol
+            if ti in PROBE_TURNS:
+                turn_scores = {}
+                for dim, probe in get_probes_for_turn(ti, sid):
+                    presp = gen.generate(probe, context=ctx, history=history, temperature=0.0)
+                    if args.dry_run_judge:
+                        score, reason = 3, "dry_run_stub"
+                    else:
+                        score, reason = persona_judge(probe, presp, dim)
+                    turn_scores[dim] = score
+                    rows.append({"script_id": sid, "turn": ti, "dimension": dim,
+                                 "probe": probe, "response": presp,
+                                 "score": score, "reason": reason,
+                                 "condition": args.condition, "judge_model": JUDGE_MODEL})
+                sc = " ".join(f"{d}={turn_scores[d]}" for d in DIMENSIONS)
+                print(f"      turn {ti:2d}/{len(turns)}  probes  {sc}", flush=True)
+            history.append({"role": "user", "content": user_msg})
+            history.append({"role": "assistant", "content": reply})
+        with scores_path.open("w") as f:
+            for r in rows:
+                f.write(json.dumps(r) + "\n")
+        mean = sum(r["score"] for r in rows) / len(rows) if rows else 0.0
+        done_dt = time.time() - t_start
+        eta = (time.time() - run_t0) / si * (total - si)
+        print(f"      → {len(rows)} probes, mean {mean:.2f}  ({done_dt:.0f}s)  "
+              f"[{si}/{total} done, ETA {eta:.0f}s]", flush=True)
+    print(f"\nPersonaScore {args.condition} complete → {out_dir}  "
+          f"({time.time()-run_t0:.0f}s)", flush=True)
+
+
+# ── Judge reliability (§6.5) ─────────────────────────────────────────────
+
+def cmd_judge_reliability(args):
+    rows = []
+    for p in sorted(Path(args.scores_dir).glob("scores_*.jsonl")):
+        rows += _load_jsonl(p)
+    import random
+    random.seed(args.seed)
+    sample = random.sample(rows, max(1, int(len(rows) * args.frac)))
+    print(f"=== Judge reliability — re-scoring {len(sample)}/{len(rows)} probes "
+          f"({args.frac:.0%}) at T=0 ===", flush=True)
+    primary, secondary = [], []
+    for i, r in enumerate(sample, 1):
+        s2, _ = persona_judge(r["probe"], r["response"], r["dimension"])
+        primary.append(r["score"]); secondary.append(s2)
+        if i % max(1, len(sample) // 10) == 0 or i == len(sample):
+            print(f"  re-scored [{i:3d}/{len(sample)}]", flush=True)
+    kw = cohens_kappa(primary, secondary, weighted=True)
+    bin_p = [1 if s >= 4 else 0 for s in primary]
+    bin_s = [1 if s >= 4 else 0 for s in secondary]
+    kb = cohens_kappa(bin_p, bin_s, weighted=False, categories=[0, 1])
+    res = {"n": len(sample), "kappa_weighted": round(kw, 4),
+           "kappa_binary": round(kb, 4), "gate_pass": kw >= 0.70}
+    print(json.dumps(res, indent=2))
+    out = Path(args.out); out.parent.mkdir(parents=True, exist_ok=True)
+    json.dump(res, out.open("w"), indent=2)
+
+
+# ── H3/H4 analysis + decision table (§3) ─────────────────────────────────
+
+def _persona_curve(scores_dir):
+    rows = []
+    for p in sorted(Path(scores_dir).glob("scores_*.jsonl")):
+        rows += _load_jsonl(p)
+    by_turn = defaultdict(list)
+    by_dim = defaultdict(list)
+    for r in rows:
+        by_turn[r["turn"]].append(r["score"])
+        by_dim[r["dimension"]].append(r["score"])
+    curve = {t: round(sum(v) / len(v), 4) for t, v in sorted(by_turn.items())}
+    dims = {d: round(sum(v) / len(v), 4) for d, v in by_dim.items()}
+    overall = round(sum(r["score"] for r in rows) / len(rows), 4) if rows else 0.0
+    # T* = first probe turn where mean drops >= 0.3 below the turn-5 baseline
+    tstar = None
+    if curve:
+        base = curve.get(min(curve), 0)
+        for t in sorted(curve):
+            if curve[t] <= base - 0.3:
+                tstar = t; break
+    return {"overall": overall, "per_turn": curve, "per_dimension": dims,
+            "T_star": tstar, "n_probes": len(rows)}
+
+
+def cmd_analyse(args):
+    out = {"H3": {}, "H4": {}, "decision": {}}
+    r0 = _persona_curve(Path(args.results_dir) / "persona_R0") if \
+        (Path(args.results_dir) / "persona_R0").exists() else None
+    r1 = _persona_curve(Path(args.results_dir) / "persona_R1") if \
+        (Path(args.results_dir) / "persona_R1").exists() else None
+    out["H3"]["R0"] = r0
+    out["H3"]["R1"] = r1
+
+    # H4 classification (plan §3 thresholds)
+    if r0 and r1:
+        a, b = r0["overall"], r1["overall"]
+        if a >= 3.5 and abs(b - a) < 0.15:
+            cls = "refresh-unnecessary"
+        elif b - a >= 0.15:
+            cls = "refresh-helpful"
+        elif a < 3.5 and b < 3.5:
+            cls = "refresh-insufficient"
+        else:
+            cls = "indeterminate"
+        out["H4"] = {"R0_overall": a, "R1_overall": b, "delta": round(b - a, 4),
+                     "classification": cls}
+
+    # H1/H2 from qa_results if present
+    qa_path = Path(args.results_dir) / "qa_results.json"
+    if qa_path.exists():
+        qm = json.load(qa_path.open())["metrics"]
+        out["H1"] = {"rate": qm["H1_correct_grounded_rate"], "pass": qm["H1_pass"]}
+        out["H2"] = {"F1": qm["H2_abstention_F1"], "pass": qm["H2_pass"],
+                     "hallucination_rate": qm["hallucination_rate"]}
+        best = max([x for x in (a if r0 else None, b if r1 else None) if x is not None],
+                   default=0.0) if (r0 or r1) else 0.0
+        h3_pass = best >= 3.5
+        out["H3"]["best_overall"] = best
+        out["H3"]["pass"] = h3_pass
+        out["decision"] = _decide(qm["H1_pass"], qm["H2_pass"], h3_pass)
+
+    op = Path(args.results_dir) / "analysis_data.json"
+    json.dump(out, op.open("w"), indent=2)
+    print(json.dumps(out, indent=2))
+    print(f"→ {op}")
+
+
+def _decide(h1, h2, h3):
+    if h1 and h2 and h3:
+        return {"row": "✓✓✓", "action": "Direction validated — lock ADA knowledge-agent v0; "
+                "apply H4 refresh recommendation; proceed to next scenario."}
+    if h1 and h2 and not h3:
+        return {"row": "✓✓✗", "action": "Competent QA, weak persona — add persona/episodic "
+                "SFT data; retrain SFT only."}
+    if h1 and not h2:
+        return {"row": "✓✗—", "action": "Over-confident — add unanswerable negatives + Sonnet "
+                "refusal data; retrain SFT."}
+    return {"row": "✗——", "action": "80M from-scratch below usability — trigger fallback: "
+            "fine-tune small pretrained base (RQ5); re-run §6 on it."}
+
+
+# ── CLI ──────────────────────────────────────────────────────────────────
+
+def main():
+    ap = argparse.ArgumentParser()
+    sub = ap.add_subparsers(dest="cmd", required=True)
+
+    q = sub.add_parser("qa")
+    q.add_argument("--checkpoint", required=True)
+    q.add_argument("--tokenizer", default="tokenizer/ada_bpe.json")
+    q.add_argument("--answerable", default="data/eval_answerable.jsonl")
+    q.add_argument("--unanswerable", default="data/eval_unanswerable.jsonl")
+    q.add_argument("--out", default="results/qa_results.json")
+    q.add_argument("--device", default=None)
+    q.add_argument("--no-qpm", action="store_true", help="disable QPM persona_state conditioning")
+    q.add_argument("--limit", type=int, default=None)
+    q.add_argument("--dry-run-judge", action="store_true")
+    q.set_defaults(func=cmd_qa)
+
+    p = sub.add_parser("persona")
+    p.add_argument("--checkpoint", required=True)
+    p.add_argument("--tokenizer", default="tokenizer/ada_bpe.json")
+    p.add_argument("--scripts-dir", default="data/persona_scripts")
+    p.add_argument("--out-dir", default="results")
+    p.add_argument("--condition", choices=["R0", "R1"], required=True)
+    p.add_argument("--n-turns", type=int, default=40)
+    p.add_argument("--device", default=None)
+    p.add_argument("--no-qpm", action="store_true", help="disable QPM persona_state conditioning")
+    p.add_argument("--limit", type=int, default=None)
+    p.add_argument("--resume", action="store_true")
+    p.add_argument("--dry-run-judge", action="store_true")
+    p.set_defaults(func=cmd_persona)
+
+    jr = sub.add_parser("judge-reliability")
+    jr.add_argument("--scores-dir", required=True)
+    jr.add_argument("--frac", type=float, default=0.05)
+    jr.add_argument("--seed", type=int, default=1337)
+    jr.add_argument("--out", default="results/judge_reliability.json")
+    jr.set_defaults(func=cmd_judge_reliability)
+
+    an = sub.add_parser("analyse")
+    an.add_argument("--results-dir", default="results")
+    an.set_defaults(func=cmd_analyse)
+
+    args = ap.parse_args()
+    args.func(args)
+
+
+if __name__ == "__main__":
+    main()

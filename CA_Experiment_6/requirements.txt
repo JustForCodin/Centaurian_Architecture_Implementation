@@ -1,0 +1,18 @@
+# CA Experiment 6 — pinned environment (rebuildable offline, plan §7.3).
+# Local .venv holds the lightweight set + CPU torch for pipeline smoke tests;
+# the Colab notebook installs the GPU torch wheel + datasets for real training.
+
+# --- core (local .venv + Colab) ---
+torch>=2.2                 # from-scratch transformer; CPU wheel locally, CUDA on Colab
+numpy>=1.24
+tokenizers>=0.15           # 16k BPE (train_tokenizer.py)
+tqdm>=4.66
+
+# --- data + API (Colab / provisioning) ---
+datasets>=2.18             # FineWeb-Edu / Wikipedia / SQuAD2 / NQ / MS MARCO (prepare_data.py)
+anthropic>=0.40            # Sonnet persona/style/refusal generation + judging
+python-dotenv>=1.0         # .env key loading
+
+# --- fallback baseline (RQ5, §6.4) ---
+# transformers>=4.44        # SmolLM2-135M / Qwen2.5-0.5B fine-tune (Colab only)
+# accelerate>=0.30

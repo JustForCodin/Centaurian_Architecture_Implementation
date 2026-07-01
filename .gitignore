@@ -17,3 +17,14 @@ CA_Experiment_3/logs/
 CA_Experiment_3/results/
 CA_Experiment_3/__pycache__/
 .venv/
+
+# CA Experiment 6: generated artifacts (corpora, weights, tokenizer, results) live on Drive
+CA_Experiment_6/data/pretrain/
+CA_Experiment_6/data/qa_sft.jsonl
+CA_Experiment_6/data/eval_answerable.jsonl
+CA_Experiment_6/data/eval_unanswerable.jsonl
+CA_Experiment_6/data/persona_scripts/
+CA_Experiment_6/data/raw_sonnet/
+CA_Experiment_6/tokenizer/*.json
+CA_Experiment_6/checkpoints/
+CA_Experiment_6/results/

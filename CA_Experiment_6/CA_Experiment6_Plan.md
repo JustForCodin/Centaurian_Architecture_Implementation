@@ -1,7 +1,7 @@
 # Experiment 6: From-Scratch Small Language Model as ADA's Daily-QA Agent (Persona-Bearing)
 
 **CA Research Program — First Test of the Per-Scenario, From-Scratch, Owned Small-Model Direction**
-**Version 2.0 | June 2026** (full rewrite — supersedes v1.0 "QPM-Aware LoRA Fine-tuning")
+**Version 2.1 | July 2026** (v2.0 full rewrite superseding v1.0 "QPM-Aware LoRA Fine-tuning"; v2.1 = QPM-in-scope addendum, §5.5)
 **Infrastructure:** Google Colab Pro (A100/L4, checkpoint-to-Drive) + **minimal** Anthropic API (Claude Sonnet 4.6 for persona/style/refusal data + Claude Sonnet 4.5 as judge) + free open corpora.
 
 ---
@@ -15,16 +15,16 @@ The v1.0 plan (QPM-aware LoRA-6 on Qwen2.5-7B) is **retired, not executed.** Two
 
 **Scope: daily QA only, ADA persona.** One from-scratch ~80M model answering factoid ("what is Planck's constant?") questions **as ADA, in character**. The stack-language code scenario and the therapy scenario are deferred (code: language not yet designed; therapy: that is where the QPM payload lives).
 
-**The two-axis scope distinction (important — set by program-owner correction):**
+**The two-axis scope distinction (updated 2026-07-01 by program-owner correction):**
 
 | Layer | In scope here? | Rationale |
 |---|:--:|---|
 | Grounded-QA competence (read context → answer/abstain) | ✅ | the daily-QA task |
 | **Persona / SCI / SMC / PersonaScore** | ✅ | ADA must answer *in character* and hold its self-model across turns; we measure it with the Exp 1–5 PersonaScore harness |
 | SCI-refresh policy | ✅ (sub-study) | does an *owned, persona-baked* small model still degrade over turns (Exp 1's T\*) and need refresh? |
-| **QPM quantum dynamics** (Lindblad, d-vector circuit, off-diagonal **coherences**) | ❌ deferred | retrieval-driven QA gives the affect/coherence engine little to act on; coherence's Exp 5 `p=0.72` null is a therapy-scenario question |
+| **QPM (marginals + d-vector circuit + off-diagonal coherence proxy)** | ✅ **compiled into weights** | Persona/SCI/SMC are trained, so the QPM output must influence the model. It enters as a per-turn `persona_state` conditioning channel baked in during SFT (§5.5), **not** as a runtime input a frozen model ignores — the exact failure mode of Exp 3/4/5. |
 
-Static trait expression is part of *persona* and stays in; the dynamic/coherence *engine* waits. A null `persona_state` channel is kept in-schema so the therapy scenario reuses this pipeline.
+**Owner override of v1 of this rewrite (2026-07-01):** the earlier draft deferred the QPM to the therapy scenario. That is superseded — since we train persona/SCI/SMC here, the QPM is included now. The resolution to the Exp 3/4/5 interface-null is to *compile the QPM output into the weights*: the QPM produces `persona_state` (marginals + emotional valence + register + the ambivalence/purity **coherence** proxy), which conditions both the SFT target answer (via the teacher) and a `<|persona|>` template channel the from-scratch model is trained to read. Coherence thus crosses the boundary as supervision, not as text a frozen model discards. The Exp 5 `p=0.72` *distinguishability* question is still owed to the therapy scenario; here coherence enters as a training signal, not a distinguishability claim.
 
 ---
 
@@ -45,6 +45,7 @@ Static trait expression is part of *persona* and stays in; the dynamic/coherence
 - **RQ3 — persona consistency:** Does it hold the **ADA** persona (T/E/C/S) across a multi-turn daily-QA conversation, and how does PersonaScore evolve over turns (does Exp 1's degradation / T\* appear)?
 - **RQ4 — SCI refresh:** Given a persona baked into the weights, is periodic SCI refresh (turns 15/30) still needed, or does weight-level persona obviate it?
 - **RQ5 — fallback gap:** How far below a fine-tuned small **pretrained** base does the from-scratch model land on RQ1–RQ3? (Directly informs the owner's fallback.)
+- **RQ6 — QPM-as-weight-supervision (§5.5):** Does compiling the QPM output into the weights (persona_state `<|persona|>` channel + QPM-conditioned targets) measurably shape the model's expressed persona/affect? Compare **QPM-on vs QPM-off** (`--no-qpm`) on PersonaScore (esp. T/S) and on calibrated-honesty (does higher QPM ambivalence track more hedging?). This is the first test of QPM influence *through weights* rather than through a runtime interface a frozen model ignored (Exp 3/4/5).
 
 ---
 
@@ -112,9 +113,11 @@ Governing constraint: **from-scratch is token-hungry; Sonnet tokens are scarce.*
   "sci": { "...ADA self-model JSON..." },
   "context": "…retrieved passage(s)…",
   "messages": [ {"role":"system","content":"…SCI…"}, {"role":"user","content":"…"}, {"role":"assistant","content":"…grounded answer | refusal…"} ],
-  "persona_state": null            // reserved; null for daily-QA, populated in the therapy scenario
+  "persona_state": { "marginals": {…11 QPM facets…}, "emotional_valence": {…}, "register": "…", "ambivalence": 0.29, "certainty": 0.42, "d_vector": […], "source": "qpm" }
 }
 ```
+
+`persona_state` is the **QPM output** (§5.5), populated for persona-bearing records (`sonnet_persona`/`sonnet_style`/`sonnet_refusal`) from the user turns' d-vector sequence; it stays `null` for pure free reading-skill records (SQuAD2/NQ/…), which need no affect conditioning. It is rendered into the training/inference string as a `<|persona|>` channel, and fed to the Sonnet teacher so the target answer's tone/certainty reflect it — so the QPM signal is compiled into the weights.
 
 ---
 
@@ -145,6 +148,19 @@ Checkpoint to Drive every N steps; resume on reconnect. Prefer A100/L4 (T4 ≈ 5
 ### 5.4 Pilot gate (protects budget)
 
 Before full spend: train a tiny model (d_model 256, 6 layers) on a small slice + ~2 k SFT examples on a free T4; confirm the pipeline *learns at all* (loss falls; produces grounded answers on a few items; emits REFUSAL on empty context; stays roughly in ADA voice). Only then freeze H1–H3 thresholds and spend Sonnet + A100 budget.
+
+### 5.5 QPM integration — compiling the QPM into the weights
+
+The QPM (`qpm.py`, reused byte-identical from Exp 5: 11 trait qubits + ancilla, Ry init from the profile, intra-/inter-domain entanglement, per-turn d-vector context rotations, Lindblad noise) produces a per-turn state that must **influence the language model**. The route (`qpm_bridge.py`) is:
+
+1. **ADA trait profile → QPM.** ADA's FFM facets (§4.1) initialise the 11 trait qubits.
+2. **User turn(s) → d-vector(s).** The Exp 3/4/5 5-dim situative d-vector is extracted from each user message; a multi-turn conversation becomes a **d-sequence**, so the QPM's non-commutative order effects are exercised.
+3. **QPM → `persona_state`.** Running the circuit yields trait **marginals** + the **purity/ambivalence proxy** (the off-diagonal **coherence** signal, `= 1 − mean_k[p_k²+(1−p_k)²]`), from which we derive `emotional_valence`, `register`, and a scalar `certainty`.
+4. **`persona_state` compiled into weights, two ways:**
+   - **(a) target-side** — the state's `affect_directive` (register + warmth + certainty→hedging) is given to the Sonnet teacher, so the SFT *target* answer's tone and calibrated confidence reflect the QPM output;
+   - **(b) input-side** — the state is serialised into a `<|persona|>` channel in the chat template, and Stage-B SFT trains the from-scratch model to condition its (assistant-span-masked) answer on it.
+
+At eval/generation the same QPM→`persona_state`→`<|persona|>` path runs per turn, so the trained model reads a live QPM state exactly as in training. A `--no-qpm` switch and a deterministic classical fallback (used when qiskit is unavailable) keep the pipeline runnable offline; the QPM-off vs QPM-on comparison is available as an ablation. This is the program's stated fix for the Exp 3/4/5 finding that a frozen model discards a runtime QPM channel: here the QPM→style mapping lives in the weights.
 
 ---
 
@@ -206,24 +222,34 @@ P0 Provision → P1 tokenizer + pilot gate → P2 Stage-A pretrain → P3 Stage-
 
 ```
 CA_Experiment_6/
-├── CA_Experiment6_Plan.md            # this file (v2.0)
+├── CA_Experiment6_Plan.md            # this file (v2.0 + QPM addendum)
 ├── .venv/                            # per project convention, for local scripts
+├── requirements.txt                  # pinned env (rebuildable offline)
 ├── ada_sci.json                      # ADA self-model (SCI)
+├── ca_assets.py                      # SCI, chat template + special tokens, abstention, record schema, PersonaScore harness, κ
+├── qpm.py                            # QPM circuit (reused byte-identical from Exp 5)
+├── qpm_bridge.py                     # ADA profile + d-vector → persona_state (QPM-in-scope, §5.5)
+├── tokenizer_util.py                 # 16k BPE loader (+ <|persona|> channel)
+├── train_tokenizer.py                # trains the BPE
+├── data_utils.py                     # pretrain bins + SFT assistant-span masking (+ persona-channel-preserving trim)
+├── prepare_data.py                   # Stage-A shards + SQuAD2/NQ/… → §4.3 records + eval sets
 ├── data/
 │   ├── pretrain/                     # Stage-A shards (free)
-│   ├── qa_sft.jsonl                  # reading skill (free) + ADA persona/style/refusal (Sonnet)
+│   ├── qa_sft.jsonl                  # reading skill (free) + ADA persona/style/refusal (Sonnet, QPM persona_state)
 │   ├── eval_answerable.jsonl
 │   ├── eval_unanswerable.jsonl
+│   ├── raw_sonnet/                   # archived un-regenerable Sonnet responses
 │   └── persona_scripts/              # ~20 ADA daily-QA conversation scripts
 ├── tokenizer/                        # 16k BPE
-├── model/                            # from-scratch transformer impl
+├── model/                            # from-scratch transformer impl (RoPE, RMSNorm, SwiGLU) + configs
+├── train_common.py                   # seed, cosine LR, checkpoint I/O
 ├── train_pretrain.py                 # Stage A
-├── train_sft.py                      # Stage B (assistant-span masked)
-├── gen_persona_data.py               # Sonnet 4.6 — persona conversations + style + refusal (bounded)
-├── evaluate.py                       # QA (H1/H2) + PersonaScore (H3) + refresh (H4) + judge
+├── train_sft.py                      # Stage B (assistant-span masked; persona channel; Stage-A replay)
+├── gen_persona_data.py               # Sonnet — persona convos + style + refusal + eval scripts (bounded, QPM-conditioned)
+├── evaluate.py                       # QA (H1/H2) + PersonaScore (H3) + refresh (H4) + judge + κ + decision
 ├── checkpoints/                      # → mirrored to Drive
 ├── CA_Experiment6_Colab.ipynb        # end-to-end Colab (direct-JSON notebook)
-└── EXPERIMENT_REPORT.md
+└── EXPERIMENT_REPORT.md              # written AFTER the run
 ```
 (Colab-first; local scripts in `CA_Experiment_6/.venv`; notebook authored as direct JSON.)
 
@@ -238,7 +264,7 @@ CA_Experiment_6/
 
 **On fallback (H1✗):** record the 80M-from-scratch usability floor for grounded QA and adopt the small-pretrained-base path (RQ5) — sharpening, not abandoning, the per-scenario owned-model thesis.
 
-**QPM:** remains deferred to the therapy scenario; the coherence-distinguishability gate (Exp 5 `p=0.72`) is owed there, not here.
+**QPM:** now **in scope** and compiled into the weights via the `persona_state`/`<|persona|>` channel (§5.5) — the program's fix for the Exp 3/4/5 interface-null. §3 (QPM) records the first test of *QPM-as-weight-supervision* at small scale, with the QPM-off vs QPM-on ablation. The coherence-**distinguishability** gate (Exp 5 `p=0.72`) is still owed to the therapy scenario, where coherence must be shown blind-distinguishable; here coherence enters only as a training signal.
 
 ---
 
