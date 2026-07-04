@@ -10,8 +10,9 @@ persona           Run the §6.2 PersonaScore harness over the eval scripts for a
                   refresh condition (R0 or R1). Probes at turns 5/10/.../40, dims
                   T/E/C/S, Sonnet judge.       → results/persona_<R>/scores_*.jsonl
 judge-reliability Re-score 5% of a scores dir at T=0; weighted-kappa gate (§6.5).
-analyse           Aggregate everything into the H1-H4 decision table (§3).
-                                                → results/analysis_data.json
+analyse           Aggregate everything into the H1-H4 decision table (§3) and
+                  render figures (png/pdf/svg) in the Exp 1/2/5 style.
+                             → results/analysis_data.json + results/exp6_*.{png,pdf,svg}
 
 Model generation runs locally/on Colab GPU; judging calls Sonnet 4.5 (same judge
 role as Exp 1-5). Set --dry-run-judge to score with a stub (pipeline test only).
@@ -482,6 +483,10 @@ def cmd_analyse(args):
     print(json.dumps(out, indent=2))
     print(f"→ {op}")
 
+    if not getattr(args, "no_plots", False):
+        qm_full = qm if qa_path.exists() else None
+        _render_figures(out, qm_full, Path(args.results_dir))
+
 
 def _decide(h1, h2, h3):
     if h1 and h2 and h3:
@@ -495,6 +500,146 @@ def _decide(h1, h2, h3):
                 "refusal data; retrain SFT."}
     return {"row": "✗——", "action": "80M from-scratch below usability — trigger fallback: "
             "fine-tune small pretrained base (RQ5); re-run §6 on it."}
+
+
+# ── Figures (matplotlib; style matches Exp 1/2/5) ────────────────────────
+
+_COL = {"R0": "#1f77b4", "R1": "#d62728", "qpm_on": "#2ca02c",
+        "qpm_off": "#9e9e9e", "bar": "#4c78a8", "thresh": "black"}
+_PASS_PS, _REFRESH_TURNS, _H1_T, _H2_T = 3.5, (15, 30), 0.70, 0.80
+
+
+def _savefig(fig, stem, results_dir):
+    import matplotlib.pyplot as plt
+    results_dir.mkdir(parents=True, exist_ok=True)
+    for ext in ("png", "pdf", "svg"):
+        fig.savefig(results_dir / f"{stem}.{ext}", bbox_inches="tight", dpi=150)
+    plt.close(fig)
+    print(f"  wrote {stem}.png/.pdf/.svg", flush=True)
+
+
+def _plot_turn_series(h3, results_dir):
+    import matplotlib.pyplot as plt
+    conds = [("R0", "R0 (no refresh)"), ("R1", "R1 (refresh @15/30)")]
+    have = [(c, lab) for c, lab in conds if h3.get(c) and h3[c].get("per_turn")]
+    if not have:
+        print("  skip turn_series — no R0/R1 per-turn data"); return
+    fig, ax = plt.subplots(figsize=(9, 5.5))
+    for cond, label in have:
+        c = h3[cond]
+        pt = c["per_turn"]
+        turns = sorted(int(t) for t in pt)
+        means = [pt.get(str(t), pt.get(t)) for t in turns]
+        ax.plot(turns, means, marker="o", linewidth=2.0, color=_COL[cond],
+                label=f"{label}  (mean={c['overall']:.2f})")
+        ts = c.get("T_star")
+        if ts is not None and str(ts) in {str(t) for t in turns}:
+            y = pt.get(str(ts), pt.get(ts))
+            ax.scatter([ts], [y], marker="*", s=220, color=_COL[cond], zorder=5,
+                       edgecolor="black", linewidth=0.6)
+            ax.annotate(f"T*={ts}", (ts, y), textcoords="offset points",
+                        xytext=(6, -14), fontsize=9, color=_COL[cond])
+    for rt in _REFRESH_TURNS:
+        ax.axvline(rt, color="grey", linestyle=":", alpha=0.5)
+    ax.axhline(_PASS_PS, color=_COL["thresh"], linestyle="--", alpha=0.4,
+               label=f"H3 threshold ({_PASS_PS})")
+    ax.set_xlabel("Probe turn"); ax.set_ylabel("PersonaScore"); ax.set_ylim(1, 5)
+    ax.set_title("Exp 6 — ADA PersonaScore per probe turn (R0 vs R1)")
+    ax.legend(loc="lower left", fontsize=9, framealpha=0.95)
+    _savefig(fig, "exp6_personascore_turn_series", results_dir)
+
+
+def _plot_dimension_bars(h3, results_dir):
+    import numpy as np, matplotlib.pyplot as plt
+    have = [c for c in ("R0", "R1") if h3.get(c) and h3[c].get("per_dimension")]
+    if not have:
+        print("  skip dimension_bars — no per-dimension data"); return
+    dims = list(DIMENSIONS)
+    x = np.arange(len(dims)); w = 0.8 / len(have)
+    fig, ax = plt.subplots(figsize=(9, 5.5))
+    for i, cond in enumerate(have):
+        pd = h3[cond]["per_dimension"]
+        vals = [pd.get(d, 0.0) for d in dims]
+        off = (i - (len(have) - 1) / 2) * w
+        ax.bar(x + off, vals, w, color=_COL[cond], alpha=0.9,
+               label=f"{cond} (mean={h3[cond]['overall']:.2f})")
+    ax.axhline(_PASS_PS, color=_COL["thresh"], linestyle="--", alpha=0.4,
+               label=f"H3 threshold ({_PASS_PS})")
+    ax.set_xticks(x)
+    ax.set_xticklabels(["Trait (T)", "Episodic (E)", "Capability (C)", "Style (S)"], fontsize=9)
+    ax.set_ylabel("Mean PersonaScore"); ax.set_ylim(0, 5)
+    ax.set_title("Exp 6 — PersonaScore by dimension (R0 vs R1)")
+    ax.legend(loc="lower right", fontsize=9, framealpha=0.95)
+    _savefig(fig, "exp6_dimension_bars", results_dir)
+
+
+def _plot_qa_metrics(metrics, results_dir):
+    import matplotlib.pyplot as plt
+    order = [("H1_correct_grounded_rate", "H1 correct+grounded"),
+             ("squad_EM", "SQuAD2 EM"), ("squad_F1", "SQuAD2 F1"),
+             ("H2_abstention_F1", "H2 abstention F1"),
+             ("hallucination_rate", "hallucination"),
+             ("over_refusal_rate", "over-refusal")]
+    labels, vals = [], []
+    for k, lab in order:
+        v = metrics.get(k)
+        if v is not None:
+            labels.append(lab); vals.append(float(v))
+    if not vals:
+        print("  skip qa_metrics — no QA metrics"); return
+    fig, ax = plt.subplots(figsize=(9, 5.5))
+    bars = ax.bar(range(len(vals)), vals, color=_COL["bar"], alpha=0.9)
+    for b, v in zip(bars, vals):
+        ax.text(b.get_x() + b.get_width() / 2, v + 0.015, f"{v:.2f}", ha="center", fontsize=9)
+    ax.axhline(_H1_T, color="#2ca02c", linestyle="--", alpha=0.6, label=f"H1 threshold ({_H1_T})")
+    ax.axhline(_H2_T, color="#d62728", linestyle="--", alpha=0.6, label=f"H2 threshold ({_H2_T})")
+    ax.set_xticks(range(len(labels)))
+    ax.set_xticklabels(labels, fontsize=9, rotation=20, ha="right")
+    ax.set_ylabel("Score / rate"); ax.set_ylim(0, 1.05)
+    ax.set_title("Exp 6 — QA competence (H1) and calibrated abstention (H2)")
+    ax.legend(loc="upper right", fontsize=9, framealpha=0.95)
+    _savefig(fig, "exp6_qa_metrics", results_dir)
+
+
+def _plot_qpm_ablation(results_dir):
+    import numpy as np, matplotlib.pyplot as plt
+    on_dir, off_dir = results_dir / "persona_R0", results_dir / "ablation_noqpm" / "persona_R0"
+    if not (on_dir.exists() and off_dir.exists()):
+        print("  skip qpm_ablation — need persona_R0 and ablation_noqpm/persona_R0"); return
+    on, off = _persona_curve(on_dir), _persona_curve(off_dir)
+    dims = list(DIMENSIONS)
+    on_vals = [on["per_dimension"].get(d, 0.0) for d in dims] + [on["overall"]]
+    off_vals = [off["per_dimension"].get(d, 0.0) for d in dims] + [off["overall"]]
+    x = np.arange(len(dims) + 1); w = 0.38
+    fig, ax = plt.subplots(figsize=(9, 5.5))
+    ax.bar(x - w / 2, on_vals, w, color=_COL["qpm_on"], alpha=0.9,
+           label=f"QPM-on  (overall={on['overall']:.2f})")
+    ax.bar(x + w / 2, off_vals, w, color=_COL["qpm_off"], alpha=0.9,
+           label=f"QPM-off (overall={off['overall']:.2f})")
+    ax.axhline(_PASS_PS, color=_COL["thresh"], linestyle="--", alpha=0.4,
+               label=f"H3 threshold ({_PASS_PS})")
+    ax.set_xticks(x); ax.set_xticklabels([*dims, "Overall"], fontsize=9)
+    ax.set_ylabel("Mean PersonaScore"); ax.set_ylim(0, 5)
+    ax.set_title("Exp 6 — QPM-as-weight-supervision ablation (RQ6, R0)")
+    ax.legend(loc="lower right", fontsize=9, framealpha=0.95)
+    _savefig(fig, "exp6_qpm_ablation", results_dir)
+
+
+def _render_figures(out, qa_metrics, results_dir):
+    """Render all Exp 6 figures (png/pdf/svg) from the analysis output."""
+    try:
+        import matplotlib
+        matplotlib.use("Agg")
+    except ImportError:
+        print("  (matplotlib not installed — skipping figures; pip install matplotlib)")
+        return
+    print(f"Rendering figures → {results_dir}", flush=True)
+    if out.get("H3"):
+        _plot_turn_series(out["H3"], results_dir)
+        _plot_dimension_bars(out["H3"], results_dir)
+    if qa_metrics:
+        _plot_qa_metrics(qa_metrics, results_dir)
+    _plot_qpm_ablation(results_dir)
 
 
 # ── CLI ──────────────────────────────────────────────────────────────────
@@ -538,6 +683,7 @@ def main():
 
     an = sub.add_parser("analyse")
     an.add_argument("--results-dir", default="results")
+    an.add_argument("--no-plots", action="store_true", help="skip rendering figures")
     an.set_defaults(func=cmd_analyse)
 
     args = ap.parse_args()

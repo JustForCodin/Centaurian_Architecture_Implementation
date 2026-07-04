@@ -6,6 +6,7 @@
 torch>=2.2                 # from-scratch transformer; CPU wheel locally, CUDA on Colab
 numpy>=1.24
 tokenizers>=0.15           # 16k BPE (train_tokenizer.py)
+matplotlib>=3.7            # result figures (evaluate.py analyse, Exp 1/2/5 style)
 tqdm>=4.66
 
 # --- data + API (Colab / provisioning) ---
