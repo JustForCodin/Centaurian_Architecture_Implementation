@@ -67,7 +67,44 @@ def _call(client, model, system, user, max_tokens=1500, temperature=1.0) -> str:
     raise RuntimeError(f"Sonnet call failed after 5 attempts: {last}")
 
 
+def _balanced_json(text: str):
+    """Return the first balanced {...} or [...] substring, respecting strings and
+    escapes. Returns None if it never closes (e.g. a truncated response)."""
+    start = None
+    for i, ch in enumerate(text):
+        if ch in "{[":
+            start = i
+            break
+    if start is None:
+        return None
+    open_ch = text[start]
+    close_ch = "}" if open_ch == "{" else "]"
+    depth, in_str, esc = 0, False, False
+    for i in range(start, len(text)):
+        ch = text[i]
+        if in_str:
+            if esc:
+                esc = False
+            elif ch == "\\":
+                esc = True
+            elif ch == '"':
+                in_str = False
+            continue
+        if ch == '"':
+            in_str = True
+        elif ch == open_ch:
+            depth += 1
+        elif ch == close_ch:
+            depth -= 1
+            if depth == 0:
+                return text[start:i + 1]
+    return None   # unbalanced → truncated
+
+
 def _extract_json(text: str):
+    """Tolerant JSON parse of a model response: strips code fences, finds the
+    balanced object/array, and repairs trailing commas. Raises on truncation or
+    genuinely-malformed output (e.g. an unescaped quote inside a string)."""
     text = text.strip()
     if text.startswith("```"):
         text = re.sub(r"^```(?:json)?\s*\n?", "", text)
@@ -75,10 +112,28 @@ def _extract_json(text: str):
     try:
         return json.loads(text)
     except json.JSONDecodeError:
-        m = re.search(r"[\[{].*[\]}]", text, re.DOTALL)
-        if not m:
-            raise
-        return json.loads(m.group(0))
+        pass
+    frag = _balanced_json(text)
+    if frag is None:
+        raise ValueError("no balanced JSON found (response likely truncated at max_tokens)")
+    for candidate in (frag, re.sub(r",(\s*[}\]])", r"\1", frag)):   # + trailing-comma repair
+        try:
+            return json.loads(candidate)
+        except json.JSONDecodeError:
+            continue
+    raise ValueError("JSON present but unparseable (e.g. unescaped quote in a string)")
+
+
+def _call_json(client, model, system, user, *, max_tokens, temperature=1.0, retries=2):
+    """_call + _extract_json with regeneration on parse failure. Returns (obj, raw_text)."""
+    last = ""
+    for attempt in range(retries + 1):
+        text = _call(client, model, system, user, max_tokens=max_tokens, temperature=temperature)
+        try:
+            return _extract_json(text), text
+        except Exception as e:                       # noqa: BLE001
+            last = f"{type(e).__name__}: {e}"
+    raise ValueError(f"unparseable JSON after {retries + 1} attempts ({last})")
 
 
 def _archive(tag: str, idx: int, text: str):
@@ -133,8 +188,9 @@ Requirements:
 - Include several capability-edge turns whose context does NOT contain the answer (so abstention can be probed).
 - Include several turns that invite episodic callbacks to earlier turns.
 - Natural, varied factoid questions.
+- Keep each "context" to ONE short factual sentence (max ~20 words) — NOT a paragraph — so the script stays compact.
 
-Return ONLY JSON:
+Return ONLY compact JSON (no markdown, no commentary):
 {{"topic": "{topic}", "turns": [{{"user":"...","context":"..."}}, ... exactly {n_turns} items]}}"""
 
 
@@ -155,107 +211,129 @@ TOPICS = [
 # ── Task runners ─────────────────────────────────────────────────────────
 
 def run_persona(args, client):
-    recs, rid = [], args.start_id
+    recs, rid, skipped = [], args.start_id, 0
     for i in range(args.budget):
         topic = TOPICS[i % len(TOPICS)]
-        # QPM state from the *sequence* of user turns (multi-turn order effects).
-        # For authoring, seed from a topic-representative d-vector; refined below
-        # once the actual user turns exist.
-        seed_ps = build_persona_state(extract_d_vector(topic), use_qpm=not args.no_qpm)
-        if args.dry_run:
-            obj = _dry_conversation(topic)
-        else:
-            user = f"[Affect directive from QPM: {affect_directive(seed_ps)}]\n\n" + \
-                   _PERSONA_USER.format(topic=topic)
-            text = _call(client, args.model, _PERSONA_SYS, user, max_tokens=1800)
-            _archive("persona", i, text)
-            obj = _extract_json(text)
-        # Recompute persona_state from the realised user turns (QPM d_sequence).
-        d_seq = [extract_d_vector(m["content"]) for m in obj["messages"]
-                 if m["role"] == "user"] or [extract_d_vector(topic)]
-        persona_state = build_persona_state(d_seq, use_qpm=not args.no_qpm)
-        rec = make_record(rid, "sonnet_persona", answerable=True,
-                          context=obj["context"], messages=obj["messages"],
-                          persona_state=persona_state)
-        validate_record(rec)
-        recs.append(rec)
-        n_turns = sum(1 for m in obj["messages"] if m["role"] == "user")
-        print(f"  [{i+1:3d}/{args.budget}] persona '{topic[:32]}' — {n_turns} user turns, "
-              f"QPM certainty {persona_state['certainty']:.2f} ({persona_state['source']})", flush=True)
-        rid += 1
+        try:
+            # QPM state from the *sequence* of user turns (multi-turn order effects).
+            seed_ps = build_persona_state(extract_d_vector(topic), use_qpm=not args.no_qpm)
+            if args.dry_run:
+                obj = _dry_conversation(topic)
+            else:
+                user = f"[Affect directive from QPM: {affect_directive(seed_ps)}]\n\n" + \
+                       _PERSONA_USER.format(topic=topic)
+                obj, text = _call_json(client, args.model, _PERSONA_SYS, user, max_tokens=2400)
+                _archive("persona", i, text)
+            # Recompute persona_state from the realised user turns (QPM d_sequence).
+            d_seq = [extract_d_vector(m["content"]) for m in obj["messages"]
+                     if m["role"] == "user"] or [extract_d_vector(topic)]
+            persona_state = build_persona_state(d_seq, use_qpm=not args.no_qpm)
+            rec = make_record(rid, "sonnet_persona", answerable=True,
+                              context=obj["context"], messages=obj["messages"],
+                              persona_state=persona_state)
+            validate_record(rec)
+            recs.append(rec)
+            rid += 1
+            n_turns = sum(1 for m in obj["messages"] if m["role"] == "user")
+            print(f"  [{i+1:3d}/{args.budget}] persona '{topic[:32]}' — {n_turns} user turns, "
+                  f"QPM certainty {persona_state['certainty']:.2f} ({persona_state['source']})", flush=True)
+        except Exception as e:                       # noqa: BLE001 — skip one, keep the rest
+            skipped += 1
+            print(f"  [{i+1:3d}/{args.budget}] persona '{topic[:32]}' SKIPPED: {e}", flush=True)
     _append_jsonl(args.out, recs)
-    print(f"persona: +{len(recs)} conversations (QPM persona_state) → {args.out}", flush=True)
+    print(f"persona: +{len(recs)} conversations, {skipped} skipped (QPM persona_state) → {args.out}", flush=True)
 
 
 def run_style(args, client):
     src = _load_style_inputs(args.inputs, args.budget, args.dry_run)
-    recs, rid = [], args.start_id
+    recs, rid, skipped = [], args.start_id, 0
     for i, (q, ctx, a) in enumerate(src):
-        persona_state = build_persona_state(extract_d_vector(q), use_qpm=not args.no_qpm)
-        if args.dry_run:
-            ans = f"{a.rstrip('.')} (from the retrieved passage)."
-        else:
-            user = f"[Affect directive from QPM: {affect_directive(persona_state)}]\n\n" + \
-                   _STYLE_USER.format(q=q, ctx=ctx, a=a)
-            text = _call(client, args.model, _STYLE_SYS, user, max_tokens=400)
-            _archive("style", i, text)
-            ans = _extract_json(text)["answer"]
-        rec = make_record(rid, "sonnet_style", True, ctx,
-                          [{"role": "user", "content": q},
-                           {"role": "assistant", "content": ans}],
-                          persona_state=persona_state)
-        validate_record(rec)
-        recs.append(rec)
-        if (i + 1) % max(1, len(src) // 10) == 0 or i + 1 == len(src):
-            print(f"  [{i+1:3d}/{len(src)}] style restyle", flush=True)
-        rid += 1
+        try:
+            persona_state = build_persona_state(extract_d_vector(q), use_qpm=not args.no_qpm)
+            if args.dry_run:
+                ans = f"{a.rstrip('.')} (from the retrieved passage)."
+            else:
+                user = f"[Affect directive from QPM: {affect_directive(persona_state)}]\n\n" + \
+                       _STYLE_USER.format(q=q, ctx=ctx, a=a)
+                obj, text = _call_json(client, args.model, _STYLE_SYS, user, max_tokens=500)
+                _archive("style", i, text)
+                ans = obj["answer"]
+            rec = make_record(rid, "sonnet_style", True, ctx,
+                              [{"role": "user", "content": q},
+                               {"role": "assistant", "content": ans}],
+                              persona_state=persona_state)
+            validate_record(rec)
+            recs.append(rec)
+            rid += 1
+            if (i + 1) % max(1, len(src) // 10) == 0 or i + 1 == len(src):
+                print(f"  [{i+1:3d}/{len(src)}] style restyle", flush=True)
+        except Exception as e:                       # noqa: BLE001
+            skipped += 1
+            print(f"  [{i+1:3d}/{len(src)}] style SKIPPED: {e}", flush=True)
     _append_jsonl(args.out, recs)
-    print(f"style: +{len(recs)} restyled answers (QPM persona_state) → {args.out}", flush=True)
+    print(f"style: +{len(recs)} restyled answers, {skipped} skipped (QPM persona_state) → {args.out}", flush=True)
 
 
 def run_refusal(args, client):
     probes = _refusal_probes(args.budget)
-    recs, rid = [], args.start_id
+    recs, rid, skipped = [], args.start_id, 0
     for i, (q, ctx) in enumerate(probes):
-        persona_state = build_persona_state(extract_d_vector(q), use_qpm=not args.no_qpm)
-        if args.dry_run:
-            ans = ABSTENTION_CANONICAL
-        else:
-            text = _call(client, args.model, _REFUSAL_SYS,
-                         _REFUSAL_USER.format(q=q, ctx=ctx), max_tokens=200)
-            _archive("refusal", i, text)
-            ans = _extract_json(text)["answer"]
-        rec = make_record(rid, "sonnet_refusal", False, ctx,
-                          [{"role": "user", "content": q},
-                           {"role": "assistant", "content": ans}],
-                          persona_state=persona_state)
-        validate_record(rec)
-        recs.append(rec)
-        if (i + 1) % max(1, len(probes) // 10) == 0 or i + 1 == len(probes):
-            print(f"  [{i+1:3d}/{len(probes)}] refusal phrasing", flush=True)
-        rid += 1
+        try:
+            persona_state = build_persona_state(extract_d_vector(q), use_qpm=not args.no_qpm)
+            if args.dry_run:
+                ans = ABSTENTION_CANONICAL
+            else:
+                obj, text = _call_json(client, args.model, _REFUSAL_SYS,
+                                       _REFUSAL_USER.format(q=q, ctx=ctx), max_tokens=300)
+                _archive("refusal", i, text)
+                ans = obj["answer"]
+            rec = make_record(rid, "sonnet_refusal", False, ctx,
+                              [{"role": "user", "content": q},
+                               {"role": "assistant", "content": ans}],
+                              persona_state=persona_state)
+            validate_record(rec)
+            recs.append(rec)
+            rid += 1
+            if (i + 1) % max(1, len(probes) // 10) == 0 or i + 1 == len(probes):
+                print(f"  [{i+1:3d}/{len(probes)}] refusal phrasing", flush=True)
+        except Exception as e:                       # noqa: BLE001
+            skipped += 1
+            print(f"  [{i+1:3d}/{len(probes)}] refusal SKIPPED: {e}", flush=True)
     _append_jsonl(args.out, recs)
-    print(f"refusal: +{len(recs)} refusals (QPM persona_state) → {args.out}", flush=True)
+    print(f"refusal: +{len(recs)} refusals, {skipped} skipped (QPM persona_state) → {args.out}", flush=True)
 
 
 def run_eval_scripts(args, client):
     out_dir = Path(args.out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
+    made, skipped, existed = 0, 0, 0
     for i in range(args.n_scripts):
+        path = out_dir / f"script_{i+1:03d}.json"
+        if path.exists() and not args.overwrite:     # resumable — don't re-spend on done scripts
+            existed += 1
+            continue
         topic = TOPICS[i % len(TOPICS)]
-        if args.dry_run:
-            obj = _dry_eval_script(topic, args.n_turns)
-        else:
-            text = _call(client, args.model, _EVALSCRIPT_SYS,
-                         _EVALSCRIPT_USER.format(topic=topic, n_turns=args.n_turns),
-                         max_tokens=3000)
-            _archive("evalscript", i, text)
-            obj = _extract_json(text)
-        obj["script_id"] = i + 1
-        (out_dir / f"script_{i+1:03d}.json").write_text(json.dumps(obj, indent=2))
-        print(f"  [{i+1:3d}/{args.n_scripts}] eval-script '{topic[:32]}' — "
-              f"{len(obj.get('turns', []))} turns", flush=True)
-    print(f"eval-scripts: {args.n_scripts} scripts ({args.n_turns} turns) → {out_dir}", flush=True)
+        try:
+            if args.dry_run:
+                obj = _dry_eval_script(topic, args.n_turns)
+            else:
+                # 40-turn scripts are large — generous headroom + short-context prompt
+                # keep them well under the cap so they don't truncate.
+                obj, text = _call_json(client, args.model, _EVALSCRIPT_SYS,
+                                       _EVALSCRIPT_USER.format(topic=topic, n_turns=args.n_turns),
+                                       max_tokens=12000)
+                _archive("evalscript", i, text)
+            if not obj.get("turns"):
+                raise ValueError("no 'turns' in script")
+            obj["script_id"] = i + 1
+            path.write_text(json.dumps(obj, indent=2))
+            made += 1
+            print(f"  [{i+1:3d}/{args.n_scripts}] eval-script '{topic[:32]}' — "
+                  f"{len(obj['turns'])} turns", flush=True)
+        except Exception as e:                       # noqa: BLE001
+            skipped += 1
+            print(f"  [{i+1:3d}/{args.n_scripts}] eval-script '{topic[:32]}' SKIPPED: {e}", flush=True)
+    print(f"eval-scripts: {made} written, {existed} already present, {skipped} failed → {out_dir}", flush=True)
 
 
 # ── Offline (dry-run) generators + helpers ───────────────────────────────
@@ -333,6 +411,8 @@ def main():
     ap.add_argument("--inputs", default=None, help="jsonl of free QA to restyle (style task)")
     ap.add_argument("--n-scripts", type=int, default=20)
     ap.add_argument("--n-turns", type=int, default=40)
+    ap.add_argument("--overwrite", action="store_true",
+                    help="regenerate eval scripts even if the file already exists")
     ap.add_argument("--dry-run", action="store_true", help="no API; deterministic offline sample")
     ap.add_argument("--no-qpm", action="store_true",
                     help="use the classical persona_state fallback (skip qiskit QPM)")
