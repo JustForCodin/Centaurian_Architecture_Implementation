@@ -297,15 +297,23 @@ def cmd_qa(args):
     constrained = getattr(args, "constrained", False)
     tau = getattr(args, "abstain_threshold", 0.0)
 
+    reranker = None
+    if getattr(args, "rerank", False):
+        from rerank_util import SentenceReranker
+        reranker = SentenceReranker(device=args.device)
+
     def _gen(q, ctx):
+        if reranker is not None:
+            ctx = reranker.shrink(q, ctx, top_k=args.rerank_topk)
         if constrained:
             return gen.generate_constrained(q, context=ctx, abstain_threshold=tau)
         return gen.generate(q, context=ctx, temperature=0.0)
 
+    rr_tag = (f"rerank(top{args.rerank_topk},{reranker.backend})" if reranker else "no-rerank")
     print("=" * 68, flush=True)
     print(f"=== QA eval (H1/H2) | ckpt={Path(args.checkpoint).name} device={gen.device} "
           f"QPM={qpm_tag} judge={judge_tag} "
-          f"decode={'constrained(τ=%.2f)' % tau if constrained else 'free'} ===", flush=True)
+          f"decode={'constrained(τ=%.2f)' % tau if constrained else 'free'} {rr_tag} ===", flush=True)
     print(f"    answerable={len(ans)}  unanswerable={len(una)}", flush=True)
     print("=" * 68, flush=True)
 
@@ -734,6 +742,10 @@ def main():
                    help="grounded decode: answer must be a context span or abstain")
     q.add_argument("--abstain-threshold", type=float, default=0.0,
                    help="constrained decode: abstain when best context-start prob < τ")
+    q.add_argument("--rerank", action="store_true",
+                   help="shrink context to the top-k question-relevant sentences (MiniLM) before decode")
+    q.add_argument("--rerank-topk", type=int, default=2,
+                   help="number of context sentences to keep when --rerank is on")
     q.add_argument("--limit", type=int, default=None)
     q.add_argument("--dry-run-judge", action="store_true")
     q.set_defaults(func=cmd_qa)
