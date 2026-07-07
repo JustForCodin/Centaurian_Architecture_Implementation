@@ -106,7 +106,11 @@ def _squad2_to_records(split: str, start_id: int, limit: int | None,
         gold = list(ex["answers"]["text"])
         answerable = len(gold) > 0
         if answerable:
-            assistant = f"{gold[0]} (from the retrieved passage)"
+            # Bare gold span — NO "(from the retrieved passage)" suffix. The suffix
+            # made every answer fail exact-match (EM) and diluted F1, and taught the
+            # model to append filler instead of emitting the answer and stopping.
+            # Grounded *voice* is taught separately by the sonnet_style persona layer.
+            assistant = gold[0]
         else:
             assistant = ABSTENTION_CANONICAL
         rec = make_record(
@@ -127,13 +131,13 @@ def _squad2_to_records(split: str, start_id: int, limit: int | None,
 def _synthetic_records(n: int, start_id: int):
     """Tiny offline sample (no network) for pipeline sanity — §4.3 shaped."""
     recs = []
-    facts = [
+    facts = [   # (question, context, bare-span answer == gold)
         ("What is the melting point of tungsten?",
          "Tungsten has a melting point of 3422 degrees Celsius, the highest of all metals.",
-         "Tungsten melts at 3422 degrees Celsius (from the retrieved passage)."),
+         "3422 degrees Celsius"),
         ("What is Planck's constant?",
          "Planck's constant is approximately 6.626 x 10^-34 joule-seconds.",
-         "Planck's constant is about 6.626 x 10^-34 J*s (from the retrieved passage)."),
+         "6.626 x 10^-34 joule-seconds"),
     ]
     rid = start_id
     for i in range(n):
@@ -148,8 +152,8 @@ def _synthetic_records(n: int, start_id: int):
             r = make_record(
                 rid, "squad2", True, context=ctx,
                 messages=[{"role": "user", "content": q},
-                          {"role": "assistant", "content": a}])
-            r["gold_answers"] = [a.split(" (from")[0]]
+                          {"role": "assistant", "content": a}])   # bare span
+            r["gold_answers"] = [a]
             recs.append(r)
         rid += 1
     return recs
@@ -158,6 +162,20 @@ def _synthetic_records(n: int, start_id: int):
 def cmd_qa_sft(args):
     out = Path(args.out)
     out.parent.mkdir(parents=True, exist_ok=True)
+
+    # Preserve the (paid, un-regenerable) Sonnet persona/style/refusal records when
+    # rebuilding the free SQuAD reading backbone with the corrected bare-span targets.
+    preserved = []
+    if args.keep_sonnet and out.exists():
+        for line in out.open():
+            line = line.strip()
+            if not line:
+                continue
+            r = json.loads(line)
+            if str(r.get("source", "")).startswith("sonnet_"):
+                preserved.append(r)
+        print(f"keep-sonnet: preserving {len(preserved)} existing Sonnet records")
+
     if args.dry_run:
         recs = _synthetic_records(args.limit or 12, 0)
     else:
@@ -167,9 +185,11 @@ def cmd_qa_sft(args):
     with out.open("w") as f:
         for r in recs:
             f.write(json.dumps(r) + "\n")
+        for r in preserved:
+            f.write(json.dumps(r) + "\n")
     n_ans = sum(r["answerable"] for r in recs)
-    print(f"qa-sft: {len(recs)} records → {out}  (answerable {n_ans}, "
-          f"unanswerable {len(recs)-n_ans})")
+    print(f"qa-sft: {len(recs)} reading records + {len(preserved)} preserved Sonnet → {out}  "
+          f"(reading answerable {n_ans}, unanswerable {len(recs)-n_ans})")
 
 
 def cmd_eval(args):
@@ -215,6 +235,8 @@ def main():
     q.add_argument("--out", default="data/qa_sft.jsonl")
     q.add_argument("--limit", type=int, default=None)
     q.add_argument("--dry-run", action="store_true")
+    q.add_argument("--keep-sonnet", action="store_true",
+                   help="preserve existing sonnet_* records in --out when rebuilding the backbone")
     q.set_defaults(func=cmd_qa_sft)
 
     e = sub.add_parser("eval")
