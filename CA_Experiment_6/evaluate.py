@@ -101,6 +101,72 @@ class ADAGenerator:
             new = new[:new.index(self.tok.eot_id)]
         return self.tok.decode(new, skip_special=True).strip()
 
+    def generate_constrained(self, question, context=None, history=None,
+                             max_new_tokens=40, abstain_threshold=0.0):
+        """Extractive / grounded decoding: the answer is forced to be a
+        contiguous token-span of the retrieved context, or the ADA abstention
+        string. This makes hallucination structurally impossible — the model can
+        only copy from the passage or abstain.
+
+        A finite-state constraint tracks every context position simultaneously
+        (substring automaton): at each step the only allowed tokens are the ones
+        that continue an active context span, plus <|endofturn|>. The span start
+        and the copy/stop choices are driven by the model's own logits, so it
+        selects *which* span. Abstention competes at step 0 (the abstain string's
+        first token vs. the best context-start token); `abstain_threshold` (a
+        probability on the best context-start) is the answer-vs-abstain knob —
+        raise it to abstain more readily when the passage doesn't support any
+        confident span (the answerable/unanswerable discriminator)."""
+        torch = self.torch
+        import torch.nn.functional as F
+        with torch.no_grad():
+            persona_state = self._persona_state(question, history)
+            ids = self._fit_prompt_ids(question, context, history, persona_state)
+            dev = self.device
+            cur = torch.tensor([ids], dtype=torch.long, device=dev)
+
+            ctx_ids = self.tok.encode(context or "")
+            n = len(ctx_ids)
+            abstain_ids = self.tok.encode(ABSTENTION_CANONICAL)
+            eot = self.tok.eot_id
+            if n == 0:
+                return ABSTENTION_CANONICAL
+
+            # ── Step 0: choose to abstain or where to start the span ──
+            logits0 = self.model(cur[:, -self.max_seq:])[0][0, -1, :].float()
+            probs0 = F.softmax(logits0, dim=-1)
+            ctx_mask = torch.full_like(logits0, float("-inf"))
+            ctx_mask[torch.tensor(sorted(set(ctx_ids)), device=dev)] = \
+                logits0[torch.tensor(sorted(set(ctx_ids)), device=dev)]
+            best_start = int(torch.argmax(ctx_mask).item())
+            p_best = probs0[best_start].item()
+            p_abstain = probs0[abstain_ids[0]].item() if abstain_ids else 0.0
+            if (abstain_ids and p_abstain >= p_best) or (p_best < abstain_threshold):
+                return ABSTENTION_CANONICAL
+
+            # active = next-expected context indices for every occurrence of best_start
+            active = {i + 1 for i, t in enumerate(ctx_ids) if t == best_start}
+            out = [best_start]
+            cur = torch.cat([cur, torch.tensor([[best_start]], device=dev)], dim=1)
+
+            for _ in range(max_new_tokens - 1):
+                if not active:
+                    break
+                logits = self.model(cur[:, -self.max_seq:])[0][0, -1, :].float()
+                allowed = {ctx_ids[j] for j in active if j < n}
+                mask = torch.full_like(logits, float("-inf"))
+                if allowed:
+                    idx = torch.tensor(sorted(allowed), device=dev)
+                    mask[idx] = logits[idx]
+                mask[eot] = logits[eot]                     # stopping is always allowed
+                nxt = int(torch.argmax(mask).item())
+                if nxt == eot:
+                    break
+                out.append(nxt)
+                active = {j + 1 for j in active if j < n and ctx_ids[j] == nxt}
+                cur = torch.cat([cur, torch.tensor([[nxt]], device=dev)], dim=1)
+            return self.tok.decode(out, skip_special=True).strip()
+
 
 # ── Judge client (mechanics identical to Exp 2 llm_judge) ────────────────
 
@@ -228,10 +294,18 @@ def cmd_qa(args):
     if args.limit:
         ans, una = ans[:args.limit], una[:args.limit]
     judge_tag = "dry-stub" if args.dry_run_judge else JUDGE_MODEL
+    constrained = getattr(args, "constrained", False)
+    tau = getattr(args, "abstain_threshold", 0.0)
+
+    def _gen(q, ctx):
+        if constrained:
+            return gen.generate_constrained(q, context=ctx, abstain_threshold=tau)
+        return gen.generate(q, context=ctx, temperature=0.0)
 
     print("=" * 68, flush=True)
     print(f"=== QA eval (H1/H2) | ckpt={Path(args.checkpoint).name} device={gen.device} "
-          f"QPM={qpm_tag} judge={judge_tag} ===", flush=True)
+          f"QPM={qpm_tag} judge={judge_tag} "
+          f"decode={'constrained(τ=%.2f)' % tau if constrained else 'free'} ===", flush=True)
     print(f"    answerable={len(ans)}  unanswerable={len(una)}", flush=True)
     print("=" * 68, flush=True)
 
@@ -241,7 +315,7 @@ def cmd_qa(args):
     n_cg = n_abst = 0
     for i, rec in enumerate(ans, 1):
         q = next(m["content"] for m in rec["messages"] if m["role"] == "user")
-        resp = gen.generate(q, context=rec["context"], temperature=0.0)
+        resp = _gen(q, rec["context"])
         gold = rec.get("gold_answers", [])
         abstained = is_abstention(resp)
         cg, reason = (False, "abstained") if abstained else (
@@ -263,7 +337,7 @@ def cmd_qa(args):
     n_hall = 0
     for i, rec in enumerate(una, 1):
         q = next(m["content"] for m in rec["messages"] if m["role"] == "user")
-        resp = gen.generate(q, context=rec["context"], temperature=0.0)
+        resp = _gen(q, rec["context"])
         abst = is_abstention(resp)
         n_hall += (not abst)
         results["unanswerable"].append({
@@ -656,6 +730,10 @@ def main():
     q.add_argument("--out", default="results/qa_results.json")
     q.add_argument("--device", default=None)
     q.add_argument("--no-qpm", action="store_true", help="disable QPM persona_state conditioning")
+    q.add_argument("--constrained", action="store_true",
+                   help="grounded decode: answer must be a context span or abstain")
+    q.add_argument("--abstain-threshold", type=float, default=0.0,
+                   help="constrained decode: abstain when best context-start prob < τ")
     q.add_argument("--limit", type=int, default=None)
     q.add_argument("--dry-run-judge", action="store_true")
     q.set_defaults(func=cmd_qa)

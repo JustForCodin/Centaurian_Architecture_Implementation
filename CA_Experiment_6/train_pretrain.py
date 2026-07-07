@@ -104,7 +104,13 @@ def main():
     start_step, best_val = 0, float("inf")
     ckpt_dir = Path(args.ckpt_dir)
     if args.resume:
-        last = latest_checkpoint(ckpt_dir, f"pretrain_{args.config}")
+        # Prefer the rolling checkpoint; fall back to any legacy step*.pt (first
+        # resume after switching to rolling saves), then to best.pt.
+        rolling = ckpt_dir / f"pretrain_{args.config}_last.pt"
+        last = rolling if rolling.exists() else latest_checkpoint(ckpt_dir, f"pretrain_{args.config}")
+        if last is None:
+            best = ckpt_dir / f"pretrain_{args.config}_best.pt"
+            last = best if best.exists() else None
         if last:
             ck = load_checkpoint(last, map_location=device)
             model.load_state_dict(ck["model"])
@@ -173,10 +179,12 @@ def main():
                 break
 
         if step > 0 and step % tcfg.ckpt_interval == 0:
-            p = save_checkpoint(ckpt_dir / f"pretrain_{args.config}_step{step:07d}.pt",
+            # Rolling checkpoint: overwrite one file (resume point) instead of
+            # accumulating a new ~0.8 GB step file every interval on Drive.
+            p = save_checkpoint(ckpt_dir / f"pretrain_{args.config}_last.pt",
                                 model=model, optimizer=opt, model_cfg=mcfg,
                                 train_cfg=tcfg, step=step, best_val=best_val)
-            print(f"     ⤓ checkpoint → {p.name} (mirrored to Drive)", flush=True)
+            print(f"     ⤓ rolling checkpoint → {p.name} (mirrored to Drive)", flush=True)
 
     save_checkpoint(ckpt_dir / f"pretrain_{args.config}_final.pt",
                     model=model, optimizer=opt, model_cfg=mcfg,

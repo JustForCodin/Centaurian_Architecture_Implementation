@@ -93,7 +93,8 @@ def main():
     start_step = 0
     ckpt_dir = Path(args.ckpt_dir)
     if args.resume:
-        last = latest_checkpoint(ckpt_dir, "sft")
+        rolling = ckpt_dir / "sft_last.pt"
+        last = rolling if rolling.exists() else latest_checkpoint(ckpt_dir, "sft")
         if last:
             rck = load_checkpoint(last, map_location=device)
             model.load_state_dict(rck["model"])
@@ -148,7 +149,7 @@ def main():
             running, n_log, t0 = 0.0, 0, time.time()
 
         if step > 0 and step % tcfg.ckpt_interval == 0:
-            p = save_checkpoint(ckpt_dir / f"sft_step{step:06d}.pt", model=model,
+            p = save_checkpoint(ckpt_dir / "sft_last.pt", model=model,
                                 optimizer=opt, model_cfg=mcfg, train_cfg=tcfg,
                                 step=step, best_val=0.0)
             print(f"     ⤓ checkpoint → {p.name} (mirrored to Drive)", flush=True)
