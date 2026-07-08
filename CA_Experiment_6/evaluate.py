@@ -302,14 +302,26 @@ def cmd_qa(args):
         from rerank_util import SentenceReranker
         reranker = SentenceReranker(device=args.device)
 
+    retriever = None
+    if getattr(args, "retriever", False):
+        from retriever import SymbolicRetriever
+        retriever = SymbolicRetriever(top_k=args.retriever_topk, device=args.device)
+    rtau = getattr(args, "retriever_tau", 0.0)
+
     def _gen(q, ctx):
+        if retriever is not None:
+            # extract-then-style: symbolic extractor supplies the answer (or abstains).
+            # H1/H2 score the bare candidate; ADA-voice styling is the H3/persona layer.
+            cand, _score = retriever.extract(q, ctx, tau=rtau)
+            return cand if cand is not None else ABSTENTION_CANONICAL
         if reranker is not None:
             ctx = reranker.shrink(q, ctx, top_k=args.rerank_topk)
         if constrained:
             return gen.generate_constrained(q, context=ctx, abstain_threshold=tau)
         return gen.generate(q, context=ctx, temperature=0.0)
 
-    rr_tag = (f"rerank(top{args.rerank_topk},{reranker.backend})" if reranker else "no-rerank")
+    rr_tag = (f"retriever(top{args.retriever_topk},{retriever.backend},τ={rtau})" if retriever
+              else f"rerank(top{args.rerank_topk},{reranker.backend})" if reranker else "no-rerank")
     print("=" * 68, flush=True)
     print(f"=== QA eval (H1/H2) | ckpt={Path(args.checkpoint).name} device={gen.device} "
           f"QPM={qpm_tag} judge={judge_tag} "
@@ -746,6 +758,12 @@ def main():
                    help="shrink context to the top-k question-relevant sentences (MiniLM) before decode")
     q.add_argument("--rerank-topk", type=int, default=2,
                    help="number of context sentences to keep when --rerank is on")
+    q.add_argument("--retriever", action="store_true",
+                   help="symbolic extract-then-style: NER answer selector supplies the answer (or abstains)")
+    q.add_argument("--retriever-topk", type=int, default=2,
+                   help="sentences the symbolic retriever searches for candidate spans")
+    q.add_argument("--retriever-tau", type=float, default=0.0,
+                   help="symbolic retriever: abstain when best candidate score < τ")
     q.add_argument("--limit", type=int, default=None)
     q.add_argument("--dry-run-judge", action="store_true")
     q.set_defaults(func=cmd_qa)

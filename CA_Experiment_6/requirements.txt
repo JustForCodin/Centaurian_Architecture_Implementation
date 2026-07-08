@@ -13,7 +13,9 @@ tqdm>=4.66
 datasets>=2.18             # FineWeb-Edu / Wikipedia / SQuAD2 / NQ / MS MARCO (prepare_data.py)
 anthropic>=0.40            # Sonnet persona/style/refusal generation + judging
 python-dotenv>=1.0         # .env key loading
-sentence-transformers>=2.2 # all-MiniLM-L6-v2 sentence reranker (evaluate.py --rerank)
+sentence-transformers>=2.2 # all-MiniLM-L6-v2 sentence reranker (evaluate.py --rerank / --retriever)
+spacy>=3.7                 # NER for the symbolic extractive retriever (evaluate.py --retriever);
+                           # also: python -m spacy download en_core_web_sm
 
 # --- fallback baseline (RQ5, §6.4) ---
 # transformers>=4.44        # SmolLM2-135M / Qwen2.5-0.5B fine-tune (Colab only)
