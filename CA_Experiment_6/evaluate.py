@@ -318,6 +318,8 @@ def cmd_qa(args):
         retriever = SymbolicRetriever(top_k=args.retriever_topk, device=args.device)
     rtau = getattr(args, "retriever_tau", 0.0)
 
+    mnt = getattr(args, "max_new_tokens", 160)
+
     def _gen(q, ctx):
         if retriever is not None:
             # extract-then-style: symbolic extractor supplies the answer (or abstains).
@@ -327,8 +329,9 @@ def cmd_qa(args):
         if reranker is not None:
             ctx = reranker.shrink(q, ctx, top_k=args.rerank_topk)
         if constrained:
-            return gen.generate_constrained(q, context=ctx, abstain_threshold=tau)
-        return gen.generate(q, context=ctx, temperature=0.0)
+            return gen.generate_constrained(q, context=ctx, abstain_threshold=tau,
+                                            max_new_tokens=min(mnt, 40))
+        return gen.generate(q, context=ctx, temperature=0.0, max_new_tokens=mnt)
 
     rr_tag = (f"retriever(top{args.retriever_topk},{retriever.backend},τ={rtau})" if retriever
               else f"rerank(top{args.rerank_topk},{reranker.backend})" if reranker else "no-rerank")
@@ -775,6 +778,9 @@ def main():
     q.add_argument("--retriever-tau", type=float, default=0.0,
                    help="symbolic retriever: abstain when best candidate score < τ")
     q.add_argument("--limit", type=int, default=None)
+    q.add_argument("--max-new-tokens", type=int, default=160,
+                   help="cap free-decode length; QA answers are short — use ~24-32 "
+                        "(much faster, esp. for prefix-LM whose masked attention is slow)")
     q.add_argument("--dry-run-judge", action="store_true")
     q.set_defaults(func=cmd_qa)
 
