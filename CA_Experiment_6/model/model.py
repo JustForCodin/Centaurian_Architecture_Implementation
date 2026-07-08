@@ -73,7 +73,7 @@ class Attention(nn.Module):
         self.wo = nn.Linear(self.n_heads * self.head_dim, cfg.d_model, bias=False)
         self.dropout = cfg.dropout
 
-    def forward(self, x, cos, sin):
+    def forward(self, x, cos, sin, attn_mask=None):
         B, T, _ = x.shape
         q = self.wq(x).view(B, T, self.n_heads, self.head_dim).transpose(1, 2)
         k = self.wk(x).view(B, T, self.n_kv_heads, self.head_dim).transpose(1, 2)
@@ -82,10 +82,12 @@ class Attention(nn.Module):
         if self.n_rep > 1:
             k = k.repeat_interleave(self.n_rep, dim=1)
             v = v.repeat_interleave(self.n_rep, dim=1)
-        out = F.scaled_dot_product_attention(
-            q, k, v, is_causal=True,
-            dropout_p=self.dropout if self.training else 0.0,
-        )
+        drop = self.dropout if self.training else 0.0
+        if attn_mask is not None:
+            # Explicit additive mask (prefix-LM: bidirectional prefix + causal suffix).
+            out = F.scaled_dot_product_attention(q, k, v, attn_mask=attn_mask, dropout_p=drop)
+        else:
+            out = F.scaled_dot_product_attention(q, k, v, is_causal=True, dropout_p=drop)
         out = out.transpose(1, 2).contiguous().view(B, T, -1)
         return self.wo(out)
 
@@ -105,6 +107,24 @@ class SwiGLU(nn.Module):
         return self.dropout(self.w2(F.silu(self.w1(x)) * self.w3(x)))
 
 
+# ── Prefix-LM attention mask ─────────────────────────────────────────────
+
+def build_prefix_lm_mask(prefix_lens: torch.Tensor, T: int, device, dtype) -> torch.Tensor:
+    """Additive attention mask (B,1,T,T) for prefix-LM: token i may attend to j iff
+    j <= i (causal everywhere) OR both i,j are in the prefix (j < b and i < b) —
+    i.e. the prefix (system+persona+context+question) is bidirectional, the answer
+    is causal. prefix_lens: (B,) int lengths of each sequence's prefix."""
+    i = torch.arange(T, device=device).view(1, T, 1)
+    j = torch.arange(T, device=device).view(1, 1, T)
+    causal = j <= i                                          # (1,T,T)
+    b = prefix_lens.to(device).view(-1, 1, 1)
+    prefix = (i < b) & (j < b)                               # (B,T,T)
+    allow = causal | prefix
+    neg = torch.finfo(dtype).min
+    mask = torch.zeros(allow.shape, device=device, dtype=dtype).masked_fill(~allow, neg)
+    return mask.unsqueeze(1)                                 # (B,1,T,T)
+
+
 # ── Transformer block ────────────────────────────────────────────────────
 
 class Block(nn.Module):
@@ -115,8 +135,8 @@ class Block(nn.Module):
         self.ffn_norm = RMSNorm(cfg.d_model, cfg.norm_eps)
         self.ffn = SwiGLU(cfg)
 
-    def forward(self, x, cos, sin):
-        x = x + self.attn(self.attn_norm(x), cos, sin)
+    def forward(self, x, cos, sin, attn_mask=None):
+        x = x + self.attn(self.attn_norm(x), cos, sin, attn_mask=attn_mask)
         x = x + self.ffn(self.ffn_norm(x))
         return x
 
@@ -160,17 +180,23 @@ class ADATransformer(nn.Module):
         return n
 
     def forward(self, idx: torch.Tensor, targets: torch.Tensor | None = None,
-                loss_mask: torch.Tensor | None = None):
+                loss_mask: torch.Tensor | None = None,
+                prefix_lens: torch.Tensor | None = None):
         """idx: (B, T) token ids. targets: (B, T) next-token ids (or None).
         loss_mask: (B, T) 1.0 where the token participates in the loss (SFT
-        assistant-span masking); None → all target positions count."""
+        assistant-span masking); None → all target positions count.
+        prefix_lens: (B,) → prefix-LM attention (bidirectional prefix + causal
+        answer); None → standard causal attention."""
         B, T = idx.shape
         assert T <= self.cfg.max_seq_len, f"seq len {T} > max {self.cfg.max_seq_len}"
         x = self.drop(self.tok_emb(idx))
         cos = self.rope_cos.to(x.device)
         sin = self.rope_sin.to(x.device)
+        attn_mask = None
+        if prefix_lens is not None:
+            attn_mask = build_prefix_lm_mask(prefix_lens, T, x.device, x.dtype)
         for layer in self.layers:
-            x = layer(x, cos, sin)
+            x = layer(x, cos, sin, attn_mask=attn_mask)
         x = self.norm(x)
         logits = self.lm_head(x)
 
@@ -211,12 +237,20 @@ class ADATransformer(nn.Module):
     @torch.no_grad()
     def generate(self, idx: torch.Tensor, max_new_tokens: int,
                  temperature: float = 0.7, top_k: int | None = 50,
-                 eos_id: int | None = None) -> torch.Tensor:
-        """Greedy/sampled decode. idx: (B, T0). Crops context to max_seq_len."""
+                 eos_id: int | None = None, prefix_len: int | None = None) -> torch.Tensor:
+        """Greedy/sampled decode. idx: (B, T0). Crops context to max_seq_len.
+        prefix_len: if set, the first prefix_len tokens attend bidirectionally
+        (prefix-LM inference); generated tokens are causal."""
         self.eval()
+        B = idx.shape[0]
         for _ in range(max_new_tokens):
             idx_cond = idx[:, -self.cfg.max_seq_len:]
-            logits, _ = self(idx_cond)
+            plens = None
+            if prefix_len is not None:
+                # prefix stays bidirectional as generation grows (clamp to window)
+                eff = min(prefix_len, idx_cond.shape[1])
+                plens = torch.full((B,), eff, dtype=torch.long, device=idx.device)
+            logits, _ = self(idx_cond, prefix_lens=plens)
             logits = logits[:, -1, :]
             if temperature <= 0.0:
                 next_id = logits.argmax(dim=-1, keepdim=True)

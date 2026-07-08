@@ -61,6 +61,8 @@ class ADAGenerator:
         self.model = build_model_from_ckpt(ck, map_location=self.device).eval()
         self.tok = ADATokenizer.load(tokenizer)
         self.max_seq = self.model.cfg.max_seq_len
+        # prefix-LM checkpoints attend bidirectionally over the prompt at inference
+        self.prefix_lm = bool(ck.get("extra", {}).get("prefix_lm", False))
         self.use_qpm = use_qpm
         self._qpm = None
         if use_qpm:
@@ -95,7 +97,8 @@ class ADAGenerator:
         out = self.model.generate(x, max_new_tokens=max_new_tokens,
                                   temperature=temperature,
                                   top_k=None if temperature == 0 else 50,
-                                  eos_id=self.tok.eot_id)
+                                  eos_id=self.tok.eot_id,
+                                  prefix_len=len(ids) if self.prefix_lm else None)
         new = out[0, len(ids):].tolist()
         if self.tok.eot_id in new:
             new = new[:new.index(self.tok.eot_id)]
@@ -124,6 +127,13 @@ class ADAGenerator:
             ids = self._fit_prompt_ids(question, context, history, persona_state)
             dev = self.device
             cur = torch.tensor([ids], dtype=torch.long, device=dev)
+            prefix_len = len(ids) if self.prefix_lm else None
+
+            def _logits(seq):
+                w = seq[:, -self.max_seq:]
+                pl = (torch.full((1,), min(prefix_len, w.shape[1]), dtype=torch.long,
+                                 device=dev) if prefix_len is not None else None)
+                return self.model(w, prefix_lens=pl)[0][0, -1, :].float()
 
             ctx_ids = self.tok.encode(context or "")
             n = len(ctx_ids)
@@ -133,7 +143,7 @@ class ADAGenerator:
                 return ABSTENTION_CANONICAL
 
             # ── Step 0: choose to abstain or where to start the span ──
-            logits0 = self.model(cur[:, -self.max_seq:])[0][0, -1, :].float()
+            logits0 = _logits(cur)
             probs0 = F.softmax(logits0, dim=-1)
             ctx_mask = torch.full_like(logits0, float("-inf"))
             ctx_mask[torch.tensor(sorted(set(ctx_ids)), device=dev)] = \
@@ -152,7 +162,7 @@ class ADAGenerator:
             for _ in range(max_new_tokens - 1):
                 if not active:
                     break
-                logits = self.model(cur[:, -self.max_seq:])[0][0, -1, :].float()
+                logits = _logits(cur)
                 allowed = {ctx_ids[j] for j in active if j < n}
                 mask = torch.full_like(logits, float("-inf"))
                 if allowed:

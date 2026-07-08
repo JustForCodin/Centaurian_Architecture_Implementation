@@ -153,18 +153,24 @@ class SFTDataset(torch.utils.data.Dataset):
         x = ids[:-1]
         y = ids[1:]
         my = m[1:]
-        return x, y, my
+        # prefix_len = index of the first answer token (everything before it —
+        # system/persona/context/question/assistant-marker — is the prefix-LM prefix)
+        prefix_len = m.index(1) if 1 in m else len(x)
+        return x, y, my, prefix_len
 
     def collate(self, batch):
-        """Pad to the longest in-batch; masked/pad target positions → ignore."""
-        maxlen = max(len(x) for x, _, _ in batch)
+        """Pad to the longest in-batch; masked/pad target positions → ignore.
+        Returns (X, Y, M, prefix_lens) — prefix_lens is used only by prefix-LM SFT."""
+        maxlen = max(len(x) for x, _, _, _ in batch)
         pad = self.tok.pad_id
-        X, Y, M = [], [], []
-        for x, y, my in batch:
+        X, Y, M, P = [], [], [], []
+        for x, y, my, pl in batch:
             n = maxlen - len(x)
             X.append(x + [pad] * n)
             Y.append(y + [-100] * n)             # -100 ignored by cross_entropy
             M.append(my + [0] * n)
+            P.append(pl)
         return (torch.tensor(X, dtype=torch.long),
                 torch.tensor(Y, dtype=torch.long),
-                torch.tensor(M, dtype=torch.float))
+                torch.tensor(M, dtype=torch.float),
+                torch.tensor(P, dtype=torch.long))

@@ -52,6 +52,9 @@ def main():
     ap.add_argument("--sources", nargs="*", default=None,
                     help="restrict SFT to these record sources")
     ap.add_argument("--resume", action="store_true")
+    ap.add_argument("--prefix-lm", action="store_true",
+                    help="bidirectional attention over the prefix (system+persona+context+"
+                         "question), causal over the answer — lets context attend to the question")
     args = ap.parse_args()
 
     ck = load_checkpoint(args.init, map_location="cpu")
@@ -106,7 +109,8 @@ def main():
     n_persona = sum(1 for ex in ds.examples if ex.get("has_persona"))
     print("=" * 68, flush=True)
     print(f"=== Stage-B SFT — {len(ds)} examples ({n_persona} with QPM <|persona|> "
-          f"channel) | seq_len {tcfg.seq_len} | replay_frac {tcfg.sft_replay_frac} ===", flush=True)
+          f"channel) | seq_len {tcfg.seq_len} | replay_frac {tcfg.sft_replay_frac} | "
+          f"attn={'prefix-LM' if args.prefix_lm else 'causal'} ===", flush=True)
     print(f"    max_steps {tcfg.max_steps} | batch {tcfg.batch_size}x{tcfg.grad_accum_steps} | "
           f"lr {tcfg.lr:.1e} | device {device}", flush=True)
     print("=" * 68, flush=True)
@@ -126,10 +130,14 @@ def main():
                 with ctx:
                     _, loss = model(x, y)                       # plain LM loss
             else:
-                x, y, m = next(sft_iter)
+                x, y, m, plens = next(sft_iter)
                 x, y, m = x.to(device), y.to(device), m.to(device)
+                # prefix-LM: bidirectional over the prefix (system+persona+context+
+                # question), causal over the answer, so context can attend to the
+                # question while reading. Replay (plain-LM) batches stay causal.
+                plens = plens.to(device) if args.prefix_lm else None
                 with ctx:
-                    _, loss = model(x, y, loss_mask=m)          # assistant-span masked
+                    _, loss = model(x, y, loss_mask=m, prefix_lens=plens)
             loss = loss / tcfg.grad_accum_steps
             scaler.scale(loss).backward()
             running += loss.item()
@@ -151,11 +159,12 @@ def main():
         if step > 0 and step % tcfg.ckpt_interval == 0:
             p = save_checkpoint(ckpt_dir / "sft_last.pt", model=model,
                                 optimizer=opt, model_cfg=mcfg, train_cfg=tcfg,
-                                step=step, best_val=0.0)
+                                step=step, best_val=0.0, extra={"prefix_lm": args.prefix_lm})
             print(f"     ⤓ checkpoint → {p.name} (mirrored to Drive)", flush=True)
 
     save_checkpoint(ckpt_dir / "sft_final.pt", model=model, optimizer=opt,
-                    model_cfg=mcfg, train_cfg=tcfg, step=tcfg.max_steps - 1, best_val=0.0)
+                    model_cfg=mcfg, train_cfg=tcfg, step=tcfg.max_steps - 1, best_val=0.0,
+                    extra={"prefix_lm": args.prefix_lm})
     print(f"SFT done → sft_final.pt ({time.time()-run_t0:.0f}s, {n_replay} replay steps)", flush=True)
 
 
