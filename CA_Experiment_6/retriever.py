@@ -122,6 +122,7 @@ class SymbolicRetriever:
                        reverse=True)[: self.top_k]
         types = self._expected_types(question)
         qwords = _content_words(question)
+        ctx_lower = context.lower()
 
         best, best_score = None, -1.0
         for si in order:
@@ -133,8 +134,16 @@ class SymbolicRetriever:
                     continue                         # don't echo the question
                 if not self._type_ok(label, types):
                     continue
+                # A factoid answer is usually a RARE, specific entity — not the
+                # passage topic. Penalise frequent candidates ("Norman", "French"
+                # recur across the passage) so the specific answer (Rollo, France)
+                # wins over the same-type topic distractor.
+                freq = ctx_lower.count(text.lower())
+                freq_pen = min(max(freq - 1, 0), 4) * 0.15
                 type_bonus = 0.3 if (types is not None and label in types) else 0.0
-                score = 0.5 * sent_rel + 0.4 * sent_overlap + type_bonus
+                spec_bonus = 0.05 * min(len(text.split()), 4)   # slight bias to specific spans
+                score = (0.45 * sent_rel + 0.35 * sent_overlap + type_bonus
+                         + spec_bonus - freq_pen)
                 if score > best_score:
                     best, best_score = text, score
         if best is None or best_score < tau:
