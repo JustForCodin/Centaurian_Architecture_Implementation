@@ -92,7 +92,7 @@ class SpanDataset(Dataset):
     def collate(self, batch):
         pad = self.tok.pad_id
         maxlen = max(len(b["ids"]) for b in batch)
-        X, valid, starts, ends, plens = [], [], [], [], []
+        X, valid, starts, ends, plens, ans = [], [], [], [], [], []
         for b in batch:
             ids = b["ids"]
             n = maxlen - len(ids)
@@ -107,11 +107,13 @@ class SpanDataset(Dataset):
             starts.append(b["start"])
             ends.append(b["end"])
             plens.append(len(ids))                        # bidirectional over real tokens
+            ans.append(1.0 if b["answerable"] else 0.0)
         return (torch.tensor(X, dtype=torch.long),
                 torch.tensor(valid, dtype=torch.float),
                 torch.tensor(starts, dtype=torch.long),
                 torch.tensor(ends, dtype=torch.long),
-                torch.tensor(plens, dtype=torch.long))
+                torch.tensor(plens, dtype=torch.long),
+                torch.tensor(ans, dtype=torch.float))
 
 
 def _masked_ce(logits, valid, target):
@@ -138,6 +140,8 @@ def main():
     ap.add_argument("--grad-accum", type=int, default=2)
     ap.add_argument("--lr", type=float, default=3e-5)
     ap.add_argument("--seq-len", type=int, default=512)
+    ap.add_argument("--ans-weight", type=float, default=1.0,
+                    help="weight on the answerability BCE loss term")
     ap.add_argument("--resume", action="store_true")
     args = ap.parse_args()
 
@@ -190,7 +194,7 @@ def main():
     print("=" * 68, flush=True)
 
     model.train()
-    running, n_log, run_t0, t0 = 0.0, 0, time.time(), time.time()
+    running, run_ans, n_log, run_t0, t0 = 0.0, 0.0, 0, time.time(), time.time()
     for step in range(start_step, tcfg.max_steps):
         lr = cosine_lr(step, lr=tcfg.lr, min_lr=tcfg.lr * 0.1,
                        warmup_steps=tcfg.warmup_steps, max_steps=tcfg.max_steps)
@@ -198,16 +202,20 @@ def main():
             g["lr"] = lr
         opt.zero_grad(set_to_none=True)
         for _ in range(tcfg.grad_accum_steps):
-            x, valid, s_lab, e_lab, plens = next(it)
+            x, valid, s_lab, e_lab, plens, a_lab = next(it)
             x, valid = x.to(device), valid.to(device)
             s_lab, e_lab, plens = s_lab.to(device), e_lab.to(device), plens.to(device)
+            a_lab = a_lab.to(device)
             with ctx:
-                s_logits, e_logits = model.span_logits(x, prefix_lens=plens)
-                loss = 0.5 * (_masked_ce(s_logits, valid, s_lab)
-                              + _masked_ce(e_logits, valid, e_lab))
+                s_logits, e_logits, a_logit = model.read_heads(x, prefix_lens=plens)
+                span_loss = 0.5 * (_masked_ce(s_logits, valid, s_lab)
+                                   + _masked_ce(e_logits, valid, e_lab))
+                ans_loss = F.binary_cross_entropy_with_logits(a_logit, a_lab)
+                loss = span_loss + args.ans_weight * ans_loss
             loss = loss / tcfg.grad_accum_steps
             scaler.scale(loss).backward()
             running += loss.item()
+            run_ans += ans_loss.item() / tcfg.grad_accum_steps
         scaler.unscale_(opt)
         gnorm = torch.nn.utils.clip_grad_norm_(model.parameters(), tcfg.grad_clip)
         scaler.step(opt)
@@ -218,19 +226,19 @@ def main():
             dt = time.time() - t0
             eta_m = (tcfg.max_steps - step) * (dt / max(n_log, 1)) / 60
             print(f"step {step:5d}/{tcfg.max_steps} | loss {running/n_log:.4f} | "
-                  f"lr {lr:.2e} | gnorm {float(gnorm):.2f} | "
+                  f"ans {run_ans/n_log:.4f} | lr {lr:.2e} | gnorm {float(gnorm):.2f} | "
                   f"{dt/max(n_log,1):.2f}s/step | ETA {eta_m:.1f}m", flush=True)
-            running, n_log, t0 = 0.0, 0, time.time()
+            running, run_ans, n_log, t0 = 0.0, 0.0, 0, time.time()
 
         if step > 0 and step % tcfg.ckpt_interval == 0:
             p = save_checkpoint(ckpt_dir / "span_last.pt", model=model, optimizer=opt,
                                 model_cfg=mcfg, train_cfg=tcfg, step=step, best_val=0.0,
-                                extra={"span_head": True})
+                                extra={"span_head": True, "answerable_head": True})
             print(f"     ⤓ checkpoint → {p.name}", flush=True)
 
     save_checkpoint(ckpt_dir / "span_final.pt", model=model, optimizer=opt,
                     model_cfg=mcfg, train_cfg=tcfg, step=tcfg.max_steps - 1, best_val=0.0,
-                    extra={"span_head": True})
+                    extra={"span_head": True, "answerable_head": True})
     print(f"span done → span_final.pt ({time.time()-run_t0:.0f}s)", flush=True)
 
 

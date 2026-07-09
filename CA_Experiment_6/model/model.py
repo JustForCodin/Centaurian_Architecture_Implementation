@@ -157,6 +157,12 @@ class ADATransformer(nn.Module):
         # Extractive span head (Phase 1): start/end position logits over tokens —
         # discriminative reading, far more sample-efficient than generative extraction.
         self.span_head = nn.Linear(cfg.d_model, 2)
+        # Answerability head: a single logit (from the bidirectional <|bos|> rep,
+        # which sees the whole question+context) predicting whether the passage
+        # answers the question. Decouples the abstain decision from the span-null
+        # margin so reading can run at its optimum while abstention is judged
+        # independently.
+        self.answerable_head = nn.Linear(cfg.d_model, 1)
 
         cos, sin = precompute_rope(cfg.head_dim(), cfg.max_seq_len, cfg.rope_theta)
         self.register_buffer("rope_cos", cos, persistent=False)
@@ -198,14 +204,22 @@ class ADATransformer(nn.Module):
             x = layer(x, cos, sin, attn_mask=attn_mask)
         return self.norm(x)
 
+    def read_heads(self, idx: torch.Tensor,
+                   prefix_lens: torch.Tensor | None = None):
+        """Extractive-QA heads in one trunk pass: (start_logits, end_logits,
+        answerable_logit) — the span logits are (B, T), the answerable logit is
+        (B,) from the <|bos|> (position-0) representation. Callers pass
+        prefix_lens = full length → fully bidirectional (encoder-style) reading."""
+        x = self._hidden(idx, prefix_lens)
+        sp = self.span_head(x)                          # (B, T, 2)
+        ans = self.answerable_head(x[:, 0, :]).squeeze(-1)   # (B,)
+        return sp[..., 0], sp[..., 1], ans
+
     def span_logits(self, idx: torch.Tensor,
                     prefix_lens: torch.Tensor | None = None):
-        """Extractive-QA head: (start_logits, end_logits), each (B, T). The span
-        input carries no answer to generate, so callers pass prefix_lens = full
-        length → fully bidirectional (encoder-style) reading of question+context."""
-        x = self._hidden(idx, prefix_lens)
-        sp = self.span_head(x)                 # (B, T, 2)
-        return sp[..., 0], sp[..., 1]
+        """Span start/end logits only (back-compat wrapper over read_heads)."""
+        s, e, _ = self.read_heads(idx, prefix_lens)
+        return s, e
 
     def forward(self, idx: torch.Tensor, targets: torch.Tensor | None = None,
                 loss_mask: torch.Tensor | None = None,

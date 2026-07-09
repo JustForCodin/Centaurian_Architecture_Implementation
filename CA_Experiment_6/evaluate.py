@@ -65,6 +65,9 @@ class ADAGenerator:
         self.prefix_lm = bool(ck.get("extra", {}).get("prefix_lm", False))
         # span-head checkpoints carry a trained extractive start/end head
         self.has_span = bool(ck.get("extra", {}).get("span_head", False))
+        # answerability-head checkpoints judge abstention with a dedicated classifier
+        # (decoupled from the span-null margin)
+        self.has_answerable = bool(ck.get("extra", {}).get("answerable_head", False))
         self.use_qpm = use_qpm
         self._qpm = None
         if use_qpm:
@@ -106,11 +109,16 @@ class ADAGenerator:
             new = new[:new.index(self.tok.eot_id)]
         return self.tok.decode(new, skip_special=True).strip()
 
-    def span_extract(self, question, context, threshold=0.0, max_ans_tok=30):
-        """Extractive-QA span head (Phase 1): predict answer start/end token
+    def span_extract(self, question, context, threshold=0.0, max_ans_tok=30,
+                     ans_threshold=0.5):
+        """Extractive-QA span head (Phase 1): predict the answer start/end token
         positions over the context and return that substring, or the ADA
-        abstention string when the best span does not beat the null anchor by
-        `threshold`. Discriminative reading — no generation, no confabulation."""
+        abstention string. Discriminative reading — no generation, no confabulation.
+
+        Abstention: when the checkpoint has a trained answerability head, abstain
+        iff P(answerable) < ans_threshold — decoupled from reading, so the span is
+        always taken at its optimum. Otherwise fall back to the span-null margin
+        (`threshold`)."""
         torch = self.torch
         from span_utils import build_span_input, best_span, decode_span
         if not context:
@@ -121,10 +129,16 @@ class ADAGenerator:
         x = torch.tensor([ids], dtype=torch.long, device=self.device)
         plens = torch.full((1,), len(ids), dtype=torch.long, device=self.device)
         with torch.no_grad():
-            s_log, e_log = self.model.span_logits(x, prefix_lens=plens)
+            s_log, e_log, a_log = self.model.read_heads(x, prefix_lens=plens)
         score, i, j, null = best_span(s_log[0].float(), e_log[0].float(),
                                       ctx_lo, n_ctx, max_ans_tok=max_ans_tok)
-        if score - null < threshold or n_ctx == 0:
+        if n_ctx == 0:
+            return ABSTENTION_CANONICAL
+        if self.has_answerable:
+            p_ans = torch.sigmoid(a_log[0].float()).item()
+            if p_ans < ans_threshold:
+                return ABSTENTION_CANONICAL
+        elif score - null < threshold:
             return ABSTENTION_CANONICAL
         span = decode_span(context, offs, i, j)
         return span if span else ABSTENTION_CANONICAL
@@ -349,10 +363,14 @@ def cmd_qa(args):
 
     mnt = getattr(args, "max_new_tokens", 160)
 
+    ans_tau = getattr(args, "answerable_threshold", 0.5)
+
     def _gen(q, ctx):
         if span:
-            # extractive span head — discriminative start/end over the context.
-            return gen.span_extract(q, ctx, threshold=tau, max_ans_tok=min(mnt, 30))
+            # extractive span head — discriminative start/end over the context;
+            # abstain via the answerability head (P(answerable) < ans_tau).
+            return gen.span_extract(q, ctx, threshold=tau, max_ans_tok=min(mnt, 30),
+                                    ans_threshold=ans_tau)
         if retriever is not None:
             # extract-then-style: symbolic extractor supplies the answer (or abstains).
             # H1/H2 score the bare candidate; ADA-voice styling is the H3/persona layer.
@@ -367,7 +385,8 @@ def cmd_qa(args):
 
     rr_tag = (f"retriever(top{args.retriever_topk},{retriever.backend},τ={rtau})" if retriever
               else f"rerank(top{args.rerank_topk},{reranker.backend})" if reranker else "no-rerank")
-    decode_tag = ("span(τ=%.2f)" % tau if span
+    decode_tag = (("span(P_ans≥%.2f)" % ans_tau if gen.has_answerable
+                   else "span(τ=%.2f)" % tau) if span
                   else "constrained(τ=%.2f)" % tau if constrained else "free")
     print("=" * 68, flush=True)
     print(f"=== QA eval (H1/H2) | ckpt={Path(args.checkpoint).name} device={gen.device} "
@@ -801,6 +820,9 @@ def main():
                         "start/end over the context instead of generating")
     q.add_argument("--constrained", action="store_true",
                    help="grounded decode: answer must be a context span or abstain")
+    q.add_argument("--answerable-threshold", type=float, default=0.5,
+                   help="span mode: abstain when the answerability head's "
+                        "P(answerable) < this (only if the checkpoint has one)")
     q.add_argument("--abstain-threshold", type=float, default=0.0,
                    help="constrained decode: abstain when best context-start prob < τ")
     q.add_argument("--rerank", action="store_true",
