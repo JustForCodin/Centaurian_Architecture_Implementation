@@ -26,7 +26,7 @@ from data_utils import SFTDataset, PretrainBinDataset
 from tokenizer_util import ADATokenizer
 from train_common import (
     set_seed, cosine_lr, pick_device_dtype, save_checkpoint,
-    load_checkpoint, latest_checkpoint,
+    load_checkpoint, latest_checkpoint, load_backbone,
 )
 
 
@@ -86,7 +86,7 @@ def main():
         replay = PretrainBinDataset(args.pretrain_bin, tcfg.seq_len, device=device)
 
     model = ADATransformer(mcfg)
-    model.load_state_dict(ck["model"])
+    load_backbone(model, ck["model"])
     model = model.to(device)
     print(f"SFT init from {args.init} | params {model.num_params()/1e6:.1f}M | device {device}")
     opt = model.configure_optimizers(tcfg.weight_decay, tcfg.lr,
@@ -100,7 +100,7 @@ def main():
         last = rolling if rolling.exists() else latest_checkpoint(ckpt_dir, "sft")
         if last:
             rck = load_checkpoint(last, map_location=device)
-            model.load_state_dict(rck["model"])
+            load_backbone(model, rck["model"])
             if rck.get("optimizer"):
                 opt.load_state_dict(rck["optimizer"])
             start_step = rck["step"] + 1

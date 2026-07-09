@@ -49,5 +49,11 @@ class ADATokenizer:
             ids = ids + [self.eos_id]
         return ids
 
+    def encode_with_offsets(self, text: str) -> tuple[list[int], list[tuple[int, int]]]:
+        """(ids, char-offsets) for the plain text — used to map a gold answer's
+        character span onto token indices for extractive-QA span labels."""
+        enc = self.tk.encode(text)
+        return enc.ids, enc.offsets
+
     def decode(self, ids: list[int], skip_special: bool = True) -> str:
         return self.tk.decode(ids, skip_special_tokens=skip_special)

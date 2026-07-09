@@ -63,6 +63,8 @@ class ADAGenerator:
         self.max_seq = self.model.cfg.max_seq_len
         # prefix-LM checkpoints attend bidirectionally over the prompt at inference
         self.prefix_lm = bool(ck.get("extra", {}).get("prefix_lm", False))
+        # span-head checkpoints carry a trained extractive start/end head
+        self.has_span = bool(ck.get("extra", {}).get("span_head", False))
         self.use_qpm = use_qpm
         self._qpm = None
         if use_qpm:
@@ -103,6 +105,29 @@ class ADAGenerator:
         if self.tok.eot_id in new:
             new = new[:new.index(self.tok.eot_id)]
         return self.tok.decode(new, skip_special=True).strip()
+
+    def span_extract(self, question, context, threshold=0.0, max_ans_tok=30):
+        """Extractive-QA span head (Phase 1): predict answer start/end token
+        positions over the context and return that substring, or the ADA
+        abstention string when the best span does not beat the null anchor by
+        `threshold`. Discriminative reading — no generation, no confabulation."""
+        torch = self.torch
+        from span_utils import build_span_input, best_span, decode_span
+        if not context:
+            return ABSTENTION_CANONICAL
+        out = build_span_input(self.tok, question, context, self.max_seq)
+        ids, ctx_lo, offs = out["ids"], out["ctx_lo"], out["offsets"]
+        n_ctx = len(ids) - ctx_lo
+        x = torch.tensor([ids], dtype=torch.long, device=self.device)
+        plens = torch.full((1,), len(ids), dtype=torch.long, device=self.device)
+        with torch.no_grad():
+            s_log, e_log = self.model.span_logits(x, prefix_lens=plens)
+        score, i, j, null = best_span(s_log[0].float(), e_log[0].float(),
+                                      ctx_lo, n_ctx, max_ans_tok=max_ans_tok)
+        if score - null < threshold or n_ctx == 0:
+            return ABSTENTION_CANONICAL
+        span = decode_span(context, offs, i, j)
+        return span if span else ABSTENTION_CANONICAL
 
     def generate_constrained(self, question, context=None, history=None,
                              max_new_tokens=40, abstain_threshold=0.0):
@@ -305,7 +330,11 @@ def cmd_qa(args):
         ans, una = ans[:args.limit], una[:args.limit]
     judge_tag = "dry-stub" if args.dry_run_judge else JUDGE_MODEL
     constrained = getattr(args, "constrained", False)
+    span = getattr(args, "span", False)
     tau = getattr(args, "abstain_threshold", 0.0)
+    if span and not gen.has_span:
+        print("  [warn] --span set but checkpoint has no trained span_head "
+              "(extra.span_head missing) — extractions will be random.", flush=True)
 
     reranker = None
     if getattr(args, "rerank", False):
@@ -321,6 +350,9 @@ def cmd_qa(args):
     mnt = getattr(args, "max_new_tokens", 160)
 
     def _gen(q, ctx):
+        if span:
+            # extractive span head — discriminative start/end over the context.
+            return gen.span_extract(q, ctx, threshold=tau, max_ans_tok=min(mnt, 30))
         if retriever is not None:
             # extract-then-style: symbolic extractor supplies the answer (or abstains).
             # H1/H2 score the bare candidate; ADA-voice styling is the H3/persona layer.
@@ -335,10 +367,11 @@ def cmd_qa(args):
 
     rr_tag = (f"retriever(top{args.retriever_topk},{retriever.backend},τ={rtau})" if retriever
               else f"rerank(top{args.rerank_topk},{reranker.backend})" if reranker else "no-rerank")
+    decode_tag = ("span(τ=%.2f)" % tau if span
+                  else "constrained(τ=%.2f)" % tau if constrained else "free")
     print("=" * 68, flush=True)
     print(f"=== QA eval (H1/H2) | ckpt={Path(args.checkpoint).name} device={gen.device} "
-          f"QPM={qpm_tag} judge={judge_tag} "
-          f"decode={'constrained(τ=%.2f)' % tau if constrained else 'free'} {rr_tag} ===", flush=True)
+          f"QPM={qpm_tag} judge={judge_tag} decode={decode_tag} {rr_tag} ===", flush=True)
     print(f"    answerable={len(ans)}  unanswerable={len(una)}", flush=True)
     print("=" * 68, flush=True)
 
@@ -763,6 +796,9 @@ def main():
     q.add_argument("--out", default="results/qa_results.json")
     q.add_argument("--device", default=None)
     q.add_argument("--no-qpm", action="store_true", help="disable QPM persona_state conditioning")
+    q.add_argument("--span", action="store_true",
+                   help="extractive span-head decoding (Phase 1) — predict answer "
+                        "start/end over the context instead of generating")
     q.add_argument("--constrained", action="store_true",
                    help="grounded decode: answer must be a context span or abstain")
     q.add_argument("--abstain-threshold", type=float, default=0.0,

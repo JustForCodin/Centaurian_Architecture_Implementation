@@ -77,8 +77,23 @@ def load_checkpoint(path, map_location="cpu"):
 def build_model_from_ckpt(ckpt: dict, map_location="cpu") -> ADATransformer:
     cfg = ModelConfig.from_dict(ckpt["model_cfg"])
     model = ADATransformer(cfg)
-    model.load_state_dict(ckpt["model"])
+    load_backbone(model, ckpt["model"])
     return model.to(map_location)
+
+
+def load_backbone(model: ADATransformer, state: dict) -> None:
+    """Load a checkpoint into `model`, tolerating a freshly-added head that the
+    checkpoint predates (e.g. an old backbone has no span_head → it stays at
+    init). Any *other* missing/unexpected key is a real mismatch and raises."""
+    incompat = model.load_state_dict(state, strict=False)
+    missing = [k for k in incompat.missing_keys if not k.startswith("span_head")]
+    if missing or incompat.unexpected_keys:
+        raise RuntimeError(
+            f"checkpoint mismatch: missing={missing} "
+            f"unexpected={list(incompat.unexpected_keys)}")
+    fresh = [k for k in incompat.missing_keys if k.startswith("span_head")]
+    if fresh:
+        print(f"  [ckpt] span_head not in checkpoint → initialised fresh ({len(fresh)} tensors)")
 
 
 def latest_checkpoint(ckpt_dir, prefix: str) -> Path | None:

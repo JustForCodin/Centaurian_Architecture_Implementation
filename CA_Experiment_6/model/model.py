@@ -154,6 +154,9 @@ class ADATransformer(nn.Module):
         self.lm_head = nn.Linear(cfg.d_model, cfg.vocab_size, bias=False)
         if cfg.tie_embeddings:
             self.lm_head.weight = self.tok_emb.weight
+        # Extractive span head (Phase 1): start/end position logits over tokens —
+        # discriminative reading, far more sample-efficient than generative extraction.
+        self.span_head = nn.Linear(cfg.d_model, 2)
 
         cos, sin = precompute_rope(cfg.head_dim(), cfg.max_seq_len, cfg.rope_theta)
         self.register_buffer("rope_cos", cos, persistent=False)
@@ -179,14 +182,10 @@ class ADATransformer(nn.Module):
             n -= self.lm_head.weight.numel()
         return n
 
-    def forward(self, idx: torch.Tensor, targets: torch.Tensor | None = None,
-                loss_mask: torch.Tensor | None = None,
-                prefix_lens: torch.Tensor | None = None):
-        """idx: (B, T) token ids. targets: (B, T) next-token ids (or None).
-        loss_mask: (B, T) 1.0 where the token participates in the loss (SFT
-        assistant-span masking); None → all target positions count.
-        prefix_lens: (B,) → prefix-LM attention (bidirectional prefix + causal
-        answer); None → standard causal attention."""
+    def _hidden(self, idx: torch.Tensor,
+                prefix_lens: torch.Tensor | None = None) -> torch.Tensor:
+        """Run the transformer trunk → final normed hidden states (B, T, d_model).
+        Shared by the LM head (forward/generate) and the span head."""
         B, T = idx.shape
         assert T <= self.cfg.max_seq_len, f"seq len {T} > max {self.cfg.max_seq_len}"
         x = self.drop(self.tok_emb(idx))
@@ -197,8 +196,28 @@ class ADATransformer(nn.Module):
             attn_mask = build_prefix_lm_mask(prefix_lens, T, x.device, x.dtype)
         for layer in self.layers:
             x = layer(x, cos, sin, attn_mask=attn_mask)
-        x = self.norm(x)
+        return self.norm(x)
+
+    def span_logits(self, idx: torch.Tensor,
+                    prefix_lens: torch.Tensor | None = None):
+        """Extractive-QA head: (start_logits, end_logits), each (B, T). The span
+        input carries no answer to generate, so callers pass prefix_lens = full
+        length → fully bidirectional (encoder-style) reading of question+context."""
+        x = self._hidden(idx, prefix_lens)
+        sp = self.span_head(x)                 # (B, T, 2)
+        return sp[..., 0], sp[..., 1]
+
+    def forward(self, idx: torch.Tensor, targets: torch.Tensor | None = None,
+                loss_mask: torch.Tensor | None = None,
+                prefix_lens: torch.Tensor | None = None):
+        """idx: (B, T) token ids. targets: (B, T) next-token ids (or None).
+        loss_mask: (B, T) 1.0 where the token participates in the loss (SFT
+        assistant-span masking); None → all target positions count.
+        prefix_lens: (B,) → prefix-LM attention (bidirectional prefix + causal
+        answer); None → standard causal attention."""
+        x = self._hidden(idx, prefix_lens)
         logits = self.lm_head(x)
+        B, T = idx.shape
 
         loss = None
         if targets is not None:

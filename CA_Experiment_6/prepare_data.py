@@ -159,6 +159,83 @@ def _synthetic_records(n: int, start_id: int):
     return recs
 
 
+def _squad2_span_records(split: str, limit: int | None):
+    """SQuAD2 → span-training records carrying the gold answer's CHARACTER offset
+    (needed to build extractive start/end token labels). Unanswerable → null."""
+    from datasets import load_dataset
+    ds = load_dataset("rajpurkar/squad_v2", split=split)
+    recs = []
+    for ex in ds:
+        if limit and len(recs) >= limit:
+            break
+        texts = list(ex["answers"]["text"])
+        starts = list(ex["answers"]["answer_start"])
+        answerable = len(texts) > 0
+        recs.append({
+            "id": ex["id"],
+            "source": "squad2_span",
+            "question": ex["question"],
+            "context": ex["context"],
+            "answerable": answerable,
+            "answer": texts[0] if answerable else "",
+            "answer_start": int(starts[0]) if answerable else -1,
+        })
+    return recs
+
+
+def _synthetic_span_records(n: int):
+    facts = [
+        ("What is the melting point of tungsten?",
+         "Tungsten has a melting point of 3422 degrees Celsius, the highest of all metals.",
+         "3422 degrees Celsius"),
+        ("What is Planck's constant?",
+         "Planck's constant is approximately 6.626 x 10^-34 joule-seconds.",
+         "6.626 x 10^-34 joule-seconds"),
+    ]
+    recs = []
+    for i in range(n):
+        if i % 3 == 2:
+            recs.append({"id": f"syn{i}", "source": "squad2_span",
+                         "question": "What is the boiling point of nitrogen?",
+                         "context": "The Eiffel Tower is a wrought-iron lattice tower in Paris.",
+                         "answerable": False, "answer": "", "answer_start": -1})
+        else:
+            q, ctx, a = facts[i % len(facts)]
+            recs.append({"id": f"syn{i}", "source": "squad2_span", "question": q,
+                         "context": ctx, "answerable": True, "answer": a,
+                         "answer_start": ctx.index(a)})
+    return recs
+
+
+def cmd_span(args):
+    out = Path(args.out)
+    out.parent.mkdir(parents=True, exist_ok=True)
+    if args.dry_run:
+        recs = _synthetic_span_records(args.limit or 12)
+    else:
+        recs = _squad2_span_records("train", args.limit)
+    # Verify each answerable record's char offset actually indexes its answer
+    # (SQuAD offsets are reliable, but guard against upstream drift).
+    fixed = 0
+    for r in recs:
+        if r["answerable"]:
+            c, a, s = r["context"], r["answer"], r["answer_start"]
+            if c[s:s + len(a)] != a:
+                j = c.find(a)
+                if j < 0:
+                    r["answerable"] = False
+                    r["answer"], r["answer_start"] = "", -1
+                else:
+                    r["answer_start"] = j
+                    fixed += 1
+    with out.open("w") as f:
+        for r in recs:
+            f.write(json.dumps(r) + "\n")
+    n_ans = sum(r["answerable"] for r in recs)
+    print(f"span: {len(recs)} records → {out}  (answerable {n_ans}, "
+          f"unanswerable {len(recs)-n_ans}, offset-repaired {fixed})")
+
+
 def cmd_qa_sft(args):
     out = Path(args.out)
     out.parent.mkdir(parents=True, exist_ok=True)
@@ -246,6 +323,12 @@ def main():
     e.add_argument("--limit", type=int, default=20000)
     e.add_argument("--dry-run", action="store_true")
     e.set_defaults(func=cmd_eval)
+
+    s = sub.add_parser("span", help="export SQuAD2 span-training data (char offsets)")
+    s.add_argument("--out", default="data/qa_span.jsonl")
+    s.add_argument("--limit", type=int, default=None)
+    s.add_argument("--dry-run", action="store_true")
+    s.set_defaults(func=cmd_span)
 
     args = ap.parse_args()
     args.func(args)
