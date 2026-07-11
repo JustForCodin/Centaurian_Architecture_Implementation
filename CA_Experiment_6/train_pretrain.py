@@ -29,20 +29,41 @@ from model import ADATransformer, ModelConfig, TrainConfig, ADA_80M, ADA_PILOT, 
 from data_utils import PretrainBinDataset
 from train_common import (
     set_seed, cosine_lr, pick_device_dtype, save_checkpoint,
-    load_checkpoint, latest_checkpoint,
+    load_checkpoint, latest_checkpoint, load_backbone,
 )
 
 CONFIGS = {"80m": ADA_80M, "pilot": ADA_PILOT, "smoke": ADA_SMOKE}
 
 
+def prefix_lm_masks(x, seq_len, lo, hi, device):
+    """Phase-2 prefix-LM objective: per sequence pick a random split b — the
+    prefix [0,b) attends bidirectionally, the suffix [b,T) stays causal, and the
+    LM loss is computed on the suffix only (prefix positions can see their own
+    next token under bidirectional attention, so their prediction is trivial).
+    Returns (prefix_lens, loss_mask). Teaches the backbone to build the
+    bidirectional representations the span/answerability heads read from."""
+    B = x.shape[0]
+    b_lo = max(1, int(seq_len * lo))
+    b_hi = max(b_lo + 1, int(seq_len * hi))
+    bs = torch.randint(b_lo, b_hi, (B,), device=device)
+    pos = torch.arange(seq_len, device=device).view(1, seq_len)
+    mask = (pos >= bs.view(-1, 1)).float()             # loss on suffix only
+    return bs, mask
+
+
 @torch.no_grad()
-def estimate_loss(model, data: PretrainBinDataset, batch_size: int, iters: int, ctx):
+def estimate_loss(model, data: PretrainBinDataset, batch_size: int, iters: int, ctx,
+                  prefix_lm=False, seq_len=0, frac=(0.25, 0.75)):
     model.eval()
     losses = torch.zeros(iters)
     for k in range(iters):
         x, y = data.get_batch(batch_size)
         with ctx:
-            _, loss = model(x, y)
+            if prefix_lm:
+                bs, m = prefix_lm_masks(x, seq_len, frac[0], frac[1], x.device)
+                _, loss = model(x, y, loss_mask=m, prefix_lens=bs)
+            else:
+                _, loss = model(x, y)
         losses[k] = loss.item()
     model.train()
     return losses.mean().item()
@@ -65,7 +86,19 @@ def main():
     ap.add_argument("--resume", action="store_true", help="resume from latest ckpt")
     ap.add_argument("--plateau-patience", type=int, default=5,
                     help="stop after this many evals without val improvement")
+    ap.add_argument("--init", default=None,
+                    help="Phase-2: continue from this backbone checkpoint (fresh "
+                         "optimizer/step) instead of training from random init")
+    ap.add_argument("--prefix-lm", action="store_true",
+                    help="Phase-2 prefix-LM objective (bidirectional prefix, causal "
+                         "suffix, loss on suffix) — improves reading/abstention reps")
+    ap.add_argument("--prefix-frac", type=float, nargs=2, default=(0.25, 0.75),
+                    metavar=("LO", "HI"), help="prefix-length fraction range")
+    ap.add_argument("--run-name", default=None,
+                    help="checkpoint name prefix (default pretrain_<config>); set a "
+                         "distinct name for Phase-2 so it doesn't clobber Stage-A")
     args = ap.parse_args()
+    run_name = args.run_name or f"pretrain_{args.config}"
 
     import dataclasses
     mcfg: ModelConfig = CONFIGS[args.config]
@@ -88,10 +121,18 @@ def main():
     train_data = PretrainBinDataset(args.train_bin, tcfg.seq_len, device=device)
     val_data = PretrainBinDataset(args.val_bin, tcfg.seq_len, device=device)
 
-    model = ADATransformer(mcfg).to(device)
+    model = ADATransformer(mcfg)
+    if args.init:                                      # Phase-2: continue from backbone
+        ick = load_checkpoint(args.init, map_location="cpu")
+        load_backbone(model, ick["model"])
+        print(f"Phase-2 init from {args.init} (fresh optimizer/step)")
+    model = model.to(device)
     tok_per_step = tcfg.batch_size * tcfg.grad_accum_steps * tcfg.seq_len
+    obj = f"prefix-LM (prefix {args.prefix_frac[0]:.2f}-{args.prefix_frac[1]:.2f})" \
+          if args.prefix_lm else "causal-LM"
     print("=" * 68, flush=True)
-    print(f"=== Stage-A pretrain — config={args.config} ===", flush=True)
+    print(f"=== {'Phase-2 continued' if args.init else 'Stage-A'} pretrain — "
+          f"config={args.config} | obj={obj} | run={run_name} ===", flush=True)
     print(f"    params {model.num_params()/1e6:.1f}M | d_model {mcfg.d_model} "
           f"layers {mcfg.n_layers} heads {mcfg.n_heads} vocab {mcfg.vocab_size}", flush=True)
     print(f"    device {device} | dtype {dtype} | max_steps {tcfg.max_steps} | "
@@ -106,10 +147,10 @@ def main():
     if args.resume:
         # Prefer the rolling checkpoint; fall back to any legacy step*.pt (first
         # resume after switching to rolling saves), then to best.pt.
-        rolling = ckpt_dir / f"pretrain_{args.config}_last.pt"
-        last = rolling if rolling.exists() else latest_checkpoint(ckpt_dir, f"pretrain_{args.config}")
+        rolling = ckpt_dir / f"{run_name}_last.pt"
+        last = rolling if rolling.exists() else latest_checkpoint(ckpt_dir, run_name)
         if last is None:
-            best = ckpt_dir / f"pretrain_{args.config}_best.pt"
+            best = ckpt_dir / f"{run_name}_best.pt"
             last = best if best.exists() else None
         if last:
             ck = load_checkpoint(last, map_location=device)
@@ -137,7 +178,12 @@ def main():
         for micro in range(tcfg.grad_accum_steps):
             x, y = train_data.get_batch(tcfg.batch_size)
             with ctx:
-                _, loss = model(x, y)
+                if args.prefix_lm:
+                    bs, m = prefix_lm_masks(x, tcfg.seq_len, args.prefix_frac[0],
+                                            args.prefix_frac[1], x.device)
+                    _, loss = model(x, y, loss_mask=m, prefix_lens=bs)
+                else:
+                    _, loss = model(x, y)
                 loss = loss / tcfg.grad_accum_steps
             scaler.scale(loss).backward()
             running += loss.item()
@@ -160,17 +206,20 @@ def main():
             t0 = time.time()
 
         if step > 0 and step % tcfg.eval_interval == 0:
-            val = estimate_loss(model, val_data, tcfg.batch_size, tcfg.eval_iters, ctx)
+            val = estimate_loss(model, val_data, tcfg.batch_size, tcfg.eval_iters, ctx,
+                                prefix_lm=args.prefix_lm, seq_len=tcfg.seq_len,
+                                frac=args.prefix_frac)
             print(f"  >> eval step {step}: val_loss {val:.4f} (best {best_val:.4f})", flush=True)
             improved = val < best_val - 1e-3
             if improved:
                 best_val = val
                 no_improve = 0
-                save_checkpoint(ckpt_dir / f"pretrain_{args.config}_best.pt",
+                save_checkpoint(ckpt_dir / f"{run_name}_best.pt",
                                 model=model, optimizer=opt, model_cfg=mcfg,
-                                train_cfg=tcfg, step=step, best_val=best_val)
+                                train_cfg=tcfg, step=step, best_val=best_val,
+                                extra={"prefix_lm_pretrain": args.prefix_lm})
                 print(f"     ✓ new best val_loss {best_val:.4f} → "
-                      f"pretrain_{args.config}_best.pt", flush=True)
+                      f"{run_name}_best.pt", flush=True)
             else:
                 no_improve += 1
                 print(f"     · no improvement ({no_improve}/{args.plateau_patience})", flush=True)
@@ -181,14 +230,16 @@ def main():
         if step > 0 and step % tcfg.ckpt_interval == 0:
             # Rolling checkpoint: overwrite one file (resume point) instead of
             # accumulating a new ~0.8 GB step file every interval on Drive.
-            p = save_checkpoint(ckpt_dir / f"pretrain_{args.config}_last.pt",
+            p = save_checkpoint(ckpt_dir / f"{run_name}_last.pt",
                                 model=model, optimizer=opt, model_cfg=mcfg,
-                                train_cfg=tcfg, step=step, best_val=best_val)
+                                train_cfg=tcfg, step=step, best_val=best_val,
+                                extra={"prefix_lm_pretrain": args.prefix_lm})
             print(f"     ⤓ rolling checkpoint → {p.name} (mirrored to Drive)", flush=True)
 
-    save_checkpoint(ckpt_dir / f"pretrain_{args.config}_final.pt",
+    save_checkpoint(ckpt_dir / f"{run_name}_final.pt",
                     model=model, optimizer=opt, model_cfg=mcfg,
-                    train_cfg=tcfg, step=tcfg.max_steps - 1, best_val=best_val)
+                    train_cfg=tcfg, step=tcfg.max_steps - 1, best_val=best_val,
+                    extra={"prefix_lm_pretrain": args.prefix_lm})
     print(f"done. best_val={best_val:.4f}")
 
 

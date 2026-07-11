@@ -110,7 +110,7 @@ class ADAGenerator:
         return self.tok.decode(new, skip_special=True).strip()
 
     def span_extract(self, question, context, threshold=0.0, max_ans_tok=30,
-                     ans_threshold=0.5):
+                     ans_threshold=0.5, margin_threshold=None):
         """Extractive-QA span head (Phase 1): predict the answer start/end token
         positions over the context and return that substring, or the ADA
         abstention string. Discriminative reading — no generation, no confabulation.
@@ -136,7 +136,12 @@ class ADAGenerator:
             return ABSTENTION_CANONICAL
         if self.has_answerable:
             p_ans = torch.sigmoid(a_log[0].float()).item()
-            if p_ans < ans_threshold:
+            # answerability head; optionally ensembled (OR) with the span-null
+            # margin — the two signals come from partly different computations.
+            abstain = p_ans < ans_threshold
+            if margin_threshold is not None and (score - null) < margin_threshold:
+                abstain = True
+            if abstain:
                 return ABSTENTION_CANONICAL
         elif score - null < threshold:
             return ABSTENTION_CANONICAL
@@ -364,13 +369,15 @@ def cmd_qa(args):
     mnt = getattr(args, "max_new_tokens", 160)
 
     ans_tau = getattr(args, "answerable_threshold", 0.5)
+    margin_tau = getattr(args, "margin_threshold", None)
 
     def _gen(q, ctx):
         if span:
             # extractive span head — discriminative start/end over the context;
-            # abstain via the answerability head (P(answerable) < ans_tau).
+            # abstain via the answerability head (P(answerable) < ans_tau),
+            # optionally ensembled with the span-null margin (< margin_tau).
             return gen.span_extract(q, ctx, threshold=tau, max_ans_tok=min(mnt, 30),
-                                    ans_threshold=ans_tau)
+                                    ans_threshold=ans_tau, margin_threshold=margin_tau)
         if retriever is not None:
             # extract-then-style: symbolic extractor supplies the answer (or abstains).
             # H1/H2 score the bare candidate; ADA-voice styling is the H3/persona layer.
@@ -823,6 +830,9 @@ def main():
     q.add_argument("--answerable-threshold", type=float, default=0.5,
                    help="span mode: abstain when the answerability head's "
                         "P(answerable) < this (only if the checkpoint has one)")
+    q.add_argument("--margin-threshold", type=float, default=None,
+                   help="span mode: ensemble abstain — also abstain when the "
+                        "span-null margin (best_span - null) < this")
     q.add_argument("--abstain-threshold", type=float, default=0.0,
                    help="constrained decode: abstain when best context-start prob < τ")
     q.add_argument("--rerank", action="store_true",
