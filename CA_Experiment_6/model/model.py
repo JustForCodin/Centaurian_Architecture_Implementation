@@ -157,12 +157,17 @@ class ADATransformer(nn.Module):
         # Extractive span head (Phase 1): start/end position logits over tokens —
         # discriminative reading, far more sample-efficient than generative extraction.
         self.span_head = nn.Linear(cfg.d_model, 2)
-        # Answerability head: a single logit (from the bidirectional <|bos|> rep,
-        # which sees the whole question+context) predicting whether the passage
-        # answers the question. Decouples the abstain decision from the span-null
-        # margin so reading can run at its optimum while abstention is judged
-        # independently.
-        self.answerable_head = nn.Linear(cfg.d_model, 1)
+        # Answerability head: predicts whether the passage answers the question,
+        # decoupling the abstain decision from the span-null margin so reading can
+        # run at its optimum. Pools the bidirectional sequence two ways — the
+        # <|bos|> rep AND a mean over real tokens — because the backbone was
+        # pretrained *causally*, so position 0 alone is a weak whole-sequence
+        # summary; the mean adds the signal bos lacks. Small MLP over the concat.
+        self.answerable_head = nn.Sequential(
+            nn.Linear(2 * cfg.d_model, cfg.d_model // 2),
+            nn.GELU(),
+            nn.Linear(cfg.d_model // 2, 1),
+        )
 
         cos, sin = precompute_rope(cfg.head_dim(), cfg.max_seq_len, cfg.rope_theta)
         self.register_buffer("rope_cos", cos, persistent=False)
@@ -212,7 +217,15 @@ class ADATransformer(nn.Module):
         prefix_lens = full length → fully bidirectional (encoder-style) reading."""
         x = self._hidden(idx, prefix_lens)
         sp = self.span_head(x)                          # (B, T, 2)
-        ans = self.answerable_head(x[:, 0, :]).squeeze(-1)   # (B,)
+        bos = x[:, 0, :]
+        if prefix_lens is not None:                     # mean over real tokens
+            T = x.size(1)
+            pos = torch.arange(T, device=x.device).view(1, T)
+            m = (pos < prefix_lens.to(x.device).view(-1, 1)).to(x.dtype).unsqueeze(-1)
+            mean = (x * m).sum(1) / m.sum(1).clamp_min(1.0)
+        else:
+            mean = x.mean(1)
+        ans = self.answerable_head(torch.cat([bos, mean], dim=-1)).squeeze(-1)   # (B,)
         return sp[..., 0], sp[..., 1], ans
 
     def span_logits(self, idx: torch.Tensor,
