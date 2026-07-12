@@ -58,19 +58,41 @@ def cmd_pretrain(args):
     print(f"pretrain: tokenizing → {out_dir}  (target {args.max_tokens or 'all'} tokens)", flush=True)
     all_ids: list[int] = []
     n_tokens = n_docs = 0
+    _flushed = [0]                            # tokens already written to _stream.bin
     t0 = time.time()
+    eos = tok.eos_id
+    batch: list[str] = []
+
+    def _encode_batch(docs):
+        # Batched (Rust-multithreaded) encode — ~10-30x faster than per-doc
+        # encode(); EOS delimits each document.
+        out: list[int] = []
+        for enc in tok.tk.encode_batch(docs):
+            out.extend(enc.ids)
+            out.append(eos)
+        return out
+
+    stopped = False
     for doc in text_iter():
-        ids = tok.encode(doc, add_eos=True)   # EOS delimits documents
-        all_ids.extend(ids)
-        n_tokens += len(ids)
-        n_docs += 1
+        batch.append(doc)
+        if len(batch) < 1000:
+            continue
+        all_ids.extend(_encode_batch(batch))
+        n_docs += len(batch)
+        batch = []
+        n_tokens = len(all_ids) + _flushed[0]
         if n_docs % 20_000 == 0:
             rate = n_tokens / max(time.time() - t0, 1e-9)
             print(f"  {n_docs:,} docs | {n_tokens/1e6:.1f}M tokens | {rate/1e3:.0f}k tok/s", flush=True)
-        if args.max_tokens and n_tokens >= args.max_tokens:
-            break
         if len(all_ids) >= 50_000_000:        # flush periodically to keep RAM bounded
+            _flushed[0] += len(all_ids)
             _append_bin(stream_path, all_ids); all_ids = []
+        if args.max_tokens and n_tokens >= args.max_tokens:
+            stopped = True
+            break
+    if not stopped and batch:                 # tail batch (stream exhausted)
+        all_ids.extend(_encode_batch(batch))
+        n_docs += len(batch)
     if all_ids:
         _append_bin(stream_path, all_ids)
 
