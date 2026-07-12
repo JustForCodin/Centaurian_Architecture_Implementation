@@ -51,6 +51,13 @@ class ModelConfig:
 # §5.1 target (~80M): 640 / 12 / 10, 16k vocab.
 ADA_80M = ModelConfig()
 
+# Scaled backbone (~170M): 896 / 16 / 14 (head_dim 64), 16k vocab. The 80M's
+# representation ceiling capped grounded-QA abstention (~0.68/0.68 crossover); the
+# capacity bump targets a simultaneous reading+abstention ≥0.70 operating point.
+ADA_160M = ModelConfig(
+    d_model=896, n_layers=16, n_heads=14, max_seq_len=1024,
+)
+
 # §5.4 pilot gate — tiny model to confirm the pipeline learns at all.
 ADA_PILOT = ModelConfig(
     vocab_size=16000, d_model=256, n_layers=6, n_heads=8, max_seq_len=512,
