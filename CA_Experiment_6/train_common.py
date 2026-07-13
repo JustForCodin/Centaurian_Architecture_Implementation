@@ -9,6 +9,8 @@ from __future__ import annotations
 import math
 import os
 import random
+import shutil
+import tempfile
 from pathlib import Path
 
 import numpy as np
@@ -64,9 +66,21 @@ def save_checkpoint(path, *, model, optimizer, model_cfg: ModelConfig,
         "best_val": best_val,
         "extra": extra or {},
     }
-    tmp = path.with_suffix(path.suffix + ".tmp")
-    torch.save(ckpt, tmp)
-    os.replace(tmp, path)             # atomic — survives a mid-write disconnect
+    # IMPORTANT: os.replace()/rename on the Google Drive FUSE mount does NOT
+    # overwrite — Drive keys files by internal ID, not path, so a rename onto an
+    # existing name creates a *duplicate* (two files, same name) and leaves the
+    # old one, silently filling storage. Write the tmp on LOCAL disk (atomic
+    # there), then copy it *in place* over the destination: copyfile opens the
+    # dest with 'wb', truncating the existing file (same ID) and rewriting its
+    # contents — no rename, so Drive overwrites cleanly with no duplicate.
+    fd, tmp = tempfile.mkstemp(suffix=".pt", dir="/tmp")
+    os.close(fd)
+    try:
+        torch.save(ckpt, tmp)
+        shutil.copyfile(tmp, str(path))
+    finally:
+        if os.path.exists(tmp):
+            os.remove(tmp)
     return path
 
 
