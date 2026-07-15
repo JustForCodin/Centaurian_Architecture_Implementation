@@ -312,19 +312,21 @@ def cmd_eval(args):
     print(f"eval: {len(ans)} answerable → {out_a}; {len(una)} unanswerable → {out_u}")
 
 
-def _oasst_records(limit, max_turns=6):
-    """OpenAssistant/oasst1 → multi-turn instruction records. Keep English,
-    non-deleted, top-ranked (rank 0) or unranked assistant replies; rebuild each
-    reply's root→leaf path into a conversation; a generic (non-ADA) system prompt
-    so Stage B teaches general instruction-following, not the ADA persona."""
+def _oasst_records(limit, max_turns=6, dataset="OpenAssistant/oasst2", max_rank=1):
+    """OpenAssistant (oasst2 by default; larger than oasst1) → multi-turn
+    instruction records. Keep English, non-deleted assistant replies ranked in
+    the top (max_rank) among siblings (or unranked); rebuild each reply's
+    root→leaf path into a conversation; a generic (non-ADA) system prompt so
+    Stage B teaches general instruction-following, not the ADA persona."""
     from datasets import load_dataset
-    ds = load_dataset("OpenAssistant/oasst1", split="train")
+    ds = load_dataset(dataset, split="train")
     by_id = {m["message_id"]: m for m in ds}
     recs, rid = [], 0
     for m in ds:
+        rank = m.get("rank")
         if (m.get("role") != "assistant" or m.get("lang") != "en"
                 or m.get("deleted") or m.get("review_result") is False
-                or m.get("rank") not in (0, None)):
+                or not (rank is None or rank <= max_rank)):
             continue
         path, cur, guard = [], m, 0
         while cur is not None and guard < 40:
@@ -375,14 +377,53 @@ def _synthetic_oasst(n):
 def cmd_oasst(args):
     out = Path(args.out)
     out.parent.mkdir(parents=True, exist_ok=True)
-    recs = _synthetic_oasst(args.limit or 6) if args.dry_run else _oasst_records(args.limit)
+    recs = (_synthetic_oasst(args.limit or 6) if args.dry_run
+            else _oasst_records(args.limit, dataset=args.dataset, max_rank=args.max_rank))
     for r in recs:
         validate_record(r)
     with out.open("w") as f:
         for r in recs:
             f.write(json.dumps(r) + "\n")
     turns = sum(sum(1 for m in r["messages"] if m["role"] != "system") for r in recs)
-    print(f"oasst: {len(recs)} conversations ({turns} turns) → {out}")
+    print(f"oasst: {len(recs)} conversations ({turns} turns) from {args.dataset} → {out}")
+
+
+def _dolly_records(limit):
+    """databricks-dolly-15k → single-turn instruction records (context folded into
+    the user message when present). Human-written; adds closed-QA/summarize/extract
+    diversity to the Stage-B substrate. Source 'dolly'."""
+    from datasets import load_dataset
+    ds = load_dataset("databricks/databricks-dolly-15k", split="train")
+    recs, rid = [], 0
+    for ex in ds:
+        instr = (ex.get("instruction") or "").strip()
+        resp = (ex.get("response") or "").strip()
+        ctx = (ex.get("context") or "").strip()
+        if not instr or not resp:
+            continue
+        user = f"{instr}\n\n{ctx}" if ctx else instr
+        recs.append(make_record(rid, "dolly", answerable=True, context="",
+                                messages=[{"role": "system", "content": GENERIC_SYSTEM_PROMPT},
+                                          {"role": "user", "content": user},
+                                          {"role": "assistant", "content": resp}],
+                                persona_state=None))
+        rid += 1
+        if limit and len(recs) >= limit:
+            break
+    return recs
+
+
+def cmd_dolly(args):
+    out = Path(args.out)
+    out.parent.mkdir(parents=True, exist_ok=True)
+    recs = _dolly_records(args.limit)
+    for r in recs:
+        validate_record(r)
+    mode = "a" if args.append else "w"
+    with out.open(mode) as f:
+        for r in recs:
+            f.write(json.dumps(r) + "\n")
+    print(f"dolly: {'appended' if args.append else 'wrote'} {len(recs)} instructions → {out}")
 
 
 def main():
@@ -419,11 +460,22 @@ def main():
     e.add_argument("--dry-run", action="store_true")
     e.set_defaults(func=cmd_eval)
 
-    o = sub.add_parser("oasst", help="OASST1 → instruction-following records (Stage-B substrate)")
+    o = sub.add_parser("oasst", help="OpenAssistant → instruction-following records (Stage-B substrate)")
     o.add_argument("--out", default="data/instruct.jsonl")
+    o.add_argument("--dataset", default="OpenAssistant/oasst2",
+                   help="OpenAssistant/oasst2 (larger, default) or OpenAssistant/oasst1")
+    o.add_argument("--max-rank", type=int, default=1,
+                   help="keep assistant replies ranked <= this among siblings (0=best only, "
+                        "1=top two); higher = more data, slightly lower quality")
     o.add_argument("--limit", type=int, default=None, help="cap conversations (default: all English)")
     o.add_argument("--dry-run", action="store_true")
     o.set_defaults(func=cmd_oasst)
+
+    dl = sub.add_parser("dolly", help="databricks-dolly-15k → instruction records (supplement)")
+    dl.add_argument("--out", default="data/instruct.jsonl")
+    dl.add_argument("--limit", type=int, default=None)
+    dl.add_argument("--append", action="store_true", help="append to --out instead of overwriting")
+    dl.set_defaults(func=cmd_dolly)
 
     s = sub.add_parser("span", help="export SQuAD2 span-training data (char offsets)")
     s.add_argument("--out", default="data/qa_span.jsonl")

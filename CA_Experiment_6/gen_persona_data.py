@@ -418,7 +418,11 @@ def run_instruct(args, client):
                             if has_ctx else
                             "Leave 'context' as an empty string; the instruction contains everything needed.")
                 user = _INSTRUCT_USER.format(k=k, cat_desc=desc, ctx_note=ctx_note)
-                obj, text = _call_json(client, args.model, _INSTRUCT_SYS, user, max_tokens=2400)
+                # context-heavy categories embed a passage per pair — scale the cap
+                # generously with k so the JSON isn't truncated (the failure that
+                # skips a whole call, since every retry then truncates too).
+                mt = min(8000, 900 + k * (500 if has_ctx else 300))
+                obj, text = _call_json(client, args.model, _INSTRUCT_SYS, user, max_tokens=mt)
                 _archive("instruct", i, text)
                 pairs = obj["pairs"]
             kept = 0

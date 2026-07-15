@@ -185,7 +185,7 @@ def format_prompt_for_generation(question: str, context: str | None = None,
 DATA_SOURCES = {
     "squad2", "nq", "msmarco", "triviaqa", "hotpotqa",
     "sonnet_persona", "sonnet_style", "sonnet_refusal", "sonnet_introspect",
-    "oasst", "sonnet_instruct",   # Stage-B instruction-following substrate
+    "oasst", "dolly", "sonnet_instruct",   # Stage-B instruction-following substrate
 }
 
 
