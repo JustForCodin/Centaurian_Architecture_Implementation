@@ -207,7 +207,8 @@ def main():
             s_lab, e_lab, plens = s_lab.to(device), e_lab.to(device), plens.to(device)
             a_lab = a_lab.to(device)
             with ctx:
-                s_logits, e_logits, a_logit = model.read_heads(x, prefix_lens=plens)
+                s_logits, e_logits, a_logit = model.read_heads(
+                    x, prefix_lens=plens, answerable_valid=valid)
                 span_loss = 0.5 * (_masked_ce(s_logits, valid, s_lab)
                                    + _masked_ce(e_logits, valid, e_lab))
                 ans_loss = F.binary_cross_entropy_with_logits(a_logit, a_lab)

@@ -128,8 +128,14 @@ class ADAGenerator:
         n_ctx = len(ids) - ctx_lo
         x = torch.tensor([ids], dtype=torch.long, device=self.device)
         plens = torch.full((1,), len(ids), dtype=torch.long, device=self.device)
+        # valid answer positions: null anchor (0) + context — matches training so
+        # the answerability head's span-confidence features are computed the same way
+        valid = torch.zeros((1, len(ids)), dtype=torch.float, device=self.device)
+        valid[0, 0] = 1.0
+        valid[0, ctx_lo:ctx_lo + n_ctx] = 1.0
         with torch.no_grad():
-            s_log, e_log, a_log = self.model.read_heads(x, prefix_lens=plens)
+            s_log, e_log, a_log = self.model.read_heads(
+                x, prefix_lens=plens, answerable_valid=valid)
         score, i, j, null = best_span(s_log[0].float(), e_log[0].float(),
                                       ctx_lo, n_ctx, max_ans_tok=max_ans_tok)
         if n_ctx == 0:

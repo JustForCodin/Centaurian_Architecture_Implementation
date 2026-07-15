@@ -159,12 +159,15 @@ class ADATransformer(nn.Module):
         self.span_head = nn.Linear(cfg.d_model, 2)
         # Answerability head: predicts whether the passage answers the question,
         # decoupling the abstain decision from the span-null margin so reading can
-        # run at its optimum. Pools the bidirectional sequence two ways — the
-        # <|bos|> rep AND a mean over real tokens — because the backbone was
-        # pretrained *causally*, so position 0 alone is a weak whole-sequence
-        # summary; the mean adds the signal bos lacks. Small MLP over the concat.
+        # run at its optimum. Inputs: two pooled views of the bidirectional
+        # sequence — the <|bos|> rep AND a mean over real tokens (the backbone was
+        # pretrained *causally*, so bos alone is a weak whole-sequence summary) —
+        # PLUS 3 span-confidence scalars (null score, best context-span score,
+        # their margin). The span signal is a *different* view than the pooled
+        # classifier: low span confidence strongly indicates no-answer, which
+        # directly lifts abstention recall. Small MLP over the concat.
         self.answerable_head = nn.Sequential(
-            nn.Linear(2 * cfg.d_model, cfg.d_model // 2),
+            nn.Linear(2 * cfg.d_model + 3, cfg.d_model // 2),
             nn.GELU(),
             nn.Linear(cfg.d_model // 2, 1),
         )
@@ -209,14 +212,37 @@ class ADATransformer(nn.Module):
             x = layer(x, cos, sin, attn_mask=attn_mask)
         return self.norm(x)
 
+    def _span_conf(self, start, end, valid):
+        """3 span-confidence scalars per example from the span logits: the null
+        (position-0) score, the best context-span score (max start + max end over
+        context positions), and their margin. `valid` (B, T) marks the null anchor
+        (index 0) + context positions; None → zeros (no span signal). tanh-bounded
+        so the raw logit magnitudes stay scale-stable for the MLP."""
+        B = start.shape[0]
+        if valid is None:
+            return start.new_zeros(B, 3)
+        valid = valid.to(start.dtype)
+        null = start[:, 0] + end[:, 0]                       # (B,)
+        ctx = valid.clone()
+        ctx[:, 0] = 0.0                                      # context only (drop null)
+        neg = torch.finfo(start.dtype).min
+        max_s = start.masked_fill(ctx < 0.5, neg).amax(dim=1)
+        max_e = end.masked_fill(ctx < 0.5, neg).amax(dim=1)
+        best = max_s + max_e
+        margin = best - null
+        return torch.tanh(0.1 * torch.stack([null, best, margin], dim=-1))
+
     def read_heads(self, idx: torch.Tensor,
-                   prefix_lens: torch.Tensor | None = None):
+                   prefix_lens: torch.Tensor | None = None,
+                   answerable_valid: torch.Tensor | None = None):
         """Extractive-QA heads in one trunk pass: (start_logits, end_logits,
-        answerable_logit) — the span logits are (B, T), the answerable logit is
-        (B,) from the <|bos|> (position-0) representation. Callers pass
-        prefix_lens = full length → fully bidirectional (encoder-style) reading."""
+        answerable_logit) — span logits (B, T), answerable logit (B,). Callers
+        pass prefix_lens = full length → fully bidirectional reading, and
+        answerable_valid (B, T: null anchor + context positions) so the
+        answerability head sees span-confidence features."""
         x = self._hidden(idx, prefix_lens)
         sp = self.span_head(x)                          # (B, T, 2)
+        start, end = sp[..., 0], sp[..., 1]
         bos = x[:, 0, :]
         if prefix_lens is not None:                     # mean over real tokens
             T = x.size(1)
@@ -225,8 +251,9 @@ class ADATransformer(nn.Module):
             mean = (x * m).sum(1) / m.sum(1).clamp_min(1.0)
         else:
             mean = x.mean(1)
-        ans = self.answerable_head(torch.cat([bos, mean], dim=-1)).squeeze(-1)   # (B,)
-        return sp[..., 0], sp[..., 1], ans
+        span_feats = self._span_conf(start, end, answerable_valid)   # (B, 3)
+        ans = self.answerable_head(torch.cat([bos, mean, span_feats], dim=-1)).squeeze(-1)
+        return start, end, ans
 
     def span_logits(self, idx: torch.Tensor,
                     prefix_lens: torch.Tensor | None = None):
