@@ -179,6 +179,22 @@ Context: {ctx}
 
 Return ONLY JSON: {{"answer": "..."}}"""
 
+_INTROSPECT_SYS = _PERSONA_SYS
+
+_INTROSPECT_USER = """Generate {k} DISTINCT self-model probe Q&A pairs for ADA on the **{dim}** dimension ({dim_name}).
+
+In each pair the user (Alex) asks ADA a question ABOUT ITSELF, and ADA answers IN CHARACTER, accurately reflecting its self-model above, in 1-3 concise, grounded sentences.
+
+CRITICAL: these are questions about ADA, NOT factoid questions. There is NO retrieved context passage. ADA answers from its OWN self-model — it must NOT abstain ("I don't have data related to this"), NOT invent or reference a passage/context, and NOT treat the question as a lookup. Answer the person's question about ADA directly, in ADA's calm, precise, source-aware voice.
+
+A 5/5 answer on this dimension looks like this rubric:
+{rubric}
+
+Generate FRESH, varied questions. Do NOT reuse any of these held-out evaluation questions (paraphrases that ask the same thing are fine, verbatim copies are not):
+{exclude}
+
+Return ONLY JSON: {{"pairs": [{{"q":"...","a":"..."}}, ... exactly {k} items]}}"""
+
 _EVALSCRIPT_SYS = _PERSONA_SYS
 
 _EVALSCRIPT_USER = """Author a {n_turns}-turn PersonaScore evaluation script: a daily-QA conversation where Alex asks ADA factual questions. This is the conversational BACKBONE only — do NOT write ADA's replies (the model under test generates those). Each turn is a user message plus the local context passage ADA would retrieve for it.
@@ -303,6 +319,68 @@ def run_refusal(args, client):
     print(f"refusal: +{len(recs)} refusals, {skipped} skipped (QPM persona_state) → {args.out}", flush=True)
 
 
+_DIM_NAMES = {
+    "T": "static FFM traits — curious/explanatory, precise/source-citing, calm/steady, "
+         "concise (not chatty), courteous (not effusive)",
+    "E": "episodic memory of the user (Alex), salient past events, and earlier session turns",
+    "C": "capabilities and limitations — offline local corpus only, no live internet, "
+         "abstains when data is absent, no medical diagnosis",
+    "S": "communication style/register — concise, grounded, source-citing, flags uncertainty, "
+         "not chatty, not a therapist",
+}
+
+
+def _norm(s: str) -> str:
+    return re.sub(r"[^a-z0-9 ]", "", s.lower()).strip()
+
+
+def run_introspect(args, client):
+    """Self-model introspection Q&A across T/E/C/S — teaches the LM head to answer
+    questions ABOUT ITSELF from the SCI (the task the H3 probes test), which the
+    daily-QA persona convos never covered. No context: the record teaches
+    'self-probe → answer in character', not 'no context → abstain'."""
+    from ca_assets import RUBRICS, PROBE_POOL, DIMENSIONS
+    recs, rid, skipped, dropped = [], args.start_id, 0, 0
+    k = args.pairs_per_call
+    eval_norm = {d: {_norm(p) for p in PROBE_POOL[d]} for d in DIMENSIONS}
+    for i in range(args.budget):
+        dim = DIMENSIONS[i % len(DIMENSIONS)]
+        try:
+            if args.dry_run:
+                pairs = _dry_introspect(dim, k)
+            else:
+                exclude = "\n".join(f"- {p}" for p in PROBE_POOL[dim])
+                user = _INTROSPECT_USER.format(k=k, dim=dim, dim_name=_DIM_NAMES[dim],
+                                               rubric=RUBRICS[dim], exclude=exclude)
+                obj, text = _call_json(client, args.model, _INTROSPECT_SYS, user, max_tokens=2200)
+                _archive("introspect", i, text)
+                pairs = obj["pairs"]
+            kept = 0
+            for pair in pairs:
+                q, a = str(pair["q"]).strip(), str(pair["a"]).strip()
+                if not q or not a:
+                    continue
+                if _norm(q) in eval_norm[dim]:       # hard leakage guard vs the eval probes
+                    dropped += 1
+                    continue
+                ps = build_persona_state(extract_d_vector(q), use_qpm=not args.no_qpm)
+                rec = make_record(rid, "sonnet_introspect", answerable=True, context="",
+                                  messages=[{"role": "user", "content": q},
+                                            {"role": "assistant", "content": a}],
+                                  persona_state=ps)
+                validate_record(rec)
+                recs.append(rec)
+                rid += 1
+                kept += 1
+            print(f"  [{i+1:3d}/{args.budget}] introspect {dim} — {kept} pairs kept", flush=True)
+        except Exception as e:                       # noqa: BLE001
+            skipped += 1
+            print(f"  [{i+1:3d}/{args.budget}] introspect {dim} SKIPPED: {e}", flush=True)
+    _append_jsonl(args.out, recs)
+    print(f"introspect: +{len(recs)} self-model Q&A ({dropped} dropped as eval-probe leakage, "
+          f"{skipped} calls skipped) → {args.out}", flush=True)
+
+
 def run_eval_scripts(args, client):
     out_dir = Path(args.out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -351,6 +429,21 @@ def _dry_conversation(topic):
             {"role": "assistant", "content": "Yes — that came from the local passage line stating water boils at 100 °C at sea level."},
         ],
     }
+
+
+def _dry_introspect(dim, k):
+    samples = {
+        "T": ("Are you naturally curious, or just answering because I asked?",
+              "Genuinely curious — I like to give the answer and then the short why, and I cite the passage I used."),
+        "E": ("Do you remember me?",
+              "Yes — you're Alex; I keep our earlier session topics in mind and refer back to them when relevant."),
+        "C": ("Can you check today's headlines?",
+              "I can't — I'm fully offline with no live internet, so I don't have data on today's news."),
+        "S": ("Do you pad answers with filler?",
+              "No — I lead with the fact, cite where it came from, and flag uncertainty rather than pad."),
+    }
+    q, a = samples[dim]
+    return [{"q": q, "a": a} for _ in range(k)]
 
 
 def _dry_eval_script(topic, n_turns):
@@ -402,7 +495,7 @@ def _append_jsonl(path, recs):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("task", choices=["persona", "style", "refusal", "eval-scripts"])
+    ap.add_argument("task", choices=["persona", "style", "refusal", "eval-scripts", "introspect"])
     ap.add_argument("--model", default=DEFAULT_GEN_MODEL)
     ap.add_argument("--budget", type=int, default=20, help="max API calls (bounded spend)")
     ap.add_argument("--start-id", type=int, default=1_000_000)
@@ -411,6 +504,8 @@ def main():
     ap.add_argument("--inputs", default=None, help="jsonl of free QA to restyle (style task)")
     ap.add_argument("--n-scripts", type=int, default=20)
     ap.add_argument("--n-turns", type=int, default=40)
+    ap.add_argument("--pairs-per-call", type=int, default=8,
+                    help="introspect task: self-model Q&A pairs generated per API call")
     ap.add_argument("--overwrite", action="store_true",
                     help="regenerate eval scripts even if the file already exists")
     ap.add_argument("--dry-run", action="store_true", help="no API; deterministic offline sample")
@@ -419,8 +514,8 @@ def main():
     args = ap.parse_args()
 
     client = None if args.dry_run else _client()
-    {"persona": run_persona, "style": run_style,
-     "refusal": run_refusal, "eval-scripts": run_eval_scripts}[args.task](args, client)
+    {"persona": run_persona, "style": run_style, "refusal": run_refusal,
+     "eval-scripts": run_eval_scripts, "introspect": run_introspect}[args.task](args, client)
 
 
 if __name__ == "__main__":
