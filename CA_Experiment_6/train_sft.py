@@ -58,6 +58,9 @@ def main():
                     help="replicate sonnet_* persona records N× to counter the "
                          "reading imbalance so the LM head learns ADA's voice")
     ap.add_argument("--resume", action="store_true")
+    ap.add_argument("--run-name", default="sft",
+                    help="checkpoint name prefix (default 'sft'); set distinct names "
+                         "for chained SFT stages, e.g. sft_instruct then sft_ada")
     ap.add_argument("--prefix-lm", action="store_true",
                     help="bidirectional attention over the prefix (system+persona+context+"
                          "question), causal over the answer — lets context attend to the question")
@@ -104,8 +107,8 @@ def main():
     start_step = 0
     ckpt_dir = Path(args.ckpt_dir)
     if args.resume:
-        rolling = ckpt_dir / "sft_last.pt"
-        last = rolling if rolling.exists() else latest_checkpoint(ckpt_dir, "sft")
+        rolling = ckpt_dir / f"{args.run_name}_last.pt"
+        last = rolling if rolling.exists() else latest_checkpoint(ckpt_dir, args.run_name)
         if last:
             rck = load_checkpoint(last, map_location=device)
             load_backbone(model, rck["model"])
@@ -165,15 +168,15 @@ def main():
             running, n_log, t0 = 0.0, 0, time.time()
 
         if step > 0 and step % tcfg.ckpt_interval == 0:
-            p = save_checkpoint(ckpt_dir / "sft_last.pt", model=model,
+            p = save_checkpoint(ckpt_dir / f"{args.run_name}_last.pt", model=model,
                                 optimizer=opt, model_cfg=mcfg, train_cfg=tcfg,
                                 step=step, best_val=0.0, extra={"prefix_lm": args.prefix_lm})
             print(f"     ⤓ checkpoint → {p.name} (mirrored to Drive)", flush=True)
 
-    save_checkpoint(ckpt_dir / "sft_final.pt", model=model, optimizer=opt,
+    save_checkpoint(ckpt_dir / f"{args.run_name}_final.pt", model=model, optimizer=opt,
                     model_cfg=mcfg, train_cfg=tcfg, step=tcfg.max_steps - 1, best_val=0.0,
                     extra={"prefix_lm": args.prefix_lm})
-    print(f"SFT done → sft_final.pt ({time.time()-run_t0:.0f}s, {n_replay} replay steps)", flush=True)
+    print(f"SFT done → {args.run_name}_final.pt ({time.time()-run_t0:.0f}s, {n_replay} replay steps)", flush=True)
 
 
 if __name__ == "__main__":
