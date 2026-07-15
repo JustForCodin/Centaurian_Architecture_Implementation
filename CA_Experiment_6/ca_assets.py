@@ -115,6 +115,17 @@ def build_system_prompt(sci: dict | None = None, *, episodic_rag: bool = False) 
 
 SYSTEM_PROMPT = build_system_prompt()
 
+# Generic assistant system prompt for the Stage-B instruction-tune (OASST1 +
+# self-instruct). Deliberately NOT the ADA SCI — Stage B teaches the *general*
+# skill of following instructions and staying coherent; Stage C then specialises
+# into ADA with the full SCI. Pairing the ADA SCI with generic (non-ADA-voice)
+# instruction responses would only teach the model to ignore the SCI.
+GENERIC_SYSTEM_PROMPT = (
+    "You are a helpful, honest, and precise assistant. Follow the user's "
+    "instructions carefully. Answer clearly and concisely, reason step by step "
+    "when useful, and say when you are unsure rather than guessing."
+)
+
 
 # ── SFT chat formatting (assistant-span masked in train_sft.py) ──────────
 
@@ -174,6 +185,7 @@ def format_prompt_for_generation(question: str, context: str | None = None,
 DATA_SOURCES = {
     "squad2", "nq", "msmarco", "triviaqa", "hotpotqa",
     "sonnet_persona", "sonnet_style", "sonnet_refusal", "sonnet_introspect",
+    "oasst", "sonnet_instruct",   # Stage-B instruction-following substrate
 }
 
 

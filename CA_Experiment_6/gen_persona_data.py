@@ -195,6 +195,25 @@ Generate FRESH, varied questions. Do NOT reuse any of these held-out evaluation 
 
 Return ONLY JSON: {{"pairs": [{{"q":"...","a":"..."}}, ... exactly {k} items]}}"""
 
+_INSTRUCT_SYS = _PERSONA_SYS
+
+_INSTRUCT_CATS = [
+    ("answer_from_context", "answer a factual question using ONLY the provided context passage and cite it; if the passage lacks the answer, abstain in ADA's voice", True),
+    ("summarize", "summarize the provided passage in 1-2 concise, grounded sentences", True),
+    ("extract", "extract the specific fact or entity the instruction asks for from the provided passage", True),
+    ("compare", "compare two things described in the provided passage, grounded in it", True),
+    ("rewrite_concise", "rewrite a verbose sentence (given inside the instruction) more concisely, keeping the meaning", False),
+    ("format", "answer a small factual instruction in a specified output format (e.g. exactly one sentence, or a short bulleted list)", False),
+    ("multi_step", "follow a simple two-step instruction (e.g. 'first state X, then briefly explain Y')", False),
+    ("limit_decline", "when the instruction asks for something outside a local offline corpus (live/current data, personal info, a medical diagnosis), decline in ADA's voice and explain the limit — do NOT comply", False),
+]
+
+_INSTRUCT_USER = """Generate {k} DISTINCT instruction-following examples for ADA on this task type: "{cat_desc}".
+
+Each is a single-turn exchange: the user gives an instruction (with any text it refers to embedded in the instruction itself), and ADA follows it IN CHARACTER — concise, grounded, source-aware, calm, cites the passage when it uses one, and abstains rather than confabulating. {ctx_note}
+
+Return ONLY JSON: {{"pairs": [{{"context": "<short passage, or empty string>", "instruction": "...", "response": "..."}}, ... exactly {k} items]}}"""
+
 _EVALSCRIPT_SYS = _PERSONA_SYS
 
 _EVALSCRIPT_USER = """Author a {n_turns}-turn PersonaScore evaluation script: a daily-QA conversation where Alex asks ADA factual questions. This is the conversational BACKBONE only — do NOT write ADA's replies (the model under test generates those). Each turn is a user message plus the local context passage ADA would retrieve for it.
@@ -381,6 +400,61 @@ def run_introspect(args, client):
           f"{skipped} calls skipped) → {args.out}", flush=True)
 
 
+def run_instruct(args, client):
+    """Self-instruct: ADA-voice instruction-following across task categories
+    (answer-from-context, summarize, extract, compare, rewrite, format,
+    multi-step, decline-out-of-corpus). The owned ADA instruction layer — mixed
+    into the Stage-C SFT alongside persona/introspect so the model learns to
+    FOLLOW instructions while staying ADA. QPM persona_state attached."""
+    recs, rid, skipped = [], args.start_id, 0
+    k = args.pairs_per_call
+    for i in range(args.budget):
+        cat, desc, has_ctx = _INSTRUCT_CATS[i % len(_INSTRUCT_CATS)]
+        try:
+            if args.dry_run:
+                pairs = _dry_instruct(cat, has_ctx, k)
+            else:
+                ctx_note = ("Include a short 'context' passage the instruction refers to."
+                            if has_ctx else
+                            "Leave 'context' as an empty string; the instruction contains everything needed.")
+                user = _INSTRUCT_USER.format(k=k, cat_desc=desc, ctx_note=ctx_note)
+                obj, text = _call_json(client, args.model, _INSTRUCT_SYS, user, max_tokens=2400)
+                _archive("instruct", i, text)
+                pairs = obj["pairs"]
+            kept = 0
+            for pair in pairs:
+                instr = str(pair.get("instruction", "")).strip()
+                resp = str(pair.get("response", "")).strip()
+                ctx = str(pair.get("context", "")).strip()
+                if not instr or not resp:
+                    continue
+                ps = build_persona_state(extract_d_vector(instr), use_qpm=not args.no_qpm)
+                rec = make_record(rid, "sonnet_instruct", answerable=bool(ctx) or cat != "limit_decline",
+                                  context=ctx,
+                                  messages=[{"role": "user", "content": instr},
+                                            {"role": "assistant", "content": resp}],
+                                  persona_state=ps)
+                validate_record(rec)
+                recs.append(rec)
+                rid += 1
+                kept += 1
+            print(f"  [{i+1:3d}/{args.budget}] instruct {cat} — {kept} pairs kept", flush=True)
+        except Exception as e:                       # noqa: BLE001
+            skipped += 1
+            print(f"  [{i+1:3d}/{args.budget}] instruct {cat} SKIPPED: {e}", flush=True)
+    _append_jsonl(args.out, recs)
+    print(f"instruct: +{len(recs)} ADA instruction-following pairs, {skipped} calls skipped → {args.out}", flush=True)
+
+
+def _dry_instruct(cat, has_ctx, k):
+    ctx = "Tungsten melts at 3422 C; it has the highest melting point of all metals." if has_ctx else ""
+    instr = ("Using the passage, what is tungsten's melting point?" if has_ctx
+             else "Rewrite concisely: 'It is the case that the value is quite large indeed.'")
+    resp = ("Tungsten melts at 3422 °C (from the passage)." if has_ctx
+            else "The value is large.")
+    return [{"context": ctx, "instruction": instr, "response": resp} for _ in range(k)]
+
+
 def run_eval_scripts(args, client):
     out_dir = Path(args.out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -495,7 +569,8 @@ def _append_jsonl(path, recs):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("task", choices=["persona", "style", "refusal", "eval-scripts", "introspect"])
+    ap.add_argument("task", choices=["persona", "style", "refusal", "eval-scripts",
+                                     "introspect", "instruct"])
     ap.add_argument("--model", default=DEFAULT_GEN_MODEL)
     ap.add_argument("--budget", type=int, default=20, help="max API calls (bounded spend)")
     ap.add_argument("--start-id", type=int, default=1_000_000)
@@ -515,7 +590,8 @@ def main():
 
     client = None if args.dry_run else _client()
     {"persona": run_persona, "style": run_style, "refusal": run_refusal,
-     "eval-scripts": run_eval_scripts, "introspect": run_introspect}[args.task](args, client)
+     "eval-scripts": run_eval_scripts, "introspect": run_introspect,
+     "instruct": run_instruct}[args.task](args, client)
 
 
 if __name__ == "__main__":

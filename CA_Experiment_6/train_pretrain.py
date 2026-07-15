@@ -25,14 +25,14 @@ from pathlib import Path
 import numpy as np
 import torch
 
-from model import ADATransformer, ModelConfig, TrainConfig, ADA_80M, ADA_160M, ADA_PILOT, ADA_SMOKE
+from model import ADATransformer, ModelConfig, TrainConfig, ADA_80M, ADA_160M, ADA_300M, ADA_PILOT, ADA_SMOKE
 from data_utils import PretrainBinDataset
 from train_common import (
     set_seed, cosine_lr, pick_device_dtype, save_checkpoint,
     load_checkpoint, latest_checkpoint, load_backbone,
 )
 
-CONFIGS = {"80m": ADA_80M, "160m": ADA_160M, "pilot": ADA_PILOT, "smoke": ADA_SMOKE}
+CONFIGS = {"80m": ADA_80M, "160m": ADA_160M, "300m": ADA_300M, "pilot": ADA_PILOT, "smoke": ADA_SMOKE}
 
 
 def prefix_lm_masks(x, seq_len, lo, hi, device):

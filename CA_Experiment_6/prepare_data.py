@@ -27,7 +27,7 @@ from pathlib import Path
 import numpy as np
 
 from ca_assets import (
-    make_record, validate_record, ABSTENTION_CANONICAL, ADA_SCI,
+    make_record, validate_record, ABSTENTION_CANONICAL, ADA_SCI, GENERIC_SYSTEM_PROMPT,
 )
 
 
@@ -312,6 +312,79 @@ def cmd_eval(args):
     print(f"eval: {len(ans)} answerable → {out_a}; {len(una)} unanswerable → {out_u}")
 
 
+def _oasst_records(limit, max_turns=6):
+    """OpenAssistant/oasst1 → multi-turn instruction records. Keep English,
+    non-deleted, top-ranked (rank 0) or unranked assistant replies; rebuild each
+    reply's root→leaf path into a conversation; a generic (non-ADA) system prompt
+    so Stage B teaches general instruction-following, not the ADA persona."""
+    from datasets import load_dataset
+    ds = load_dataset("OpenAssistant/oasst1", split="train")
+    by_id = {m["message_id"]: m for m in ds}
+    recs, rid = [], 0
+    for m in ds:
+        if (m.get("role") != "assistant" or m.get("lang") != "en"
+                or m.get("deleted") or m.get("review_result") is False
+                or m.get("rank") not in (0, None)):
+            continue
+        path, cur, guard = [], m, 0
+        while cur is not None and guard < 40:
+            path.append(cur)
+            cur = by_id.get(cur.get("parent_id"))
+            guard += 1
+        path.reverse()
+        msgs = [{"role": "user" if p["role"] == "prompter" else "assistant",
+                 "content": (p["text"] or "").strip()} for p in path]
+        msgs = [x for x in msgs if x["content"]]
+        while msgs and msgs[0]["role"] != "user":          # must start on a user turn
+            msgs = msgs[1:]
+        if len(msgs) > max_turns:
+            msgs = msgs[-max_turns:]
+            while msgs and msgs[0]["role"] != "user":
+                msgs = msgs[1:]
+        if len(msgs) < 2 or msgs[-1]["role"] != "assistant":
+            continue
+        recs.append(make_record(rid, "oasst", answerable=True, context="",
+                                messages=[{"role": "system", "content": GENERIC_SYSTEM_PROMPT}] + msgs,
+                                persona_state=None))
+        rid += 1
+        if limit and len(recs) >= limit:
+            break
+    return recs
+
+
+def _synthetic_oasst(n):
+    convos = [
+        [("user", "Summarize the water cycle in one sentence."),
+         ("assistant", "Water evaporates, condenses into clouds, and falls back as "
+                       "precipitation, cycling continuously.")],
+        [("user", "List three prime numbers under 10."),
+         ("assistant", "2, 3, and 5.")],
+        [("user", "Rewrite this more concisely: 'The meeting will commence at the hour of nine.'"),
+         ("assistant", "The meeting starts at nine.")],
+    ]
+    recs = []
+    for i in range(n):
+        c = convos[i % len(convos)]
+        recs.append(make_record(i, "oasst", True, "",
+                                [{"role": "system", "content": GENERIC_SYSTEM_PROMPT}]
+                                + [{"role": r, "content": t} for r, t in c],
+                                persona_state=None))
+    return recs
+
+
+def cmd_oasst(args):
+    out = Path(args.out)
+    out.parent.mkdir(parents=True, exist_ok=True)
+    recs = _synthetic_oasst(args.limit or 6) if args.dry_run else _oasst_records(args.limit)
+    for r in recs:
+        validate_record(r)
+    with out.open("w") as f:
+        for r in recs:
+            f.write(json.dumps(r) + "\n")
+    turns = sum(sum(1 for m in r["messages"] if m["role"] != "system") for r in recs)
+    print(f"oasst: {len(recs)} conversations ({turns} turns) → {out}")
+
+
 def main():
     ap = argparse.ArgumentParser()
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -345,6 +418,12 @@ def main():
     e.add_argument("--limit", type=int, default=20000)
     e.add_argument("--dry-run", action="store_true")
     e.set_defaults(func=cmd_eval)
+
+    o = sub.add_parser("oasst", help="OASST1 → instruction-following records (Stage-B substrate)")
+    o.add_argument("--out", default="data/instruct.jsonl")
+    o.add_argument("--limit", type=int, default=None, help="cap conversations (default: all English)")
+    o.add_argument("--dry-run", action="store_true")
+    o.set_defaults(func=cmd_oasst)
 
     s = sub.add_parser("span", help="export SQuAD2 span-training data (char offsets)")
     s.add_argument("--out", default="data/qa_span.jsonl")

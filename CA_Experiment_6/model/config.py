@@ -58,6 +58,14 @@ ADA_160M = ModelConfig(
     d_model=896, n_layers=16, n_heads=14, max_seq_len=1024,
 )
 
+# Instruction-capable backbone (~320M): 1024 / 24 / 16 (head_dim 64), 16k vocab.
+# The 160M read+abstained at usable levels but couldn't hold persona/SCI across
+# turns (H3 ~2.2) — it never learned instruction-following. This scale supports a
+# Stage-B instruction-tune (OASST1 + self-instruct) → the SCI/SMC substrate.
+ADA_300M = ModelConfig(
+    d_model=1024, n_layers=24, n_heads=16, max_seq_len=1024,
+)
+
 # §5.4 pilot gate — tiny model to confirm the pipeline learns at all.
 ADA_PILOT = ModelConfig(
     vocab_size=16000, d_model=256, n_layers=6, n_heads=8, max_seq_len=512,
