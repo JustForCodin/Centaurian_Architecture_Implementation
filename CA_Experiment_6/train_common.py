@@ -96,21 +96,31 @@ def build_model_from_ckpt(ckpt: dict, map_location="cpu") -> ADATransformer:
 
 
 def load_backbone(model: ADATransformer, state: dict) -> None:
-    """Load a checkpoint into `model`, tolerating a freshly-added head that the
-    checkpoint predates (e.g. an old backbone has no span_head → it stays at
-    init). Any *other* missing/unexpected key is a real mismatch and raises."""
+    """Load a checkpoint into `model`, tolerating the read heads being (a) absent
+    from the checkpoint (an older backbone predates them) or (b) a different
+    SHAPE than the model (e.g. the answerability head grew span-confidence
+    inputs, or the checkpoint carries an untrained old-shape head). In both cases
+    the head is left at the model's fresh init. Any mismatch on a *non-head*
+    (trunk) tensor is a real config error and raises."""
     fresh_prefixes = ("span_head", "answerable_head")
-    incompat = model.load_state_dict(state, strict=False)
-    missing = [k for k in incompat.missing_keys
-               if not k.startswith(fresh_prefixes)]
-    if missing or incompat.unexpected_keys:
-        raise RuntimeError(
-            f"checkpoint mismatch: missing={missing} "
-            f"unexpected={list(incompat.unexpected_keys)}")
-    fresh = [k for k in incompat.missing_keys if k.startswith(fresh_prefixes)]
-    if fresh:
-        heads = sorted({k.split(".")[0] for k in fresh})
-        print(f"  [ckpt] {'/'.join(heads)} not in checkpoint → initialised fresh")
+    model_sd = model.state_dict()
+    # keep only checkpoint tensors that exist in the model with a matching shape;
+    # everything else (shape-changed heads, extra keys) is skipped
+    filtered, skipped = {}, []
+    for k, v in state.items():
+        if k in model_sd and tuple(v.shape) == tuple(model_sd[k].shape):
+            filtered[k] = v
+        else:
+            skipped.append(k)
+    incompat = model.load_state_dict(filtered, strict=False)
+    bad = ([k for k in incompat.missing_keys if not k.startswith(fresh_prefixes)]
+           + [k for k in skipped if not k.startswith(fresh_prefixes)])
+    if bad:
+        raise RuntimeError(f"checkpoint/model mismatch on non-head tensors: {bad}")
+    reinit = sorted({k.split(".")[0] for k in list(incompat.missing_keys) + skipped
+                     if k.startswith(fresh_prefixes)})
+    if reinit:
+        print(f"  [ckpt] heads (re)initialised fresh: {'/'.join(reinit)}")
 
 
 def latest_checkpoint(ckpt_dir, prefix: str) -> Path | None:
