@@ -120,10 +120,17 @@ class SFTDataset(torch.utils.data.Dataset):
     """JSONL of §4.3 records → padded (input_ids, targets, loss_mask) tensors."""
 
     def __init__(self, jsonl_path: str | Path, tok: ADATokenizer, seq_len: int,
-                 sources: set[str] | None = None):
+                 sources: set[str] | None = None, reading_cap: int | None = None,
+                 persona_oversample: int = 1):
+        """reading_cap: keep at most this many non-persona (reading) records —
+        reading is the span head's job now, so a huge SQuAD set here just drowns
+        the persona and makes the LM head an over-abstaining reader.
+        persona_oversample: replicate sonnet_* persona records N× to counter the
+        imbalance so the LM head actually learns ADA's voice."""
         self.tok = tok
         self.seq_len = seq_len
-        self.examples: list[dict] = []
+        persona_ex: list[dict] = []
+        reading_ex: list[dict] = []
         skipped = 0
         with open(jsonl_path) as f:
             for line in f:
@@ -131,16 +138,25 @@ class SFTDataset(torch.utils.data.Dataset):
                 if not line:
                     continue
                 rec = json.loads(line)
-                if sources is not None and rec.get("source") not in sources:
+                src = rec.get("source", "")
+                if sources is not None and src not in sources:
                     continue
                 ex = tokenize_sft_record(rec, tok, seq_len + 1)
                 if ex is None:
                     skipped += 1
                     continue
-                self.examples.append(ex)
+                (persona_ex if src.startswith("sonnet_") else reading_ex).append(ex)
+        if reading_cap is not None and len(reading_ex) > reading_cap:
+            import random as _r
+            _r.Random(1337).shuffle(reading_ex)           # representative sample
+            reading_ex = reading_ex[:reading_cap]
+        self.examples = reading_ex + persona_ex * max(1, persona_oversample)
         if not self.examples:
             raise ValueError(f"no usable SFT examples in {jsonl_path}")
-        print(f"SFTDataset: {len(self.examples)} examples ({skipped} skipped) from {jsonl_path}")
+        print(f"SFTDataset: {len(self.examples)} examples "
+              f"({len(persona_ex)} persona ×{persona_oversample} + {len(reading_ex)} reading"
+              f"{f' (capped from more)' if reading_cap else ''}, {skipped} skipped) "
+              f"from {jsonl_path}")
 
     def __len__(self):
         return len(self.examples)

@@ -51,6 +51,12 @@ def main():
     ap.add_argument("--replay-frac", type=float, default=0.1)
     ap.add_argument("--sources", nargs="*", default=None,
                     help="restrict SFT to these record sources")
+    ap.add_argument("--reading-cap", type=int, default=None,
+                    help="cap non-persona (reading) records — reading is the span "
+                         "head's job now; a huge SQuAD set drowns the persona")
+    ap.add_argument("--persona-oversample", type=int, default=1,
+                    help="replicate sonnet_* persona records N× to counter the "
+                         "reading imbalance so the LM head learns ADA's voice")
     ap.add_argument("--resume", action="store_true")
     ap.add_argument("--prefix-lm", action="store_true",
                     help="bidirectional attention over the prefix (system+persona+context+"
@@ -76,7 +82,9 @@ def main():
         f"tokenizer vocab {tok.vocab_size} != model vocab {mcfg.vocab_size}"
 
     sources = set(args.sources) if args.sources else None
-    ds = SFTDataset(args.sft, tok, tcfg.seq_len, sources=sources)
+    ds = SFTDataset(args.sft, tok, tcfg.seq_len, sources=sources,
+                    reading_cap=args.reading_cap,
+                    persona_oversample=args.persona_oversample)
     loader = DataLoader(ds, batch_size=tcfg.batch_size, shuffle=True,
                         collate_fn=ds.collate, drop_last=True)
     sft_iter = cycle(loader)
