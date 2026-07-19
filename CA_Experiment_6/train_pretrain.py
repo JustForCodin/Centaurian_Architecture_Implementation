@@ -159,7 +159,13 @@ def main():
                 opt.load_state_dict(ck["optimizer"])
             start_step = ck["step"] + 1
             best_val = ck.get("best_val", float("inf"))
-            print(f"resumed from {last} @ step {start_step}")
+            # Re-seed the data loader by the resume step. Without this the
+            # fixed-seed RNG replays the SAME windows from batch 0 on every
+            # resume, re-training the model on already-seen data (train loss
+            # looks deceptively low, val drifts up). A step-offset seed draws a
+            # fresh random stream instead — important for multi-session pretrains.
+            train_data.rng = np.random.default_rng(1337 + start_step)
+            print(f"resumed from {last} @ step {start_step} (data rng reseeded)")
 
     if tcfg.compile and device == "cuda":
         model = torch.compile(model)
