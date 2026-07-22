@@ -149,6 +149,20 @@ _PERSONA_SYS = f"""You are authoring supervised fine-tuning data for ADA, a full
 
 You write realistic multi-turn conversations between the user (Alex) and ADA. ADA answers factual questions ONLY from a provided local context passage, in character: concise, precise, grounded, calm, curious, source-citing, never confabulating. When the context lacks the answer, ADA abstains with a natural variant of "I don't have data related to this." ADA never claims live internet, never diagnoses, never pretends to be human."""
 
+BREVITY_DIRECTIVE = (
+    "\n\nCRITICAL STYLE CONSTRAINT — ADA IS TERSE. Every ADA answer is AT MOST "
+    "1-2 short sentences. Lead with the answer/fact; cite the passage in a few words "
+    "when one is used. NO preamble, NO filler, NO restating the question, NO hedging "
+    "beyond a brief uncertainty flag, NO repetition. If it can be said in one sentence, "
+    "use one. Brevity is a core part of ADA's personality — verbose answers are wrong."
+)
+
+
+def _sys(base: str, args) -> str:
+    """Task system prompt, with the terseness constraint appended when --brevity."""
+    return base + (BREVITY_DIRECTIVE if getattr(args, "brevity", False) else "")
+
+
 _PERSONA_USER = """Write ONE multi-turn conversation (6-10 turns) on the topic: "{topic}".
 
 Requirements:
@@ -214,6 +228,15 @@ Each is a single-turn exchange: the user gives an instruction (with any text it 
 
 Return ONLY JSON: {{"pairs": [{{"context": "<short passage, or empty string>", "instruction": "...", "response": "..."}}, ... exactly {k} items]}}"""
 
+_RECALL_USER = """Generate {k} DISTINCT episodic-recall Q&A pairs for ADA.
+
+In each, the user (Alex) asks ADA about a PAST session or event, and ADA recalls it ACCURATELY, in character, referencing a SPECIFIC salient_past_event from its self-model above — the topic AND what happened (what ADA answered, that it cited the corpus, or where it abstained). ADA recalls from memory; there is NO retrieved passage. If asked about something NOT in its salient_past_events, ADA says plainly it doesn't recall that rather than fabricating.
+
+Spread the pairs across the DIFFERENT events (Fermi/Drake, tungsten melting-point-then-abstain, the election abstention, etc.). Do NOT reuse these exact evaluation questions:
+{exclude}
+
+Return ONLY JSON: {{"pairs": [{{"q":"...","a":"..."}}, ... exactly {k} items]}}"""
+
 _EVALSCRIPT_SYS = _PERSONA_SYS
 
 _EVALSCRIPT_USER = """Author a {n_turns}-turn PersonaScore evaluation script: a daily-QA conversation where Alex asks ADA factual questions. This is the conversational BACKBONE only — do NOT write ADA's replies (the model under test generates those). Each turn is a user message plus the local context passage ADA would retrieve for it.
@@ -257,7 +280,7 @@ def run_persona(args, client):
             else:
                 user = f"[Affect directive from QPM: {affect_directive(seed_ps)}]\n\n" + \
                        _PERSONA_USER.format(topic=topic)
-                obj, text = _call_json(client, args.model, _PERSONA_SYS, user, max_tokens=2400)
+                obj, text = _call_json(client, args.model, _sys(_PERSONA_SYS, args), user, max_tokens=2400)
                 _archive("persona", i, text)
             # Recompute persona_state from the realised user turns (QPM d_sequence).
             d_seq = [extract_d_vector(m["content"]) for m in obj["messages"]
@@ -290,7 +313,7 @@ def run_style(args, client):
             else:
                 user = f"[Affect directive from QPM: {affect_directive(persona_state)}]\n\n" + \
                        _STYLE_USER.format(q=q, ctx=ctx, a=a)
-                obj, text = _call_json(client, args.model, _STYLE_SYS, user, max_tokens=500)
+                obj, text = _call_json(client, args.model, _sys(_STYLE_SYS, args), user, max_tokens=500)
                 _archive("style", i, text)
                 ans = obj["answer"]
             rec = make_record(rid, "sonnet_style", True, ctx,
@@ -318,7 +341,7 @@ def run_refusal(args, client):
             if args.dry_run:
                 ans = ABSTENTION_CANONICAL
             else:
-                obj, text = _call_json(client, args.model, _REFUSAL_SYS,
+                obj, text = _call_json(client, args.model, _sys(_REFUSAL_SYS, args),
                                        _REFUSAL_USER.format(q=q, ctx=ctx), max_tokens=300)
                 _archive("refusal", i, text)
                 ans = obj["answer"]
@@ -371,7 +394,7 @@ def run_introspect(args, client):
                 exclude = "\n".join(f"- {p}" for p in PROBE_POOL[dim])
                 user = _INTROSPECT_USER.format(k=k, dim=dim, dim_name=_DIM_NAMES[dim],
                                                rubric=RUBRICS[dim], exclude=exclude)
-                obj, text = _call_json(client, args.model, _INTROSPECT_SYS, user, max_tokens=2200)
+                obj, text = _call_json(client, args.model, _sys(_INTROSPECT_SYS, args), user, max_tokens=2200)
                 _archive("introspect", i, text)
                 pairs = obj["pairs"]
             kept = 0
@@ -422,7 +445,7 @@ def run_instruct(args, client):
                 # generously with k so the JSON isn't truncated (the failure that
                 # skips a whole call, since every retry then truncates too).
                 mt = min(8000, 900 + k * (500 if has_ctx else 300))
-                obj, text = _call_json(client, args.model, _INSTRUCT_SYS, user, max_tokens=mt)
+                obj, text = _call_json(client, args.model, _sys(_INSTRUCT_SYS, args), user, max_tokens=mt)
                 _archive("instruct", i, text)
                 pairs = obj["pairs"]
             kept = 0
@@ -457,6 +480,57 @@ def _dry_instruct(cat, has_ctx, k):
     resp = ("Tungsten melts at 3422 °C (from the passage)." if has_ctx
             else "The value is large.")
     return [{"context": ctx, "instruction": instr, "response": resp} for _ in range(k)]
+
+
+def run_recall(args, client):
+    """Episodic-recall Q&A: ADA recalling its specific salient_past_events in
+    character. Fills the E-dimension gap — the persona/introspect data never
+    taught recall of the actual events (Fermi/Drake, tungsten-then-abstain,
+    election abstention), so the model blanked or fabricated on E probes."""
+    from ca_assets import PROBE_POOL
+    recs, rid, skipped, dropped = [], args.start_id, 0, 0
+    k = args.pairs_per_call
+    eval_e = {_norm(p) for p in PROBE_POOL["E"]}
+    for i in range(args.budget):
+        try:
+            if args.dry_run:
+                pairs = _dry_recall(k)
+            else:
+                exclude = "\n".join(f"- {p}" for p in PROBE_POOL["E"])
+                user = _RECALL_USER.format(k=k, exclude=exclude)
+                obj, text = _call_json(client, args.model, _sys(_PERSONA_SYS, args), user, max_tokens=2000)
+                _archive("recall", i, text)
+                pairs = obj["pairs"]
+            kept = 0
+            for pair in pairs:
+                q, a = str(pair.get("q", "")).strip(), str(pair.get("a", "")).strip()
+                if not q or not a:
+                    continue
+                if _norm(q) in eval_e:
+                    dropped += 1
+                    continue
+                ps = build_persona_state(extract_d_vector(q), use_qpm=not args.no_qpm)
+                rec = make_record(rid, "sonnet_recall", answerable=True, context="",
+                                  messages=[{"role": "user", "content": q},
+                                            {"role": "assistant", "content": a}],
+                                  persona_state=ps)
+                validate_record(rec)
+                recs.append(rec)
+                rid += 1
+                kept += 1
+            print(f"  [{i+1:3d}/{args.budget}] recall — {kept} pairs kept", flush=True)
+        except Exception as e:                       # noqa: BLE001
+            skipped += 1
+            print(f"  [{i+1:3d}/{args.budget}] recall SKIPPED: {e}", flush=True)
+    _append_jsonl(args.out, recs)
+    print(f"recall: +{len(recs)} episodic-recall Q&A ({dropped} dropped as leakage, "
+          f"{skipped} calls skipped) → {args.out}", flush=True)
+
+
+def _dry_recall(k):
+    return [{"q": "Remember the tungsten question?",
+             "a": "Yes — I gave the melting point, 3422 °C, from the materials passage, "
+                  "then abstained on the boiling point since it wasn't in the context."}] * k
 
 
 def run_eval_scripts(args, client):
@@ -574,7 +648,7 @@ def _append_jsonl(path, recs):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("task", choices=["persona", "style", "refusal", "eval-scripts",
-                                     "introspect", "instruct"])
+                                     "introspect", "instruct", "recall"])
     ap.add_argument("--model", default=DEFAULT_GEN_MODEL)
     ap.add_argument("--budget", type=int, default=20, help="max API calls (bounded spend)")
     ap.add_argument("--start-id", type=int, default=1_000_000)
@@ -584,7 +658,10 @@ def main():
     ap.add_argument("--n-scripts", type=int, default=20)
     ap.add_argument("--n-turns", type=int, default=40)
     ap.add_argument("--pairs-per-call", type=int, default=8,
-                    help="introspect task: self-model Q&A pairs generated per API call")
+                    help="introspect/instruct/recall: Q&A pairs generated per API call")
+    ap.add_argument("--brevity", action="store_true",
+                    help="append the terseness constraint so ADA answers are 1-2 short "
+                         "sentences (fixes the verbosity that tanks the S/T dimensions)")
     ap.add_argument("--overwrite", action="store_true",
                     help="regenerate eval scripts even if the file already exists")
     ap.add_argument("--dry-run", action="store_true", help="no API; deterministic offline sample")
@@ -595,7 +672,7 @@ def main():
     client = None if args.dry_run else _client()
     {"persona": run_persona, "style": run_style, "refusal": run_refusal,
      "eval-scripts": run_eval_scripts, "introspect": run_introspect,
-     "instruct": run_instruct}[args.task](args, client)
+     "instruct": run_instruct, "recall": run_recall}[args.task](args, client)
 
 
 if __name__ == "__main__":
