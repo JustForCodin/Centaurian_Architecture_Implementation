@@ -186,6 +186,7 @@ DATA_SOURCES = {
     "squad2", "nq", "msmarco", "triviaqa", "hotpotqa",
     "sonnet_persona", "sonnet_style", "sonnet_refusal", "sonnet_introspect",
     "sonnet_recall",                       # episodic recall of salient_past_events (E)
+    "sonnet_consistency",                  # T/E/C/S self-probes interleaved mid-factoid-session
     "oasst", "dolly", "sonnet_instruct",   # Stage-B instruction-following substrate
 }
 

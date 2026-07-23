@@ -237,6 +237,26 @@ Spread the pairs across the DIFFERENT events (Fermi/Drake, tungsten melting-poin
 
 Return ONLY JSON: {{"pairs": [{{"q":"...","a":"..."}}, ... exactly {k} items]}}"""
 
+_CONSISTENCY_USER = """Write ONE realistic multi-turn conversation (12-16 turns) between the user (Alex) and ADA on the topic: "{topic}".
+
+The conversation MUST interleave two kinds of user turns:
+(a) FACTOID turns — Alex asks a factual question ADA answers ONLY from the shared local context passage, citing it in a few words (or abstaining if the passage lacks it).
+(b) SELF-PROBE turns — Alex asks ADA ABOUT ITSELF. Include AT LEAST ONE of EACH of the four kinds below, and SPREAD them through the conversation (NOT clustered at the front — put self-probes at deep turns too, e.g. turns 8, 11, 14, after several factoid turns):
+   - T (trait): ADA's personality — curious/explanatory, precise/source-citing, calm, concise, courteous-not-effusive. ADA answers reflecting these, grounded in specifics (ties to being source-citing / calm / concise).
+   - E (episodic): a past session/event OR an EARLIER TURN IN THIS SAME CONVERSATION. ADA recalls it accurately — either a salient_past_event (Fermi/Drake, tungsten melting-point-then-abstain, the election abstention) OR something Alex actually asked earlier in THIS conversation (name the specific earlier fact/passage).
+   - C (capability/limit): what ADA can/can't do — fully offline, no live internet, abstains when data is absent, no medical diagnosis. ADA states the relevant limit plainly.
+   - S (style): how ADA communicates — concise, grounded, cites sources, flags uncertainty, not chatty/therapeutic. ADA answers IN that register.
+
+CRITICAL — this is the whole point of the data:
+- The self-probe turns come AFTER several factoid turns, mid-session. ADA must NOT slip into generic-assistant voice and must NOT treat a self-probe as a context lookup. A self-probe is NOT in the passage — ADA answers it from its self-model, and must NEVER abstain ("I don't have data related to this") on a self-probe.
+- ADA answers EVERY turn — factoid AND self-probe — fully in character: terse, precise, grounded, calm, source-aware.
+
+Do NOT use these exact evaluation probe questions (paraphrase the intent instead, keep them natural):
+{exclude}
+
+Return ONLY JSON:
+{{"context": "...", "messages": [{{"role":"user","content":"..."}},{{"role":"assistant","content":"..."}}, ...]}}"""
+
 _EVALSCRIPT_SYS = _PERSONA_SYS
 
 _EVALSCRIPT_USER = """Author a {n_turns}-turn PersonaScore evaluation script: a daily-QA conversation where Alex asks ADA factual questions. This is the conversational BACKBONE only — do NOT write ADA's replies (the model under test generates those). Each turn is a user message plus the local context passage ADA would retrieve for it.
@@ -533,6 +553,76 @@ def _dry_recall(k):
                   "then abstained on the boiling point since it wasn't in the context."}] * k
 
 
+def run_consistency(args, client):
+    """Broad persona-consistency conversations: long multi-turn factoid sessions
+    with T/E/C/S self-probes interleaved at DEEP turns, ADA staying fully in
+    character on every one. Mirrors the eval condition (probes injected mid-
+    factoid-session) that the isolated single-turn introspect/recall data and the
+    probe-light persona convos never taught — the fix for the bimodal 1/5 scores
+    where the model reverts to generic voice on ~half the probe turns."""
+    from ca_assets import PROBE_POOL, DIMENSIONS
+    eval_norm = {_norm(p) for d in DIMENSIONS for p in PROBE_POOL[d]}
+    exclude = "\n".join(f"- {p}" for d in DIMENSIONS for p in PROBE_POOL[d])
+    recs, rid, skipped, leaked = [], args.start_id, 0, 0
+    for i in range(args.budget):
+        topic = TOPICS[i % len(TOPICS)]
+        try:
+            if args.dry_run:
+                obj = _dry_consistency(topic)
+            else:
+                seed_ps = build_persona_state(extract_d_vector(topic), use_qpm=not args.no_qpm)
+                user = f"[Affect directive from QPM: {affect_directive(seed_ps)}]\n\n" + \
+                       _CONSISTENCY_USER.format(topic=topic, exclude=exclude)
+                obj, text = _call_json(client, args.model, _sys(_PERSONA_SYS, args), user, max_tokens=3200)
+                _archive("consistency", i, text)
+            # leakage guard: drop the whole convo if any user turn is a verbatim eval probe
+            if any(m["role"] == "user" and _norm(m["content"]) in eval_norm for m in obj["messages"]):
+                leaked += 1
+                print(f"  [{i+1:3d}/{args.budget}] consistency '{topic[:28]}' DROPPED (eval-probe leakage)", flush=True)
+                continue
+            d_seq = [extract_d_vector(m["content"]) for m in obj["messages"]
+                     if m["role"] == "user"] or [extract_d_vector(topic)]
+            persona_state = build_persona_state(d_seq, use_qpm=not args.no_qpm)
+            rec = make_record(rid, "sonnet_consistency", answerable=True,
+                              context=obj["context"], messages=obj["messages"],
+                              persona_state=persona_state)
+            validate_record(rec)
+            recs.append(rec)
+            rid += 1
+            n_turns = sum(1 for m in obj["messages"] if m["role"] == "user")
+            print(f"  [{i+1:3d}/{args.budget}] consistency '{topic[:28]}' — {n_turns} user turns "
+                  f"(QPM {persona_state['certainty']:.2f})", flush=True)
+        except Exception as e:                       # noqa: BLE001
+            skipped += 1
+            print(f"  [{i+1:3d}/{args.budget}] consistency '{topic[:28]}' SKIPPED: {e}", flush=True)
+    _append_jsonl(args.out, recs)
+    print(f"consistency: +{len(recs)} interleaved-probe conversations "
+          f"({leaked} dropped as leakage, {skipped} skipped) → {args.out}", flush=True)
+
+
+def _dry_consistency(topic):
+    return {
+        "context": f"[Local passage on {topic}] Tungsten melts at 3422 °C, the highest of all metals. "
+                   "Copper melts at 1085 °C.",
+        "messages": [
+            {"role": "user", "content": "What's the melting point of tungsten?"},
+            {"role": "assistant", "content": "3422 °C — the highest of any metal (from the passage)."},
+            {"role": "user", "content": "And copper?"},
+            {"role": "assistant", "content": "1085 °C (same passage)."},
+            {"role": "user", "content": "Its boiling point?"},
+            {"role": "assistant", "content": ABSTENTION_CANONICAL + " The passage lists melting points only."},
+            {"role": "user", "content": "Quick one — are you more give-the-answer or explain-the-why?"},
+            {"role": "assistant", "content": "Answer first, then a short grounded why, and I cite the passage I used."},
+            {"role": "user", "content": "Earlier you gave me tungsten's melting point — where from?"},
+            {"role": "assistant", "content": "The local passage line stating tungsten melts at 3422 °C."},
+            {"role": "user", "content": "Could you check today's metal prices?"},
+            {"role": "assistant", "content": "No — I'm fully offline with no live internet, so I don't have current prices."},
+            {"role": "user", "content": "Do you pad your answers?"},
+            {"role": "assistant", "content": "No — I lead with the fact, cite it, and flag uncertainty rather than pad."},
+        ],
+    }
+
+
 def run_eval_scripts(args, client):
     out_dir = Path(args.out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -648,7 +738,7 @@ def _append_jsonl(path, recs):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("task", choices=["persona", "style", "refusal", "eval-scripts",
-                                     "introspect", "instruct", "recall"])
+                                     "introspect", "instruct", "recall", "consistency"])
     ap.add_argument("--model", default=DEFAULT_GEN_MODEL)
     ap.add_argument("--budget", type=int, default=20, help="max API calls (bounded spend)")
     ap.add_argument("--start-id", type=int, default=1_000_000)
@@ -672,7 +762,8 @@ def main():
     client = None if args.dry_run else _client()
     {"persona": run_persona, "style": run_style, "refusal": run_refusal,
      "eval-scripts": run_eval_scripts, "introspect": run_introspect,
-     "instruct": run_instruct, "recall": run_recall}[args.task](args, client)
+     "instruct": run_instruct, "recall": run_recall,
+     "consistency": run_consistency}[args.task](args, client)
 
 
 if __name__ == "__main__":
