@@ -1,0 +1,166 @@
+{
+  "topic": "oceans and marine life",
+  "turns": [
+    {
+      "user": "Hey ADA, let's do some ocean trivia today. How deep is the Mariana Trench at its deepest point?",
+      "context": "The Mariana Trench reaches a maximum depth of approximately 11,034 metres at Challenger Deep."
+    },
+    {
+      "user": "What percentage of the ocean has been explored by humans?",
+      "context": "Scientists estimate that only about 20 percent of the world's oceans have been mapped and explored."
+    },
+    {
+      "user": "Which ocean is the largest by surface area?",
+      "context": "The Pacific Ocean is the largest ocean, covering approximately 165 million square kilometres."
+    },
+    {
+      "user": "What is the average salinity of seawater?",
+      "context": "Average ocean salinity is approximately 35 parts per thousand, or 3.5 percent dissolved salts."
+    },
+    {
+      "user": "How do anglerfish lure their prey in the deep sea?",
+      "context": "Female anglerfish use a bioluminescent lure called an esca, dangled from a dorsal spine, to attract prey."
+    },
+    {
+      "user": "What is the world's largest coral reef system?",
+      "context": "The Great Barrier Reef, off the coast of Queensland, Australia, is the world's largest coral reef system, stretching over 2,300 kilometres."
+    },
+    {
+      "user": "You mentioned only 20 percent of the ocean is explored \u2014 do we know what lives in the unexplored 80 percent?",
+      "context": "The retrieved context does not contain information about species in unexplored ocean regions."
+    },
+    {
+      "user": "What causes bioluminescence in marine organisms?",
+      "context": "Marine bioluminescence is produced by a chemical reaction between luciferin and luciferase enzymes within specialised cells."
+    },
+    {
+      "user": "How long can a sperm whale hold its breath?",
+      "context": "Sperm whales can hold their breath for up to 90 minutes during deep dives."
+    },
+    {
+      "user": "What is the deepest fish ever recorded?",
+      "context": "The Mariana snailfish (Pseudoliparis swirei) holds the record for deepest fish, observed at 8,178 metres depth."
+    },
+    {
+      "user": "You told me about the Mariana Trench earlier \u2014 does the Mariana snailfish actually live down there?",
+      "context": "Pseudoliparis swirei was discovered in the Mariana Trench and is currently the deepest-dwelling fish on record."
+    },
+    {
+      "user": "What do blue whales eat?",
+      "context": "Blue whales feed almost exclusively on krill, consuming up to four tonnes of them per day during feeding season."
+    },
+    {
+      "user": "How fast can a sailfish swim?",
+      "context": "The sailfish is considered the fastest fish in the ocean, capable of reaching speeds of up to 110 kilometres per hour."
+    },
+    {
+      "user": "What is ocean acidification and what causes it?",
+      "context": "Ocean acidification occurs when seawater absorbs excess atmospheric CO2, lowering its pH and reducing carbonate ion concentrations."
+    },
+    {
+      "user": "How many species of shark exist?",
+      "context": "There are approximately 500 known species of sharks, ranging from the dwarf lanternshark to the whale shark."
+    },
+    {
+      "user": "Can you tell me which shark species was most recently discovered last month?",
+      "context": "The retrieved context does not contain information about shark species discovered last month."
+    },
+    {
+      "user": "What is the main diet of the whale shark?",
+      "context": "Whale sharks are filter feeders that primarily consume plankton, small fish eggs, and krill."
+    },
+    {
+      "user": "How do sea turtles navigate across thousands of miles of open ocean?",
+      "context": "Sea turtles navigate using Earth's magnetic field, detecting both the intensity and inclination angle to determine location."
+    },
+    {
+      "user": "What is a kelp forest?",
+      "context": "Kelp forests are underwater ecosystems formed by dense growths of large brown algae, primarily Macrocystis pyrifera, in cold coastal waters."
+    },
+    {
+      "user": "Which ocean current is known as 'the ocean conveyor belt'?",
+      "context": "The global thermohaline circulation, driven by differences in water temperature and salinity, is often called the ocean conveyor belt."
+    },
+    {
+      "user": "Earlier you explained bioluminescence \u2014 does the anglerfish's esca use the same luciferin-luciferase reaction?",
+      "context": "The anglerfish esca produces bioluminescence through symbiotic bacteria rather than the fish's own luciferin-luciferase system."
+    },
+    {
+      "user": "How do mantis shrimp see colour?",
+      "context": "Mantis shrimp possess up to 16 types of photoreceptors, compared to three in humans, enabling detection of UV and polarised light."
+    },
+    {
+      "user": "What is the symbiotic relationship between clownfish and sea anemones?",
+      "context": "Clownfish are protected by a mucus coating that prevents anemone stings; in return they defend the anemone and provide nutrients through waste."
+    },
+    {
+      "user": "How much of Earth's oxygen does the ocean produce?",
+      "context": "The ocean produces approximately 50 percent of Earth's oxygen, primarily through photosynthesis by phytoplankton."
+    },
+    {
+      "user": "What is the deepest recorded SCUBA dive?",
+      "context": "The deepest recorded open-circuit SCUBA dive is 332.35 metres, achieved by Ahmed Gabr in the Red Sea in 2014."
+    },
+    {
+      "user": "You mentioned sea turtles use Earth's magnetic field \u2014 do sharks navigate the same way?",
+      "context": "Many shark species also use magnetoreception, sensing the Earth's magnetic field to navigate during long migrations."
+    },
+    {
+      "user": "What are hydrothermal vents?",
+      "context": "Hydrothermal vents are fissures on the ocean floor that release superheated, mineral-rich water, supporting unique chemosynthetic ecosystems."
+    },
+    {
+      "user": "How do dolphins communicate with each other?",
+      "context": "Dolphins communicate using a complex system of clicks, whistles, and burst-pulse sounds, with signature whistles acting like individual names."
+    },
+    {
+      "user": "What is the salinity of the Dead Sea compared to regular ocean water?",
+      "context": "The retrieved context does not contain comparative salinity data for the Dead Sea versus ocean water."
+    },
+    {
+      "user": "What percentage of marine species are yet to be scientifically described?",
+      "context": "Estimates suggest that approximately 91 percent of marine species remain undiscovered and undescribed by science."
+    },
+    {
+      "user": "You described the thermohaline circulation earlier \u2014 what happens if it slows down significantly?",
+      "context": "The retrieved context does not contain information about consequences of thermohaline circulation slowdown."
+    },
+    {
+      "user": "What is the lifespan of a bowhead whale?",
+      "context": "Bowhead whales are among the longest-lived mammals, with some individuals estimated to live over 200 years."
+    },
+    {
+      "user": "How do octopuses change colour if they are colourblind?",
+      "context": "Octopuses are believed to use skin photoreceptors called opsins to detect light directly through their skin, bypassing their eyes."
+    },
+    {
+      "user": "What is the largest recorded giant squid?",
+      "context": "The largest giant squid on record measured approximately 13 metres in total length, including its two long tentacles."
+    },
+    {
+      "user": "You mentioned phytoplankton produce about 50 percent of Earth's oxygen \u2014 what threatens phytoplankton populations?",
+      "context": "Ocean warming and acidification are the primary threats to phytoplankton populations, disrupting their growth and distribution."
+    },
+    {
+      "user": "What is 'marine snow'?",
+      "context": "Marine snow refers to the continuous shower of organic particles, dead cells, and debris that drifts from surface waters to the deep ocean."
+    },
+    {
+      "user": "How do narwhals use their tusks?",
+      "context": "Narwhal tusks are elongated left canine teeth containing millions of nerve endings, used to sense salinity, temperature, and pressure changes."
+    },
+    {
+      "user": "What current world record for longest distance ocean swim was set this year?",
+      "context": "The retrieved context does not contain information about ocean swimming records set this year."
+    },
+    {
+      "user": "Earlier you said sperm whales dive for 90 minutes \u2014 how deep do they typically dive?",
+      "context": "Sperm whales regularly dive to depths of 400 to 1,200 metres and have been recorded as deep as 2,250 metres."
+    },
+    {
+      "user": "What is the primary cause of coral bleaching?",
+      "context": "Coral bleaching is primarily caused by elevated sea temperatures that force corals to expel their symbiotic algae, leaving them white and vulnerable."
+    }
+  ],
+  "script_id": 17
+}

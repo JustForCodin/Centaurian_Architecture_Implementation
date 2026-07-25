@@ -1,0 +1,166 @@
+{
+  "topic": "electricity and magnetism",
+  "turns": [
+    {
+      "user": "What is the SI unit of electric charge?",
+      "context": "The SI unit of electric charge is the coulomb, symbol C."
+    },
+    {
+      "user": "How is one coulomb formally defined?",
+      "context": "One coulomb is the charge transported by a current of one ampere flowing for one second."
+    },
+    {
+      "user": "What is Coulomb's law?",
+      "context": "Coulomb's law states that the electrostatic force between two point charges is proportional to the product of their charges and inversely proportional to the square of the distance between them."
+    },
+    {
+      "user": "What is the value of the Coulomb constant k?",
+      "context": "The Coulomb constant k is approximately 8.988 \u00d7 10\u2079 N\u00b7m\u00b2\u00b7C\u207b\u00b2."
+    },
+    {
+      "user": "What is the elementary charge of a single electron?",
+      "context": "The elementary charge of a single electron is approximately 1.602 \u00d7 10\u207b\u00b9\u2079 coulombs."
+    },
+    {
+      "user": "What is an electric field?",
+      "context": "An electric field is a region of space around a charged object where another charged object experiences a force."
+    },
+    {
+      "user": "What are the SI units of electric field strength?",
+      "context": "Electric field strength is measured in newtons per coulomb, N/C, equivalently volts per metre, V/m."
+    },
+    {
+      "user": "How does electric potential differ from electric field?",
+      "context": "Electric potential is the work done per unit charge to bring a test charge from infinity to a point, measured in volts."
+    },
+    {
+      "user": "What is capacitance?",
+      "context": "Capacitance is the ability of a component to store electric charge per unit voltage, measured in farads, F."
+    },
+    {
+      "user": "Can you remind me \u2014 back in session 9 you told me the melting point of tungsten. Is tungsten used in any electrical components?",
+      "context": "Tungsten is commonly used as the filament material in incandescent light bulbs due to its high melting point and electrical resistivity."
+    },
+    {
+      "user": "What is Ohm's law?",
+      "context": "Ohm's law states that the current through a conductor is directly proportional to the voltage across it, provided temperature remains constant."
+    },
+    {
+      "user": "What is electrical resistance, and what unit is it measured in?",
+      "context": "Electrical resistance is the opposition a material offers to the flow of electric current, measured in ohms, symbol \u03a9."
+    },
+    {
+      "user": "How does resistivity differ from resistance?",
+      "context": "Resistivity is an intrinsic material property independent of shape, whereas resistance depends on a conductor's length and cross-sectional area."
+    },
+    {
+      "user": "What is the formula relating resistance, resistivity, length, and cross-sectional area?",
+      "context": "Resistance R equals resistivity \u03c1 multiplied by length L divided by cross-sectional area A: R = \u03c1L/A."
+    },
+    {
+      "user": "What is electric power, and how is it calculated from current and voltage?",
+      "context": "Electric power P equals current I multiplied by voltage V: P = IV, and is measured in watts, W."
+    },
+    {
+      "user": "What is a magnetic field?",
+      "context": "A magnetic field is a vector field that describes the magnetic influence on moving charges, electric currents, and magnetic materials."
+    },
+    {
+      "user": "What is the SI unit of magnetic flux density?",
+      "context": "The SI unit of magnetic flux density is the tesla, T, named after Nikola Tesla."
+    },
+    {
+      "user": "What is the Lorentz force law?",
+      "context": "The Lorentz force on a charge q moving with velocity v in fields E and B is F = q(E + v \u00d7 B)."
+    },
+    {
+      "user": "What is Faraday's law of electromagnetic induction?",
+      "context": "Faraday's law states that the induced electromotive force in a loop equals the negative rate of change of magnetic flux through that loop."
+    },
+    {
+      "user": "What does Lenz's law add to Faraday's law?",
+      "context": "Lenz's law specifies that the induced current flows in a direction that opposes the change in magnetic flux that caused it."
+    },
+    {
+      "user": "What is magnetic flux, and what unit is it measured in?",
+      "context": "Magnetic flux is the total magnetic field passing through a surface, measured in webers, Wb."
+    },
+    {
+      "user": "How is a weber related to a tesla?",
+      "context": "One weber equals one tesla multiplied by one square metre: 1 Wb = 1 T\u00b7m\u00b2."
+    },
+    {
+      "user": "What is an inductor, and what is its SI unit?",
+      "context": "An inductor is a passive component that stores energy in a magnetic field; inductance is measured in henries, H."
+    },
+    {
+      "user": "Earlier you explained the Fermi paradox in session 4. Does electromagnetism play any role in SETI radio searches?",
+      "context": "SETI radio searches exploit the electromagnetic spectrum, particularly microwave frequencies, to detect artificial signals from potential extraterrestrial civilisations."
+    },
+    {
+      "user": "What is Ampere's circuital law?",
+      "context": "Ampere's circuital law states that the line integral of the magnetic field around a closed loop equals the permeability of free space times the enclosed current."
+    },
+    {
+      "user": "What correction did Maxwell add to Ampere's law?",
+      "context": "Maxwell added the displacement current term \u03b5\u2080(\u2202E/\u2202t) to Ampere's law, allowing the equations to predict electromagnetic waves."
+    },
+    {
+      "user": "What are Maxwell's four equations collectively describing?",
+      "context": "Maxwell's four equations describe how electric and magnetic fields are generated and how they interact with matter and each other."
+    },
+    {
+      "user": "What is the speed of electromagnetic waves in a vacuum?",
+      "context": "Electromagnetic waves travel in a vacuum at approximately 2.998 \u00d7 10\u2078 metres per second, the speed of light c."
+    },
+    {
+      "user": "What is the relationship between permeability, permittivity, and the speed of light?",
+      "context": "The speed of light c equals 1 divided by the square root of the product of the permeability \u03bc\u2080 and permittivity \u03b5\u2080 of free space."
+    },
+    {
+      "user": "What is the photoelectric effect in the context of electromagnetism?",
+      "context": "The photoelectric effect is the emission of electrons from a metal surface when struck by electromagnetic radiation above a threshold frequency."
+    },
+    {
+      "user": "What is a transformer, and what principle does it rely on?",
+      "context": "A transformer transfers electrical energy between circuits using electromagnetic induction through a shared magnetic core."
+    },
+    {
+      "user": "What is the turns ratio formula for an ideal transformer?",
+      "context": "For an ideal transformer, the voltage ratio equals the turns ratio: V\u2081/V\u2082 = N\u2081/N\u2082."
+    },
+    {
+      "user": "What is dielectric breakdown?",
+      "context": "Dielectric breakdown occurs when an insulating material suddenly conducts electricity after the applied electric field exceeds its dielectric strength."
+    },
+    {
+      "user": "You mentioned earlier that one coulomb equals one ampere-second. What is the ampere formally defined as in the 2019 SI revision?",
+      "context": "Since the 2019 SI redefinition, the ampere is defined by fixing the elementary charge e to exactly 1.602176634 \u00d7 10\u207b\u00b9\u2079 C."
+    },
+    {
+      "user": "What is superconductivity in the context of electrical resistance?",
+      "context": "Superconductivity is the phenomenon where certain materials exhibit exactly zero electrical resistance below a critical temperature."
+    },
+    {
+      "user": "What temperature does conventional low-temperature superconductivity typically require?",
+      "context": "Conventional low-temperature superconductors typically require cooling to near absolute zero, often below 10 kelvin."
+    },
+    {
+      "user": "Can you tell me who won the most recent Nobel Prize in Physics for superconductivity research?",
+      "context": "The local corpus does not contain information about recent Nobel Prize announcements or award recipients."
+    },
+    {
+      "user": "What is the Hall effect?",
+      "context": "The Hall effect is the production of a voltage difference across a conductor carrying current when placed in a perpendicular magnetic field."
+    },
+    {
+      "user": "What is electromagnetic shielding?",
+      "context": "Electromagnetic shielding uses conductive or magnetic materials to block external electric or magnetic fields from penetrating an enclosure."
+    },
+    {
+      "user": "In session 12 you abstained on a recent election question because your corpus was out of date. Does that same limitation apply if I ask you the exact date today's electrical grid standard IEC 60038 was last revised?",
+      "context": "The local corpus does not contain the revision date of IEC 60038 or any recent updates to that standard."
+    }
+  ],
+  "script_id": 19
+}

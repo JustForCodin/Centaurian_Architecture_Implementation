@@ -1,0 +1,166 @@
+{
+  "topic": "notable space missions",
+  "turns": [
+    {
+      "user": "Hey ADA, what was the first artificial satellite launched into orbit?",
+      "context": "Sputnik 1, launched by the Soviet Union on October 4, 1957, was the first artificial satellite to orbit Earth."
+    },
+    {
+      "user": "How much did Sputnik 1 weigh?",
+      "context": "Sputnik 1 had a mass of approximately 83.6 kilograms."
+    },
+    {
+      "user": "What was the name of the first American satellite launched in response to Sputnik?",
+      "context": "Explorer 1, launched on January 31, 1958, was the first successful American satellite."
+    },
+    {
+      "user": "Which mission first landed humans on the Moon?",
+      "context": "Apollo 11 landed astronauts Neil Armstrong and Buzz Aldrin on the Moon on July 20, 1969."
+    },
+    {
+      "user": "Who was the third crew member on Apollo 11 who stayed in lunar orbit?",
+      "context": "Michael Collins orbited the Moon in the Command Module Columbia while Armstrong and Aldrin descended to the surface."
+    },
+    {
+      "user": "You explained the Drake equation back when we talked about the Fermi paradox \u2014 does the Moon landing change any of those factors?",
+      "context": ""
+    },
+    {
+      "user": "What rover did NASA land on Mars in the Curiosity mission, and when did it land?",
+      "context": "NASA's Curiosity rover landed in Gale Crater on Mars on August 6, 2012."
+    },
+    {
+      "user": "How long is Curiosity, roughly?",
+      "context": "Curiosity is approximately 2.9 meters long, about the size of a small car."
+    },
+    {
+      "user": "What power source does Curiosity use?",
+      "context": "Curiosity is powered by a Multi-Mission Radioisotope Thermoelectric Generator using plutonium-238 decay heat."
+    },
+    {
+      "user": "What mission first performed a soft landing on Mars?",
+      "context": "Mars 3, launched by the Soviet Union, performed the first soft landing on Mars on December 2, 1971."
+    },
+    {
+      "user": "Did Mars 3 send back useful data after landing?",
+      "context": "Mars 3 transmitted a partial image for about 20 seconds before its signal inexplicably failed."
+    },
+    {
+      "user": "What was the primary objective of the Voyager 1 mission?",
+      "context": "Voyager 1 was launched in 1977 to conduct close-up studies of Jupiter and Saturn and their moons and rings."
+    },
+    {
+      "user": "How far is Voyager 1 from Earth right now?",
+      "context": ""
+    },
+    {
+      "user": "Has Voyager 1 left the solar system?",
+      "context": "Voyager 1 entered interstellar space in August 2012, becoming the first human-made object to do so."
+    },
+    {
+      "user": "What is the Hubble Space Telescope's orbital altitude?",
+      "context": "The Hubble Space Telescope orbits Earth at an altitude of approximately 547 kilometers."
+    },
+    {
+      "user": "When was the Hubble Space Telescope launched?",
+      "context": "The Hubble Space Telescope was launched on April 24, 1990, aboard Space Shuttle Discovery."
+    },
+    {
+      "user": "Which servicing mission corrected Hubble's flawed mirror?",
+      "context": "Space Shuttle mission STS-61 in December 1993 installed corrective optics to fix Hubble's spherical aberration."
+    },
+    {
+      "user": "What is the James Webb Space Telescope's primary mirror diameter?",
+      "context": "The James Webb Space Telescope has a primary mirror 6.5 meters in diameter, composed of 18 hexagonal gold-coated beryllium segments."
+    },
+    {
+      "user": "Where does the James Webb Space Telescope orbit?",
+      "context": "JWST orbits the second Sun-Earth Lagrange point, L2, approximately 1.5 million kilometers from Earth."
+    },
+    {
+      "user": "Earlier you told me tungsten melts at 3422 degrees Celsius \u2014 what temperature does JWST operate at?",
+      "context": "JWST's detectors must be cooled to approximately 6.7 Kelvin to detect faint infrared light."
+    },
+    {
+      "user": "What was the first mission to orbit Mercury?",
+      "context": "MESSENGER became the first spacecraft to orbit Mercury, entering orbit on March 18, 2011."
+    },
+    {
+      "user": "What did MESSENGER discover about Mercury's poles?",
+      "context": "MESSENGER confirmed the presence of water ice in permanently shadowed craters near Mercury's poles."
+    },
+    {
+      "user": "What probe performed the first flyby of Pluto?",
+      "context": "New Horizons performed the first flyby of Pluto on July 14, 2015, returning detailed images and data."
+    },
+    {
+      "user": "What is the diameter of Pluto according to New Horizons data?",
+      "context": "New Horizons measured Pluto's diameter at approximately 2,377 kilometers."
+    },
+    {
+      "user": "What is the name of the heart-shaped feature on Pluto?",
+      "context": "The prominent heart-shaped plain on Pluto is informally called Tombaugh Regio, honoring Pluto's discoverer Clyde Tombaugh."
+    },
+    {
+      "user": "Which mission discovered the first confirmed exoplanet around a sun-like star?",
+      "context": ""
+    },
+    {
+      "user": "What was the main objective of the Kepler Space Telescope?",
+      "context": "The Kepler Space Telescope was designed to survey a portion of the Milky Way to discover Earth-size planets in habitable zones."
+    },
+    {
+      "user": "How many planets did Kepler confirm?",
+      "context": "The Kepler mission confirmed the existence of more than 2,600 exoplanets during its operational lifetime."
+    },
+    {
+      "user": "What mission returned the first samples from an asteroid to Earth?",
+      "context": "JAXA's Hayabusa mission returned samples from asteroid Itokawa to Earth in June 2010."
+    },
+    {
+      "user": "What asteroid did the Hayabusa2 mission sample?",
+      "context": "Hayabusa2 collected subsurface samples from the asteroid Ryugu and returned them to Earth in December 2020."
+    },
+    {
+      "user": "You mentioned abstaining when you lacked data on that recent election \u2014 by that logic, do you have data on any missions launched in the last few months?",
+      "context": ""
+    },
+    {
+      "user": "What was the Saturn V rocket's payload capacity to low Earth orbit?",
+      "context": "The Saturn V rocket could deliver approximately 130,000 kilograms of payload to low Earth orbit."
+    },
+    {
+      "user": "Which Apollo mission was the last crewed Moon landing?",
+      "context": "Apollo 17, launched in December 1972, was the final crewed Moon landing of the Apollo program."
+    },
+    {
+      "user": "Who were the astronauts on Apollo 17?",
+      "context": "Apollo 17's crew consisted of commander Eugene Cernan, lunar module pilot Harrison Schmitt, and command module pilot Ronald Evans."
+    },
+    {
+      "user": "What was unique about Harrison Schmitt compared to other Moon walkers?",
+      "context": "Harrison Schmitt was the only professional geologist to walk on the Moon."
+    },
+    {
+      "user": "What is the Mars Reconnaissance Orbiter primarily used for?",
+      "context": "The Mars Reconnaissance Orbiter, launched in 2005, conducts detailed reconnaissance and studies of Mars's surface, subsurface, and atmosphere."
+    },
+    {
+      "user": "Has any spacecraft successfully landed on Venus?",
+      "context": "The Soviet Venera program successfully landed multiple probes on Venus, with Venera 7 achieving the first successful Venus surface transmission in 1970."
+    },
+    {
+      "user": "What is the surface temperature of Venus?",
+      "context": "Venus's mean surface temperature is approximately 465 degrees Celsius, hot enough to melt lead."
+    },
+    {
+      "user": "What mission detected gravitational waves for the first time?",
+      "context": ""
+    },
+    {
+      "user": "Looking back over everything we've covered today, which mission do you think represents the biggest leap in deep-space exploration \u2014 Voyager or New Horizons?",
+      "context": ""
+    }
+  ],
+  "script_id": 12
+}

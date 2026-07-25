@@ -1,0 +1,166 @@
+{
+  "topic": "world geography and capitals",
+  "turns": [
+    {
+      "user": "Hey ADA, let's do some geography today. What's the capital of France?",
+      "context": "France is a country in Western Europe. Its capital and largest city is Paris, which has served as the nation's political and cultural centre for centuries. Paris is situated on the Seine River and is home to the \u00c9lys\u00e9e Palace, the official residence of the French President."
+    },
+    {
+      "user": "Nice. What about the capital of Australia? I always mix that one up with Sydney.",
+      "context": "Australia's capital city is Canberra, located in the Australian Capital Territory (ACT). Canberra was purpose-built as a compromise capital after Sydney and Melbourne both sought the title. It officially became the capital in 1913. Sydney, despite being the largest city, has never been the national capital."
+    },
+    {
+      "user": "Interesting \u2014 so Canberra was purpose-built. Did something similar happen with Brazil's capital?",
+      "context": "Brazil's capital is Bras\u00edlia, a planned city that was constructed in the late 1950s in the country's interior. It was inaugurated as the capital in 1960, replacing Rio de Janeiro. The city was designed by urban planner L\u00facio Costa and architect Oscar Niemeyer and is a UNESCO World Heritage Site."
+    },
+    {
+      "user": "What is the capital of Canada?",
+      "context": "The capital of Canada is Ottawa, located in the province of Ontario near the border with Quebec. Ottawa was chosen as the capital by Queen Victoria in 1857. It is home to the Parliament of Canada and numerous national museums and institutions."
+    },
+    {
+      "user": "What's the capital of Kazakhstan, and has it changed recently?",
+      "context": "Kazakhstan's capital is Astana. The city has undergone several name changes: it was known as Akmola, then Astana from 1998, then briefly renamed Nur-Sultan in 2019 to honour former president Nursultan Nazarbayev, before reverting to Astana in 2022 following a government decision. The country's largest city and former capital is Almaty."
+    },
+    {
+      "user": "Which country has Naypyidaw as its capital?",
+      "context": "Naypyidaw is the capital of Myanmar (also known as Burma). It was established as a purpose-built administrative capital in 2006, replacing Yangon (formerly Rangoon). Naypyidaw is notable for its unusually wide roads and relatively sparse population compared to its physical size."
+    },
+    {
+      "user": "What's the capital of South Africa? I've heard it might have more than one.",
+      "context": "South Africa has three capital cities serving different governmental functions. Pretoria is the executive capital and seat of the presidency. Cape Town is the legislative capital, where Parliament sits. Bloemfontein is the judicial capital, home to the Supreme Court of Appeal. Johannesburg, the largest city, is not a capital."
+    },
+    {
+      "user": "What is the capital of Argentina?",
+      "context": "The capital of Argentina is Buenos Aires, a large port city situated on the R\u00edo de la Plata estuary on the country's eastern coast. Buenos Aires is the most populous city in Argentina and serves as the country's political, economic, and cultural hub. It is the seat of the federal government and home to the Casa Rosada, the presidential palace."
+    },
+    {
+      "user": "You mentioned earlier that Canberra and Bras\u00edlia were both purpose-built capitals. Can you think of any others we've discussed in this session?",
+      "context": "Planned or purpose-built capital cities are those constructed specifically to serve as national capitals, often as political compromises or to shift administrative centres. Examples include Canberra (Australia), Bras\u00edlia (Brazil), Naypyidaw (Myanmar), and Astana (Kazakhstan). Washington D.C. in the United States and Islamabad in Pakistan are also commonly cited examples of planned capitals worldwide."
+    },
+    {
+      "user": "What is the capital of Nigeria?",
+      "context": "The capital of Nigeria is Abuja, a planned city located in the Federal Capital Territory in the centre of the country. Abuja replaced Lagos as the capital in 1991 to provide a more neutral, centrally located seat of government. Lagos remains Nigeria's largest city and its commercial centre."
+    },
+    {
+      "user": "What's the capital of Japan?",
+      "context": "The capital of Japan is Tokyo, located on Honshu island on the eastern coast. Tokyo is the seat of the Japanese government and the Imperial Palace is located there. With a greater metropolitan area population exceeding 37 million, it is one of the most populous urban areas in the world. Tokyo became the de facto capital in 1869 when Emperor Meiji relocated there from Kyoto."
+    },
+    {
+      "user": "What country is Reykjavik the capital of, and what's notable about it geographically?",
+      "context": "Reykjavik is the capital and largest city of Iceland. Geographically, it is notable for being the world's northernmost capital of a sovereign state. It is located on the Faxafl\u00f3i bay on the southwestern coast of Iceland. Reykjavik houses around two-thirds of Iceland's total population."
+    },
+    {
+      "user": "What's the capital of Indonesia? I know it's being moved \u2014 what's the story there?",
+      "context": "Indonesia's current official capital is Jakarta, located on the northwest coast of Java. However, Indonesia has announced plans to relocate its capital to a new city called Nusantara, being constructed in East Kalimantan on the island of Borneo. The relocation is driven by Jakarta's chronic issues with overcrowding, flooding, and land subsidence. As of the corpus snapshot, Jakarta remains the functioning capital while Nusantara is under construction."
+    },
+    {
+      "user": "What is the capital of Morocco?",
+      "context": "The capital of Morocco is Rabat, located on the Atlantic coast at the mouth of the Bou Regreg river. Rabat is the seat of the Moroccan government and the royal residence. It is often confused with Casablanca, which is the largest city and the economic centre of Morocco but is not the capital."
+    },
+    {
+      "user": "I remember we talked about the Fermi paradox a few sessions back. Totally different topic, but \u2014 does the Drake equation have anything to do with geography?",
+      "context": "The Drake equation is a probabilistic formula used in the search for extraterrestrial intelligence (SETI). It estimates the number of active, communicative civilisations in the Milky Way galaxy. Its factors include the rate of star formation, the fraction of stars with planets, and the fraction of those planets that develop intelligent life. The equation has no established connection to terrestrial geography or capitals."
+    },
+    {
+      "user": "Fair enough! What is the capital of Peru?",
+      "context": "The capital of Peru is Lima, situated on the arid Pacific coast of the country. Lima is Peru's largest city and serves as its political, cultural, and economic centre. It was founded by Spanish conquistador Francisco Pizarro in 1535 and was the most important city in Spanish South America during the colonial era."
+    },
+    {
+      "user": "What is the southernmost national capital in the world?",
+      "context": "Wellington, the capital of New Zealand, is widely recognised as the southernmost national capital city in the world, located at approximately 41 degrees south latitude. It sits at the southern tip of New Zealand's North Island, on the Cook Strait. Wellington became New Zealand's capital in 1865, replacing Auckland."
+    },
+    {
+      "user": "What's the capital of Ethiopia?",
+      "context": "The capital of Ethiopia is Addis Ababa, which also serves as the headquarters of the African Union and the United Nations Economic Commission for Africa. Addis Ababa means 'new flower' in Amharic. It is the largest city in Ethiopia and is located in the central highlands of the country at an elevation of approximately 2,355 metres above sea level, making it one of the highest capital cities in the world."
+    },
+    {
+      "user": "What's the capital of the Philippines?",
+      "context": "The capital of the Philippines is Manila, located on the eastern shore of Manila Bay on the island of Luzon. Manila is one of the most densely populated cities in the world. The broader metropolitan area, often called Metro Manila or the National Capital Region, includes the city of Quezon City, which was the official capital from 1948 to 1976."
+    },
+    {
+      "user": "Is there a capital city that sits on two continents?",
+      "context": "Istanbul, the largest city in Turkey, is often cited as a city that straddles two continents \u2014 Europe and Asia \u2014 being divided by the Bosphorus Strait. However, Istanbul is not Turkey's capital. Turkey's capital is Ankara, located entirely within Anatolia in Asia. No nationally recognised capital city is officially split across two continents, though Istanbul's transcontinental geography is frequently noted."
+    },
+    {
+      "user": "What's the capital of Saudi Arabia?",
+      "context": "The capital of Saudi Arabia is Riyadh, located in the east-central part of the Arabian Peninsula on the Najd plateau. Riyadh is the largest city in Saudi Arabia and serves as the country's political and administrative centre. It is home to the Royal Court and most of the country's government ministries."
+    },
+    {
+      "user": "What is the capital of Ukraine?",
+      "context": "The capital of Ukraine is Kyiv (also historically transliterated as Kiev), situated on the Dnipro River in north-central Ukraine. Kyiv is Ukraine's largest city and its political, cultural, and economic hub. It is one of the oldest cities in Eastern Europe and was a major centre of the medieval state of Kievan Rus'."
+    },
+    {
+      "user": "We talked a bit about capitals that replaced former capitals \u2014 like Abuja replacing Lagos. What's the capital that replaced Rio de Janeiro?",
+      "context": "Brazil's current capital is Bras\u00edlia, which replaced Rio de Janeiro as the national capital in 1960. The decision to move the capital was driven by a desire to develop Brazil's interior and to create a more centrally located seat of government. Rio de Janeiro remains Brazil's second largest city and a major cultural and economic centre."
+    },
+    {
+      "user": "What's the capital of Iceland again? And what's its population roughly?",
+      "context": "Reykjavik is the capital of Iceland. The city proper has a population of approximately 130,000 to 140,000 people, while the greater Reykjavik capital region accounts for around 230,000 people \u2014 representing roughly two-thirds of Iceland's entire national population of approximately 370,000."
+    },
+    {
+      "user": "What's the capital of the Democratic Republic of the Congo?",
+      "context": "The capital of the Democratic Republic of the Congo (DRC) is Kinshasa, located on the southern bank of the Congo River in the far western part of the country. Kinshasa is the most populous French-speaking city in the world. Directly across the Congo River lies Brazzaville, the capital of the neighbouring Republic of the Congo, making them one of the closest pairs of capital cities in the world."
+    },
+    {
+      "user": "What are the two capital cities that sit directly across a river from each other?",
+      "context": "Kinshasa (capital of the Democratic Republic of the Congo) and Brazzaville (capital of the Republic of the Congo) face each other across the Congo River, separated by only a few kilometres. They are considered the world's closest pair of national capital cities. The Congo River at this point is one of the widest rivers in the world."
+    },
+    {
+      "user": "What is the capital of New Zealand, and earlier you mentioned it's the world's southernmost capital \u2014 is that still accurate for the southernmost *city* too?",
+      "context": "Wellington is the capital of New Zealand and is recognised as the southernmost national capital in the world. However, it is not the southernmost city overall. Ushuaia in Argentina, often called 'the southernmost city in the world,' lies at approximately 54 degrees south, significantly further south than Wellington at 41 degrees south. Puerto Williams in Chile also claims the title of southernmost city."
+    },
+    {
+      "user": "What's the capital of Sweden?",
+      "context": "The capital of Sweden is Stockholm, located on the eastern coast of the country where Lake M\u00e4laren meets the Baltic Sea. Stockholm is built across 14 islands and is known as the 'Venice of the North.' It is Sweden's largest city and serves as the country's political, economic, and cultural centre. The Swedish Parliament (Riksdag) and the Royal Palace are both located in Stockholm."
+    },
+    {
+      "user": "What's the capital of a country that no longer exists \u2014 like the USSR?",
+      "context": "The Union of Soviet Socialist Republics (USSR), which dissolved in 1991, had Moscow as its capital. Moscow served as the Soviet capital from 1918 until the dissolution of the USSR, after which it became and remains the capital of the Russian Federation. Before 1918, the Russian imperial capital had been Saint Petersburg (known as Petrograd during World War I)."
+    },
+    {
+      "user": "What is the capital of India?",
+      "context": "The capital of India is New Delhi, which forms part of the larger National Capital Territory of Delhi. New Delhi was designed by British architects Edwin Lutyens and Herbert Baker and became the capital of British India in 1931, replacing Calcutta (now Kolkata). It is the seat of all three branches of the Indian government: the Parliament, the President's residence (Rashtrapati Bhavan), and the Supreme Court."
+    },
+    {
+      "user": "What's the capital of Venezuela?",
+      "context": "The capital of Venezuela is Caracas, officially known as Santiago de Le\u00f3n de Caracas. It is located in the northern part of the country in a valley in the coastal mountain range, close to the Caribbean coast. Caracas is Venezuela's largest city and serves as its political, financial, and cultural centre. It sits at an elevation of approximately 900 metres above sea level."
+    },
+    {
+      "user": "What is the least populous national capital in the world?",
+      "context": "Ngerulmud, the capital of Palau, is widely cited as the world's least populous national capital, with a population of only a few hundred people. It became Palau's capital in 2006, replacing Koror. Ngerulmud is located on Babeldaob Island, the largest island of Palau, in the western Pacific Ocean."
+    },
+    {
+      "user": "What's the capital of Switzerland? I've heard it might not be what people expect.",
+      "context": "The capital of Switzerland is Bern, which serves as the country's 'federal city' and de facto capital. Switzerland technically does not have a constitutionally designated capital, but Bern functions as the seat of the federal government and parliament. Many people incorrectly assume the capital is Zurich (the largest city) or Geneva (the international hub). Bern is located in the western-central part of the country."
+    },
+    {
+      "user": "Earlier you mentioned Naypyidaw replaced Yangon as Myanmar's capital. Do you know what year that happened exactly?",
+      "context": "Myanmar officially moved its capital from Yangon (formerly Rangoon) to the newly constructed city of Naypyidaw in 2006. The move was announced by the military government in 2005, and the administrative transfer was largely completed by March 2006. The reasons cited by the government included Naypyidaw's more central location, but many observers attributed it to strategic and security motivations."
+    },
+    {
+      "user": "What's the capital of Kenya?",
+      "context": "The capital of Kenya is Nairobi, located in the south-central part of the country. Nairobi is the largest city in Kenya and serves as the country's economic and political hub. It is also home to the United Nations Environment Programme (UNEP) headquarters and the UN Office at Nairobi, making it one of only four cities worldwide to host a UN headquarters. Nairobi sits at an elevation of approximately 1,795 metres."
+    },
+    {
+      "user": "What's the current population of the world's smallest capital city by area?",
+      "context": "Vatican City, while sometimes considered a city-state, is often cited separately. Among conventional national capitals, data on the 'smallest by area' varies by source and measurement methodology. The local corpus does not contain a definitive ranked list of national capitals by land area with corresponding current population figures. Ngerulmud (Palau) is among the smallest by population, but precise current area and population rankings for all capitals are not available in the retrieved context."
+    },
+    {
+      "user": "What is the capital of Colombia?",
+      "context": "The capital of Colombia is Bogot\u00e1, officially known as Bogot\u00e1 D.C. (Distrito Capital). It is the largest city in Colombia and is located on a high plateau in the Eastern Andes mountains at an elevation of approximately 2,625 metres above sea level, making it one of the highest capital cities in the world. Bogot\u00e1 serves as the country's political, economic, administrative, and cultural centre."
+    },
+    {
+      "user": "We've covered a lot of high-altitude capitals today \u2014 Addis Ababa, Bogot\u00e1, Caracas. Which one is actually the highest capital city in the world?",
+      "context": "The highest national capital city in the world is Sucre, the constitutional capital of Bolivia, at an elevation of approximately 2,750 metres above sea level. However, Bolivia's seat of government is La Paz, which sits at an even higher elevation of approximately 3,640 metres, making it the highest seat of government in the world. Quito, the capital of Ecuador, sits at around 2,850 metres. Addis Ababa is at approximately 2,355 metres, and Bogot\u00e1 at approximately 2,625 metres."
+    },
+    {
+      "user": "Can you tell me the current GDP of Canberra compared to Sydney? I want to understand their economic difference.",
+      "context": "Canberra is the capital of Australia, located in the Australian Capital Territory. It is primarily a government and administrative city, housing federal institutions, embassies, and national cultural facilities. Sydney is Australia's largest city and its main financial and commercial centre. Specific current GDP figures comparing the two cities are not available in the retrieved context."
+    },
+    {
+      "user": "Last one \u2014 what's the capital of Portugal, and is there anything geographically notable about it?",
+      "context": "The capital of Portugal is Lisbon (Lisboa in Portuguese), located at the mouth of the Tagus River on the Atlantic coast. Lisbon is the westernmost capital city of a European Union member state and one of the westernmost major cities in continental Europe. It is built across seven hills, a feature that has shaped its distinctive landscape and urban character. Lisbon is Portugal's largest city and its political, economic, and cultural centre."
+    }
+  ],
+  "script_id": 4
+}

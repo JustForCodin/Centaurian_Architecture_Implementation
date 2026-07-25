@@ -1,0 +1,166 @@
+{
+  "topic": "great scientific discoveries",
+  "turns": [
+    {
+      "user": "Hey ADA, let's do some science trivia today. Who is credited with discovering penicillin?",
+      "context": "Alexander Fleming discovered penicillin in 1928 when he noticed mold killing bacteria on a contaminated petri dish."
+    },
+    {
+      "user": "What was the name of that mold?",
+      "context": "The mold responsible was Penicillium notatum, later reclassified as Penicillium chrysogenum."
+    },
+    {
+      "user": "When did Watson and Crick publish their DNA double-helix model?",
+      "context": "Watson and Crick published their double-helix model of DNA structure in the journal Nature on April 25, 1953."
+    },
+    {
+      "user": "Who took the X-ray diffraction image that helped them figure it out?",
+      "context": "Rosalind Franklin produced X-ray diffraction image Photo 51, which provided critical evidence for the double-helix structure of DNA."
+    },
+    {
+      "user": "Did Franklin win a Nobel Prize for that work?",
+      "context": ""
+    },
+    {
+      "user": "Shifting gears \u2014 what did Isaac Newton observe that led him toward his theory of gravitation?",
+      "context": "Newton formulated his theory of universal gravitation after observing the motion of falling bodies and the Moon's orbit, reportedly inspired by an apple falling."
+    },
+    {
+      "user": "What year was the Principia Mathematica published?",
+      "context": "Newton's Philosophi\u00e6 Naturalis Principia Mathematica was published in 1687."
+    },
+    {
+      "user": "Speaking of publications, I remember we talked about the Fermi paradox back in session 4. Did Fermi ever make a famous experimental discovery, not just a thought experiment?",
+      "context": "Enrico Fermi led the team that achieved the first artificial self-sustaining nuclear chain reaction at Chicago Pile-1 on December 2, 1942."
+    },
+    {
+      "user": "What element was Chicago Pile-1 primarily built from?",
+      "context": "Chicago Pile-1 was constructed mainly from uranium and graphite blocks stacked by hand."
+    },
+    {
+      "user": "Who discovered radioactivity?",
+      "context": "Henri Becquerel discovered radioactivity in 1896 while studying uranium salts and their effect on photographic plates."
+    },
+    {
+      "user": "What did Marie Curie discover in addition to polonium?",
+      "context": "Marie Curie discovered radium in 1898, isolating it from pitchblende ore together with Pierre Curie."
+    },
+    {
+      "user": "What prize did Marie Curie win for the discovery of radium?",
+      "context": "Marie Curie was awarded the 1911 Nobel Prize in Chemistry for the discovery of radium and polonium."
+    },
+    {
+      "user": "Has any other person won Nobel Prizes in two different scientific disciplines?",
+      "context": ""
+    },
+    {
+      "user": "Let's talk astronomy. What did Galileo discover when he first pointed a telescope at Jupiter?",
+      "context": "Galileo discovered four large moons of Jupiter \u2014 Io, Europa, Ganymede, and Callisto \u2014 in January 1610."
+    },
+    {
+      "user": "What are those moons collectively called?",
+      "context": "The four moons are collectively known as the Galilean moons, named in honor of Galileo Galilei."
+    },
+    {
+      "user": "Earlier you told me tungsten's melting point \u2014 that was session 9. What's the melting point of the element we're talking about a lot today, uranium?",
+      "context": "Uranium has a melting point of approximately 1132 degrees Celsius."
+    },
+    {
+      "user": "Good. Now, who first proposed the heliocentric model of the solar system in the modern scientific era?",
+      "context": "Nicolaus Copernicus proposed the heliocentric model in his 1543 work De revolutionibus orbium coelestium."
+    },
+    {
+      "user": "Did Copernicus face persecution from the Church for this?",
+      "context": ""
+    },
+    {
+      "user": "What did Edwin Hubble discover about galaxies in 1929?",
+      "context": "Edwin Hubble discovered in 1929 that galaxies are receding and that recession speed increases with distance, evidence for an expanding universe."
+    },
+    {
+      "user": "What law is named after that discovery?",
+      "context": "The relationship between a galaxy's distance and its recession velocity is called Hubble's Law, expressed as v equals H-zero times d."
+    },
+    {
+      "user": "What instrument confirmed Hubble's findings with far greater precision in the 1990s?",
+      "context": ""
+    },
+    {
+      "user": "What was Charles Darwin's landmark publication and when did it appear?",
+      "context": "Charles Darwin published On the Origin of Species on November 24, 1859, presenting natural selection as the mechanism of evolution."
+    },
+    {
+      "user": "How many copies sold on the first day?",
+      "context": "All 1,250 copies of the first edition of On the Origin of Species sold out on the day of publication."
+    },
+    {
+      "user": "What did Gregor Mendel discover, and when?",
+      "context": "Gregor Mendel discovered the laws of genetic inheritance through pea-plant experiments published in 1866."
+    },
+    {
+      "user": "Were Mendel's findings widely recognized in his lifetime?",
+      "context": "Mendel's work was largely ignored until 1900 when it was independently rediscovered by three European botanists."
+    },
+    {
+      "user": "Let's switch to physics. What did Albert Einstein publish in his miracle year of 1905?",
+      "context": "In 1905 Einstein published four landmark papers covering special relativity, the photoelectric effect, Brownian motion, and mass-energy equivalence."
+    },
+    {
+      "user": "Which of those papers earned him the Nobel Prize?",
+      "context": "Einstein was awarded the 1921 Nobel Prize in Physics for his discovery of the law of the photoelectric effect, not for relativity."
+    },
+    {
+      "user": "What is the famous equation from his mass-energy equivalence paper?",
+      "context": "Einstein's mass-energy equivalence is expressed as E equals mc squared, where c is the speed of light."
+    },
+    {
+      "user": "Sticking with physics \u2014 what did Max Planck propose that launched quantum theory?",
+      "context": "Max Planck proposed in 1900 that energy is emitted in discrete packets called quanta, each with energy proportional to frequency."
+    },
+    {
+      "user": "What is the constant named after him?",
+      "context": "Planck's constant, denoted h, has a value of approximately 6.626 times ten to the negative 34 joule-seconds."
+    },
+    {
+      "user": "Who discovered the electron, and how?",
+      "context": "J.J. Thomson discovered the electron in 1897 using cathode ray tube experiments that showed negatively charged particles lighter than atoms."
+    },
+    {
+      "user": "What atomic model did Thomson propose after that?",
+      "context": "Thomson proposed the plum-pudding model, in which electrons are embedded in a diffuse positive charge."
+    },
+    {
+      "user": "Which experiment disproved Thomson's model?",
+      "context": "The Geiger-Marsden gold foil experiment of 1909, directed by Ernest Rutherford, disproved the plum-pudding model by revealing a dense nucleus."
+    },
+    {
+      "user": "What did Alexander Fleming's discovery eventually lead to in terms of saved lives \u2014 do you have any figures on that?",
+      "context": ""
+    },
+    {
+      "user": "Let's try chemistry. Who discovered oxygen, and when?",
+      "context": "Carl Wilhelm Scheele first prepared oxygen around 1772, though Joseph Priestley independently discovered and published it in 1774."
+    },
+    {
+      "user": "What did Antoine Lavoisier contribute to understanding oxygen?",
+      "context": "Antoine Lavoisier named oxygen, proved it was essential to combustion, and used it to overturn the phlogiston theory."
+    },
+    {
+      "user": "Now, you mentioned in our DNA discussion earlier that Photo 51 was an X-ray diffraction image. What technique does X-ray diffraction use to reveal molecular structure?",
+      "context": "X-ray crystallography works by directing X-rays at a crystal; the diffraction pattern produced reveals the arrangement of atoms."
+    },
+    {
+      "user": "When was the structure of insulin first determined using X-ray crystallography?",
+      "context": "Dorothy Hodgkin determined the three-dimensional structure of insulin using X-ray crystallography in 1969."
+    },
+    {
+      "user": "Going back to our earlier chat about the expanding universe \u2014 who first mathematically predicted an expanding universe before Hubble's observations?",
+      "context": "Georges Lema\u00eetre independently derived an expanding universe from Einstein's field equations and published the finding in 1927."
+    },
+    {
+      "user": "Last question \u2014 what is considered the most important unanswered question in fundamental physics today?",
+      "context": ""
+    }
+  ],
+  "script_id": 20
+}

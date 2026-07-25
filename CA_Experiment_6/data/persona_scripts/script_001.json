@@ -1,0 +1,178 @@
+{
+  "topic": "basic physics constants and units",
+  "turns": [
+    {
+      "user": "Hey ADA, quick one \u2014 what is the speed of light in a vacuum?",
+      "context": "The speed of light in a vacuum, denoted c, is exactly 299,792,458 metres per second (m/s). This value has been fixed by definition since 1983, when the metre was redefined in terms of the speed of light and the SI second. It is a fundamental constant of nature and appears in Einstein's mass\u2013energy equivalence relation E = mc\u00b2."
+    },
+    {
+      "user": "And what are the SI base units? Can you list them?",
+      "context": "The International System of Units (SI) defines seven base units: the metre (m) for length, the kilogram (kg) for mass, the second (s) for time, the ampere (A) for electric current, the kelvin (K) for thermodynamic temperature, the mole (mol) for amount of substance, and the candela (cd) for luminous intensity. All other SI units are derived from these seven."
+    },
+    {
+      "user": "What is Planck's constant, and what are its units?",
+      "context": "Planck's constant, symbol h, has the value 6.62607015 \u00d7 10\u207b\u00b3\u2074 joule-seconds (J\u00b7s). It was fixed at this exact value in the 2019 redefinition of SI units. Planck's constant relates the energy of a photon to its frequency via E = hf. The reduced Planck constant, \u0127 (h-bar), equals h divided by 2\u03c0, approximately 1.054571817 \u00d7 10\u207b\u00b3\u2074 J\u00b7s."
+    },
+    {
+      "user": "What's the elementary charge of a proton?",
+      "context": "The elementary charge, symbol e, is the electric charge carried by a single proton (or equivalently, the magnitude of the charge of a single electron). Its exact value, fixed by the 2019 SI redefinition, is 1.602176634 \u00d7 10\u207b\u00b9\u2079 coulombs (C). The electron carries charge \u2212e and the proton carries charge +e."
+    },
+    {
+      "user": "This reminds me of our session about tungsten. Is the melting point of tungsten listed anywhere in your physics corpus, or is that a different domain?",
+      "context": "Tungsten (chemical symbol W) has the highest melting point of all known metals, at 3422 degrees Celsius (3695 K). Its exceptionally high melting point is attributed to strong metallic bonding arising from its half-filled d-orbital configuration. Tungsten is commonly used in incandescent lamp filaments and high-temperature industrial applications."
+    },
+    {
+      "user": "What is the Boltzmann constant and what does it connect?",
+      "context": "The Boltzmann constant, symbol k_B (or simply k), has the exact value 1.380649 \u00d7 10\u207b\u00b2\u00b3 joules per kelvin (J/K), fixed by the 2019 SI redefinition. It relates the average kinetic energy of particles in a gas to the thermodynamic temperature of the gas, appearing in the ideal gas law as pV = Nk_BT and in the entropy formula S = k_B ln \u03a9."
+    },
+    {
+      "user": "What is Avogadro's number?",
+      "context": "Avogadro's constant, symbol N_A, is exactly 6.02214076 \u00d7 10\u00b2\u00b3 per mole (mol\u207b\u00b9), fixed by the 2019 SI redefinition. It specifies the number of constituent particles (atoms, molecules, ions, etc.) in one mole of a substance. Together with the Boltzmann constant, it connects microscopic particle-level quantities to macroscopic thermodynamic quantities via the relation R = N_A k_B, where R is the molar gas constant."
+    },
+    {
+      "user": "Speaking of the molar gas constant, what is its value?",
+      "context": "The molar gas constant, symbol R, has the value 8.314462618 J/(mol\u00b7K). It is derived from the product of Avogadro's constant and the Boltzmann constant: R = N_A \u00d7 k_B. It appears in the ideal gas law pV = nRT, where n is the number of moles. Because both N_A and k_B are now fixed by definition, R is also an exact derived quantity within the SI."
+    },
+    {
+      "user": "What is the gravitational constant G?",
+      "context": "The Newtonian gravitational constant, symbol G, has the value 6.67430 \u00d7 10\u207b\u00b9\u00b9 m\u00b3 kg\u207b\u00b9 s\u207b\u00b2 (equivalently N\u00b7m\u00b2\u00b7kg\u207b\u00b2). Unlike most fundamental constants, G is not fixed by definition and retains a measurement uncertainty; it is among the least precisely known fundamental constants. It appears in Newton's law of universal gravitation: F = G(m\u2081m\u2082)/r\u00b2."
+    },
+    {
+      "user": "Is the exact uncertainty on G given anywhere in your corpus?",
+      "context": "The gravitational constant G has a combined standard uncertainty of 2.2 \u00d7 10\u207b\u00b9\u2075 m\u00b3 kg\u207b\u00b9 s\u207b\u00b2, corresponding to a relative standard uncertainty of about 2.2 parts per hundred thousand (2.2 \u00d7 10\u207b\u2075). This is far larger than the relative uncertainties of constants fixed by the 2019 SI redefinition, such as h, e, k_B, and N_A, which carry zero uncertainty by definition."
+    },
+    {
+      "user": "What is the vacuum permittivity \u03b5\u2080?",
+      "context": "The vacuum electric permittivity (also called the permittivity of free space), symbol \u03b5\u2080, has the value 8.8541878128 \u00d7 10\u207b\u00b9\u00b2 farads per metre (F/m). It is no longer exact under the 2019 SI revision because it is derived from the defined values of c and \u03bc\u2080 via \u03b5\u2080 = 1/(\u03bc\u2080c\u00b2), and \u03bc\u2080 itself now carries a small measurement uncertainty. \u03b5\u2080 appears in Coulomb's law and Maxwell's equations."
+    },
+    {
+      "user": "What about the vacuum permeability \u03bc\u2080?",
+      "context": "The vacuum magnetic permeability (permeability of free space), symbol \u03bc\u2080, has the value 1.25663706212 \u00d7 10\u207b\u2076 N/A\u00b2 (equivalently H/m or kg\u00b7m\u00b7s\u207b\u00b2\u00b7A\u207b\u00b2). Prior to 2019 it was defined exactly as 4\u03c0 \u00d7 10\u207b\u2077 N/A\u00b2; since the 2019 SI redefinition it is a measured quantity with a relative uncertainty of about 1.5 \u00d7 10\u207b\u00b9\u2070. It relates to \u03b5\u2080 and c via \u03bc\u2080\u03b5\u2080 = 1/c\u00b2."
+    },
+    {
+      "user": "Can you tell me what the fine-structure constant is, numerically?",
+      "context": "The fine-structure constant, symbol \u03b1, is a dimensionless physical constant characterising the strength of the electromagnetic interaction. Its value is approximately 1/137.035999084, or about 7.2973525693 \u00d7 10\u207b\u00b3. It is defined as \u03b1 = e\u00b2/(4\u03c0\u03b5\u2080\u0127c), combining the elementary charge e, reduced Planck constant \u0127, speed of light c, and vacuum permittivity \u03b5\u2080. Its dimensionlessness makes it a universal constant independent of unit system."
+    },
+    {
+      "user": "What is the mass of an electron in kilograms?",
+      "context": "The electron rest mass, symbol m_e, is 9.1093837015 \u00d7 10\u207b\u00b3\u00b9 kilograms (kg). It is also commonly expressed as 0.51099895000 MeV/c\u00b2 in particle physics contexts. The electron mass is not a fixed-by-definition constant under the 2019 SI system; it retains a small measurement uncertainty of about 3.0 \u00d7 10\u207b\u00b9\u2070 in relative terms."
+    },
+    {
+      "user": "What is the mass of a proton?",
+      "context": "The proton rest mass, symbol m_p, is 1.67262192369 \u00d7 10\u207b\u00b2\u2077 kilograms (kg), or 938.27208816 MeV/c\u00b2. The proton is approximately 1836 times more massive than the electron. Like the electron mass, the proton mass is a measured quantity and is not fixed by definition under the 2019 SI redefinition."
+    },
+    {
+      "user": "What is the ratio of the proton mass to the electron mass exactly?",
+      "context": "The proton-to-electron mass ratio, symbol \u03bc or m_p/m_e, is approximately 1836.15267343. This dimensionless ratio is a fundamental physical constant. Its precise value is determined experimentally from spectroscopic measurements and Penning trap experiments. A variation in this ratio over cosmic time has been tested and constrained to less than 10\u207b\u00b9\u2076 per year by molecular hydrogen spectroscopy of distant quasars."
+    },
+    {
+      "user": "We talked about the Fermi paradox a while back \u2014 does the Drake equation use any of these physics constants directly?",
+      "context": "The Drake equation estimates the number of communicating civilisations in the galaxy using astronomical and biological rate factors: N = R* \u00d7 f_p \u00d7 n_e \u00d7 f_l \u00d7 f_i \u00d7 f_c \u00d7 L. None of its factors are fundamental physics constants such as h, c, G, or k_B. However, stellar physics \u2014 which underpins the stellar formation rate R* \u2014 depends on G, c, and the Boltzmann constant for stellar structure equations and radiative transfer."
+    },
+    {
+      "user": "What is the Stefan-Boltzmann constant?",
+      "context": "The Stefan-Boltzmann constant, symbol \u03c3, has the value 5.670374419 \u00d7 10\u207b\u2078 W\u00b7m\u207b\u00b2\u00b7K\u207b\u2074. It governs the total radiant emittance of a black body: P/A = \u03c3T\u2074. It is derived from other constants: \u03c3 = 2\u03c0\u2075k_B\u2074/(15h\u00b3c\u00b2). Because k_B, h, and c are now all fixed by definition, \u03c3 is also exactly determined within the SI."
+    },
+    {
+      "user": "What is the Rydberg constant?",
+      "context": "The Rydberg constant, symbol R\u221e, has the value 10,973,731.568160 m\u207b\u00b9. It is the most precisely measured fundamental constant, with a relative uncertainty of about 1.9 \u00d7 10\u207b\u00b9\u00b2. It appears in the Rydberg formula for the spectral lines of hydrogen and hydrogen-like atoms: 1/\u03bb = R\u221e(1/n\u2081\u00b2 \u2212 1/n\u2082\u00b2). It is related to other constants by R\u221e = m_e e\u2074 / (8\u03b5\u2080\u00b2h\u00b3c)."
+    },
+    {
+      "user": "What's the Bohr radius?",
+      "context": "The Bohr radius, symbol a\u2080, is the most probable distance between the proton and electron in a ground-state hydrogen atom in the Bohr model. Its value is 5.29177210903 \u00d7 10\u207b\u00b9\u00b9 metres (approximately 0.529 \u00c5). It is defined as a\u2080 = \u0127\u00b2/(m_e e\u00b2 / 4\u03c0\u03b5\u2080) = \u0127/(m_e c \u03b1), where \u03b1 is the fine-structure constant. It sets the scale for atomic dimensions."
+    },
+    {
+      "user": "Has there been any recent experimental update to the value of the fine-structure constant after 2022?",
+      "context": "Precision measurements of the fine-structure constant using atom interferometry were reported in 2020 (Berkeley group, caesium-133) and in 2022 (Paris group, rubidium-87), yielding values that agreed to within 1.5 standard deviations. The CODATA 2018 recommended value is \u03b1\u207b\u00b9 = 137.035999084(21). A 2023 or later updated CODATA value is not present in this corpus."
+    },
+    {
+      "user": "What is the Josephson constant and why does it matter for SI units?",
+      "context": "The Josephson constant, symbol K_J, is defined as 2e/h and has the exact value 483,597,848.4 GHz/V under the 2019 SI redefinition (since both e and h are now fixed). It relates to the AC Josephson effect in superconductors, where a voltage V across a Josephson junction produces an oscillation frequency f = K_J \u00d7 V. Before 2019, a conventional value K_J-90 was used as a metrological standard; since 2019 the true SI value applies."
+    },
+    {
+      "user": "What is the von Klitzing constant?",
+      "context": "The von Klitzing constant, symbol R_K, is defined as h/e\u00b2 and has the exact value 25,812.80745 ohms (\u03a9) under the 2019 SI redefinition. It arises in the quantum Hall effect, where the Hall resistance of a two-dimensional electron gas at low temperature and high magnetic field is quantised in integer fractions of R_K. Like the Josephson constant, R_K was used as a metrological reference before 2019, and is now exactly defined."
+    },
+    {
+      "user": "What is the atomic mass unit in kilograms?",
+      "context": "The unified atomic mass unit (symbol u, also called dalton, symbol Da) is defined as one-twelfth of the mass of a carbon-12 atom at rest in its ground state. Its value is 1.66053906660 \u00d7 10\u207b\u00b2\u2077 kilograms. This is approximately the mass of a single proton or neutron. The molar mass of carbon-12 is exactly 12 g/mol by definition of the unified atomic mass unit."
+    },
+    {
+      "user": "Going back to something we covered \u2014 you mentioned the Boltzmann constant earlier. How does it connect to the kelvin's current definition?",
+      "context": "Since the 2019 revision of the SI, the kelvin is defined by fixing the Boltzmann constant k_B at exactly 1.380649 \u00d7 10\u207b\u00b2\u00b3 J/K. One kelvin is thus the thermodynamic temperature change that corresponds to a thermal energy change of exactly 1.380649 \u00d7 10\u207b\u00b2\u00b3 joules per degree of freedom. This replaced the previous definition based on the triple point of water (273.16 K), which is now a measured quantity rather than a definition."
+    },
+    {
+      "user": "What is the triple point of water in kelvin and Celsius under the current SI?",
+      "context": "Under the 2019 SI revision, the triple point of water is no longer a defined value but a measured one. Its best measured value is 273.1600 K (0.0100 \u00b0C), consistent with the previous definition to within measurement uncertainty. The Celsius scale is still defined so that 0 \u00b0C = 273.15 K (i.e., the ice point at standard pressure), making the triple point approximately 0.01 \u00b0C."
+    },
+    {
+      "user": "What's the standard acceleration of gravity g?",
+      "context": "The standard acceleration of gravity, symbol g_n, is defined exactly as 9.80665 m/s\u00b2 by the International Bureau of Weights and Measures (BIPM). This is a conventional value representing a global average; actual surface gravitational acceleration varies from approximately 9.764 m/s\u00b2 near the equator to 9.863 m/s\u00b2 near the poles due to Earth's oblateness and rotation. The defined value g_n is used in the definitions of units such as the kilogram-force."
+    },
+    {
+      "user": "What is one atmosphere of pressure in pascals?",
+      "context": "One standard atmosphere (atm) is defined exactly as 101,325 pascals (Pa). The pascal is the SI derived unit of pressure, equal to one newton per square metre (N/m\u00b2). Standard atmosphere is commonly used as a reference pressure in chemistry and physics, distinct from the bar (100,000 Pa) and the torr (101,325/760 Pa \u2248 133.322 Pa)."
+    },
+    {
+      "user": "What is the numerical value of the speed of light in miles per second? Is that in your corpus?",
+      "context": "The speed of light in a vacuum is exactly 299,792,458 metres per second. One mile is defined as exactly 1,609.344 metres. No direct conversion of c to miles per second or miles per hour is listed in this passage; the corpus entry for the speed of light expresses the value only in SI units (m/s)."
+    },
+    {
+      "user": "What is the magnetic flux quantum?",
+      "context": "The magnetic flux quantum, symbol \u03a6\u2080, is the quantum of magnetic flux threading a superconducting loop. Its value is h/(2e) = 2.067833848 \u00d7 10\u207b\u00b9\u2075 Wb (webers), where h is Planck's constant and e is the elementary charge. It is the inverse of the Josephson constant: \u03a6\u2080 = 1/K_J. It plays a central role in superconductivity and the quantisation of magnetic flux in type-II superconductors."
+    },
+    {
+      "user": "What is the conductance quantum?",
+      "context": "The conductance quantum, symbol G\u2080, is the quantised unit of electrical conductance observed in quantum point contacts and mesoscopic conductors. Its value is 2e\u00b2/h = 7.748091729 \u00d7 10\u207b\u2075 siemens (S), or equivalently its inverse (the resistance quantum h/2e\u00b2) is approximately 12,906 \u03a9. Note this differs from the von Klitzing constant R_K = h/e\u00b2 \u2248 25,813 \u03a9 by a factor of two arising from spin degeneracy."
+    },
+    {
+      "user": "What is the Hartree energy in joules?",
+      "context": "The Hartree energy, symbol E_h, is the atomic unit of energy, equal to twice the ground-state ionisation energy of hydrogen in the Bohr model. Its value is 4.3597447222071 \u00d7 10\u207b\u00b9\u2078 joules, or equivalently 27.211386245988 eV. It is defined as E_h = m_e e\u2074/(4\u03c0\u03b5\u2080)\u00b2\u0127\u00b2 = \u03b1\u00b2m_e c\u00b2, and sets the energy scale for atomic and molecular calculations in quantum chemistry."
+    },
+    {
+      "user": "What's one electron-volt in joules?",
+      "context": "One electron-volt (eV) is the kinetic energy acquired by an electron accelerating through an electric potential difference of one volt in vacuum. Its value in SI units is 1.602176634 \u00d7 10\u207b\u00b9\u2079 joules (J), exactly equal to the elementary charge e expressed in coulombs, since 1 eV = e \u00d7 1 V = 1.602176634 \u00d7 10\u207b\u00b9\u2079 C \u00d7 1 V. It is widely used in atomic, nuclear, and particle physics."
+    },
+    {
+      "user": "I remember you told me once about the Fermi paradox and the Drake equation. In that context, does your corpus say anything about the luminosity of the Sun in watts?",
+      "context": "The luminosity of the Sun, symbol L\u2609, is approximately 3.828 \u00d7 10\u00b2\u2076 watts (W), adopted as a nominal solar luminosity by the International Astronomical Union (IAU) in 2015. It is the total radiated power output of the Sun across all wavelengths. Stellar luminosity is relevant to the Drake equation factor f_l (fraction of planets developing life) insofar as the habitable zone depends on stellar luminosity, which is governed by stellar structure physics."
+    },
+    {
+      "user": "What is the Wien displacement law constant?",
+      "context": "The Wien displacement law states that the peak wavelength of black-body radiation is inversely proportional to temperature: \u03bb_max = b/T. The Wien displacement constant, symbol b, has the value 2.897771955 \u00d7 10\u207b\u00b3 m\u00b7K. It is derived from fundamental constants: b = hc / (k_B \u00d7 x\u2080), where x\u2080 \u2248 4.965114 is the solution to the transcendental equation x = 5(1 \u2212 e\u207b\u02e3). Since h, c, and k_B are all fixed by definition, b is exactly determined."
+    },
+    {
+      "user": "Does your corpus have a value for the cosmological constant \u039b?",
+      "context": "The cosmological constant, symbol \u039b, was introduced by Einstein in his field equations of general relativity and is associated with the energy density of the vacuum (dark energy). Its observed value inferred from cosmological observations is approximately 1.089 \u00d7 10\u207b\u2075\u00b2 m\u207b\u00b2. However, this entry does not appear in the local physics-constants corpus; no value for \u039b is recorded in the retrieved context passage for this query."
+    },
+    {
+      "user": "What is the Faraday constant?",
+      "context": "The Faraday constant, symbol F, is the magnitude of electric charge per mole of elementary charges. Its value is F = N_A \u00d7 e = 96,485.33212 C/mol exactly, since both N_A and e are fixed by the 2019 SI redefinition. It appears in electrochemistry in Faraday's laws of electrolysis: the charge required to deposit or dissolve one mole of a monovalent ion is exactly F coulombs."
+    },
+    {
+      "user": "Earlier you confirmed that tungsten has the highest melting point of all metals. Is there a physics constant that determines the scale of atomic binding energies more generally?",
+      "context": "Atomic binding energies are set by the electromagnetic interaction strength, characterised by the fine-structure constant \u03b1 \u2248 1/137, and by the electron mass m_e and elementary charge e. The Hartree energy E_h = \u03b1\u00b2m_e c\u00b2 \u2248 27.2 eV provides the natural atomic energy scale. Metallic cohesive energies \u2014 which govern melting points \u2014 are typically a fraction of an eV per atom, much lower than the Hartree energy, reflecting the relatively weak delocalized bonding in metals compared to atomic ionisation."
+    },
+    {
+      "user": "Is there a value for the Hubble constant in your local corpus?",
+      "context": "The Hubble constant H\u2080 characterises the present-day expansion rate of the universe and is expressed in km/s/Mpc. Two leading measurement methods yield discrepant values: the Planck CMB-based measurement gives H\u2080 \u2248 67.4 km/s/Mpc, while the distance-ladder (Cepheid + Type Ia supernova) measurements give H\u2080 \u2248 73.0 km/s/Mpc. This discrepancy \u2014 known as the Hubble tension \u2014 is not resolved in the local corpus, and no single definitive value is recorded."
+    },
+    {
+      "user": "What is the reduced Compton wavelength of the electron?",
+      "context": "The reduced Compton wavelength of the electron, symbol \u019b_C = \u0127/(m_e c), has the value 3.8615926796 \u00d7 10\u207b\u00b9\u00b3 metres. The (unreduced) Compton wavelength \u03bb_C = h/(m_e c) = 2.42631023867 \u00d7 10\u207b\u00b9\u00b2 m. The Compton wavelength sets the scale at which quantum field effects become important for a particle; for the electron it marks the transition between the non-relativistic quantum and relativistic quantum regimes."
+    },
+    {
+      "user": "Does your corpus include the value of the proton charge radius from the 2022 CODATA adjustment?",
+      "context": "The proton charge radius, symbol r_p, has been the subject of considerable controversy due to a discrepancy between electron-scattering measurements (~0.88 fm) and the 2010 muonic hydrogen Lamb shift measurement (~0.84 fm). The CODATA 2018 recommended value is 0.8414 \u00d7 10\u207b\u00b9\u2075 m (0.8414 fm). A 2022 CODATA adjusted value is not present in this corpus passage."
+    },
+    {
+      "user": "Thinking back to our very first question today \u2014 you told me the speed of light is exactly 299,792,458 m/s. Why is it exact, and does your corpus explain that?",
+      "context": "The speed of light c is exactly 299,792,458 m/s because the metre is defined in terms of c: since 1983, one metre is defined as the distance light travels in vacuum in 1/299,792,458 of a second. The second is independently defined via the hyperfine transition frequency of caesium-133 (9,192,631,770 Hz). Fixing c numerically and defining the second precisely means no measurement uncertainty remains in c; it is a definition rather than a measurement outcome."
+    },
+    {
+      "user": "Lastly \u2014 is there a single corpus passage that lists all the 2018 CODATA recommended values in a table?",
+      "context": "The local corpus contains individual entries for each physical constant covered in this session but does not include a consolidated CODATA 2018 table passage. The individual constant entries are sourced from CODATA 2018 recommendations where applicable. A comprehensive machine-readable table of all CODATA 2018 values is available from the NIST website, which is outside this offline corpus."
+    }
+  ],
+  "script_id": 1
+}

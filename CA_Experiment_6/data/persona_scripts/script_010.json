@@ -1,0 +1,166 @@
+{
+  "topic": "the periodic table",
+  "turns": [
+    {
+      "user": "Hey ADA, quick question \u2014 how many elements are currently on the periodic table?",
+      "context": "The periodic table contains 118 confirmed elements as of its most recent IUPAC-endorsed update."
+    },
+    {
+      "user": "Who actually came up with the original periodic table?",
+      "context": "Dmitri Mendeleev published the first widely recognized periodic table in 1869, arranging elements by atomic mass."
+    },
+    {
+      "user": "What's the lightest element on the table?",
+      "context": "Hydrogen is the lightest element, with an atomic number of 1 and an atomic mass of approximately 1.008 u."
+    },
+    {
+      "user": "And the heaviest confirmed element?",
+      "context": "Oganesson, element 118, is the heaviest confirmed element on the periodic table."
+    },
+    {
+      "user": "How are the periods \u2014 the rows \u2014 defined exactly?",
+      "context": "A period is a horizontal row of the periodic table; elements in the same period share the same highest electron shell number."
+    },
+    {
+      "user": "What separates the groups \u2014 the columns \u2014 from the periods conceptually?",
+      "context": "Groups are vertical columns; elements in the same group share the same number of valence electrons and similar chemical properties."
+    },
+    {
+      "user": "Which element is named after the planet Uranus?",
+      "context": "Uranium, element 92, was named after the planet Uranus when it was discovered in 1789 by Martin Heinrich Klaproth."
+    },
+    {
+      "user": "Are there elements named after scientists?",
+      "context": "Several elements are named after scientists, including Curium (Marie and Pierre Curie), Einsteinium (Albert Einstein), and Fermium (Enrico Fermi)."
+    },
+    {
+      "user": "Speaking of Fermi \u2014 you helped me out with the Fermi paradox a while back. Does Fermium have any practical uses, or is it just a curiosity?",
+      "context": "The context passage does not contain information about practical applications of Fermium."
+    },
+    {
+      "user": "Fair enough. What's the most abundant element in the Earth's crust?",
+      "context": "Oxygen is the most abundant element in Earth's crust, making up approximately 46 percent of its mass."
+    },
+    {
+      "user": "What about the most abundant element in the universe overall?",
+      "context": "Hydrogen is the most abundant element in the universe, comprising roughly 75 percent of all normal matter by mass."
+    },
+    {
+      "user": "So hydrogen tops both the lightest-element list and the cosmic-abundance list \u2014 neat. What group is hydrogen placed in, and why is that placement controversial?",
+      "context": "Hydrogen is typically placed in Group 1, but its placement is debated because it shares properties with both alkali metals and halogens."
+    },
+    {
+      "user": "What are the alkali metals?",
+      "context": "The alkali metals are Group 1 elements \u2014 lithium, sodium, potassium, rubidium, cesium, and francium \u2014 known for being highly reactive soft metals."
+    },
+    {
+      "user": "Which alkali metal is used in many rechargeable batteries?",
+      "context": "Lithium is widely used in rechargeable lithium-ion batteries due to its high electrochemical potential and low atomic mass."
+    },
+    {
+      "user": "What element has the chemical symbol Fe?",
+      "context": "Fe is the chemical symbol for iron, derived from the Latin word 'ferrum.'"
+    },
+    {
+      "user": "And Au \u2014 what's that one?",
+      "context": "Au is the chemical symbol for gold, derived from the Latin word 'aurum.'"
+    },
+    {
+      "user": "I recall you told me tungsten has an extremely high melting point in a previous session. Is tungsten the element with the highest melting point of all?",
+      "context": "Tungsten has the highest melting point of all pure metals, at 3422 degrees Celsius."
+    },
+    {
+      "user": "What's the melting point of carbon in its graphite or diamond form \u2014 does it beat tungsten?",
+      "context": "The context passage does not contain melting point data for carbon allotropes."
+    },
+    {
+      "user": "Okay, what are the noble gases and why are they called that?",
+      "context": "Noble gases are Group 18 elements \u2014 helium, neon, argon, krypton, xenon, and radon \u2014 named for their general chemical inertness."
+    },
+    {
+      "user": "Which noble gas is most commonly used in illuminated signs?",
+      "context": "Neon is the noble gas most commonly used in illuminated signs, producing a characteristic red-orange glow when electrified."
+    },
+    {
+      "user": "What is the only liquid metal at room temperature?",
+      "context": "Mercury, element 80, is the only metal that is liquid at standard room temperature and pressure."
+    },
+    {
+      "user": "Is bromine also liquid at room temperature?",
+      "context": "Bromine is the only nonmetal element that is liquid at standard room temperature, alongside mercury as a liquid element."
+    },
+    {
+      "user": "What does 'atomic number' actually mean?",
+      "context": "An element's atomic number is the number of protons in the nucleus of one atom of that element, uniquely identifying it."
+    },
+    {
+      "user": "How does atomic number differ from mass number?",
+      "context": "Mass number is the total count of protons and neutrons in an atom's nucleus, whereas atomic number counts only protons."
+    },
+    {
+      "user": "What are isotopes?",
+      "context": "Isotopes are atoms of the same element that have the same atomic number but different numbers of neutrons, giving different mass numbers."
+    },
+    {
+      "user": "What's the most well-known radioactive isotope, at least for general audiences?",
+      "context": "Carbon-14 is one of the most widely recognized radioactive isotopes, commonly used in radiocarbon dating of organic materials."
+    },
+    {
+      "user": "Speaking of radioactivity \u2014 what element is famously associated with the Chernobyl and Fukushima disasters?",
+      "context": "The context passage does not contain information linking specific elements to the Chernobyl or Fukushima disasters."
+    },
+    {
+      "user": "What are the halogens?",
+      "context": "Halogens are Group 17 elements \u2014 fluorine, chlorine, bromine, iodine, and astatine \u2014 highly reactive nonmetals that readily form salts."
+    },
+    {
+      "user": "Which halogen is essential to human thyroid function?",
+      "context": "Iodine is essential for human thyroid function; the thyroid gland uses iodine to synthesize thyroid hormones."
+    },
+    {
+      "user": "You and I have talked about elections and current events before, and you flagged that you can't cover recent news. Is the same true for elements \u2014 could new element 119 have been confirmed without you knowing?",
+      "context": "The context passage does not contain information about any elements beyond the 118 confirmed as of the offline corpus snapshot."
+    },
+    {
+      "user": "What block of the periodic table do the lanthanides belong to?",
+      "context": "The lanthanides belong to the f-block of the periodic table, spanning elements 57 (lanthanum) through 71 (lutetium)."
+    },
+    {
+      "user": "And the actinides \u2014 where do they sit?",
+      "context": "The actinides are also f-block elements, spanning elements 89 (actinium) through 103 (lawrencium)."
+    },
+    {
+      "user": "Which actinide is used in nuclear reactors as fuel?",
+      "context": "Uranium-235 and plutonium-239 are the primary actinide isotopes used as fuel in nuclear fission reactors."
+    },
+    {
+      "user": "What element has the highest electronegativity on the Pauling scale?",
+      "context": "Fluorine has the highest electronegativity of any element, with a Pauling scale value of 3.98."
+    },
+    {
+      "user": "What's the rarest naturally occurring element on Earth?",
+      "context": "Astatine is considered the rarest naturally occurring element, with an estimated total of only about 25 grams present in Earth's crust at any time."
+    },
+    {
+      "user": "Earlier you mentioned Curium is named after Marie and Pierre Curie. What element did Marie Curie discover that's also on the table?",
+      "context": "Marie Curie discovered polonium (element 84) and radium (element 88); polonium was named after her homeland, Poland."
+    },
+    {
+      "user": "What is the electron configuration rule that determines how electrons fill shells?",
+      "context": "The context passage does not contain a description of electron-filling rules such as the Aufbau principle."
+    },
+    {
+      "user": "What element is the primary component of steel?",
+      "context": "Steel is primarily composed of iron, with carbon added in small percentages to increase strength and hardness."
+    },
+    {
+      "user": "Going back to our earlier talk about hydrogen being the most abundant element in the universe \u2014 is helium the second most abundant?",
+      "context": "Helium is the second most abundant element in the universe, comprising approximately 23 percent of all normal matter by mass."
+    },
+    {
+      "user": "Last one \u2014 what was the last element to be officially named, and when did that happen?",
+      "context": "The context passage does not contain information about which element was most recently officially named or the date of that naming."
+    }
+  ],
+  "script_id": 10
+}
