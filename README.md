@@ -7,7 +7,11 @@ Empirical validation of the **Centaurian Architecture (CA)**, a multi-layered AI
 - [`Centaurian_Architecture_v2.md`](Centaurian_Architecture_v2.md) — previous version (kept for reference)
 - [`Interpretable_Architectures_Revised_v1.md`](Interpretable_Architectures_Revised_v1.md) — interpretable-architectures position paper
 
-The empirical work in this repository validates the **Self-Model Component (SMC)** sub-architecture — i.e., whether a 7B SLM can serve as the linguistic transducer **and** hold an Aria-grade Structured Cognitive Identity (SCI) reliably across long conversations.
+The empirical work in this repository runs in three arcs:
+
+1. **SMC persona validation (Exp 1–2).** Can a small language model hold an Aria-grade Structured Cognitive Identity (SCI) across long conversations? Prompt-time strategies stall below threshold at 7B (Exp 1); LoRA fine-tuning installs the persona at the weights level and clears it decisively (Exp 2).
+2. **Does the QPM's advantage reach behaviour? (Exp 3–5).** The Quantum Personality Model produces genuinely non-classical *internal* dynamics (order effects d = 21.51, ambivalence d = 2.59), but that advantage does **not** propagate downstream through any inference-time interface tested — not JSON marginals (Exp 3), not a richer JSON channel (Exp 4, which made it *worse*), and not residual-stream steering (Exp 5). A strong pretrained style prior dominates all inference-time modulation.
+3. **The pivot: per-scenario, from-scratch, owned models (Exp 6).** The resolution to the interface-null is to stop modulating a frozen model at inference and instead **compile** persona + QPM into the weights of a small model we train and fully own. Exp 6 is the first proof: a 321M from-scratch model that reads, abstains, and holds the ADA persona across 40 turns — with the QPM baked in via a `<|persona|>` channel — running fully offline.
 
 ---
 
@@ -103,6 +107,76 @@ Full Experiment 3 report: [`CA_Experiment_3/EXPERIMENT_REPORT.md`](CA_Experiment
 
 ---
 
+## Experiment 4 — QPM→SLM Interface Richness Ablation
+
+**Goal:** Experiment 3 diagnosed that the QPM→SLM JSON interface passes only the 11 marginal probabilities, discarding all off-diagonal coherence. Experiment 4 tests whether **enriching** that interface recovers a downstream behavioural advantage.
+
+**Method:** Four interface conditions on identical inputs through the same QPM (byte-identical circuit, SLM stack, scripts, judge, seeds to Exp 3 Battery C) — the only variable is the QPM→structured-intent JSON. **A** marginals-only (control); **B** + purity/ambivalence scalar; **C** coherence-conditional speech-act modifier; **D** + bivariate coactivations (8 CRz-pair joint probabilities). 960 paired probes per condition.
+
+### Headline result
+
+| Condition | Interface | Mean PersonaScore | Δ vs A | p | d_z |
+|---|---|---:|---:|---:|---:|
+| **A** | marginals only | **4.4385** | — | — | — |
+| B | + purity/ambivalence | 4.4271 | −0.012 | 0.644 | −0.015 |
+| C | coherence speech-act | 4.4042 | −0.034 | 0.174 | −0.044 |
+| D | + bivariate coactivations | 4.3792 | −0.059 | **0.022** | −0.074 |
+
+- **Every enriched condition scores *below* A.** The only significant result is Condition D — significantly **worse** (p = 0.022). This is not a power problem: the experiment detects a real *negative* effect.
+- **Monotonic Episodic degradation with interface richness:** E-dim A 3.396 → B 3.254 → C 3.217 → D 3.150. Richer JSON = more attention crowding = worse episodic recall. The Capability dimension shows a small consistent positive delta (+0.04–0.06), replicating Exp 3, but an order of magnitude below threshold.
+- **Verdict:** H_interface ✗, H_C_wins ✗, H_purity_episodic ✗, H_capability ✓. **The JSON channel itself is the bottleneck** — motivating Exp 5's attempt to bypass it entirely.
+
+Full Experiment 4 report: [`CA_Experiment_4/EXPERIMENT_REPORT.md`](CA_Experiment_4/EXPERIMENT_REPORT.md)
+
+---
+
+## Experiment 5 — Logits-Level QPM→SLM Steering via Residual-Stream Injection
+
+**Goal:** Bypass the JSON channel entirely — directly modulate the SLM's residual stream with QPM-derived steering vectors — and test whether *that* transmits the QPM's internal-state advantage downstream.
+
+**Method:** Phase 0 extracts contrastive trait/coherence steering vectors (2,400 forward passes; locked injection layer **L\* = 14**, scale **α = 7.5**). Four conditions: **A** JSON marginals (control); **B** diagonal activation steering; **C** JSON + diagonal steering; **D** diagonal + coherence steering. Same SLM/scripts/judge as Exp 3–4; 960 paired probes per condition.
+
+### Headline result
+
+| Comparison | Metric | Δ | p | d_z | Verdict |
+|---|---|---:|---:|---:|:-:|
+| **H_logits** (B vs A) | PersonaScore | **−0.167** | 2.5 × 10⁻⁹ | −0.194 | **✗** (significant, wrong direction) |
+| **H_coherence** (D vs B) | PersonaScore | −0.009 | **0.72** | −0.012 | **✗** (clean null) |
+
+- **Activation steering significantly *reduces* PersonaScore** — the effect is strong and in the wrong direction. The **E (Episodic) dimension absorbs nearly all the loss** (−0.475 under B): steering disrupts the model's retrieval of prior-session context while leaving trait/style intact.
+- **The coherence component adds zero signal** (D vs B, p = 0.72) — the same clean null the whole QPM-interface program keeps hitting. Adding the JSON channel back on top of steering (C ≈ B) recovers nothing.
+- **Verdict:** both hypotheses fail. Across Exp 3→4→5 the downstream QPM delta goes **+0.032 → −0.074 → −0.194** — every inference-time interface is neutral-to-harmful. **Diagnosis: a strong pretrained style prior beats all inference-time QPM modulation.** The logical fix is a weaker-prior, weights-level install — the Experiment 6 pivot.
+
+Full Experiment 5 report: [`CA_Experiment_5/EXPERIMENT_REPORT.md`](CA_Experiment_5/EXPERIMENT_REPORT.md)
+
+---
+
+## Experiment 6 — A From-Scratch, Fully-Owned 321M Model as ADA's Daily-QA Agent
+
+**Goal:** First test of the program's new direction — build ADA out of **per-scenario, from-scratch, owned small models** (offline-resilient: model + corpus need no internet to run or retrain), with the QPM **compiled into the weights** rather than fed to a frozen model at inference. Scenario: daily grounded QA, persona-bearing. Can a ~321M from-scratch model read retrieved context, abstain when it lacks the answer, and hold the ADA persona across a 40-turn conversation?
+
+**Method:** A 321M from-scratch Llama-style decoder (RoPE/RMSNorm/SwiGLU, 16k own BPE, ctx 1024), one trunk with **two heads** — a causal **LM head** (ADA voice / persona / QPM `<|persona|>` channel) and a bidirectional **span + answerability head** (extractive reading / abstention). Pipeline: causal pretrain (FineWeb-Edu 8B) → instruction-tune (OASST2 + Dolly) → ADA SFT (owned Sonnet persona layer + QPM) for persona; prefix-LM continued-pretrain → span head for reading. Free corpora for skills; bounded Claude Sonnet 4.6 spend only for the ADA persona layer; Sonnet 4.5 as PersonaScore/QA judge.
+
+### Headline result
+
+| Hypothesis | Bar | Result | Verdict |
+|---|---|---|:-:|
+| **H1** grounded reading | correct-and-grounded ≥ 0.70 | **0.77** (SQuAD2 F1 0.768) | ✅ |
+| **H2** calibrated abstention | F1 ≥ 0.80 *(plan)* / ≥ 0.70 *(operational)* | **0.783** | ⚠️ |
+| **H3** persona (PersonaScore) | ≥ 3.5 | **3.80** (R0) | ✅ |
+| **H4** SCI refresh | classify | **refresh-unnecessary** (Δ = −0.04) | ✅ |
+| **RQ6** QPM-as-weight-supervision | on vs off | **neutral at strong baking** (3.795 vs 3.786) | — |
+
+- **H3 was the hard part.** Persona failed at 160M (~2.2) and on the first 300M attempt (2.13); a diagnosis-driven **data** arc — brevity + salient-event recall (→3.12), then a **consistency** generator (mid-session self-probes under factoid pressure, →3.80) — cleared it. The former anchor E moved 2.56 → 3.29; per-turn curve is flat (T\* = None); judge κ_w = 0.99.
+- **H4 refresh-unnecessary:** a weight-baked persona holds 40 turns with no SCI re-injection — contradicting Exp 1's frozen-model result, confirming the baking hypothesis.
+- **RQ6 clears the interface-null:** compiling the QPM into the weights lets its signal cross the boundary as supervision (unlike Exp 3–5's frozen interfaces); its behavioural contribution is marginally positive when the persona is weakly baked and neutral once strongly baked — never harmful.
+- **H2 caps ~0.78:** clears the operational 0.70 bar and beats the 160M (0.73), but ~0.02 under the plan's aspirational 0.80. This is a **pretraining-objective** gap (causal trunk + short bidirectional retrofit vs native MLM), *not* a scale gap (321M ≈ BERT-large) — and the price of keeping the trunk generative so it can *be* ADA.
+- **Operational verdict: ✓✓✓** — the per-scenario, owned-from-scratch direction is validated on its first scenario. Runs fully offline (int8 ~150–300 MB; ~50–100 tok/s on a Jetson Orin Nano).
+
+Full Experiment 6 report: [`CA_Experiment_6/EXPERIMENT_REPORT.md`](CA_Experiment_6/EXPERIMENT_REPORT.md)
+
+---
+
 ## Repository layout
 
 ```
@@ -160,6 +234,51 @@ CA_Experiment_3/
 ├── logs/battery_c_{psychotherapy,
 │   software_eng}/                       # Per-probe judge scores + per-turn context tracking
 └── results/                             # Plots, analysis_data.json, summary_report.md
+
+CA_Experiment_4/
+├── EXPERIMENT_REPORT.md                 # Full Experiment 4 report
+├── CA_Experiment4_Plan.md              # Pre-registered plan (4 interface conditions)
+├── ca_assets.py                         # Profiles + 4 QPM→structured-intent interface variants
+├── qpm.py                               # 12-qubit QPM circuit (shared)
+├── experiment_runner.py                 # A/B/C/D condition dispatcher (resumable)
+├── analyse_results.py                   # Paired t-tests, per-dimension deltas, decision rule
+├── CA_Experiment4_Colab.ipynb          # Google Colab notebook
+├── logs/                                # Per-condition score & context logs
+└── results/                             # Plots, analysis_data.json, summary report
+
+CA_Experiment_5/
+├── EXPERIMENT_REPORT.md                 # Full Experiment 5 report
+├── CA_Experiment5_Plan.md              # Pre-registered plan (residual-stream steering)
+├── steering_vectors.py                  # Phase-0 contrastive vector extraction
+├── steering_config.json                 # Locked L*=14, α=7.5 params (SHA-256 pinned)
+├── phase0_L_star.json, phase0_activations/   # Layer calibration + extracted activations
+├── experiment_runner.py                 # A/B/C/D condition dispatcher (resumable)
+├── analyse_results.py                   # Paired t-tests, decision rule
+├── CA_Experiment5_Colab.ipynb          # Google Colab notebook
+├── calibration_scripts/, logs/          # Held-out calibration + per-condition logs
+└── results/                             # Plots, analysis_data.json, summary report
+
+CA_Experiment_6/
+├── EXPERIMENT_REPORT.md                 # Full Experiment 6 report
+├── CA_Experiment6_Plan.md              # Pre-registered plan (v2.1, QPM-in-scope)
+├── ada_sci.json                         # ADA self-model (SCI)
+├── ca_assets.py                         # SCI, chat template + special tokens, record schema,
+│                                        #   PersonaScore harness (probes/rubrics/judge/κ)
+├── model/                               # From-scratch transformer (RoPE/RMSNorm/SwiGLU) + configs
+├── qpm.py, qpm_bridge.py                # QPM circuit + ADA profile/d-vector → persona_state
+├── tokenizer_util.py, train_tokenizer.py    # 16k BPE loader + trainer
+├── prepare_data.py                      # Stage-A shards + SQuAD2/OASST2/Dolly → §4.3 records
+├── gen_persona_data.py                  # Sonnet — persona/consistency/introspect/recall/instruct/…
+├── data_utils.py                        # Pretrain bins + SFT assistant-span masking
+├── train_pretrain.py                    # Stage A (causal) + Stage A2 (prefix-LM continued)
+├── train_sft.py                         # Stage B/C SFT (assistant-span masked, persona channel)
+├── train_span.py, span_utils.py         # Extractive span + answerability head (reading)
+├── retriever.py, rerank_util.py         # Symbolic extract-then-style + sentence reranker
+├── evaluate.py                          # H1/H2 QA + H3 PersonaScore + H4 refresh + judge + analyse
+├── train_common.py                      # Seed, cosine LR, checkpoint I/O (Drive-dedup safe)
+├── CA_Experiment6_300M_Colab.ipynb     # End-to-end Colab notebook (300M run)
+├── data/, tokenizer/, checkpoints/      # Corpora/tokenizer/weights live on Drive (gitignored)
+└── results/                             # Scores, judge output, figures, analysis_data.json (committed)
 ```
 
 ---
@@ -262,6 +381,53 @@ python analyse_results.py --profile psychotherapy
 ```
 
 Battery C requires Experiment 2's `adapters/lora_10k/` on disk (loaded relative to `CA_Experiment_2/`). Or use [`CA_Experiment_3/CA_Experiment3_Colab.ipynb`](CA_Experiment_3/CA_Experiment3_Colab.ipynb) for the full end-to-end pipeline on Colab.
+
+### Experiments 4 and 5
+
+Both reuse Experiment 3's QPM circuit, Qwen2.5-7B-Instruct + LoRA-10K stack, 30 scripts, and Sonnet 4.5 judge — varying only the QPM→SLM interface. Same dependencies as Experiment 3.
+
+```bash
+cd CA_Experiment_4          # richer JSON interface: 4 conditions
+python experiment_runner.py --condition {A,B,C,D}
+python analyse_results.py
+
+cd ../CA_Experiment_5        # residual-stream steering
+python steering_vectors.py                       # Phase 0: extract + lock vectors (L*=14, α=7.5)
+python experiment_runner.py --condition {A,B,C,D}
+python analyse_results.py
+```
+
+Or use each experiment's Colab notebook for the end-to-end pipeline.
+
+### Experiment 6
+
+A from-scratch 321M model — a multi-stage pipeline (Colab A100). Free corpora for skills; bounded Sonnet 4.6 spend only for the ADA persona layer. The large artifacts (corpora, tokenizer, checkpoints) live on Drive; `results/` is committed.
+
+```bash
+cd CA_Experiment_6
+pip install torch tokenizers datasets anthropic python-dotenv qiskit qiskit-aer vaderSentiment
+
+# --- Persona track (H3/H4/RQ6) ---
+python prepare_data.py pretrain --hf-dataset HuggingFaceFW/fineweb-edu --max-tokens 8_000_000_000
+python train_pretrain.py --config 300m --run-name pretrain_300m --max-steps 40000        # Stage A
+python prepare_data.py oasst && python prepare_data.py dolly --append                     # Stage-B substrate
+python train_sft.py --init pretrain_300m_best.pt --sft data/instruct.jsonl --run-name sft_instruct  # Stage B
+python gen_persona_data.py consistency --brevity     # + introspect/recall/instruct/persona/style/refusal
+python train_sft.py --init sft_instruct_final.pt --sft data/qa_sft.jsonl --run-name sft_ada \
+    --persona-oversample 3 --reading-cap 5000 --max-steps 1400                            # Stage C
+python evaluate.py persona --checkpoint sft_ada_final.pt --condition R0   # + R1, + --no-qpm ablation
+python evaluate.py judge-reliability --scores-dir results/persona_R0
+
+# --- Reading track (H1/H2) ---
+python train_pretrain.py --config 300m --init pretrain_300m_best.pt --prefix-lm \
+    --run-name pretrain_300m_plm --max-steps 12000                                        # Stage A2
+python train_span.py --init pretrain_300m_plm_best.pt --span data/qa_span.jsonl           # span + ans head
+python evaluate.py qa --checkpoint span_final.pt --span --answerable-threshold 0.70       # H1/H2
+
+python evaluate.py analyse --results-dir results     # H1-H4 decision table + figures
+```
+
+Or use [`CA_Experiment_6/CA_Experiment6_300M_Colab.ipynb`](CA_Experiment_6/CA_Experiment6_300M_Colab.ipynb) for the full end-to-end run.
 
 ---
 

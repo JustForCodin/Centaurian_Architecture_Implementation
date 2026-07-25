@@ -18,7 +18,8 @@ CA_Experiment_3/results/
 CA_Experiment_3/__pycache__/
 .venv/
 
-# CA Experiment 6: generated artifacts (corpora, weights, tokenizer, results) live on Drive
+# CA Experiment 6: large generated artifacts (corpora, weights, tokenizer) live on Drive.
+# results/ IS committed (scores, judge output, figures, analysis_data.json — 3.5M text/png).
 CA_Experiment_6/data/pretrain/
 CA_Experiment_6/data/qa_sft.jsonl
 CA_Experiment_6/data/eval_answerable.jsonl
@@ -27,4 +28,3 @@ CA_Experiment_6/data/persona_scripts/
 CA_Experiment_6/data/raw_sonnet/
 CA_Experiment_6/tokenizer/*.json
 CA_Experiment_6/checkpoints/
-CA_Experiment_6/results/

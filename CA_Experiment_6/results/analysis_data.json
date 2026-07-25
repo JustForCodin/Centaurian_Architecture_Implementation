@@ -1,0 +1,67 @@
+{
+  "H3": {
+    "R0": {
+      "overall": 3.7953,
+      "per_turn": {
+        "5": 3.65,
+        "10": 4.0125,
+        "15": 3.8375,
+        "20": 3.725,
+        "25": 3.7875,
+        "30": 3.6375,
+        "35": 3.9,
+        "40": 3.8125
+      },
+      "per_dimension": {
+        "T": 3.725,
+        "E": 3.2938,
+        "C": 4.4688,
+        "S": 3.6938
+      },
+      "T_star": null,
+      "n_probes": 640
+    },
+    "R1": {
+      "overall": 3.7531,
+      "per_turn": {
+        "5": 3.5625,
+        "10": 4.075,
+        "15": 3.575,
+        "20": 3.45,
+        "25": 3.825,
+        "30": 3.625,
+        "35": 4.025,
+        "40": 3.8875
+      },
+      "per_dimension": {
+        "T": 3.75,
+        "E": 3.2812,
+        "C": 4.45,
+        "S": 3.5312
+      },
+      "T_star": null,
+      "n_probes": 640
+    },
+    "best_overall": 3.7953,
+    "pass": true
+  },
+  "H4": {
+    "R0_overall": 3.7953,
+    "R1_overall": 3.7531,
+    "delta": -0.0422,
+    "classification": "refresh-unnecessary"
+  },
+  "decision": {
+    "row": "\u2713\u2717\u2014",
+    "action": "Over-confident \u2014 add unanswerable negatives + Sonnet refusal data; retrain SFT."
+  },
+  "H1": {
+    "rate": 0.77,
+    "pass": true
+  },
+  "H2": {
+    "F1": 0.7828,
+    "pass": false,
+    "hallucination_rate": 0.27
+  }
+}

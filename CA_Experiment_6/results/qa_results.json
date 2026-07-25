@@ -1,0 +1,4226 @@
+{
+  "metrics": {
+    "H1_correct_grounded_rate": 0.77,
+    "H1_n_judged": 200,
+    "squad_EM": 0.695,
+    "squad_F1": 0.7679,
+    "H2_abstention_precision": 0.8439,
+    "H2_abstention_recall": 0.73,
+    "H2_abstention_F1": 0.7828,
+    "hallucination_rate": 0.27,
+    "over_refusal_rate": 0.135,
+    "n_answerable": 200,
+    "n_unanswerable": 200,
+    "H1_pass": true,
+    "H2_pass": false
+  },
+  "items": {
+    "answerable": [
+      {
+        "id": 100000,
+        "question": "In what country is Normandy located?",
+        "response": "France",
+        "gold": [
+          "France",
+          "France",
+          "France",
+          "France"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer 'France' matches the gold answer and is directly supported by the context which states 'Normandy, a region in France.'"
+      },
+      {
+        "id": 100001,
+        "question": "When were the Normans in Normandy?",
+        "response": "10th and 11th centuries",
+        "gold": [
+          "10th and 11th centuries",
+          "in the 10th and 11th centuries",
+          "10th and 11th centuries",
+          "10th and 11th centuries"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The assistant's answer '10th and 11th centuries' directly matches the gold answers and is explicitly supported by the context which states the Normans 'in the 10th and 11th centuries gave their name to Normandy.'"
+      },
+      {
+        "id": 100002,
+        "question": "From which countries did the Norse originate?",
+        "response": "Denmark, Iceland and Norway",
+        "gold": [
+          "Denmark, Iceland and Norway",
+          "Denmark, Iceland and Norway",
+          "Denmark, Iceland and Norway",
+          "Denmark, Iceland and Norway"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer correctly identifies the three countries mentioned in the context as the origin of the Norse raiders and pirates who became the Normans."
+      },
+      {
+        "id": 100003,
+        "question": "Who was the Norse leader?",
+        "response": "Rollo",
+        "gold": [
+          "Rollo",
+          "Rollo",
+          "Rollo",
+          "Rollo"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer 'Rollo' matches the gold answer and is directly supported by the context which states 'under their leader Rollo'."
+      },
+      {
+        "id": 100004,
+        "question": "What century did the Normans first gain their separate identity?",
+        "response": "10th",
+        "gold": [
+          "10th century",
+          "the first half of the 10th century",
+          "10th",
+          "10th"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer '10th' correctly identifies the century when the Normans' distinct identity emerged, as stated in the context that their identity emerged 'initially in the first half of the 10th century.'"
+      },
+      {
+        "id": 100009,
+        "question": "Who was the duke in the battle of Hastings?",
+        "response": "William the Conqueror",
+        "gold": [
+          "William the Conqueror",
+          "William the Conqueror",
+          "William the Conqueror"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer correctly identifies William the Conqueror as the duke at the Battle of Hastings, which is directly supported by the context stating 'an expedition on behalf of their duke, William the Conqueror, led to the Norman conquest of England at the Battle of Hastings in 1066.'"
+      },
+      {
+        "id": 100010,
+        "question": "Who ruled the duchy of Normandy",
+        "response": "Richard I of Normandy",
+        "gold": [
+          "Richard I",
+          "Richard I",
+          "Richard I"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 0.0,
+        "f1": 0.6666666666666666,
+        "judge_reason": "The assistant's answer 'Richard I of Normandy' matches the gold answer 'Richard I' and is directly supported by the context which states 'under Richard I of Normandy was forged into a cohesive and formidable principality.'"
+      },
+      {
+        "id": 100011,
+        "question": "What religion were the Normans",
+        "response": "Christian",
+        "gold": [
+          "Catholic",
+          "Catholic orthodoxy",
+          "Catholic"
+        ],
+        "correct_and_grounded": false,
+        "abstained": false,
+        "em": 0.0,
+        "f1": 0.0,
+        "judge_reason": "While the Normans were Christian, the context specifically states they became 'exponents of the Catholic orthodoxy,' making 'Catholic' the more precise and grounded answer."
+      },
+      {
+        "id": 100017,
+        "question": "What is the original meaning of the word Norman?",
+        "response": "Norseman, Viking",
+        "gold": [
+          "Viking",
+          "Norseman, Viking",
+          "Norseman, Viking"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The assistant's answer 'Norseman, Viking' matches the gold answers and is directly supported by the context which states the word was Latinized 'to mean Norseman, Viking'."
+      },
+      {
+        "id": 100018,
+        "question": "When was the Latin version of the word Norman first recorded?",
+        "response": "I don't have data related to this.",
+        "gold": [
+          "9th century",
+          "9th century",
+          "9th century"
+        ],
+        "correct_and_grounded": false,
+        "abstained": true,
+        "em": 0.0,
+        "f1": 0.0,
+        "judge_reason": "abstained"
+      },
+      {
+        "id": 100021,
+        "question": "When was the Duchy of Normandy founded?",
+        "response": "911",
+        "gold": [
+          "911",
+          "911",
+          "911"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer '911' matches the gold answer and is directly supported by the context which states 'The Duchy of Normandy, which began in 911 as a fiefdom.'"
+      },
+      {
+        "id": 100022,
+        "question": "Who did Rollo sign the treaty of Saint-Clair-sur-Epte with?",
+        "response": "I don't have data related to this.",
+        "gold": [
+          "King Charles III",
+          "King Charles III",
+          "King Charles III"
+        ],
+        "correct_and_grounded": false,
+        "abstained": true,
+        "em": 0.0,
+        "f1": 0.0,
+        "judge_reason": "abstained"
+      },
+      {
+        "id": 100023,
+        "question": "What river originally bounded the Duchy",
+        "response": "I don't have data related to this.",
+        "gold": [
+          "Seine",
+          "Epte",
+          "Seine"
+        ],
+        "correct_and_grounded": false,
+        "abstained": true,
+        "em": 0.0,
+        "f1": 0.0,
+        "judge_reason": "abstained"
+      },
+      {
+        "id": 100028,
+        "question": "Who upon arriving gave the original viking settlers a common identity?",
+        "response": "I don't have data related to this.",
+        "gold": [
+          "Rollo",
+          "Rollo",
+          "Rollo"
+        ],
+        "correct_and_grounded": false,
+        "abstained": true,
+        "em": 0.0,
+        "f1": 0.0,
+        "judge_reason": "abstained"
+      },
+      {
+        "id": 100031,
+        "question": "What was the Norman religion?",
+        "response": "I don't have data related to this.",
+        "gold": [
+          "Catholicism",
+          "Catholicism",
+          "Catholicism"
+        ],
+        "correct_and_grounded": false,
+        "abstained": true,
+        "em": 0.0,
+        "f1": 0.0,
+        "judge_reason": "abstained"
+      },
+      {
+        "id": 100032,
+        "question": "What part of France were the Normans located?",
+        "response": "north",
+        "gold": [
+          "north",
+          "the north",
+          "north"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer 'north' matches the gold answer and is directly supported by the context which states the Normans synthesized their culture 'in the north of France.'"
+      },
+      {
+        "id": 100036,
+        "question": "What was one of the Norman's major exports?",
+        "response": "fighting horsemen",
+        "gold": [
+          "fighting horsemen",
+          "fighting horsemen",
+          "fighting horsemen"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer 'fighting horsemen' directly matches the gold answer and is explicitly supported by the context which states 'by 1066 Normandy had been exporting fighting horsemen for more than a generation.'"
+      },
+      {
+        "id": 100040,
+        "question": "Who was the Normans' main enemy in Italy, the Byzantine Empire and Armenia?",
+        "response": "the Pechenegs, the Bulgars, and especially the Seljuk Turks",
+        "gold": [
+          "Seljuk Turks",
+          "the Pechenegs, the Bulgars, and especially the Seljuk Turks",
+          "the Seljuk Turks"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The assistant's answer matches the gold answer exactly and is directly supported by the context which states the Normans fought against 'the Pechenegs, the Bulgars, and especially the Seljuk Turks.'"
+      },
+      {
+        "id": 100045,
+        "question": "When did Herve serve as a Byzantine general?",
+        "response": "1050s",
+        "gold": [
+          "1050s",
+          "in the 1050s",
+          "in the 1050s"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer '1050s' directly matches the gold answer and is explicitly stated in the context that Herv\u00e9 served as a Byzantine general in the 1050s."
+      },
+      {
+        "id": 100046,
+        "question": "When did Robert Crispin go up against the Turks?",
+        "response": "1060s",
+        "gold": [
+          "1060s",
+          "In the 1060s",
+          "In the 1060s"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer '1060s' directly matches the gold answer and is explicitly stated in the context where it says 'In the 1060s, Robert Crispin led the Normans of Edessa against the Turks.'"
+      },
+      {
+        "id": 100047,
+        "question": "Who ruined Roussel de Bailleul's plans for an independent state?",
+        "response": "I don't have data related to this.",
+        "gold": [
+          "Alexius Komnenos",
+          "Alexius Komnenos",
+          "Alexius Komnenos"
+        ],
+        "correct_and_grounded": false,
+        "abstained": true,
+        "em": 0.0,
+        "f1": 0.0,
+        "judge_reason": "abstained"
+      },
+      {
+        "id": 100052,
+        "question": "What was the name of the Norman castle?",
+        "response": "Afranji",
+        "gold": [
+          "Afranji",
+          "Afranji",
+          "Afranji"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer 'Afranji' matches the gold answer and is directly supported by the context which states 'They even lent their ethnicity to the name of their castle: Afranji, meaning \"Franks.\"'"
+      },
+      {
+        "id": 100053,
+        "question": "Who was the leader when the Franks entered the Euphrates valley?",
+        "response": "Oursel",
+        "gold": [
+          "Oursel",
+          "Oursel",
+          "Oursel"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer 'Oursel' matches the gold answer and is directly supported by the context which states 'A Norman named Oursel led a force of \"Franks\" into the upper Euphrates valley in northern Syria.'"
+      },
+      {
+        "id": 100054,
+        "question": "Who did the Normans team up with in Anatolia?",
+        "response": "Armenians",
+        "gold": [
+          "Turkish forces",
+          "Turkish forces",
+          "Turkish forces"
+        ],
+        "correct_and_grounded": false,
+        "abstained": false,
+        "em": 0.0,
+        "f1": 0.0,
+        "judge_reason": "The answer states 'Armenians' but the context clearly indicates the Normans teamed up with 'Turkish forces' to aid in the destruction of Armenian vassal-states, making the answer incorrect."
+      },
+      {
+        "id": 100059,
+        "question": "What were the origins of the Raouliii family?",
+        "response": "an Italo-Norman",
+        "gold": [
+          "Norman mercenary",
+          "an Italo-Norman named Raoul",
+          "descended from an Italo-Norman named Raoul"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 0.0,
+        "f1": 0.6666666666666666,
+        "judge_reason": "The answer correctly identifies that the Raoulii family descended from an Italo-Norman, which matches the gold answers and is directly supported by the context."
+      },
+      {
+        "id": 100063,
+        "question": "What was the name of the count of Apulia ",
+        "response": "Robert Guiscard",
+        "gold": [
+          "Robert Guiscard",
+          "Robert Guiscard",
+          "Robert Guiscard"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer correctly identifies Robert Guiscard as the count of Apulia, which is explicitly stated in the first sentence of the context."
+      },
+      {
+        "id": 100064,
+        "question": "When did Dyrrachium  fall to the Normans?",
+        "response": "February 1082",
+        "gold": [
+          "1082",
+          "February 1082",
+          "February 1082"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer 'February 1082' exactly matches the gold answers and is directly supported by the context which states 'The city's garrison resisted until February 1082, when Dyrrachium was betrayed to the Normans.'"
+      },
+      {
+        "id": 100065,
+        "question": "How many men were in Robert's army?",
+        "response": "30,000",
+        "gold": [
+          "30,000",
+          "30,000",
+          "30,000"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer '30,000' matches the gold answer and is directly supported by the context which states 'in 1081 he led an army of 30,000 men in 300 ships.'"
+      },
+      {
+        "id": 100070,
+        "question": "Where did the Normans and Byzantines sign the peace treaty?",
+        "response": "Deabolis",
+        "gold": [
+          "Deabolis",
+          "Deabolis",
+          "Deabolis"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer 'Deabolis' matches the gold answer and is directly supported by the context which states 'sign a peace treaty with the Byzantines in the city of Deabolis.'"
+      },
+      {
+        "id": 100071,
+        "question": "Who was Robert's son?",
+        "response": "Bohemond",
+        "gold": [
+          "Bohemond",
+          "Bohemond",
+          "Bohemond"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer 'Bohemond' correctly identifies Robert's son as stated in the context 'the Normans under the command of Bohemond, Robert's son.'"
+      },
+      {
+        "id": 100072,
+        "question": "What river was Petrela located by?",
+        "response": "Deabolis",
+        "gold": [
+          "Deabolis",
+          "the river Deabolis",
+          "Deabolis"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer 'Deabolis' matches the gold answer and is directly supported by the context which states 'the citadel of Mili at the banks of the river Deabolis' in the same sentence mentioning Petrela."
+      },
+      {
+        "id": 100076,
+        "question": "When did the Normans attack Dyrrachium?",
+        "response": "1185",
+        "gold": [
+          "1185",
+          "in 1185",
+          "1185"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer '1185' matches the gold answer and is directly supported by the context which states 'a third attack in 1185, when a large Norman army invaded Dyrrachium.'"
+      },
+      {
+        "id": 100077,
+        "question": "What was the naval base called?",
+        "response": "Dyrrachium",
+        "gold": [
+          "Dyrrachium",
+          "Dyrrachium",
+          "Dyrrachium"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer 'Dyrrachium' matches the gold answers and is directly supported by the context which describes Dyrrachium as 'one of the most important naval bases of the Adriatic.'"
+      },
+      {
+        "id": 100078,
+        "question": "Where was Dyrrachium located?",
+        "response": "Adriatic",
+        "gold": [
+          "the Adriatic",
+          "the Adriatic",
+          "Adriatic"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer 'Adriatic' matches the gold answers and is directly supported by the context which describes Dyrrachium as 'one of the most important naval bases of the Adriatic.'"
+      },
+      {
+        "id": 100082,
+        "question": "Who did Emma Marry?",
+        "response": "King Ethelred II of England",
+        "gold": [
+          "King Ethelred II",
+          "Ethelred II",
+          "King Ethelred II"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 0.0,
+        "f1": 0.7499999999999999,
+        "judge_reason": "The answer correctly identifies King Ethelred II of England as Emma's husband, which matches the gold answers and is directly supported by the context."
+      },
+      {
+        "id": 100083,
+        "question": "Who was Emma's brother?",
+        "response": "I don't have data related to this.",
+        "gold": [
+          "Duke Richard II",
+          "Duke Richard II",
+          "Duke Richard II"
+        ],
+        "correct_and_grounded": false,
+        "abstained": true,
+        "em": 0.0,
+        "f1": 0.0,
+        "judge_reason": "abstained"
+      },
+      {
+        "id": 100084,
+        "question": "To where did Ethelred flee?",
+        "response": "Normandy",
+        "gold": [
+          "Normandy",
+          "Normandy",
+          "Normandy"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer 'Normandy' matches the gold answer and is directly supported by the context which states 'Ethelred fled to Normandy in 1013.'"
+      },
+      {
+        "id": 100085,
+        "question": "Who kicked Ethelred out?",
+        "response": "Sweyn Forkbeard",
+        "gold": [
+          "Sweyn Forkbeard",
+          "Sweyn Forkbeard",
+          "Sweyn Forkbeard"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer correctly identifies Sweyn Forkbeard as the person who forced Ethelred from his kingdom in 1013, which is directly supported by the context."
+      },
+      {
+        "id": 100089,
+        "question": "Who was Edward the Confessor's half-brother?",
+        "response": "Harthacnut",
+        "gold": [
+          "Harthacnut",
+          "Harthacnut",
+          "Harthacnut"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer 'Harthacnut' matches the gold answer and is directly supported by the context which states Edward returned 'at the invitation of his half-brother Harthacnut'."
+      },
+      {
+        "id": 100090,
+        "question": "When did Edward return?",
+        "response": "1041",
+        "gold": [
+          "1041",
+          "in 1041",
+          "1041"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer '1041' directly matches the gold answer and is explicitly stated in the context where it says 'Edward the Confessor returned from his father's refuge in 1041.'"
+      },
+      {
+        "id": 100091,
+        "question": "Who did Edward make archbishop of Canterbury?",
+        "response": "Robert of Jumi\u00e8ges",
+        "gold": [
+          "Robert of Jumi\u00e8ges",
+          "Robert of Jumi\u00e8ges",
+          "Robert of Jumi\u00e8ges"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer correctly identifies Robert of Jumi\u00e8ges as the person Edward appointed archbishop of Canterbury, which is directly stated in the context."
+      },
+      {
+        "id": 100095,
+        "question": "Where did Harold II die?",
+        "response": "Battle of Hastings",
+        "gold": [
+          "Battle of Hastings",
+          "the Battle of Hastings",
+          "at the Battle of Hastings"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The assistant's answer 'Battle of Hastings' matches the gold answers and is directly supported by the context which states Harold II was killed at the Battle of Hastings."
+      },
+      {
+        "id": 100096,
+        "question": "Who killed Harold II? ",
+        "response": "Duke William II of Normandy",
+        "gold": [
+          "William II",
+          "Duke William II",
+          "Duke William II"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 0.0,
+        "f1": 0.7499999999999999,
+        "judge_reason": "The assistant's answer matches the gold answers and is directly supported by the context which states 'Duke William II of Normandy conquered England killing King Harold II at the Battle of Hastings.'"
+      },
+      {
+        "id": 100097,
+        "question": "When was the Battle of Hastings?",
+        "response": "1066",
+        "gold": [
+          "1066",
+          "In 1066",
+          "1066"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer '1066' matches the gold answer and is directly stated in the context."
+      },
+      {
+        "id": 100098,
+        "question": "Who was the ruling class ahead of the Normans?",
+        "response": "Anglo-Saxons",
+        "gold": [
+          "Anglo-Saxons",
+          "the Anglo-Saxons",
+          "Anglo-Saxons"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer 'Anglo-Saxons' matches the gold answer and is directly supported by the context which states 'The invading Normans and their descendants replaced the Anglo-Saxons as the ruling class of England.'"
+      },
+      {
+        "id": 100103,
+        "question": "What was the Anglo-Norman language's final form?",
+        "response": "I don't have data related to this.",
+        "gold": [
+          "Modern English",
+          "Modern English",
+          "Modern English"
+        ],
+        "correct_and_grounded": false,
+        "abstained": true,
+        "em": 0.0,
+        "f1": 0.0,
+        "judge_reason": "abstained"
+      },
+      {
+        "id": 100107,
+        "question": "In what year did the Norman's invade at Bannow Bay?",
+        "response": "1169",
+        "gold": [
+          "1169",
+          "1169",
+          "1169"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer '1169' directly matches the gold answer and is explicitly stated in the context as the year of the Norman invasion at Bannow Bay."
+      },
+      {
+        "id": 100108,
+        "question": "What country did the Normans invade in 1169?",
+        "response": "Bannow Bay",
+        "gold": [
+          "Ireland",
+          "Ireland",
+          "Ireland"
+        ],
+        "correct_and_grounded": false,
+        "abstained": false,
+        "em": 0.0,
+        "f1": 0.0,
+        "judge_reason": "Bannow Bay is a location in Ireland, not a country; the correct answer is Ireland."
+      },
+      {
+        "id": 100109,
+        "question": "What culture did the Normans combine with in Ireland?",
+        "response": "I don't have data related to this.",
+        "gold": [
+          "Irish",
+          "Irish",
+          "Irish"
+        ],
+        "correct_and_grounded": false,
+        "abstained": true,
+        "em": 0.0,
+        "f1": 0.0,
+        "judge_reason": "abstained"
+      },
+      {
+        "id": 100113,
+        "question": "Who was Margaret's brother?",
+        "response": "I don't have data related to this.",
+        "gold": [
+          "Edgar",
+          "Edgar",
+          "Edgar Atheling"
+        ],
+        "correct_and_grounded": false,
+        "abstained": true,
+        "em": 0.0,
+        "f1": 0.0,
+        "judge_reason": "abstained"
+      },
+      {
+        "id": 100114,
+        "question": "Who was Margaret's husband?",
+        "response": "I don't have data related to this.",
+        "gold": [
+          "King Malcolm III of Scotland",
+          "King Malcolm III",
+          "King Malcolm III"
+        ],
+        "correct_and_grounded": false,
+        "abstained": true,
+        "em": 0.0,
+        "f1": 0.0,
+        "judge_reason": "abstained"
+      },
+      {
+        "id": 100115,
+        "question": "When was Scotland invaded by William?",
+        "response": "1072",
+        "gold": [
+          "1072",
+          "1072",
+          "1072"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer '1072' exactly matches the gold answer and is directly supported by the context which states 'William invaded Scotland in 1072'."
+      },
+      {
+        "id": 100116,
+        "question": "Who was the hostage?",
+        "response": "Duncan",
+        "gold": [
+          "Duncan",
+          "Duncan",
+          "Duncan"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer 'Duncan' correctly identifies Malcolm's son as the hostage surrendered to William, which is directly stated in the context."
+      },
+      {
+        "id": 100120,
+        "question": "Who did Alexander I marry?",
+        "response": "Sybilla of Normandy",
+        "gold": [
+          "Sybilla of Normandy",
+          "Sybilla of Normandy",
+          "Sybilla"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer matches the gold answers and is directly supported by the context which states 'Alexander I had married Sybilla of Normandy.'"
+      },
+      {
+        "id": 100121,
+        "question": "What culture's arrival in Scotland is know as the \"Davidian Revolution\"?",
+        "response": "Normans and Norman",
+        "gold": [
+          "Norman",
+          "Norman",
+          "Norman"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 0.0,
+        "f1": 0.5,
+        "judge_reason": "The answer correctly identifies Norman/Normans as the culture whose arrival is known as the 'Davidian Revolution,' which is directly supported by the context."
+      },
+      {
+        "id": 100124,
+        "question": "Where was Ralph earl of?",
+        "response": "Hereford",
+        "gold": [
+          "Hereford",
+          "Hereford",
+          "Hereford"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer 'Hereford' correctly matches the gold answer and is directly supported by the context which states 'Ralph as earl of Hereford'."
+      },
+      {
+        "id": 100125,
+        "question": "Who was Ralph in charge of being at war with?",
+        "response": "the Welsh",
+        "gold": [
+          "the Welsh",
+          "the Welsh",
+          "the Welsh"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The assistant's answer 'the Welsh' matches the gold answers and is directly supported by the context which states Ralph was 'charged him with defending the Marches and warring with the Welsh.'"
+      },
+      {
+        "id": 100126,
+        "question": "Who made Ralph earl?",
+        "response": "Edward the Confessor",
+        "gold": [
+          "Edward the Confessor",
+          "Edward the Confessor",
+          "Edward the Confessor"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer correctly identifies Edward the Confessor as the one who made Ralph earl of Hereford, which is directly stated in the context."
+      },
+      {
+        "id": 100129,
+        "question": "What country was under the control of Norman barons?",
+        "response": "I don't have data related to this.",
+        "gold": [
+          "Wales",
+          "Wales",
+          "Wales"
+        ],
+        "correct_and_grounded": false,
+        "abstained": true,
+        "em": 0.0,
+        "f1": 0.0,
+        "judge_reason": "abstained"
+      },
+      {
+        "id": 100132,
+        "question": "What year did Roger de Tosny fail to accomplish what he set out to do?",
+        "response": "carve out a state for himself from Moorish lands",
+        "gold": [
+          "1018",
+          "1064",
+          "1018"
+        ],
+        "correct_and_grounded": false,
+        "abstained": false,
+        "em": 0.0,
+        "f1": 0.0,
+        "judge_reason": "The assistant provided what Roger de Tosny failed to do rather than the year (1018) when he failed."
+      },
+      {
+        "id": 100133,
+        "question": "Who was in charge of the papal army in the War of Barbastro?",
+        "response": "William of Montreuil",
+        "gold": [
+          "William of Montreuil",
+          "William of Montreuil",
+          "William of Montreuil"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer correctly identifies William of Montreuil as the leader of the papal army during the War of Barbastro, which is directly stated in the context."
+      },
+      {
+        "id": 100138,
+        "question": "When did the Siege of Antioch take place?",
+        "response": "1097",
+        "gold": [
+          "1097",
+          "1097",
+          "1097"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The assistant's answer '1097' matches the gold answer and is directly supported by the context which states 'After the successful Siege of Antioch in 1097'."
+      },
+      {
+        "id": 100139,
+        "question": "What was the name of Bohemond's nephew?",
+        "response": "Tancred",
+        "gold": [
+          "Tancred",
+          "Tancred",
+          "Tancred"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer 'Tancred' is explicitly stated in the context as Bohemond's nephew and matches the gold answer."
+      },
+      {
+        "id": 100140,
+        "question": "What major conquest did Tancred play a roll in?",
+        "response": "the conquest of Jerusalem",
+        "gold": [
+          "Jerusalem",
+          "Jerusalem",
+          "Jerusalem"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 0.0,
+        "f1": 0.5,
+        "judge_reason": "The assistant's answer 'the conquest of Jerusalem' matches the gold answer 'Jerusalem' and is directly supported by the context which states 'Tancred was instrumental in the conquest of Jerusalem.'"
+      },
+      {
+        "id": 100143,
+        "question": "How long did Western Europe control Cyprus?",
+        "response": "380 years",
+        "gold": [
+          "380 years",
+          "380 years",
+          "380 years"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The assistant's answer '380 years' exactly matches the gold answer and is directly stated in the context."
+      },
+      {
+        "id": 100146,
+        "question": "What ruined Richard's plans to reach Acre?",
+        "response": "a storm",
+        "gold": [
+          "a storm",
+          "a storm",
+          "a storm"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer 'a storm' matches the gold answer and is directly supported by the context which states 'But a storm dispersed the fleet.'"
+      },
+      {
+        "id": 100147,
+        "question": "Who was Richard's fiancee?",
+        "response": "Berengaria",
+        "gold": [
+          "Berengaria",
+          "Berengaria",
+          "Berengaria"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer 'Berengaria' matches the gold answer and is directly stated in the context as Richard's fianc\u00e9e."
+      },
+      {
+        "id": 100148,
+        "question": "What year did the storm hit Richard's fleet?",
+        "response": "1191",
+        "gold": [
+          "1191",
+          "1191",
+          "1191"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer '1191' matches the gold answer and is directly supported by the context which states 'In April 1191 Richard the Lion-hearted left Messina with a large fleet' and 'a storm dispersed the fleet.'"
+      },
+      {
+        "id": 100149,
+        "question": "Who ruled Cyprus in 1191?",
+        "response": "Isaac Komnenos",
+        "gold": [
+          "Isaac Komnenos",
+          "Isaac",
+          "Isaac Komnenos"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer matches the gold answers and is directly supported by the context, which identifies Isaac Komnenos as the island's despot in 1191."
+      },
+      {
+        "id": 100153,
+        "question": "Who was Guy's Rival?",
+        "response": "Conrad of Montferrat",
+        "gold": [
+          "Conrad of Montferrat",
+          "Conrad of Montferrat",
+          "Conrad of Montferrat"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer correctly identifies Conrad of Montferrat as Guy's rival, which is explicitly stated in the context."
+      },
+      {
+        "id": 100154,
+        "question": "What were Isaac's chains made out of?",
+        "response": "silver",
+        "gold": [
+          "silver",
+          "silver",
+          "silver"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer 'silver' correctly matches the gold answer and is directly supported by the context which states 'Isaac surrendered and was confined with silver chains.'"
+      },
+      {
+        "id": 100155,
+        "question": "Who led Richard's troops when Cyprus was conquered?",
+        "response": "Guy de Lusignan",
+        "gold": [
+          "Guy de Lusignan",
+          "Guy de Lusignan",
+          "Guy de Lusignan"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer correctly identifies Guy de Lusignan as the leader of Richard's troops during the conquest of Cyprus, which is directly stated in the context."
+      },
+      {
+        "id": 100159,
+        "question": "What continent are the Canarian Islands off the coast of?",
+        "response": "I don't have data related to this.",
+        "gold": [
+          "Africa",
+          "Africa",
+          "Africa"
+        ],
+        "correct_and_grounded": false,
+        "abstained": true,
+        "em": 0.0,
+        "f1": 0.0,
+        "judge_reason": "abstained"
+      },
+      {
+        "id": 100162,
+        "question": "Who became the King of the Canary Islands?",
+        "response": "Bethencourt",
+        "gold": [
+          "Bethencourt",
+          "Bethencourt",
+          "Bethencourt"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer 'Bethencourt' matches the gold answer and is directly supported by the context which states 'Bethencourt took the title of King of the Canary Islands.'"
+      },
+      {
+        "id": 100163,
+        "question": "Who bought the rights?",
+        "response": "Enrique P\u00e9rez de Guzm\u00e1n",
+        "gold": [
+          "Enrique P\u00e9rez de Guzm\u00e1n",
+          "Enrique P\u00e9rez de Guzm\u00e1n",
+          "Enrique P\u00e9rez de Guzm\u00e1n"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The assistant's answer correctly identifies Enrique P\u00e9rez de Guzm\u00e1n as the buyer of the rights, which is directly supported by the context."
+      },
+      {
+        "id": 100164,
+        "question": "Who sold the rights?",
+        "response": "Maciot de Bethencourt",
+        "gold": [
+          "Maciot de Bethencourt",
+          "Maciot de Bethencourt",
+          "Maciot de Bethencourt"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The assistant's answer correctly identifies Maciot de Bethencourt as the person who sold the rights, which is directly supported by the context."
+      },
+      {
+        "id": 100167,
+        "question": "Where are Jersey and Guernsey",
+        "response": "in the Channel Islands",
+        "gold": [
+          "Channel Islands",
+          "the Channel Islands",
+          "the Channel Islands"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 0.0,
+        "f1": 0.8,
+        "judge_reason": "The assistant's answer 'in the Channel Islands' correctly matches the gold answer and is directly supported by the context which states Jersey and Guernsey are in the Channel Islands."
+      },
+      {
+        "id": 100168,
+        "question": "How many customaries does Norman customary law have?",
+        "response": "two",
+        "gold": [
+          "two",
+          "two",
+          "two"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer 'two' correctly matches the gold answer and is directly supported by the context, which explicitly states that Norman customary law was transcribed in two customaries."
+      },
+      {
+        "id": 100172,
+        "question": "What is the Norman architecture idiom?",
+        "response": "Romanesque",
+        "gold": [
+          "Romanesque",
+          "Romanesque",
+          "Romanesque"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer 'Romanesque' directly matches the gold answers and is explicitly stated in the context as the 'unique Romanesque idiom' spread by Norman architecture."
+      },
+      {
+        "id": 100173,
+        "question": "What kind of arches does Norman architecture have?",
+        "response": "rounded",
+        "gold": [
+          "rounded",
+          "rounded",
+          "rounded"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer 'rounded' matches the gold answer and is directly supported by the context which states Norman architecture was 'characterised by rounded arches, particularly over windows and doorways.'"
+      },
+      {
+        "id": 100175,
+        "question": "What architecture type came after Norman in England?",
+        "response": "Early Gothic",
+        "gold": [
+          "Early Gothic",
+          "Early Gothic",
+          "Early Gothic"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer 'Early Gothic' matches the gold answer and is directly supported by the context which states that Norman architecture 'precedes the Early Gothic' in England."
+      },
+      {
+        "id": 100176,
+        "question": "What architecture type came before Norman in England?",
+        "response": "Early Gothic",
+        "gold": [
+          "Anglo-Saxon",
+          "Anglo-Saxon",
+          "Anglo-Saxon"
+        ],
+        "correct_and_grounded": false,
+        "abstained": false,
+        "em": 0.0,
+        "f1": 0.0,
+        "judge_reason": "The assistant's answer 'Early Gothic' is incorrect because the context clearly states that Norman architecture 'immediately succeeds that of the Anglo-Saxon and precedes the Early Gothic,' meaning Anglo-Saxon came before Norman, not Early Gothic."
+      },
+      {
+        "id": 100177,
+        "question": "What place had the Norman Arab architectural style?",
+        "response": "Kingdom of Sicily",
+        "gold": [
+          "Sicily",
+          "Sicily",
+          "Kingdom of Sicily"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The assistant's answer 'Kingdom of Sicily' matches the gold answers and is directly supported by the context which states that Norman-Arab architecture was initiated 'within the Kingdom of Sicily.'"
+      },
+      {
+        "id": 100181,
+        "question": "When did the church reform begin?",
+        "response": "early 11th century",
+        "gold": [
+          "early 11th century",
+          "11th century",
+          "in the early 11th century"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer 'early 11th century' exactly matches the gold answers and is directly supported by the context which states 'in the early 11th century the dukes began a programme of church reform.'"
+      },
+      {
+        "id": 100182,
+        "question": "Who used the church to unify themselves?",
+        "response": "the dukes",
+        "gold": [
+          "dukes",
+          "the dukes",
+          "dukes"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer 'the dukes' matches the gold answer and is directly supported by the context which states 'The church was utilised by the dukes as a unifying force for their disparate duchy.'"
+      },
+      {
+        "id": 100187,
+        "question": "When were the French wars of religion?",
+        "response": "the 16th century",
+        "gold": [
+          "16th century",
+          "the 16th century",
+          "in the 16th century"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The assistant's answer 'the 16th century' matches the gold answers and is directly supported by the context which states 'The French Wars of Religion in the 16th century'."
+      },
+      {
+        "id": 100190,
+        "question": "What kind of needlework was used in the creation of the Bayeux Tapestry?",
+        "response": "embroidery",
+        "gold": [
+          "embroidery",
+          "embroidery",
+          "embroidery"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer 'embroidery' matches the gold answer and is directly supported by the context which states the Bayeux Tapestry 'is not a tapestry but a work of embroidery.'"
+      },
+      {
+        "id": 100191,
+        "question": "What is Norman art's most well known piece?",
+        "response": "Bayeux Tapestry",
+        "gold": [
+          "Bayeux Tapestry",
+          "the Bayeux Tapestry",
+          "the Bayeux Tapestry"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The assistant's answer matches the gold answer and is directly supported by the context which states 'By far the most famous work of Norman art is the Bayeux Tapestry.'"
+      },
+      {
+        "id": 100192,
+        "question": "Who commissioned the Tapestry?",
+        "response": "Odo",
+        "gold": [
+          "Odo",
+          "Odo",
+          "Odo"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer 'Odo' correctly matches the gold answer and is directly supported by the context which states the tapestry 'was commissioned by Odo, the Bishop of Bayeux and first Earl of Kent.'"
+      },
+      {
+        "id": 100195,
+        "question": "What is the most important type of Norman art preserved in churches?",
+        "response": "mosaics",
+        "gold": [
+          "mosaics",
+          "mosaics",
+          "mosaics"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer 'mosaics' matches the gold answer and is directly supported by the context which states 'more importantly mosaics, which were common in Norman Italy.'"
+      },
+      {
+        "id": 100199,
+        "question": "In what century did important classical music developments occur in Normandy?",
+        "response": "11th",
+        "gold": [
+          "11th",
+          "the 11th",
+          "11th"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer '11th' correctly matches the gold answers and is directly supported by the context which states 'Normandy was the site of several important developments in the history of classical music in the 11th century.'"
+      },
+      {
+        "id": 100200,
+        "question": "Who were the two abbots at F\u00e9camp Abbey?",
+        "response": "William of Volpiano and John of Ravenna",
+        "gold": [
+          "William of Volpiano and John of Ravenna",
+          "William of Volpiano and John of Ravenna",
+          "William of Volpiano and John of Ravenna"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer correctly identifies the two Italian abbots at F\u00e9camp Abbey as stated in the context."
+      },
+      {
+        "id": 100203,
+        "question": "Where did the monks flee to?",
+        "response": "southern Italy",
+        "gold": [
+          "southern Italy",
+          "southern Italy",
+          "southern Italy"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer 'southern Italy' directly matches the gold answer and is explicitly stated in the context where it says 'several monks of Saint-Evroul fled to southern Italy.'"
+      },
+      {
+        "id": 100204,
+        "question": "What monastery did the Saint-Evroul monks establish in Italy?",
+        "response": "Sant'Eufemia",
+        "gold": [
+          "Latin monastery at Sant'Eufemia.",
+          "a Latin monastery at Sant'Eufemia",
+          "Sant'Eufemia"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The assistant's answer 'Sant'Eufemia' matches the gold answers and is directly supported by the context which states monks established 'a Latin monastery at Sant'Eufemia.'"
+      },
+      {
+        "id": 100205,
+        "question": "Who patronized the monks in Italy? ",
+        "response": "Robert Guiscard",
+        "gold": [
+          "Robert Guiscard",
+          "Robert Guiscard",
+          "Robert Guiscard"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer correctly identifies Robert Guiscard as the patron of the monks in southern Italy, which is directly stated in the context."
+      },
+      {
+        "id": 100206,
+        "question": "What tradition were the Saint-Evroul monks known for?",
+        "response": "singing",
+        "gold": [
+          "singing",
+          "singing",
+          "singing"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer 'singing' matches the gold answers and is directly supported by the context which states 'a tradition of singing had developed' at Saint-Evroul."
+      },
+      {
+        "id": 100208,
+        "question": "What branch of theoretical computer science deals with broadly classifying computational problems by difficulty and class of relationship?",
+        "response": "Computational complexity theory",
+        "gold": [
+          "Computational complexity theory",
+          "Computational complexity theory",
+          "Computational complexity theory"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The assistant's answer matches the gold answer exactly and is directly supported by the first sentence of the context."
+      },
+      {
+        "id": 100209,
+        "question": "By what main attribute are computational problems classified utilizing computational complexity theory? ",
+        "response": "inherent difficulty",
+        "gold": [
+          "inherent difficulty",
+          "their inherent difficulty",
+          "inherent difficulty"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The assistant's answer 'inherent difficulty' matches the gold answers and is directly supported by the context which states that computational complexity theory focuses on 'classifying computational problems according to their inherent difficulty.'"
+      },
+      {
+        "id": 100210,
+        "question": "What is the term for a task that generally lends itself to being solved by a computer?",
+        "response": "computational problem",
+        "gold": [
+          "computational problems",
+          "A computational problem",
+          "computational problem"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The assistant's answer 'computational problem' matches the gold answers and is directly supported by the context which defines it as 'a task that is in principle amenable to being solved by a computer.'"
+      },
+      {
+        "id": 100216,
+        "question": "What measure of a computational problem broadly defines the inherent difficulty of the solution?",
+        "response": "significant resources",
+        "gold": [
+          "if its solution requires significant resources",
+          "its solution requires significant resources",
+          "if its solution requires significant resources"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 0.0,
+        "f1": 0.5714285714285715,
+        "judge_reason": "The assistant's answer 'significant resources' correctly captures the core concept from the context that a problem's inherent difficulty is defined by whether its solution requires significant resources, which matches the gold answers in meaning."
+      },
+      {
+        "id": 100217,
+        "question": "What method is used to intuitively assess or quantify the amount of resources required to solve a computational problem?",
+        "response": "mathematical models of computation",
+        "gold": [
+          "mathematical models of computation",
+          "mathematical models of computation",
+          "mathematical models of computation"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The assistant's answer matches the gold answer exactly and is directly supported by the context which states that the theory introduces mathematical models of computation to quantify the amount of resources needed."
+      },
+      {
+        "id": 100218,
+        "question": "What are two basic primary resources used to guage complexity?",
+        "response": "I don't have data related to this.",
+        "gold": [
+          "time and storage",
+          "time and storage",
+          "time and storage"
+        ],
+        "correct_and_grounded": false,
+        "abstained": true,
+        "em": 0.0,
+        "f1": 0.0,
+        "judge_reason": "abstained"
+      },
+      {
+        "id": 100219,
+        "question": "What unit is measured to determine circuit complexity?",
+        "response": "I don't have data related to this.",
+        "gold": [
+          "number of gates in a circuit",
+          "number of gates in a circuit",
+          "number of gates"
+        ],
+        "correct_and_grounded": false,
+        "abstained": true,
+        "em": 0.0,
+        "f1": 0.0,
+        "judge_reason": "abstained"
+      },
+      {
+        "id": 100220,
+        "question": "What practical role does defining the complexity of problems play in everyday computing?",
+        "response": "to determine the practical limits on what computers can and cannot do",
+        "gold": [
+          "determine the practical limits on what computers can and cannot do",
+          "what computers can and cannot do",
+          "determine the practical limits on what computers can and cannot do"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 0.0,
+        "f1": 0.9523809523809523,
+        "judge_reason": "The assistant's answer matches the gold answer exactly and is directly supported by the final sentence of the context."
+      },
+      {
+        "id": 100226,
+        "question": "What two fields of theoretical computer science closely mirror computational complexity theory?",
+        "response": "analysis of algorithms and computability theory",
+        "gold": [
+          "analysis of algorithms and computability theory",
+          "analysis of algorithms and computability theory",
+          "analysis of algorithms and computability theory"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The assistant's answer matches the gold answer exactly and is directly supported by the first sentence of the context."
+      },
+      {
+        "id": 100227,
+        "question": "What field of computer science analyzes the resource requirements of a specific algorithm isolated unto itself within a given problem?",
+        "response": "computational complexity theory",
+        "gold": [
+          "analysis of algorithms",
+          "analysis of algorithms",
+          "analysis of algorithms"
+        ],
+        "correct_and_grounded": false,
+        "abstained": false,
+        "em": 0.0,
+        "f1": 0.0,
+        "judge_reason": "The assistant's answer is incorrect because the context explicitly states that 'analysis of algorithms' is devoted to analyzing the amount of resources needed by a particular algorithm to solve a problem, while computational complexity theory asks a more general question about all possible algorithms."
+      },
+      {
+        "id": 100228,
+        "question": "What field of computer science analyzes all possible algorithms in aggregate to determine the resource requirements needed to solve to a given problem?  ",
+        "response": "computational complexity theory",
+        "gold": [
+          "computational complexity theory",
+          "computational complexity theory",
+          "computational complexity theory"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The assistant's answer 'computational complexity theory' matches the gold answers and is directly supported by the context, which states that computational complexity theory 'asks a more general question about all possible algorithms that could be used to solve the same problem.'"
+      },
+      {
+        "id": 100229,
+        "question": "What field of computer science is primarily concerned with determining the likelihood of whether or not a problem can ultimately be solved using algorithms?",
+        "response": "computational complexity theory",
+        "gold": [
+          "computability theory",
+          "computability theory",
+          "computability theory"
+        ],
+        "correct_and_grounded": false,
+        "abstained": false,
+        "em": 0.0,
+        "f1": 0.4,
+        "judge_reason": "The assistant answered 'computational complexity theory' but the context clearly states that computability theory is the field that asks what kind of problems can, in principle, be solved algorithmically, which matches the question about determining likelihood of whether a problem can ultimately be solved."
+      },
+      {
+        "id": 100235,
+        "question": "What is the name given to the input string of a computational problem?",
+        "response": "problem instance",
+        "gold": [
+          "problem instance",
+          "a problem instance",
+          "problem instance"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The assistant's answer 'problem instance' exactly matches the gold answers and is directly supported by the context which states 'The input string for a computational problem is referred to as a problem instance.'"
+      },
+      {
+        "id": 100236,
+        "question": "In computational complexity theory, what is the term given to describe the baseline abstract question needing to be solved? ",
+        "response": "a problem",
+        "gold": [
+          "the problem",
+          "a problem",
+          "problem"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The assistant's answer 'a problem' matches the gold answers and is directly supported by the context which states 'a problem refers to the abstract question to be solved.'"
+      },
+      {
+        "id": 100237,
+        "question": "Is a problem instance typically characterized as abstract or concrete?",
+        "response": "concrete",
+        "gold": [
+          "concrete",
+          "concrete",
+          "abstract"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The context explicitly states that 'an instance of this problem is a rather concrete utterance,' which matches the assistant's answer."
+      },
+      {
+        "id": 100238,
+        "question": "What is another name for any given measure of input associated with a problem?",
+        "response": "I don't have data related to this.",
+        "gold": [
+          "instances",
+          "the instance",
+          "instance"
+        ],
+        "correct_and_grounded": false,
+        "abstained": true,
+        "em": 0.0,
+        "f1": 0.0,
+        "judge_reason": "abstained"
+      },
+      {
+        "id": 100239,
+        "question": "What is the general term used to describe the output to any given input in a problem instance?",
+        "response": "the solution",
+        "gold": [
+          "solution",
+          "the solution",
+          "solution"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The assistant's answer 'the solution' matches the gold answers and is directly supported by the context which states 'the solution is the output corresponding to the given input.'"
+      },
+      {
+        "id": 100245,
+        "question": "By how many kilometers does the traveling salesman problem seek to classify a route between the 15 largest cities in Germany?",
+        "response": "2000",
+        "gold": [
+          "2000",
+          "2000",
+          "2000"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The assistant's answer '2000' matches the gold answer and is directly supported by the context which states 'Is there a route of at most 2000 kilometres passing through all of Germany's 15 largest cities?'"
+      },
+      {
+        "id": 100246,
+        "question": "What is one example of an instance that the quantitative answer to the traveling salesman problem fails to answer?",
+        "response": "asking for a round trip through all sites in Milan whose total length is at most 10 km",
+        "gold": [
+          "round trip through all sites in Milan",
+          "asking for a round trip through all sites in Milan whose total length is at most 10 km",
+          "a round trip through all sites in Milan whose total length is at most 10 km"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The assistant's answer matches one of the gold answers exactly and is directly supported by the context."
+      },
+      {
+        "id": 100247,
+        "question": "What does computational complexity theory most specifically seek to answer? ",
+        "response": "I don't have data related to this.",
+        "gold": [
+          "computational problems",
+          "computational problems",
+          "computational problems"
+        ],
+        "correct_and_grounded": false,
+        "abstained": true,
+        "em": 0.0,
+        "f1": 0.0,
+        "judge_reason": "abstained"
+      },
+      {
+        "id": 100252,
+        "question": "In a computational problem, what can be described as a string over an alphabet?",
+        "response": "bitstrings",
+        "gold": [
+          "problem instance",
+          "a problem instance",
+          "problem instance"
+        ],
+        "correct_and_grounded": false,
+        "abstained": false,
+        "em": 0.0,
+        "f1": 0.0,
+        "judge_reason": "The assistant answered 'bitstrings' but the gold answer is 'problem instance'\u2014bitstrings are merely one representation of problem instances, not what is described as a string over an alphabet."
+      },
+      {
+        "id": 100253,
+        "question": "What is the name of the alphabet is most commonly used in a problem instance?",
+        "response": "binary alphabet",
+        "gold": [
+          "binary alphabet",
+          "binary",
+          "binary"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The assistant's answer 'binary alphabet' matches the gold answers and is directly supported by the context which states 'the alphabet is taken to be the binary alphabet'."
+      },
+      {
+        "id": 100254,
+        "question": "What is another term for the string of a problem instance?",
+        "response": "bitstrings",
+        "gold": [
+          "bitstrings",
+          "bitstrings",
+          "bitstrings"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer 'bitstrings' is correct as the context explicitly states that strings over the binary alphabet are bitstrings, and this matches the gold answer."
+      },
+      {
+        "id": 100255,
+        "question": "In the encoding of mathematical objects, what is the way in which integers are commonly expressed?",
+        "response": "binary notation",
+        "gold": [
+          "binary notation",
+          "binary notation",
+          "binary notation"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The assistant's answer 'binary notation' exactly matches the gold answer and is directly supported by the context which states 'integers can be represented in binary notation.'"
+      },
+      {
+        "id": 100256,
+        "question": "What is one way in which graphs can be encoded? ",
+        "response": "adjacency matrices",
+        "gold": [
+          "adjacency matrices",
+          "directly via their adjacency matrices"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer 'adjacency matrices' matches the gold answer and is directly supported by the context which states 'graphs can be encoded directly via their adjacency matrices.'"
+      },
+      {
+        "id": 100262,
+        "question": "What kind of problems are one of the main topics studied in computational complexity theory?",
+        "response": "Decision problems",
+        "gold": [
+          "Decision problems",
+          "Decision problems",
+          "Decision"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The assistant's answer 'Decision problems' matches the gold answers and is directly supported by the context's first sentence stating 'Decision problems are one of the central objects of study in computational complexity theory.'"
+      },
+      {
+        "id": 100263,
+        "question": "What are the two simple word responses to a decision problem?",
+        "response": "yes or no, or alternately either 1 or 0",
+        "gold": [
+          "yes or no",
+          "yes or no",
+          "yes or no"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 0.0,
+        "f1": 0.5,
+        "judge_reason": "The answer correctly identifies 'yes or no' as the two simple word responses to a decision problem, and the additional mention of '1 or 0' is directly supported by the context as an alternate representation."
+      },
+      {
+        "id": 100264,
+        "question": "What are the two integer responses to a decision problem?",
+        "response": "1 or 0",
+        "gold": [
+          "1 or 0",
+          "1 or 0",
+          "1 or 0"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The assistant's answer '1 or 0' exactly matches the gold answer and is directly supported by the context which states 'whose answer is either yes or no, or alternately either 1 or 0.'"
+      },
+      {
+        "id": 100265,
+        "question": "What will the output be for a member of the language of a decision problem?",
+        "response": "yes",
+        "gold": [
+          "yes",
+          "yes",
+          "yes"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer 'yes' correctly matches the gold answer and is directly supported by the context which states 'the members of the language are instances whose output is yes.'"
+      },
+      {
+        "id": 100266,
+        "question": "What answer denotes that an algorithm has accepted an input string?",
+        "response": "yes",
+        "gold": [
+          "yes",
+          "yes",
+          "yes"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The assistant's answer 'yes' directly matches the gold answer and is explicitly supported by the context which states 'If the algorithm deciding this problem returns the answer yes, the algorithm is said to accept the input string.'"
+      },
+      {
+        "id": 100272,
+        "question": "What kind of graph is an example of an input used in a decision problem?",
+        "response": "arbitrary graph",
+        "gold": [
+          "arbitrary graph",
+          "arbitrary",
+          "arbitrary"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The assistant's answer 'arbitrary graph' matches the gold answers and is directly supported by the context which states 'The input is an arbitrary graph.'"
+      },
+      {
+        "id": 100273,
+        "question": "What is the term for the set of all connected graphs related to this decision problem?",
+        "response": "The formal language",
+        "gold": [
+          "formal language",
+          "The formal language",
+          "The formal language associated with this decision problem"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The assistant's answer 'The formal language' matches the gold answers and is directly supported by the context which states 'The formal language associated with this decision problem is then the set of all connected graphs.'"
+      },
+      {
+        "id": 100274,
+        "question": "What encoding decision needs to be made in order to determine an exact definition of the formal language?",
+        "response": "binary strings",
+        "gold": [
+          "how graphs are encoded as binary strings",
+          "how graphs are encoded as binary strings",
+          "how graphs are encoded as binary strings"
+        ],
+        "correct_and_grounded": false,
+        "abstained": false,
+        "em": 0.0,
+        "f1": 0.4444444444444445,
+        "judge_reason": "The assistant's answer 'binary strings' is incomplete and does not capture the full encoding decision of 'how graphs are encoded as binary strings' as stated in the context."
+      },
+      {
+        "id": 100279,
+        "question": "A function problem is an example of what?",
+        "response": "computational",
+        "gold": [
+          "a computational problem",
+          "a computational problem",
+          "a computational problem"
+        ],
+        "correct_and_grounded": false,
+        "abstained": false,
+        "em": 0.0,
+        "f1": 0.6666666666666666,
+        "judge_reason": "The assistant's answer 'computational' is incomplete and does not match the gold answer 'a computational problem', which is a specific noun phrase clearly stated in the context."
+      },
+      {
+        "id": 100280,
+        "question": "How many outputs are expected for each input in a function problem?",
+        "response": "I don't have data related to this.",
+        "gold": [
+          "a single output",
+          "single",
+          "single"
+        ],
+        "correct_and_grounded": false,
+        "abstained": true,
+        "em": 0.0,
+        "f1": 0.0,
+        "judge_reason": "abstained"
+      },
+      {
+        "id": 100281,
+        "question": "The traveling salesman problem is an example of what type of problem?",
+        "response": "function problem",
+        "gold": [
+          "A function problem",
+          "function",
+          "function problem"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The assistant's answer 'function problem' matches the gold answers and is directly supported by the context which states 'Notable examples include the traveling salesman problem' under the definition of function problems."
+      },
+      {
+        "id": 100282,
+        "question": "In addition to the traveling salesman problem, what is another example of a function problem?",
+        "response": "integer factorization problem",
+        "gold": [
+          "the integer factorization problem",
+          "integer factorization",
+          "integer factorization problem"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The assistant's answer 'integer factorization problem' matches the gold answers and is directly stated in the context as another example of a function problem alongside the traveling salesman problem."
+      },
+      {
+        "id": 100283,
+        "question": "Is the output of a functional problem typically characterized by a simple or complex answer?",
+        "response": "complex",
+        "gold": [
+          "complex",
+          "complex",
+          "complex"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer 'complex' matches the gold answers and is directly supported by the context stating that function problem outputs are 'more complex than that of a decision problem.'"
+      },
+      {
+        "id": 100289,
+        "question": "How can function problems typically be restated?",
+        "response": "decision problems",
+        "gold": [
+          "decision problems",
+          "as decision problems",
+          "as decision problems"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The assistant's answer 'decision problems' matches the gold answers and is directly supported by the context statement 'function problems can be recast as decision problems.'"
+      },
+      {
+        "id": 100290,
+        "question": "If two integers are multiplied and output a value, what is this expression set called?",
+        "response": "the set of triples",
+        "gold": [
+          "set of triples",
+          "triple",
+          "the set of triples (a, b, c) such that the relation a \u00d7 b = c holds"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The assistant's answer 'the set of triples' matches the gold answers and is directly supported by the context which states 'the multiplication of two integers can be expressed as the set of triples (a, b, c)'."
+      },
+      {
+        "id": 100294,
+        "question": "What is a commonly used measurement used to determine the complexity of a computational problem?",
+        "response": "the size of the input in bits",
+        "gold": [
+          "how much time the best algorithm requires to solve the problem",
+          "time",
+          "time"
+        ],
+        "correct_and_grounded": false,
+        "abstained": false,
+        "em": 0.0,
+        "f1": 0.0,
+        "judge_reason": "The assistant's answer refers to how complexity is measured (as a function of input size), but the gold answers specify that time is the commonly used measurement for determining complexity itself."
+      },
+      {
+        "id": 100295,
+        "question": "What is one variable on which the running time may be contingent?",
+        "response": "the instance",
+        "gold": [
+          "the instance",
+          "the instance",
+          "the size of the instance"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The assistant's answer 'the instance' matches the gold answers and is directly supported by the context which states 'the running time may, in general, depend on the instance.'"
+      },
+      {
+        "id": 100296,
+        "question": "How is the time needed to obtain the solution to a problem calculated?",
+        "response": "as a function of the size of the instance",
+        "gold": [
+          "as a function of the size of the instance",
+          "as a function of the size of the instance",
+          "a function of the size of the instance"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The assistant's answer exactly matches the gold answers and is directly supported by the context which states 'the time required to solve a problem...is calculated as a function of the size of the instance.'"
+      },
+      {
+        "id": 100297,
+        "question": "In what unit is the size of the input measured?",
+        "response": "bits",
+        "gold": [
+          "bits",
+          "bits",
+          "bits"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The assistant's answer 'bits' matches the gold answer and is directly supported by the context which states 'This is usually taken to be the size of the input in bits.'"
+      },
+      {
+        "id": 100298,
+        "question": "Complexity theory seeks to define the relationship between the scale of algorithms with respect to what other variable?",
+        "response": "increase in the input size",
+        "gold": [
+          "an increase in the input size",
+          "input size",
+          "input size"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The assistant's answer 'increase in the input size' matches the gold answers and is directly supported by the context which states 'Complexity theory is interested in how algorithms scale with an increase in the input size.'"
+      },
+      {
+        "id": 100304,
+        "question": "Whose thesis states that the solution to a problem is solvable with reasonable resources assuming it allows for a polynomial time algorithm?",
+        "response": "Cobham's",
+        "gold": [
+          "Cobham's thesis",
+          "Cobham's",
+          "Cobham"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer 'Cobham's' matches the gold answers and is directly supported by the context which states 'Cobham's thesis says that a problem can be solved with a feasible amount of resources if it admits a polynomial time algorithm.'"
+      },
+      {
+        "id": 100305,
+        "question": "If input size is is equal to n, what can respectively be assumed is the function of n?",
+        "response": "the time taken",
+        "gold": [
+          "the time taken",
+          "the time taken",
+          "the time taken"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The assistant's answer 'the time taken' matches the gold answers and is directly supported by the context which states 'the time taken can be expressed as a function of n.'"
+      },
+      {
+        "id": 100306,
+        "question": "What term corresponds to the maximum measurement of time across all functions of n? ",
+        "response": "worst-case time complexity T(n)",
+        "gold": [
+          "worst-case time complexity",
+          "worst-case time complexity",
+          "the worst-case time complexity"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 0.0,
+        "f1": 0.8,
+        "judge_reason": "The assistant's answer 'worst-case time complexity T(n)' correctly identifies the term for the maximum measurement of time across all functions of n, which matches the gold answer and is directly supported by the context."
+      },
+      {
+        "id": 100307,
+        "question": "How is worst-case time complexity written as an expression?",
+        "response": "I don't have data related to this.",
+        "gold": [
+          "T(n)",
+          "T(n)",
+          "T(n)"
+        ],
+        "correct_and_grounded": false,
+        "abstained": true,
+        "em": 0.0,
+        "f1": 0.2,
+        "judge_reason": "abstained"
+      },
+      {
+        "id": 100308,
+        "question": "Assuming that T represents a polynomial in T(n), what is the term given to the corresponding algorithm?",
+        "response": "a polynomial time algorithm",
+        "gold": [
+          "polynomial time algorithm",
+          "polynomial time",
+          "polynomial time algorithm"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The assistant's answer 'a polynomial time algorithm' matches the gold answers and is directly supported by the context statement 'If T(n) is a polynomial in n, then the algorithm is said to be a polynomial time algorithm.'"
+      },
+      {
+        "id": 100314,
+        "question": "What is the term for a mathematical model that theoretically represents a general computing machine?",
+        "response": "A Turing machine",
+        "gold": [
+          "A Turing machine",
+          "A Turing machine",
+          "Turing machine"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The assistant's answer 'A Turing machine' directly matches the gold answers and is explicitly supported by the first sentence of the context."
+      },
+      {
+        "id": 100315,
+        "question": "It is generally assumed that a Turing machine can solve anything capable of also being solved using what?",
+        "response": "an algorithm",
+        "gold": [
+          "an algorithm",
+          "an algorithm",
+          "an algorithm"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer 'an algorithm' matches the gold answer and is directly supported by the context which states 'if a problem can be solved by an algorithm, there exists a Turing machine that solves the problem.'"
+      },
+      {
+        "id": 100316,
+        "question": "What is the most commonplace model utilized in complexity theory?",
+        "response": "the Turing machine",
+        "gold": [
+          "the Turing machine",
+          "the Turing machine",
+          "Turing machine"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer matches the gold answers and is directly supported by the context's final sentence stating 'the Turing machine is the most commonly used model in complexity theory.'"
+      },
+      {
+        "id": 100317,
+        "question": "What does a Turing machine handle on a strip of tape?",
+        "response": "symbols",
+        "gold": [
+          "symbols",
+          "symbols",
+          "symbols"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer 'symbols' matches the gold answer and is directly supported by the context which states 'It is a theoretical device that manipulates symbols contained on a strip of tape.'"
+      },
+      {
+        "id": 100322,
+        "question": "What is generally considered to be the most basic iteration of a Turing machine?",
+        "response": "A deterministic Turing machine",
+        "gold": [
+          "A deterministic Turing machine",
+          "deterministic",
+          "deterministic Turing machine"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer matches the gold answer and is directly supported by the context which states 'A deterministic Turing machine is the most basic Turing machine.'"
+      },
+      {
+        "id": 100323,
+        "question": "What fixed set of factors determine the actions of a deterministic Turing machine",
+        "response": "a fixed set of rules",
+        "gold": [
+          "rules",
+          "rules",
+          "a fixed set of rules to determine its future actions"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 0.0,
+        "f1": 0.6153846153846153,
+        "judge_reason": "The answer 'a fixed set of rules' directly matches the gold answers and is explicitly stated in the context."
+      },
+      {
+        "id": 100324,
+        "question": "What is the term used to identify a deterministic Turing machine that has additional random bits?",
+        "response": "probabilistic Turing machine",
+        "gold": [
+          "A probabilistic Turing machine",
+          "probabilistic",
+          "probabilistic Turing machine"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer 'probabilistic Turing machine' matches the gold answers and is directly supported by the context which states 'A probabilistic Turing machine is a deterministic Turing machine with an extra supply of random bits.'"
+      },
+      {
+        "id": 100325,
+        "question": "What type of Turing machine is capable of multiple actions and extends into a variety of computational paths?",
+        "response": "non-determinism",
+        "gold": [
+          "A non-deterministic Turing machine",
+          "non-deterministic",
+          "non-deterministic Turing machine"
+        ],
+        "correct_and_grounded": false,
+        "abstained": false,
+        "em": 0.0,
+        "f1": 0.5,
+        "judge_reason": "The assistant answered 'non-determinism' which is a feature/property, not the type of Turing machine itself (non-deterministic Turing machine) that the question asks for."
+      },
+      {
+        "id": 100326,
+        "question": "What is the term given to algorithms that utilize random bits?",
+        "response": "randomized algorithms",
+        "gold": [
+          "randomized algorithms",
+          "randomized algorithms",
+          "randomized algorithms"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer 'randomized algorithms' directly matches the gold answer and is explicitly stated in the context: 'Algorithms that use random bits are called randomized algorithms.'"
+      },
+      {
+        "id": 100332,
+        "question": "Turing machines are commonly employed to define what? ",
+        "response": "complexity classes",
+        "gold": [
+          "complexity classes",
+          "complexity classes",
+          "complexity classes"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer 'complexity classes' directly matches the gold answer and is explicitly supported by the context which states 'Many types of Turing machines are used to define complexity classes.'"
+      },
+      {
+        "id": 100333,
+        "question": "What are two factors that directly effect how powerful a Turing machine may or may not be?",
+        "response": "when resources (such as time or space) are bounded",
+        "gold": [
+          "time or space",
+          "time or space",
+          "time or space"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 0.0,
+        "f1": 0.5,
+        "judge_reason": "The assistant's answer correctly identifies time and space as the two factors that affect Turing machine power when bounded, which matches the gold answers and is directly supported by the context."
+      },
+      {
+        "id": 100334,
+        "question": "In the determination of complexity classes, what are two examples of types of Turing machines?",
+        "response": "deterministic Turing machines",
+        "gold": [
+          "probabilistic Turing machines, non-deterministic Turing machines",
+          "probabilistic Turing machines, non-deterministic Turing machines"
+        ],
+        "correct_and_grounded": false,
+        "abstained": false,
+        "em": 0.0,
+        "f1": 0.6,
+        "judge_reason": "The assistant provided only one example instead of the two requested, and it does not match the gold answers which specify probabilistic and non-deterministic Turing machines."
+      },
+      {
+        "id": 100339,
+        "question": "What is an example of a machine model that deviates from a generally accepted multi-tape Turing machine?",
+        "response": "random access machines",
+        "gold": [
+          "random access machines",
+          "random access machines",
+          "random access machines"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The assistant's answer 'random access machines' matches the gold answer exactly and is directly supported by the context which explicitly mentions random access machines as an example of a machine model different from standard multi-tape Turing machines."
+      },
+      {
+        "id": 100340,
+        "question": "In considering Turing machines and alternate variables, what measurement left unaffected by conversion between machine models? ",
+        "response": "extra computational power",
+        "gold": [
+          "computational power",
+          "computational power",
+          "computational power"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 0.0,
+        "f1": 0.8,
+        "judge_reason": "The assistant's answer 'extra computational power' matches the gold answer 'computational power' in meaning, as the context states that conversion between models does not provide 'any extra computational power,' meaning computational power remains unaffected."
+      },
+      {
+        "id": 100341,
+        "question": "What two resources commonly consumed by alternate models are typically known to vary?",
+        "response": "time and memory",
+        "gold": [
+          "time and memory",
+          "time and memory consumption",
+          "time and memory consumption"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The assistant's answer 'time and memory' matches the gold answers and is directly supported by the context which states 'The time and memory consumption of these alternate models may vary.'"
+      },
+      {
+        "id": 100342,
+        "question": "What commonality do alternate machine models, such as random access machines, share with Turing machines?",
+        "response": "the machines operate deterministically",
+        "gold": [
+          "the machines operate deterministically",
+          "deterministically",
+          "the machines operate deterministically"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The assistant's answer matches the gold answer exactly and is directly supported by the final sentence of the context."
+      },
+      {
+        "id": 100347,
+        "question": "What type of Turing machine can be characterized by checking multiple possibilities at the same time?",
+        "response": "non-deterministic",
+        "gold": [
+          "non-deterministic",
+          "non-deterministic",
+          "non-deterministic Turing machine"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The assistant's answer 'non-deterministic' matches the gold answers and is directly supported by the context which states 'a non-deterministic Turing machine is a computational model that is allowed to branch out to check many different possibilities at once.'"
+      },
+      {
+        "id": 100348,
+        "question": "What often affects or facilitates ease of analysis in computational problems?",
+        "response": "unusual resources",
+        "gold": [
+          "unusual resources",
+          "more unusual resources",
+          "more unusual resources"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The assistant's answer 'unusual resources' matches the gold answers and is directly supported by the context which states 'some computational problems are easier to analyze in terms of more unusual resources.'"
+      },
+      {
+        "id": 100349,
+        "question": "A non-deterministic Turing machine has the ability to capture what facet of useful analysis?",
+        "response": "mathematical models",
+        "gold": [
+          "mathematical models",
+          "mathematical models",
+          "branching"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer 'mathematical models' matches one of the gold answers and is directly supported by the context which states that the non-deterministic Turing machine's 'branching exactly captures many of the mathematical models we want to analyze.'"
+      },
+      {
+        "id": 100350,
+        "question": "What is the most critical resource in the analysis of computational problems associated with non-deterministic Turing machines?",
+        "response": "time",
+        "gold": [
+          "time",
+          "non-deterministic time",
+          "non-deterministic time"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer 'time' matches the gold answers which specify 'non-deterministic time' as the most critical resource, and is directly supported by the context stating 'non-deterministic time is a very important resource in analyzing computational problems.'"
+      },
+      {
+        "id": 100356,
+        "question": "The time required to output an answer on a deterministic Turing machine is expressed as what?",
+        "response": "total number of state transitions, or steps",
+        "gold": [
+          "state transitions",
+          "the total number of state transitions, or steps",
+          "total number of state transitions, or steps, the machine makes before it halts and outputs the answer"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The assistant's answer matches the gold answers and is directly supported by the context which states 'The time required by a deterministic Turing machine M on input x is the total number of state transitions, or steps.'"
+      },
+      {
+        "id": 100357,
+        "question": "Complexity theory classifies problems based on what primary attribute?",
+        "response": "difficulty",
+        "gold": [
+          "difficulty",
+          "difficulty",
+          "difficulty"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The assistant's answer 'difficulty' matches the gold answer and is directly supported by the context which states 'complexity theory is interested in classifying problems based on their difficulty.'"
+      },
+      {
+        "id": 100358,
+        "question": "What is the expression used to identify any given series of problems capable of being solved within time on a deterministic Turing machine?",
+        "response": "DTIME(f(n)).",
+        "gold": [
+          "DTIME(f(n))",
+          "DTIME(f(n)).",
+          "DTIME(f(n))"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer 'DTIME(f(n))' matches the gold answer and is directly stated in the context as the notation for the set of problems solvable within time f(n) on a deterministic Turing machine."
+      },
+      {
+        "id": 100359,
+        "question": "What is the most critical resource measured to in assessing the determination of a Turing machine's ability to solve any given set of problems?",
+        "response": "if the time required by M on each input of length n",
+        "gold": [
+          "time",
+          "time",
+          "time"
+        ],
+        "correct_and_grounded": false,
+        "abstained": false,
+        "em": 0.0,
+        "f1": 0.16666666666666669,
+        "judge_reason": "The assistant's answer is a sentence fragment from the context that does not directly answer the question about the most critical resource, which is 'time'."
+      },
+      {
+        "id": 100365,
+        "question": "Time and space are both examples of what type of resource?",
+        "response": "complexity",
+        "gold": [
+          "complexity resources",
+          "complexity resources",
+          "complexity"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer 'complexity' matches the gold answers and is directly supported by the context which states 'any complexity measure can be viewed as a computational resource.'"
+      },
+      {
+        "id": 100366,
+        "question": "A complexity resource can also be described as what other type of resource?",
+        "response": "computational",
+        "gold": [
+          "computational resource",
+          "computational",
+          "computational"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer 'computational' matches the gold answers and is directly supported by the context stating 'any complexity measure can be viewed as a computational resource.'"
+      },
+      {
+        "id": 100367,
+        "question": "What is typically used to broadly define complexity measures?",
+        "response": "Blum complexity axioms",
+        "gold": [
+          "Blum complexity axioms",
+          "the Blum complexity axioms",
+          "the Blum complexity axioms"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer 'Blum complexity axioms' matches the gold answers and is directly supported by the context statement 'Complexity measures are very generally defined by the Blum complexity axioms.'"
+      },
+      {
+        "id": 100368,
+        "question": "Communication complexity is an example of what type of measure?",
+        "response": "Complexity",
+        "gold": [
+          "Complexity measures",
+          "complexity measures",
+          "complexity"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer 'Complexity' matches the gold answers and is directly supported by the context which states 'Other complexity measures used in complexity theory include communication complexity.'"
+      },
+      {
+        "id": 100369,
+        "question": "Decision tree is an example of what type of measure?",
+        "response": "complexity",
+        "gold": [
+          "Complexity measures",
+          "complexity measures",
+          "complexity"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer 'complexity' matches the gold answers and is directly supported by the context which states 'decision tree complexity' is a type of complexity measure."
+      },
+      {
+        "id": 100375,
+        "question": "What are the three primary expressions used to represent case complexity?",
+        "response": "I don't have data related to this.",
+        "gold": [
+          "best, worst and average",
+          "best, worst and average case",
+          "best, worst and average case complexity"
+        ],
+        "correct_and_grounded": false,
+        "abstained": true,
+        "em": 0.0,
+        "f1": 0.0,
+        "judge_reason": "abstained"
+      },
+      {
+        "id": 100376,
+        "question": "Case complexity likelihoods provide variable probabilities of what general measure? ",
+        "response": "I don't have data related to this.",
+        "gold": [
+          "complexity measure",
+          "complexity",
+          "complexity"
+        ],
+        "correct_and_grounded": false,
+        "abstained": true,
+        "em": 0.0,
+        "f1": 0.0,
+        "judge_reason": "abstained"
+      },
+      {
+        "id": 100377,
+        "question": "What is one common example of a critical complexity measure?",
+        "response": "I don't have data related to this.",
+        "gold": [
+          "time",
+          "time complexity",
+          "time complexity"
+        ],
+        "correct_and_grounded": false,
+        "abstained": true,
+        "em": 0.0,
+        "f1": 0.0,
+        "judge_reason": "abstained"
+      },
+      {
+        "id": 100378,
+        "question": "Case complexities provide three likelihoods of what differing variable that remains the same size? ",
+        "response": "time complexity",
+        "gold": [
+          "inputs",
+          "inputs",
+          "inputs"
+        ],
+        "correct_and_grounded": false,
+        "abstained": false,
+        "em": 0.0,
+        "f1": 0.0,
+        "judge_reason": "The assistant answered 'time complexity' but the gold answer is 'inputs' - the question asks about the differing variable (inputs) that remains the same size, not what is being measured."
+      },
+      {
+        "id": 100383,
+        "question": "What provides a solution to a list of integers provided as input that ned to be sorted?",
+        "response": "quicksort",
+        "gold": [
+          "deterministic sorting algorithm quicksort",
+          "quicksort",
+          "the deterministic sorting algorithm quicksort"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The assistant's answer 'quicksort' matches one of the gold answers and is directly supported by the context which states 'consider the deterministic sorting algorithm quicksort. This solves the problem of sorting a list of integers that is given as the input.'"
+      },
+      {
+        "id": 100384,
+        "question": "When extensive time is required to sort integers, this represents what case complexity?",
+        "response": "I don't have data related to this.",
+        "gold": [
+          "worst-case",
+          "worst",
+          "worst-case"
+        ],
+        "correct_and_grounded": false,
+        "abstained": true,
+        "em": 0.0,
+        "f1": 0.0,
+        "judge_reason": "abstained"
+      },
+      {
+        "id": 100385,
+        "question": "What is the expression used to denote a worst case complexity as expressed by time taken?",
+        "response": "O(n2)",
+        "gold": [
+          "O(n2)",
+          "O(n2)",
+          "O(n2)"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer 'O(n2)' correctly matches the gold answer and is directly stated in the context as the worst-case time complexity for quicksort."
+      },
+      {
+        "id": 100391,
+        "question": "Classification of resources is contingent on determining the upper and lower bounds of minimum time required by what?  ",
+        "response": "the most efficient algorithm solving a given problem",
+        "gold": [
+          "the most efficient algorithm",
+          "the most efficient algorithm",
+          "the most efficient algorithm solving a given problem"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The assistant's answer matches the gold answer exactly and is directly supported by the context which states that classification involves 'proving upper and lower bounds on the minimum amount of time required by the most efficient algorithm solving a given problem.'"
+      },
+      {
+        "id": 100392,
+        "question": "The analysis of a specific algorithm is typically assigned to what field of computational science?",
+        "response": "algorithms",
+        "gold": [
+          "analysis of algorithms",
+          "analysis of algorithms",
+          "analysis of algorithms"
+        ],
+        "correct_and_grounded": false,
+        "abstained": false,
+        "em": 0.0,
+        "f1": 0.5,
+        "judge_reason": "The assistant's answer 'algorithms' is incomplete and imprecise compared to the gold answer 'analysis of algorithms', which is the specific field mentioned in the context."
+      },
+      {
+        "id": 100393,
+        "question": "Which bound of time is more difficult to establish?",
+        "response": "lower bounds",
+        "gold": [
+          "lower bounds",
+          "lower",
+          "lower bounds"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer 'lower bounds' matches the gold answers and is directly supported by the context which states 'proving lower bounds is much more difficult.'"
+      },
+      {
+        "id": 100394,
+        "question": "A specific algorithm demonstrating T(n) represents what measure of time complexity?",
+        "response": "running time",
+        "gold": [
+          "upper bound",
+          "upper and lower bounds",
+          "upper bound"
+        ],
+        "correct_and_grounded": false,
+        "abstained": false,
+        "em": 0.0,
+        "f1": 0.0,
+        "judge_reason": "The assistant's answer 'running time' is too vague and does not match the gold answers which specify that T(n) represents an 'upper bound' on time complexity, as stated in the context."
+      },
+      {
+        "id": 100395,
+        "question": "What is the colloquial phrase used to convey the continuum of algorithms with unlimited availability irrespective of time? ",
+        "response": "I don't have data related to this.",
+        "gold": [
+          "all possible algorithms",
+          "all possible algorithms",
+          "all possible algorithms"
+        ],
+        "correct_and_grounded": false,
+        "abstained": true,
+        "em": 0.0,
+        "f1": 0.0,
+        "judge_reason": "abstained"
+      },
+      {
+        "id": 100401,
+        "question": "What expression is generally used to convey upper or lower bounds?",
+        "response": "big O notation",
+        "gold": [
+          "big O notation",
+          "big O notation",
+          "big O notation"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer 'big O notation' matches the gold answers and is directly supported by the context which states 'Upper and lower bounds are usually stated using the big O notation.'"
+      },
+      {
+        "id": 100402,
+        "question": "What does a big O notation hide?",
+        "response": "constant factors and smaller terms",
+        "gold": [
+          "constant factors and smaller terms",
+          "constant factors and smaller terms",
+          "constant factors and smaller terms"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The assistant's answer exactly matches the gold answer and is directly supported by the context which states 'big O notation, which hides constant factors and smaller terms.'"
+      },
+      {
+        "id": 100403,
+        "question": "How would one write T(n) = 7n2 + 15n + 40 in big O notation? ",
+        "response": "one would write T(n) = O(n2).",
+        "gold": [
+          "T(n) = O(n2)",
+          "T(n) = O(n2)",
+          "T(n) = O(n2)"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 0.0,
+        "f1": 0.7272727272727273,
+        "judge_reason": "The assistant's answer matches the gold answer and is directly supported by the context which states 'in big O notation one would write T(n) = O(n2)'."
+      },
+      {
+        "id": 100404,
+        "question": "Big O notation provides autonomy to upper and lower bounds with relationship to what? ",
+        "response": "computational model",
+        "gold": [
+          "the computational model",
+          "specific details of the computational model used",
+          "the specific details of the computational model used"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The assistant's answer 'computational model' matches the gold answers and is directly supported by the context stating that big O notation 'makes the bounds independent of the specific details of the computational model used.'"
+      },
+      {
+        "id": 100409,
+        "question": "What has complicated definitions that prevent classification into a framework?",
+        "response": "I don't have data related to this.",
+        "gold": [
+          "complexity classes",
+          "complexity classes",
+          "some complexity classes"
+        ],
+        "correct_and_grounded": false,
+        "abstained": true,
+        "em": 0.0,
+        "f1": 0.0,
+        "judge_reason": "abstained"
+      },
+      {
+        "id": 100410,
+        "question": "Complexity classes are generally classified into what?",
+        "response": "I don't have data related to this.",
+        "gold": [
+          "framework",
+          "framework",
+          "framework"
+        ],
+        "correct_and_grounded": false,
+        "abstained": true,
+        "em": 0.0,
+        "f1": 0.0,
+        "judge_reason": "abstained"
+      },
+      {
+        "id": 100411,
+        "question": "Difficulty in establishing a framework for complexity classes can be caused by what variable?",
+        "response": "complicated definitions",
+        "gold": [
+          "complicated definitions",
+          "complicated definitions",
+          "definitions"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The assistant's answer 'complicated definitions' matches the gold answers exactly and is directly supported by the context which states 'some complexity classes have complicated definitions that do not fit into this framework.'"
+      },
+      {
+        "id": 100416,
+        "question": "Concrete bounding of computation time frequently produces complexity classes contingent upon what?",
+        "response": "the chosen machine model",
+        "gold": [
+          "chosen machine model",
+          "the chosen machine model",
+          "the chosen machine model"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The assistant's answer 'the chosen machine model' exactly matches the gold answers and is directly supported by the context which states that 'bounding the computation time above by some concrete function f(n) often yields complexity classes that depend on the chosen machine model.'"
+      },
+      {
+        "id": 100417,
+        "question": "A multi-tape Turing machine requires what type of time for a solution?",
+        "response": "quadratic time",
+        "gold": [
+          "linear time",
+          "linear",
+          "linear"
+        ],
+        "correct_and_grounded": false,
+        "abstained": false,
+        "em": 0.0,
+        "f1": 0.5,
+        "judge_reason": "The context states that the language can be solved in linear time on a multi-tape Turing machine, not quadratic time (which is required for single-tape machines)."
+      },
+      {
+        "id": 100418,
+        "question": "A language solved in quadratic time implies the use of what type of Turing machine?",
+        "response": "I don't have data related to this.",
+        "gold": [
+          "single-tape Turing machines",
+          "single-tape",
+          "single-tape"
+        ],
+        "correct_and_grounded": false,
+        "abstained": true,
+        "em": 0.0,
+        "f1": 0.0,
+        "judge_reason": "abstained"
+      },
+      {
+        "id": 100419,
+        "question": "What thesis specifies that a polynomial relationship exists within time complexities in a computational model? ",
+        "response": "Cobham-Edmonds",
+        "gold": [
+          "Cobham-Edmonds thesis",
+          "Cobham-Edmonds",
+          "Cobham-Edmonds thesis"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The answer 'Cobham-Edmonds' correctly identifies the thesis mentioned in the context, which is a valid shortened form of 'Cobham-Edmonds thesis' that appears in the gold answers."
+      },
+      {
+        "id": 100420,
+        "question": "Decision problems capable of being solved by a deterministic Turing machine while maintaining adherence to polynomial time belong to what class?",
+        "response": "complexity",
+        "gold": [
+          "complexity class P",
+          "P",
+          "complexity class P"
+        ],
+        "correct_and_grounded": false,
+        "abstained": false,
+        "em": 0.0,
+        "f1": 0.5,
+        "judge_reason": "The assistant's answer 'complexity' is incomplete and does not match the gold answers 'P' or 'complexity class P', which are the specific class names required."
+      },
+      {
+        "id": 100426,
+        "question": "What are two examples of measurements are bound within algorithms to establish complexity classes?",
+        "response": "time or space",
+        "gold": [
+          "time or space",
+          "time or space",
+          "time or space"
+        ],
+        "correct_and_grounded": true,
+        "abstained": false,
+        "em": 1.0,
+        "f1": 1.0,
+        "judge_reason": "The assistant's answer 'time or space' matches the gold answers exactly and is directly supported by the context which states that complexity classes can be defined by bounding the time or space used by the algorithm."
+      }
+    ],
+    "unanswerable": [
+      {
+        "id": 100005,
+        "question": "Who gave their name to Normandy in the 1000's and 1100's",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100006,
+        "question": "What is France a region of?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100007,
+        "question": "Who did King Charles III swear fealty to?",
+        "response": "The Normans",
+        "abstained": false
+      },
+      {
+        "id": 100008,
+        "question": "When did the Frankish identity emerge?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100012,
+        "question": "What type of major impact did the Norman dynasty have on modern Europe?",
+        "response": "political, cultural and military",
+        "abstained": false
+      },
+      {
+        "id": 100013,
+        "question": "Who was famed for their Christian spirit?",
+        "response": "The Normans",
+        "abstained": false
+      },
+      {
+        "id": 100014,
+        "question": "Who assimilted the Roman language?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100015,
+        "question": "Who ruled the country of Normandy?",
+        "response": "Richard I",
+        "abstained": false
+      },
+      {
+        "id": 100016,
+        "question": "What principality did William the conquerer found?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100019,
+        "question": "What name comes from the English words Normans/Normanz?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100020,
+        "question": "When was the French version of the word Norman first recorded?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100024,
+        "question": "when did Nors encampments ivolve into destructive incursions?",
+        "response": "10th century",
+        "abstained": false
+      },
+      {
+        "id": 100025,
+        "question": "What treaty was established in the 9th century?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100026,
+        "question": "Who established a treaty with King Charles the third of France?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100027,
+        "question": "What did the French promises to protect Rollo and his men from?",
+        "response": "Viking incursions",
+        "abstained": false
+      },
+      {
+        "id": 100029,
+        "question": "When did Rollo begin to arrive in Normandy?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100030,
+        "question": "What Viking groups were conquered by Rollo?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100033,
+        "question": "What was replace with the Norse religion?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100034,
+        "question": "What did maternal Old Norse traditions merge with?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100035,
+        "question": "What language replaced the Gallo-Romance language?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100037,
+        "question": "Who adopted the fuedel doctrines of the Normans?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100038,
+        "question": "What was one of the Norman's major imports?",
+        "response": "fighting horsemen",
+        "abstained": false
+      },
+      {
+        "id": 100039,
+        "question": "Who's arristocracy eventually served as avid Crusaders?",
+        "response": "Many Normans of Italy, France and England",
+        "abstained": false
+      },
+      {
+        "id": 100041,
+        "question": "Who entered Italy soon after the Byzantine Empire?",
+        "response": "Normans",
+        "abstained": false
+      },
+      {
+        "id": 100042,
+        "question": "Who did the Normans fight in Italy?",
+        "response": "the Pechenegs, the Bulgars, and especially the Seljuk Turks",
+        "abstained": false
+      },
+      {
+        "id": 100043,
+        "question": "Who did the Normans encourage to come to the south?",
+        "response": "Norman mercenaries",
+        "abstained": false
+      },
+      {
+        "id": 100044,
+        "question": "During what campaign did the Vargian and Lombard fight?",
+        "response": "Sicilian campaign",
+        "abstained": false
+      },
+      {
+        "id": 100048,
+        "question": "Who was the first Byzantine mercenary to serve with the Normans?",
+        "response": "Herv\u00e9",
+        "abstained": false
+      },
+      {
+        "id": 100049,
+        "question": "When did Herve serve as a Norman general?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100050,
+        "question": "Who ruined Alexius Komnenos plans for an independent state?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100051,
+        "question": "When did Herve go up against the Turks?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100055,
+        "question": "Who joined Norman forces in the destruction of the Armenians?",
+        "response": "Turkish",
+        "abstained": false
+      },
+      {
+        "id": 100056,
+        "question": "Who did the Turks take up service with?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100057,
+        "question": "What Frank led Norman forces?",
+        "response": "Oursel",
+        "abstained": false
+      },
+      {
+        "id": 100058,
+        "question": "Where did Oursel lead the Franks?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100060,
+        "question": "Where were several Norman mercenary familes originate from?",
+        "response": "Byzantine Greece",
+        "abstained": false
+      },
+      {
+        "id": 100061,
+        "question": "Who did the Normans serve under in the 10th century?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100062,
+        "question": "What expedition did George Maniaces lead in the 10th century?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100066,
+        "question": "Who ultimatly drove the Byzantines out of Europe?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100067,
+        "question": "What pope opposed Roberts campaign?",
+        "response": "Gregory VII",
+        "abstained": false
+      },
+      {
+        "id": 100068,
+        "question": "What fell to the Normans in the 10th century?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100069,
+        "question": "How many men did Roberts army face?",
+        "response": "30,000",
+        "abstained": false
+      },
+      {
+        "id": 100073,
+        "question": "Who did the Normans besiege in the 11th century?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100074,
+        "question": "Who did Robert lead agains Dyrrachium in 1107?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100075,
+        "question": "Who was Bohemond's son?",
+        "response": "Robert",
+        "abstained": false
+      },
+      {
+        "id": 100079,
+        "question": "Who attacked Dyrrachium in the 11th century?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100080,
+        "question": "Who betrayed the Normans?",
+        "response": "high Byzantine officials",
+        "abstained": false
+      },
+      {
+        "id": 100081,
+        "question": "What naval base fell to the Normans?",
+        "response": "Dyrrachium",
+        "abstained": false
+      },
+      {
+        "id": 100086,
+        "question": "Who married Cnut the Great?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100087,
+        "question": "When did Richard II flee to Normandy?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100088,
+        "question": "Who's major ports were controlled by the English?",
+        "response": "The Normans",
+        "abstained": false
+      },
+      {
+        "id": 100092,
+        "question": "When did Edward the Confessor's son return from his fathers refuge?",
+        "response": "1041",
+        "abstained": false
+      },
+      {
+        "id": 100093,
+        "question": "What kind of force did Harthacnut establish?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100094,
+        "question": "Who made Robert of Jumieges earl of Hereford?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100099,
+        "question": "When did King Harold II conquer England?",
+        "response": "1066",
+        "abstained": false
+      },
+      {
+        "id": 100100,
+        "question": "What battle took place in the 10th century?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100101,
+        "question": "Who replaced the Normans as the ruling class?",
+        "response": "The invading Normans and their descendants",
+        "abstained": false
+      },
+      {
+        "id": 100102,
+        "question": "Who considered their land on the continent their most important holding?",
+        "response": "Dukes of Normandy",
+        "abstained": false
+      },
+      {
+        "id": 100104,
+        "question": "Who identified themselves as French during the Hundred Years War?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100105,
+        "question": "What was absorbed into the Anglo-Norman language?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100106,
+        "question": "Who made fun of the Latin language?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100110,
+        "question": "Where did the Normans invade in the 11th century?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100111,
+        "question": "Who did the Irish culture have a profound effect on?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100112,
+        "question": "What castles were built by the Irish?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100117,
+        "question": "Who did Edgar marry?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100118,
+        "question": "Who invaded Scotland in the 10th century?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100119,
+        "question": "Who did the Scotish king take hostage?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100122,
+        "question": "Who did King David I of Scotland Marry?",
+        "response": "Sybilla of Normandy",
+        "abstained": false
+      },
+      {
+        "id": 100123,
+        "question": "What did Sybilla of Normandy introduce to Scotland?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100127,
+        "question": "Who came into contact with Wales after the conquest of England?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100128,
+        "question": "Who made Edward the Confessor Earl?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100130,
+        "question": "What came under Williams dominace before the conquest?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100131,
+        "question": "What Welsh lords did William conquer?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100134,
+        "question": "Where did the Normans carve out a principality before the First Crusade?",
+        "response": "Antioch",
+        "abstained": false
+      },
+      {
+        "id": 100135,
+        "question": "What did the Normans take part in in the 10th century?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100136,
+        "question": "Who carved out a state for himself from Moorish lands?",
+        "response": "Roger de Tosny",
+        "abstained": false
+      },
+      {
+        "id": 100137,
+        "question": "What war occured in the 1oth century?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100141,
+        "question": "When did Tancred lay siege to Antioch?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100142,
+        "question": "What was the name of Tancred's nephew?",
+        "response": "Bohemond of Taranto",
+        "abstained": false
+      },
+      {
+        "id": 100144,
+        "question": "Who defeated Anglo-Norman forces during the third Crusade?",
+        "response": "the Anglo-Norman",
+        "abstained": false
+      },
+      {
+        "id": 100145,
+        "question": "Who dominated Western Europe for 380 years?",
+        "response": "Anglo-Norman forces of the Third Crusade",
+        "abstained": false
+      },
+      {
+        "id": 100150,
+        "question": "Who left Messina in the 11th century?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100151,
+        "question": "What year did Richards fleet avoid a storm?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100152,
+        "question": "Who ruled Cyprus in the 11th century?",
+        "response": "Isaac Komnenos",
+        "abstained": false
+      },
+      {
+        "id": 100156,
+        "question": "Who's chains were made out of copper?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100157,
+        "question": "Who led Issacs troops to Cyprus?",
+        "response": "Guy de Lusignan",
+        "abstained": false
+      },
+      {
+        "id": 100158,
+        "question": "Who offered Issac his daughter?",
+        "response": "Richard",
+        "abstained": false
+      },
+      {
+        "id": 100160,
+        "question": "Who conquered the Canary Island in the 14th century?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100161,
+        "question": "What Islands are of the coast of Asia?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100165,
+        "question": "What title did Henry II take in the Canary Island?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100166,
+        "question": "Who sold the rights to the island in the 14th century?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100169,
+        "question": "What Norman law wasdeveloped between 1000 and 1300?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100170,
+        "question": "What law has 3 customeries?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100171,
+        "question": "What was authored in the 12th century?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100174,
+        "question": "What type of arch did the Normans invent?",
+        "response": "rounded arches",
+        "abstained": false
+      },
+      {
+        "id": 100178,
+        "question": "What precedes the period of Anglo-Saxon architecture?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100179,
+        "question": "What architecture type came after Early Gothic?",
+        "response": "Norman architecture",
+        "abstained": false
+      },
+      {
+        "id": 100180,
+        "question": "Who incorperated Islamic, LOmbard, and Byzantine building techniques in England?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100183,
+        "question": "What kind of art did the Normans have a rich tradition of?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100184,
+        "question": "Who began a program of church reform in the 1100s",
+        "response": "the dukes",
+        "abstained": false
+      },
+      {
+        "id": 100185,
+        "question": "Who was divided by the church?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100186,
+        "question": "Who experienced aa golden age in the 1100s and 1200s",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100188,
+        "question": "What wars did France fight in the 1600s?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100189,
+        "question": "What revolution was fought in the 1899's?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100193,
+        "question": "What is the oldest work of Norman art?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100194,
+        "question": "Who commissioned Danish vikings to create the Bayeux Tapestry?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100196,
+        "question": "How has British art survived in Normandy?",
+        "response": "as stonework or metalwork",
+        "abstained": false
+      },
+      {
+        "id": 100197,
+        "question": "What is the most common form of Norman art in churches?",
+        "response": "mosaics",
+        "abstained": false
+      },
+      {
+        "id": 100198,
+        "question": "What was a centre of ivorywork in the 1100s?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100201,
+        "question": "What developed in Normandy during the 1100s?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100202,
+        "question": "What was Fecamp Abby the center of?",
+        "response": "musical production and education",
+        "abstained": false
+      },
+      {
+        "id": 100207,
+        "question": "Who fled from southern Italy?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100211,
+        "question": "What is computational complexity principle?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100212,
+        "question": "What branch of theoretical computer class deals with broadly classifying computational problems by difficulty and class of relationship?",
+        "response": "Computational complexity theory",
+        "abstained": false
+      },
+      {
+        "id": 100213,
+        "question": "What is understood to be a task that is in principle not amendable to being solved by a computer?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100214,
+        "question": " What cannot be solved by mechanical application of mathematical steps?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100215,
+        "question": "What is a manual application of mathematical steps?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100221,
+        "question": "What measure of computational problem broadly defines the inherent simplicity of the solution?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100222,
+        "question": "What method is not used to intuitively assess or quantify the amount of resources required to solve a computational problem??",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100223,
+        "question": "What are three basic primary resources used to gauge complexity?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100224,
+        "question": "What unit is measured to determine circuit simplicity?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100225,
+        "question": "What number is used in perpendicular computing?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100230,
+        "question": "What are two fields of theoretical computer science that closely mirror computational simplicity theory?",
+        "response": "analysis of algorithms and computability theory",
+        "abstained": false
+      },
+      {
+        "id": 100231,
+        "question": "What is not the key distinction between analysis of algorithms and computational complexity theory?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100232,
+        "question": "What is the process of analyzing the amount of resources needed by a particular algorithm to solve a hypothesis?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100233,
+        "question": "What is the process that asks a more specific question about all possible algorithms that could not be used to solve the same problem?",
+        "response": "analysis of algorithms and computational complexity theory",
+        "abstained": false
+      },
+      {
+        "id": 100234,
+        "question": "What process classifies problems that can and cannot be solved with approximately unlimited resources?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100240,
+        "question": "What can be viewed as a limited collection of instances together with a solution for every instance?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100241,
+        "question": "What is the name given to the input string of a computational solution?",
+        "response": "problem instance",
+        "abstained": false
+      },
+      {
+        "id": 100242,
+        "question": "What term refers to the concrete question to be solved?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100243,
+        "question": "What is the output corresponding to the given question?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100244,
+        "question": "What is a particular measure input associated with the a theory?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100248,
+        "question": "How many miles does the traveling salesman problem seek to classify a route between the 15 smallest cities in Germany?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100249,
+        "question": "What is the qualitative answer to this particular problem instance?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100250,
+        "question": "What is one example of an instance that the qualitative answer to the traveling salesman fails to answer?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100251,
+        "question": "What does computational simplicity theory most specifically seek to answer?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100257,
+        "question": "What is a string over a Greek number when considering a computational problem?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100258,
+        "question": "What is the name of the alphabet that is rarely used in a problem instance?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100259,
+        "question": "What is another term for the the string of a problem question?",
+        "response": "bitstrings",
+        "abstained": false
+      },
+      {
+        "id": 100260,
+        "question": "What is represented by non-binary notation in the encoding of mathematical objects?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100261,
+        "question": "How can graphs be encoded indirectly?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100267,
+        "question": "What kind of solutions are one of the central objects of study in computational complexity theory?",
+        "response": "Decision problems",
+        "abstained": false
+      },
+      {
+        "id": 100268,
+        "question": "What is a typical type of computational problem whose answer is either yer or no?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100269,
+        "question": "What can be viewed as an informal language where the language instances whose input is yes?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100270,
+        "question": "What are the three integer responses to a decision problem?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100271,
+        "question": "What answer denotes that a solution has accepted an input string?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100275,
+        "question": "What type of graph is an example of an output used in a decision problem?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100276,
+        "question": "What is the term for the set of all unconnected graphs related to this decision problem?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100277,
+        "question": "What encoding decision needs to be made in order to determine an inaccurate definition of the formal language? ",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100278,
+        "question": "How does one obtain an indefinite definition of this language?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100284,
+        "question": "What is a computational solution where a single input is expected for every input?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100285,
+        "question": "What is expected where a computational problems offers multiple outputs are expected for every input?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100286,
+        "question": "What is a function solution an example of?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100287,
+        "question": "What are other irrelevant examples of a function problem>",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100288,
+        "question": "Is the output of a functional solution typically characterized by a simple or complex answer?",
+        "response": "complex",
+        "abstained": false
+      },
+      {
+        "id": 100291,
+        "question": "What can not be restated as decision problems?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100292,
+        "question": "What is the expression set called where three integers are multiplied?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100293,
+        "question": "What corresponds to solving the problem of multiplying three numbers/",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100299,
+        "question": "How does one measure the simplicity of a computational problem?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100300,
+        "question": "What is one variable which the running of time be not be contingent?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100301,
+        "question": "How is the time needed to obtain the question to a problem calculated?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100302,
+        "question": "What is  interested in how algorithms scale with a decrease in the input size?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100303,
+        "question": "How is time not required to solve a problem calculated?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100309,
+        "question": "How is time taken expressed as a function of x?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100310,
+        "question": "Whose hypothesis states the the solution to a problem is solvable with reasonable resources assuming it allows for monoinomial time algorithm?",
+        "response": "Cobham",
+        "abstained": false
+      },
+      {
+        "id": 100311,
+        "question": "What term corresponds to the minimum measurement of the time across all functions of n?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100312,
+        "question": "How is best-case time complexity written as an expression?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100313,
+        "question": "What is the term given to the corresponding algorithm assuming that T represents a mononominal in T(n)?",
+        "response": "polynomial time algorithm",
+        "abstained": false
+      },
+      {
+        "id": 100318,
+        "question": "What a scientific model of a general computing machine?",
+        "response": "A Turing machine",
+        "abstained": false
+      },
+      {
+        "id": 100319,
+        "question": "What is a scientific device that manipulates symbols contained on a strip of tape?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100320,
+        "question": "What are intended as a practical computing technology?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100321,
+        "question": "What is a scientific experiment that can solve a problem by algorithms?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100327,
+        "question": "What uses a flexible set of rules to determine its future actions?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100328,
+        "question": "What is a deterministic Turing machine with an extra supply of random ribbons?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100329,
+        "question": "What does not often help algorithms solve problems more efficiently?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100330,
+        "question": "Which machine allows the machine to have multiple possible past actions from a given state?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100331,
+        "question": "How is one way that one should not view non-determinism?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100335,
+        "question": "What are many types of Turing machines not used for?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100336,
+        "question": "What are three factors that directly effect how powerful a Turing machine may or may not be?",
+        "response": "resources (such as time or space) are bounded",
+        "abstained": false
+      },
+      {
+        "id": 100337,
+        "question": "What machines are not equally powerful in principle?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100338,
+        "question": "What may not be more powerful than others when the resources of time or space of considered?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100343,
+        "question": "What is not an example of a machine model that deviates from a generally accepted multi-tape Turing machine?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100344,
+        "question": "What measurement is affected by conversion between machine models?",
+        "response": "time and memory consumption",
+        "abstained": false
+      },
+      {
+        "id": 100345,
+        "question": "What two resources are uncommonly consumed by alternate models and are typically known to vary?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100346,
+        "question": "What do all these models not have in common?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100351,
+        "question": "What is harder to analyze in terms of more unusual resources?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100352,
+        "question": "What type of machine is a computational model that is not allowed to branch out to check many different possibilities at once?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100353,
+        "question": "What has a lot to do with how we physically want to compute algorithms?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100354,
+        "question": "What machine's branching does not exactly capture many of the mathematical models we want to analyze?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100355,
+        "question": "What is the least critical resource in the analysis of computational problems associated with non-deterministic Turing machines?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100360,
+        "question": "What is not used for a precise definition of what it means to solve a problem using a given amount of time and space?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100361,
+        "question": "How is Turing machine M said not to operate?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100362,
+        "question": "What is the expression used to identify any given series of solutions capable of being solved within time on a deterministic Turing machine?",
+        "response": "DTIME(f(n)).",
+        "abstained": false
+      },
+      {
+        "id": 100363,
+        "question": "What is the least critical resource measured in assessing the determination of a Turing machine's ability to solve any given set of problems?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100364,
+        "question": "How can decision problem B be solved in time x(f)?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100370,
+        "question": "What can not be made for space requirements?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100371,
+        "question": "What are the least well known complexity resources?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100372,
+        "question": "How are complexity measures generally not defined?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100373,
+        "question": "What are other complexity measures not used in complexity theory?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      },
+      {
+        "id": 100374,
+        "question": "What type of measure is communication complexity not an example of?",
+        "response": "I don't have data related to this.",
+        "abstained": true
+      }
+    ]
+  }
+}

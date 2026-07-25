@@ -1,0 +1,6 @@
+{
+  "n": 32,
+  "kappa_weighted": 0.9935,
+  "kappa_binary": 1.0,
+  "gate_pass": true
+}
