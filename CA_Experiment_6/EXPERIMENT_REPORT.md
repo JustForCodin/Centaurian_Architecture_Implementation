@@ -101,6 +101,24 @@ Exp 1–5 harness, unchanged mechanics: 20 ADA daily-QA scripts × 40 turns, sid
 
 The final jump (+0.68) came from a **broad consistency pass**. Diagnosis: PersonaScore probes were **bimodal (1s and 5s)** — the model held persona ~half the mid-session probe turns and reverted the rest — and no training example ever showed a T/E/C/S self-probe landing *after* a run of factoid turns, which is exactly the eval condition. The new `consistency` generator produces 12–16-turn factoid sessions with self-probes interleaved at **deep turns**, ADA staying in character on every one (and naturally emitting within-session recall). It lifted **every** dimension and moved the former anchor **E +0.73** (2.56 → 3.29). **Lesson: the persona failures were DATA gaps, not a capacity ceiling — diagnosis-driven data fixes moved H3 2.13 → 3.80.**
 
+### 3.1 Versus the 7B Qwen baselines (cross-experiment)
+
+Placed against the Qwen2.5-7B configurations from Experiments 1–3 (same harness mechanics — 8 probe turns, T/E/C/S, Sonnet 4.5 judge, 1–5 rubric):
+
+| Dim | 7B + SCI, prompt only (Exp 2-D) | 7B + LoRA-10K (Exp 2-C, headline) | **300M from-scratch (Exp 6-R0)** |
+|---|---:|---:|---:|
+| **T** (Trait) | 3.65 | 4.90 | 3.73 |
+| **E** (Episodic) | 2.77 | 3.35 | **3.29** |
+| **C** (Capability) | 3.42 | 4.47 | **4.47** |
+| **S** (Style) | 3.06 | 4.94 | 3.69 |
+| **Overall** | 3.22 | 4.42 | **3.80** |
+
+1. **The 300M-baked model beats the prompt-only 7B on every dimension** despite being 23× smaller — the program's *baking > prompting* thesis, now shown across a large size gap (Exp 2 baked a 7B and beat prompting it; here a baked 300M beats a prompted 7B).
+2. **Parity with the 7B-LoRA on the two substantive dimensions.** Capability is **identical** (4.47 vs 4.47) — the SMC-C abstention leg is fully solved at 300M. Episodic is **tied** (3.29 vs 3.35), and this was the *wall* of the whole program: the prompt-only 7B never cracked E = 3.0 across any Exp 1 intervention. Notably, the 7B reached 3.35 **with episodic RAG** (retrieval on E-probes); the 300M reaches 3.29 **from weights alone, no retrieval**.
+3. **The 7B-LoRA's entire overall lead (+0.62) is T and S** — Trait (4.90 vs 3.73) and Style (4.94 vs 3.69), the free-form *stylistic-expression* dimensions where the 7B sits at near-ceiling. The small-vs-large gap is **stylistic polish, not persona substance**: a 300M from-scratch model matches a RAG-assisted 7B-LoRA on memory (E) and capability-awareness (C), and trails only on the trait/style fluency that raw scale buys.
+
+**Caveats (indicative, not a controlled head-to-head):** Exp 1–3 use the Aria psychotherapy persona (rich reflective register); Exp 6 uses ADA (deliberately terse daily-QA register). The harness *machinery* and judge (Sonnet 4.5) are identical, so the dimensions measure the same constructs — but the persona content differs, and ADA's concise style is a different S target than Aria's, which partly inflates the 7B's near-ceiling T/S (some rubric saturation on the therapy persona).
+
 ---
 
 ## 4. H4 — SCI refresh
