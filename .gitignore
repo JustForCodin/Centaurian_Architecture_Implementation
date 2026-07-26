@@ -30,3 +30,9 @@ CA_Experiment_6/data/eval_unanswerable.jsonl
 CA_Experiment_6/data/raw_sonnet/
 CA_Experiment_6/tokenizer/*.json
 CA_Experiment_6/checkpoints/
+
+# CA Experiment 7: env + generated artifacts (scripts on Drive; results committed after a run)
+CA_Experiment_7/.venv/
+CA_Experiment_7/__pycache__/
+CA_Experiment_7/data/long_scripts/
+CA_Experiment_7/results_pilot/
