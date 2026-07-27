@@ -106,6 +106,9 @@ def run_script(gen, compact_sys, script, condition, args):
     mem = SessionMemory(embedder=_make_embedder(args))
     n = min(script["n_turns"], args.max_turns) if args.max_turns else script["n_turns"]
     turns = {t["turn"]: t for t in script["turns"]}
+    # oracle-store: store the ground-truth fact at anchor turns (isolates recall+
+    # consumption from plant quality — what the model would recall if storage were perfect).
+    oracle = {a["turn"]: a["expected"] for a in script.get("anchors", [])} if args.oracle_store else {}
     recall_by_turn, consist_by_turn = {}, {}
     for p in script.get("recall_probes", []):
         recall_by_turn.setdefault(p["turn"], []).append(p)
@@ -146,7 +149,7 @@ def run_script(gen, compact_sys, script, condition, args):
                 rows.append({"kind": "persona", "turn": t, "dimension": dim, "probe": probe,
                              "response": presp, "score": score, "reason": reason})
 
-        mem.add(t, user, reply)
+        mem.add(t, user, oracle.get(t, reply))            # oracle-store overrides anchor replies
         if t % 25 == 0 or t == n:
             rec = [r for r in rows if r["kind"] == "recall"]
             acc = sum(1 for r in rec if r["score"] >= 4) / len(rec) if rec else 0.0
@@ -211,6 +214,9 @@ def main():
     ap.add_argument("--resume", action="store_true")
     ap.add_argument("--dry-run-judge", action="store_true")
     ap.add_argument("--stub-embedder", action="store_true", help="offline hashing embedder (no MiniLM)")
+    ap.add_argument("--oracle-store", action="store_true",
+                    help="store the ground-truth fact at anchor turns (isolate recall+consumption "
+                         "from plant quality — the ceiling if storage were perfect)")
     args = ap.parse_args()
 
     from evaluate import ADAGenerator
