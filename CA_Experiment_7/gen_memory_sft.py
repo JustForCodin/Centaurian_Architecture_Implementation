@@ -43,6 +43,24 @@ from memory_store import MEMORY_HEADER                                      # no
 from gen_long_scripts import _gen_anchors, DEFAULT_GEN_MODEL               # noqa: E402
 
 
+def gen_facts(n, model, dry, chunk=20, max_calls=10):
+    """Generate n distinct facts. _gen_anchors does one Sonnet call, which
+    truncates past ~30 items, so batch in chunks and dedupe by the recall value."""
+    if dry:
+        return _gen_anchors(n, model, True)
+    seen, facts, calls = set(), [], 0
+    while len(facts) < n and calls < max_calls:
+        batch = _gen_anchors(min(chunk, n - len(facts) + 4), model, False)
+        calls += 1
+        for f in batch:
+            key = _norm(f["expected"])
+            if key and key not in seen:
+                seen.add(key)
+                facts.append(f)
+        print(f"  facts so far: {len(facts)}/{n} (after {calls} call(s))", flush=True)
+    return facts[:n]
+
+
 def _snippet(turn, user, answer):
     u = " ".join(str(user).split())
     a = " ".join(str(answer).split())
@@ -166,7 +184,7 @@ def main():
     args = ap.parse_args()
 
     rng = random.Random(args.seed)
-    facts = _gen_anchors(args.n_facts, args.model, args.dry_run)
+    facts = gen_facts(args.n_facts, args.model, args.dry_run)
     facts, n_leak = drop_eval_leakage(facts, args.eval_scripts_dir)
     print(f"facts: {len(facts)} distinct ({n_leak} dropped as eval-anchor leakage)", flush=True)
     if not facts:
