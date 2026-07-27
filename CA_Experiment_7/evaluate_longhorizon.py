@@ -35,7 +35,8 @@ _EXP6 = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, "CA_E
 if _EXP6 not in sys.path:
     sys.path.insert(0, _EXP6)
 
-from ca_assets import DIMENSIONS, get_probes_for_turn, format_chat, ASSISTANT_TOKEN  # noqa: E402
+from ca_assets import (DIMENSIONS, get_probes_for_turn, format_chat, ASSISTANT_TOKEN,  # noqa: E402
+                       ABSTENTION_CANONICAL)
 from compact_sci import build_compact_system_prompt                                  # noqa: E402
 from memory_store import SessionMemory                                               # noqa: E402
 
@@ -101,7 +102,7 @@ def _generate(gen, compact_sys: str, question: str, context, persona_state, max_
 
 # ── one script × one condition ───────────────────────────────────────────
 
-def run_script(gen, compact_sys, script, condition, args):
+def run_script(gen, span_gen, compact_sys, script, condition, args):
     tok = gen.tok
     mem = SessionMemory(embedder=_make_embedder(args))
     n = min(script["n_turns"], args.max_turns) if args.max_turns else script["n_turns"]
@@ -137,9 +138,9 @@ def run_script(gen, compact_sys, script, condition, args):
 
         # ── side-channel probes at this turn (scored, NOT added to memory) ──
         for p in recall_by_turn.get(t, []):
-            rows.append(_probe_recall(gen, compact_sys, mem, p, "recall", condition, args, tok))
+            rows.append(_probe_recall(gen, span_gen, compact_sys, mem, p, "recall", condition, args, tok))
         for c in consist_by_turn.get(t, []):
-            rows.append(_probe_recall(gen, compact_sys, mem, {**c, "turn": t}, "consistency", condition, args, tok))
+            rows.append(_probe_recall(gen, span_gen, compact_sys, mem, {**c, "turn": t}, "consistency", condition, args, tok))
         if t % args.persona_interval == 0:
             for dim, probe in get_probes_for_turn(t, script["script_id"]):
                 blk_p, _, _ = mem_block(probe)
@@ -149,7 +150,12 @@ def run_script(gen, compact_sys, script, condition, args):
                 rows.append({"kind": "persona", "turn": t, "dimension": dim, "probe": probe,
                              "response": presp, "score": score, "reason": reason})
 
-        mem.add(t, user, oracle.get(t, reply))            # oracle-store overrides anchor replies
+        # span-recall mode stores the CLEAN span-extracted value (not the LM reply),
+        # so the Episodic Register holds facts, not the generative head's garble.
+        stored = reply
+        if args.recall == "span" and span_gen is not None and tctx:
+            stored = span_gen.span_extract(user, tctx, ans_threshold=args.ans_threshold)
+        mem.add(t, user, oracle.get(t, stored))            # oracle-store overrides anchor turns
         if t % 25 == 0 or t == n:
             rec = [r for r in rows if r["kind"] == "recall"]
             acc = sum(1 for r in rec if r["score"] >= 4) / len(rec) if rec else 0.0
@@ -158,11 +164,18 @@ def run_script(gen, compact_sys, script, condition, args):
     return rows
 
 
-def _probe_recall(gen, compact_sys, mem, p, kind, condition, args, tok):
+def _probe_recall(gen, span_gen, compact_sys, mem, p, kind, condition, args, tok):
     blk, _ = mem.block_for(condition, p["user"], k=args.top_k, n=args.window_n,
                            budget_tokens=args.memory_budget, tok=tok, rerank=args.rerank)
-    ps = gen._persona_state(p["user"], None) if not args.no_qpm else None
-    resp, _ = _generate(gen, compact_sys, p["user"], _ctx(blk, ""), ps, max_new=args.max_new_tokens)
+    if args.recall == "span" and span_gen is not None:
+        # non-generative recall: the discriminative span head points at the value in
+        # the retrieved memory (can't hallucinate or pull from the baked SCI).
+        ctx = blk.split("\n", 1)[1] if "\n" in blk else blk    # drop the memory header
+        resp = (span_gen.span_extract(p["user"], ctx, ans_threshold=args.ans_threshold)
+                if ctx.strip() else ABSTENTION_CANONICAL)
+    else:
+        ps = gen._persona_state(p["user"], None) if not args.no_qpm else None
+        resp, _ = _generate(gen, compact_sys, p["user"], _ctx(blk, ""), ps, max_new=args.max_new_tokens)
     score, reason = (3, "dry") if args.dry_run_judge else _recall_judge(p["user"], p["expected"], resp)
     row = {"kind": kind, "turn": p["turn"], "anchor_id": p["anchor_id"], "probe": p["user"],
            "expected": p["expected"], "response": resp, "score": score, "reason": reason}
@@ -217,10 +230,22 @@ def main():
     ap.add_argument("--oracle-store", action="store_true",
                     help="store the ground-truth fact at anchor turns (isolate recall+consumption "
                          "from plant quality — the ceiling if storage were perfect)")
+    ap.add_argument("--recall", choices=["generative", "span"], default="generative",
+                    help="recall path: generative (LM head, hallucinates/contaminates) or span "
+                         "(extractive span head over retrieved memory — non-generative, can't hallucinate)")
+    ap.add_argument("--span-checkpoint", default=os.path.join(_EXP6, "checkpoints", "span_final.pt"),
+                    help="span-head checkpoint for --recall span")
+    ap.add_argument("--ans-threshold", type=float, default=0.3,
+                    help="span_extract answerability threshold (lower = extract more, abstain less)")
     args = ap.parse_args()
 
     from evaluate import ADAGenerator
     gen = ADAGenerator(args.checkpoint, args.tokenizer, device=args.device, use_qpm=not args.no_qpm)
+    span_gen = None
+    if args.recall == "span":
+        span_gen = ADAGenerator(args.span_checkpoint, args.tokenizer, device=args.device, use_qpm=False)
+        if not span_gen.has_span:
+            raise SystemExit(f"--recall span needs a span-head checkpoint; {args.span_checkpoint} has none")
     compact_sys = build_compact_system_prompt()
     scripts = sorted(Path(args.scripts_dir).glob("script_*.json"))
     if args.limit:
@@ -229,7 +254,7 @@ def main():
     out_dir.mkdir(parents=True, exist_ok=True)
 
     print("=" * 68, flush=True)
-    print(f"=== Exp 7 long-horizon — condition {args.condition} | "
+    print(f"=== Exp 7 long-horizon — condition {args.condition} | recall={args.recall} | "
           f"budget {args.memory_budget}tok k={args.top_k} n={args.window_n} "
           f"rerank={args.rerank} QPM={'off' if args.no_qpm else 'on'} ===", flush=True)
     print(f"    compact SCI: {len(gen.tok.encode(compact_sys))} tokens | scripts {len(scripts)} | "
@@ -247,7 +272,7 @@ def main():
         print(f"\n  [{si}/{len(scripts)}] {sp.name} (n={script['n_turns']}, "
               f"{len(script.get('recall_probes', []))} recall probes)", flush=True)
         t0 = time.time()
-        rows = run_script(gen, compact_sys, script, args.condition, args)
+        rows = run_script(gen, span_gen, compact_sys, script, args.condition, args)
         for r in rows:
             r["script_id"] = sid
             r["condition"] = args.condition
