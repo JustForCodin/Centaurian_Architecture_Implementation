@@ -99,36 +99,81 @@ def _lower_first(s):
     return (s[0].lower() + s[1:]) if s else s
 
 
-def build_memrecall(facts, n_records, abstain_frac, start_id, rng, no_qpm):
+# ── synthetic needle-recall: random values → reading is MANDATORY (can't memorise) ──
+_ENTITIES = [
+    "the Zephyr protocol", "project Marigold", "the Vela-7 sensor", "the Halcyon archive",
+    "the Orion relay", "batch Kestrel", "the Solaris index", "unit Nimbus-4", "the Perseus module",
+    "the Cygnus ledger", "the Aurora cache", "node Tycho", "the Meridian log", "the Cobalt registry",
+    "the Lyra channel", "the Onyx buffer", "the Sable queue", "the Quill dataset", "the Ember gateway",
+    "the Fenix pipeline", "the Garnet array", "the Ivory manifest", "the Jasper token", "the Kilo shard",
+    "the Wren beacon", "the Petra vault", "the Dune scanner", "the Slate monitor",
+]
+_ATTRS = [
+    ("reference code", lambda r: str(r.randint(1000, 9999))),
+    ("calibration value", lambda r: f"{r.randint(1, 99)}.{r.randint(10, 99)}"),
+    ("batch number", lambda r: f"B-{r.randint(100, 999)}"),
+    ("recorded count", lambda r: str(r.randint(10, 9999))),
+    ("version tag", lambda r: f"v{r.randint(1, 9)}.{r.randint(0, 9)}"),
+    ("serial number", lambda r: f"SN-{r.randint(10000, 99999)}"),
+    ("assigned rating", lambda r: f"{r.randint(1, 10)}/10"),
+    ("measured length", lambda r: f"{r.randint(1, 999)} cm"),
+]
+
+
+def _synthetic_fact(rng):
+    ent = rng.choice(_ENTITIES)
+    attr, valgen = rng.choice(_ATTRS)
+    val = valgen(rng)
+    return {"plant_user": f"What is the {attr} of {ent}?",
+            "recall_user": f"Earlier you gave me the {attr} of {ent} — what was it?",
+            "expected": val, "topic": f"{ent}|{attr}"}
+
+
+def build_memrecall(real_facts, n_records, synthetic_frac, abstain_frac, start_id, rng, no_qpm):
+    """Compose per record: synthetic needle-recall (random value, forces reading),
+    real-world recall (naturalness), or abstain (target absent → decline)."""
     compact = build_compact_system_prompt()
-    n_abstain = int(n_records * abstain_frac)
     recs, rid = [], start_id
+    counts = {"synthetic": 0, "real": 0, "abstain": 0}
     for i in range(n_records):
-        f = facts[i % len(facts)]
-        pool = [g for g in facts if g is not f]
-        others = rng.sample(pool, min(4, len(pool)))
+        roll = rng.random()
+        if roll < abstain_frac:
+            kind = "abstain"
+        elif roll < abstain_frac + synthetic_frac or not real_facts:
+            kind = "synthetic"
+        else:
+            kind = "real"
+
+        if kind == "real":
+            target = rng.choice(real_facts)
+            others = rng.sample([g for g in real_facts if g is not target], min(4, len(real_facts) - 1))
+        else:                                              # synthetic or abstain
+            target = _synthetic_fact(rng)
+            others = [_synthetic_fact(rng) for _ in range(5 if kind == "abstain" else 4)]
         distractors = [{"user": g["plant_user"], "answer": g["expected"]} for g in others]
-        if i < n_abstain:                                  # target fact absent → abstain
+
+        if kind == "abstain":                              # target NOT in block → decline
             block, _ = _block(None, distractors, rng)
-            answer = rng.choice(_ABSTAIN_TEMPLATES)
-            answerable = False
-        else:                                              # target present → recall it
-            relevant = {"user": f["plant_user"], "answer": f["expected"]}
-            block, rel_turn = _block(relevant, distractors, rng)
+            answer, answerable = rng.choice(_ABSTAIN_TEMPLATES), False
+        else:
+            rel = {"user": target["plant_user"], "answer": target["expected"]}
+            block, rel_turn = _block(rel, distractors, rng)
             answer = rng.choice(_ANSWER_TEMPLATES).format(
-                e=f["expected"], el=_lower_first(f["expected"]), t=rel_turn)
+                e=target["expected"], el=_lower_first(target["expected"]), t=rel_turn)
             answerable = True
-        ps = build_persona_state(extract_d_vector(f["recall_user"]), use_qpm=not no_qpm)
+
+        ps = build_persona_state(extract_d_vector(target["recall_user"]), use_qpm=not no_qpm)
         rec = make_record(rid, "sonnet_memrecall", answerable=answerable, context=block,
                           messages=[{"role": "system", "content": compact},
-                                    {"role": "user", "content": f["recall_user"]},
+                                    {"role": "user", "content": target["recall_user"]},
                                     {"role": "assistant", "content": answer}],
                           persona_state=ps)
         validate_record(rec)
         recs.append(rec)
         rid += 1
+        counts[kind] += 1
     rng.shuffle(recs)
-    return recs, n_abstain
+    return recs, counts
 
 
 def _norm(s):
@@ -168,8 +213,12 @@ def load_persona_replay(qa_path, n, rng):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--model", default=DEFAULT_GEN_MODEL)
-    ap.add_argument("--n-facts", type=int, default=90, help="distinct facts to generate with Sonnet")
-    ap.add_argument("--n-records", type=int, default=1000, help="memrecall training records")
+    ap.add_argument("--n-facts", type=int, default=40,
+                    help="real-world facts to generate with Sonnet (0 = pure synthetic, no API)")
+    ap.add_argument("--n-records", type=int, default=1200, help="memrecall training records")
+    ap.add_argument("--synthetic-frac", type=float, default=0.65,
+                    help="fraction of records that are synthetic needle-recall (random value → "
+                         "reading mandatory; the anti-memorisation core)")
     ap.add_argument("--abstain-frac", type=float, default=0.15)
     ap.add_argument("--persona-replay", type=int, default=800,
                     help="Exp 6 persona records to replay (0 = all) to prevent regression")
@@ -184,16 +233,15 @@ def main():
     args = ap.parse_args()
 
     rng = random.Random(args.seed)
-    facts = gen_facts(args.n_facts, args.model, args.dry_run)
-    facts, n_leak = drop_eval_leakage(facts, args.eval_scripts_dir)
-    print(f"facts: {len(facts)} distinct ({n_leak} dropped as eval-anchor leakage)", flush=True)
-    if not facts:
-        raise SystemExit("no facts left after leakage filter")
-    mem, n_abstain = build_memrecall(facts, args.n_records, args.abstain_frac,
-                                     args.start_id, rng, args.no_qpm)
+    facts = gen_facts(args.n_facts, args.model, args.dry_run) if args.n_facts else []
+    if facts:
+        facts, n_leak = drop_eval_leakage(facts, args.eval_scripts_dir)
+        print(f"real facts: {len(facts)} distinct ({n_leak} dropped as eval-anchor leakage)", flush=True)
+    mem, counts = build_memrecall(facts, args.n_records, args.synthetic_frac, args.abstain_frac,
+                                  args.start_id, rng, args.no_qpm)
     persona = load_persona_replay(args.persona_jsonl, args.persona_replay, rng)
-    print(f"memrecall: {len(mem)} ({len(mem)-n_abstain} recall + {n_abstain} abstain) | "
-          f"persona replay: {len(persona)}", flush=True)
+    print(f"memrecall: {len(mem)} ({counts['synthetic']} synthetic + {counts['real']} real + "
+          f"{counts['abstain']} abstain) | persona replay: {len(persona)}", flush=True)
 
     out = Path(args.out)
     out.parent.mkdir(parents=True, exist_ok=True)
