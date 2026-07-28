@@ -31,8 +31,17 @@ CA_Experiment_6/data/raw_sonnet/
 CA_Experiment_6/tokenizer/*.json
 CA_Experiment_6/checkpoints/
 
-# CA Experiment 7: env + generated artifacts (scripts on Drive; results committed after a run)
+# CA Experiment 7: env + generated artifacts. Committed record: EXPERIMENT_REPORT.md,
+# data/long_scripts/ (eval fixtures), results/ (generative), results_span/ (extractive),
+# results_span_oracle/ (ceiling). Ignored: env, generated SFT data, diagnostic/pilot runs.
 CA_Experiment_7/.venv/
 CA_Experiment_7/__pycache__/
-CA_Experiment_7/data/long_scripts/
+CA_Experiment_7/data/long_scripts_oow/
+CA_Experiment_7/data/phase_b_sft.jsonl
 CA_Experiment_7/results_pilot/
+CA_Experiment_7/results_k1_frozen/
+CA_Experiment_7/results_oracle_k1/
+CA_Experiment_7/results_oracle_k5/
+CA_Experiment_7/results_phaseB_pilot/
+CA_Experiment_7/results_phaseB_pilot2/
+CA_Experiment_7/results_span_pilot/

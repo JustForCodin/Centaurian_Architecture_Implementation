@@ -1,0 +1,701 @@
+{
+  "script_id": 100000,
+  "n_turns": 100,
+  "turns": [
+    {
+      "turn": 1,
+      "user": "What is the carbon content range that distinguishes steel from cast iron?",
+      "context": "Steel contains between 0.02 and 2.14 percent carbon by weight; cast iron contains more than 2.14 percent carbon.",
+      "kind": "filler"
+    },
+    {
+      "turn": 2,
+      "user": "What common acids does sulfur form?",
+      "context": "Sulfur forms several important acids. Sulfuric acid (H\u2082SO\u2084) is one of the most widely produced industrial chemicals globally. Sulfurous acid (H\u2082SO\u2083) forms when sulfur dioxide dissolves in water. Hydrogen sulfide (H\u2082S) is a weak diprotic acid with a characteristic rotten-egg odor.",
+      "kind": "filler"
+    },
+    {
+      "turn": 3,
+      "user": "What is the capital of Morocco?",
+      "context": "The capital of Morocco is Rabat, located on the Atlantic coast at the mouth of the Bou Regreg river. Rabat is the seat of the Moroccan government and the royal residence. It is often confused with Casablanca, which is the largest city and the economic centre of Morocco but is not the capital.",
+      "kind": "filler"
+    },
+    {
+      "turn": 4,
+      "user": "What is the greenhouse effect?",
+      "context": "The greenhouse effect is the process by which atmospheric gases trap heat radiated from Earth's surface, warming the planet.",
+      "kind": "filler"
+    },
+    {
+      "turn": 5,
+      "user": "Which country has the most UNESCO World Heritage Sites?",
+      "context": "Italy leads the world with 58 UNESCO World Heritage Sites as of 2023, narrowly ahead of China, which has 57. Italy's sites include iconic locations such as the Historic Centre of Rome, the Amalfi Coast, and the Val d'Orcia.",
+      "kind": "anchor",
+      "anchor_id": 0
+    },
+    {
+      "turn": 6,
+      "user": "Last one \u2014 what was the last element to be officially named, and when did that happen?",
+      "context": "The context passage does not contain information about which element was most recently officially named or the date of that naming.",
+      "kind": "filler"
+    },
+    {
+      "turn": 7,
+      "user": "What percentage of the ocean has been explored by humans?",
+      "context": "Scientists estimate that only about 20 percent of the world's oceans have been mapped and explored.",
+      "kind": "filler"
+    },
+    {
+      "turn": 8,
+      "user": "What is the Coriolis effect and how does it affect weather?",
+      "context": "The Coriolis effect is the deflection of moving air due to Earth's rotation, causing winds to curve right in the Northern Hemisphere and left in the Southern.",
+      "kind": "filler"
+    },
+    {
+      "turn": 9,
+      "user": "What is the role of platelets in the blood?",
+      "context": "Platelets are small cell fragments that aggregate at wound sites to form clots and prevent excessive bleeding.",
+      "kind": "filler"
+    },
+    {
+      "turn": 10,
+      "user": "What is the shape-memory effect in metals?",
+      "context": "The shape-memory effect is the ability of certain alloys to return to a pre-defined shape when heated above a transformation temperature.",
+      "kind": "filler"
+    },
+    {
+      "turn": 11,
+      "user": "What was the Hanging Gardens of Babylon \u2014 were they real?",
+      "context": "The Hanging Gardens of Babylon are considered one of the Seven Wonders of the Ancient World, though no definitive archaeological evidence confirms their existence.",
+      "kind": "filler"
+    },
+    {
+      "turn": 12,
+      "user": "How often do El Ni\u00f1o events typically occur?",
+      "context": "El Ni\u00f1o events typically occur every two to seven years and usually last nine to twelve months.",
+      "kind": "filler"
+    },
+    {
+      "turn": 13,
+      "user": "ADA, you mentioned the Rosetta Stone earlier this session \u2014 who currently has legal ownership of it?",
+      "context": "The Rosetta Stone has been held by the British Museum since 1802; Egypt has made formal requests for its return, which Britain has declined.",
+      "kind": "filler"
+    },
+    {
+      "turn": 14,
+      "user": "What asteroid did the Hayabusa2 mission sample?",
+      "context": "Hayabusa2 collected subsurface samples from the asteroid Ryugu and returned them to Earth in December 2020.",
+      "kind": "filler"
+    },
+    {
+      "turn": 15,
+      "user": "How do mantis shrimp see colour?",
+      "context": "Mantis shrimp possess up to 16 types of photoreceptors, compared to three in humans, enabling detection of UV and polarised light.",
+      "kind": "filler"
+    },
+    {
+      "turn": 16,
+      "user": "What is the formula for gravitational force between two masses?",
+      "context": "Newton's law of gravitation gives F = G\u00b7m\u2081\u00b7m\u2082/r\u00b2, where G is the gravitational constant and r is the distance between the masses.",
+      "kind": "filler"
+    },
+    {
+      "turn": 17,
+      "user": "Hey ADA, who proved the irrationality of the square root of 2?",
+      "context": "The irrationality of the square root of 2 is attributed to the ancient Greek mathematician Hippasus of Metapontum.",
+      "kind": "filler"
+    },
+    {
+      "turn": 18,
+      "user": "Speaking of hot things \u2014 is Venus actually hotter than Mercury even though it's farther from the Sun?",
+      "context": "Yes. Despite being farther from the Sun, Venus has a mean surface temperature of approximately 465 \u00b0C, making it the hottest planet in the solar system. Mercury, though much closer to the Sun, reaches daytime surface temperatures of about 430 \u00b0C but lacks a significant atmosphere to retain heat, so night-side temperatures plunge to roughly \u2212180 \u00b0C. Venus's thick carbon-dioxide atmosphere creates an extreme greenhouse effect that traps heat uniformly.",
+      "kind": "filler"
+    },
+    {
+      "turn": 19,
+      "user": "What mission returned the first samples from an asteroid to Earth?",
+      "context": "JAXA's Hayabusa mission returned samples from asteroid Itokawa to Earth in June 2010.",
+      "kind": "filler"
+    },
+    {
+      "turn": 20,
+      "user": "And how long does it take light to travel that distance?",
+      "context": "Light travels at approximately 299,792 kilometres per second in a vacuum. At a distance of 149.6 million kilometres (one AU), light takes approximately 8 minutes and 20 seconds to travel from the Sun to Earth. This figure varies slightly with Earth's position in its orbit, ranging from about 8 minutes 10 seconds at perihelion to 8 minutes 27 seconds at aphelion.",
+      "kind": "filler"
+    },
+    {
+      "turn": 21,
+      "user": "How is a weber related to a tesla?",
+      "context": "One weber equals one tesla multiplied by one square metre: 1 Wb = 1 T\u00b7m\u00b2.",
+      "kind": "filler"
+    },
+    {
+      "turn": 22,
+      "user": "What is the longest bone in the body?",
+      "context": "The femur, or thigh bone, is the longest and strongest bone in the human body.",
+      "kind": "filler"
+    },
+    {
+      "turn": 23,
+      "user": "What's the capital of Kenya?",
+      "context": "The capital of Kenya is Nairobi, located in the south-central part of the country. Nairobi is the largest city in Kenya and serves as the country's economic and political hub. It is also home to the United Nations Environment Programme (UNEP) headquarters and the UN Office at Nairobi, making it one of only four cities worldwide to host a UN headquarters. Nairobi sits at an elevation of approximately 1,795 metres.",
+      "kind": "filler"
+    },
+    {
+      "turn": 24,
+      "user": "I remember we talked about tungsten's melting point a while back \u2014 what's the melting point of the human body's hardest substance, tooth enamel?",
+      "context": "Tooth enamel is the hardest substance in the human body but has no single melting point; it decomposes rather than melts.",
+      "kind": "filler"
+    },
+    {
+      "turn": 25,
+      "user": "Who was Sophie Germain?",
+      "context": "Sophie Germain was a French mathematician who made significant contributions to number theory and elasticity theory, often corresponding under a male pseudonym.",
+      "kind": "filler"
+    },
+    {
+      "turn": 26,
+      "user": "Going back to iron \u2014 can you explain what stainless steel is and which element makes it corrosion-resistant?",
+      "context": "Stainless steel is an iron alloy containing at minimum 10.5% chromium (Cr) by mass. The corrosion resistance arises because chromium reacts with atmospheric oxygen to form a thin, adherent, self-repairing chromium oxide (Cr\u2082O\u2083) passive layer on the surface, preventing further oxidation of the underlying iron. Common grades also include nickel (for austenitic structure) and molybdenum (for enhanced chloride resistance).",
+      "kind": "filler"
+    },
+    {
+      "turn": 27,
+      "user": "How fast can a sailfish swim?",
+      "context": "The sailfish is considered the fastest fish in the ocean, capable of reaching speeds of up to 110 kilometres per hour.",
+      "kind": "filler"
+    },
+    {
+      "turn": 28,
+      "user": "Can you tell me the standard atomic weight of nitrogen?",
+      "context": "Nitrogen (symbol N, atomic number 7) is a diatomic nonmetal gas at standard conditions. Its standard atomic weight is 14.007 u. Nitrogen constitutes about 78% of Earth's atmosphere by volume, primarily as N\u2082. It is essential for the synthesis of amino acids, nucleic acids, and other biological molecules.",
+      "kind": "filler"
+    },
+    {
+      "turn": 29,
+      "user": "What's the current status of the Voyager probes \u2014 where are they now?",
+      "context": "Voyager 1, launched in September 1977, crossed the heliopause (the boundary of the heliosphere) around 2012 and is now in interstellar space, making it the most distant human-made object. As of early 2025, Voyager 1 is approximately 24 billion kilometres (about 163 AU) from the Sun. Voyager 2, launched slightly earlier in August 1977 on a different trajectory, crossed the heliopause in late 2018 and is approximately 20 billion km (~136 AU) from the Sun. Both probes continue to transmit data, though their power output is declining; some instruments have been turned off to conserve energy.",
+      "kind": "filler"
+    },
+    {
+      "turn": 30,
+      "user": "What are checkpoint inhibitors?",
+      "context": "Checkpoint inhibitors are drugs that block inhibitory proteins such as PD-1 or CTLA-4, allowing T cells to attack cancer cells more effectively.",
+      "kind": "filler"
+    },
+    {
+      "turn": 31,
+      "user": "Can you tell me what the current recommended daily calorie intake is for adults in my country?",
+      "context": "[NO RELEVANT CONTEXT RETRIEVED]",
+      "kind": "filler"
+    },
+    {
+      "turn": 32,
+      "user": "How many plays are attributed to William Shakespeare?",
+      "context": "William Shakespeare is generally credited with writing 37 plays, though some scholars argue for 38 or 39 when disputed collaborative works are included. His plays have been translated into every major language and are performed more often than those of any other playwright.",
+      "kind": "anchor",
+      "anchor_id": 1
+    },
+    {
+      "turn": 33,
+      "user": "What is the fluid inside the cell, excluding the organelles themselves, called?",
+      "context": "The cytosol is the aqueous fluid component of the cytoplasm that surrounds the organelles inside the cell.",
+      "kind": "filler"
+    },
+    {
+      "turn": 34,
+      "user": "What is the term for the programmed death of a cell?",
+      "context": "Apoptosis is a regulated process of programmed cell death that removes damaged or unneeded cells without triggering inflammation.",
+      "kind": "filler"
+    },
+    {
+      "turn": 35,
+      "user": "What is wave energy, and has any commercial wave energy plant been built?",
+      "context": "Wave energy converters harvest the kinetic and potential energy of ocean surface waves; no utility-scale commercial wave farm is yet operational.",
+      "kind": "filler"
+    },
+    {
+      "turn": 36,
+      "user": "What year was Smalltalk first developed?",
+      "context": "Smalltalk was first developed at Xerox PARC in 1972 by Alan Kay and colleagues.",
+      "kind": "filler"
+    },
+    {
+      "turn": 37,
+      "user": "So Microsoft grew from the Altair BASIC license. When was Apple Computer founded and by whom?",
+      "context": "Apple Computer was founded on April 1, 1976, by Steve Jobs, Steve Wozniak, and Ronald Wayne. Wayne sold his 10% stake back to Jobs and Wozniak for $800 shortly afterward. Steve Wozniak designed the Apple I, a single-board computer sold as a kit, and the more polished Apple II (1977), which became one of the first highly successful mass-produced personal computers. The Apple II featured color graphics, an open architecture with expansion slots, and a built-in BASIC interpreter, making it particularly popular in homes and schools.",
+      "kind": "filler"
+    },
+    {
+      "turn": 38,
+      "user": "What are the physical properties of phosphorus's white allotrope?",
+      "context": "White phosphorus (P\u2084) is a waxy, pale yellow or colorless solid with a melting point of 44.15 \u00b0C and a boiling point of 280.5 \u00b0C. It has a density of 1.823 g/cm\u00b3. White phosphorus is highly flammable, igniting spontaneously in air at about 34 \u00b0C, and is highly toxic. It emits a faint greenish glow (chemiluminescence) in the presence of oxygen.",
+      "kind": "filler"
+    },
+    {
+      "turn": 39,
+      "user": "What was the von Neumann architecture and who proposed it?",
+      "context": "The von Neumann architecture is a computer design model described in a 1945 draft report titled 'First Draft of a Report on the EDVAC,' attributed to mathematician John von Neumann. It describes a machine with four main components: a processing unit (with an arithmetic logic unit and processor registers), a control unit, memory that stores both data and program instructions, and input/output mechanisms. The critical innovation was the stored-program concept\u2014instructions and data share the same memory space, allowing programs to be modified and reloaded without hardware changes. This architecture remains the basis of most computers today.",
+      "kind": "filler"
+    },
+    {
+      "turn": 40,
+      "user": "What holds the phospholipid bilayer together \u2014 what kind of interaction keeps it intact?",
+      "context": "The phospholipid bilayer is stabilized by hydrophobic interactions between the fatty-acid tails, which face inward away from water.",
+      "kind": "filler"
+    },
+    {
+      "turn": 41,
+      "user": "What is the projected future of the Sun over the next several billion years?",
+      "context": "The Sun is currently about 4.6 billion years old and is roughly halfway through its main-sequence lifetime. Over the next approximately 5 billion years, the Sun will gradually increase in luminosity. In about 1\u20132 billion years, the Sun's increasing output may render Earth's surface too warm for liquid water oceans. In roughly 5 billion years, the Sun will exhaust hydrogen in its core and expand into a red giant, potentially engulfing Mercury and Venus and possibly reaching Earth's current orbital distance, though Earth may migrate outward as the Sun loses mass. The outer layers will be expelled as a planetary nebula, leaving behind a white dwarf roughly the size of Earth, composed primarily of carbon and oxygen.",
+      "kind": "filler"
+    },
+    {
+      "turn": 42,
+      "user": "What year was the Rust programming language first released?",
+      "context": "Rust was first released in 2015 by Mozilla Research, designed for systems programming with a focus on memory safety.",
+      "kind": "filler"
+    },
+    {
+      "turn": 43,
+      "user": "What's the largest organ in the human body?",
+      "context": "The skin is the largest organ of the human body, covering approximately 1.5 to 2 square metres in adults.",
+      "kind": "filler"
+    },
+    {
+      "turn": 44,
+      "user": "What was the main objective of the Kepler Space Telescope?",
+      "context": "The Kepler Space Telescope was designed to survey a portion of the Milky Way to discover Earth-size planets in habitable zones.",
+      "kind": "filler"
+    },
+    {
+      "turn": 45,
+      "user": "You mentioned Europa might have a subsurface ocean \u2014 how thick is the ice shell thought to be?",
+      "context": "Estimates of Europa's ice shell thickness vary. Geophysical models and surface feature analysis suggest the shell could range from as thin as 3\u20134 kilometres in some regions to as thick as 30 kilometres or more on average. The 'thin ice' model is supported by surface features resembling sea-ice rafts, suggesting the shell could be locally disrupted by liquid water below. The total depth of the subsurface ocean is estimated at 60\u2013150 kilometres, implying a water volume about twice that of all Earth's oceans combined.",
+      "kind": "filler"
+    },
+    {
+      "turn": 46,
+      "user": "What year was the Go programming language released and who created it?",
+      "context": "Go was released in 2009, created at Google by Robert Griesemer, Rob Pike, and Ken Thompson.",
+      "kind": "filler"
+    },
+    {
+      "turn": 47,
+      "user": "What about the vacuum permeability \u03bc\u2080?",
+      "context": "The vacuum magnetic permeability (permeability of free space), symbol \u03bc\u2080, has the value 1.25663706212 \u00d7 10\u207b\u2076 N/A\u00b2 (equivalently H/m or kg\u00b7m\u00b7s\u207b\u00b2\u00b7A\u207b\u00b2). Prior to 2019 it was defined exactly as 4\u03c0 \u00d7 10\u207b\u2077 N/A\u00b2; since the 2019 SI redefinition it is a measured quantity with a relative uncertainty of about 1.5 \u00d7 10\u207b\u00b9\u2070. It relates to \u03b5\u2080 and c via \u03bc\u2080\u03b5\u2080 = 1/c\u00b2.",
+      "kind": "filler"
+    },
+    {
+      "turn": 48,
+      "user": "What is the Mars Reconnaissance Orbiter primarily used for?",
+      "context": "The Mars Reconnaissance Orbiter, launched in 2005, conducts detailed reconnaissance and studies of Mars's surface, subsurface, and atmosphere.",
+      "kind": "filler"
+    },
+    {
+      "turn": 49,
+      "user": "I remember you told me once about the Fermi paradox and the Drake equation. In that context, does your corpus say anything about the luminosity of the Sun in watts?",
+      "context": "The luminosity of the Sun, symbol L\u2609, is approximately 3.828 \u00d7 10\u00b2\u2076 watts (W), adopted as a nominal solar luminosity by the International Astronomical Union (IAU) in 2015. It is the total radiated power output of the Sun across all wavelengths. Stellar luminosity is relevant to the Drake equation factor f_l (fraction of planets developing life) insofar as the habitable zone depends on stellar luminosity, which is governed by stellar structure physics.",
+      "kind": "filler"
+    },
+    {
+      "turn": 50,
+      "user": "What does the '++' in C++ signify?",
+      "context": "The '++' in C++ refers to the increment operator in C, symbolizing that C++ is an incremented or enhanced version of C.",
+      "kind": "filler"
+    },
+    {
+      "turn": 51,
+      "user": "What crystal structure does titanium have at room temperature?",
+      "context": "Titanium has a hexagonal close-packed (HCP) crystal structure at room temperature, called alpha-titanium.",
+      "kind": "filler"
+    },
+    {
+      "turn": 52,
+      "user": "You explained the Drake equation factors when we discussed the Fermi paradox \u2014 does anything like that probabilistic chain exist for estimating future renewable capacity?",
+      "context": "",
+      "kind": "filler"
+    },
+    {
+      "turn": 53,
+      "user": "Going back to something we covered \u2014 you mentioned the Boltzmann constant earlier. How does it connect to the kelvin's current definition?",
+      "context": "Since the 2019 revision of the SI, the kelvin is defined by fixing the Boltzmann constant k_B at exactly 1.380649 \u00d7 10\u207b\u00b2\u00b3 J/K. One kelvin is thus the thermodynamic temperature change that corresponds to a thermal energy change of exactly 1.380649 \u00d7 10\u207b\u00b2\u00b3 joules per degree of freedom. This replaced the previous definition based on the triple point of water (273.16 K), which is now a measured quantity rather than a definition.",
+      "kind": "filler"
+    },
+    {
+      "turn": 54,
+      "user": "What's the main gas in Earth's atmosphere?",
+      "context": "Nitrogen makes up approximately 78 percent of Earth's atmosphere by volume.",
+      "kind": "filler"
+    },
+    {
+      "turn": 55,
+      "user": "Going back to our earlier chat about the expanding universe \u2014 who first mathematically predicted an expanding universe before Hubble's observations?",
+      "context": "Georges Lema\u00eetre independently derived an expanding universe from Einstein's field equations and published the finding in 1927.",
+      "kind": "filler"
+    },
+    {
+      "turn": 56,
+      "user": "What is the period of a simple pendulum?",
+      "context": "The period of a simple pendulum is approximately 2\u03c0 times the square root of length divided by gravitational acceleration: T = 2\u03c0\u221a(L/g).",
+      "kind": "filler"
+    },
+    {
+      "turn": 57,
+      "user": "What are the alkali metals?",
+      "context": "The alkali metals are Group 1 elements \u2014 lithium, sodium, potassium, rubidium, cesium, and francium \u2014 known for being highly reactive soft metals.",
+      "kind": "filler"
+    },
+    {
+      "turn": 58,
+      "user": "What language did ancient Romans speak?",
+      "context": "Latin was the official spoken and written language of ancient Rome and its administration across the empire.",
+      "kind": "filler"
+    },
+    {
+      "turn": 59,
+      "user": "What language was C derived from?",
+      "context": "C was derived from the B programming language, which was itself based on BCPL.",
+      "kind": "filler"
+    },
+    {
+      "turn": 60,
+      "user": "What was New York City originally called when it was a Dutch settlement?",
+      "context": "New York City was originally established as a Dutch trading post called New Amsterdam in 1626, when the Dutch West India Company purchased Manhattan from the Lenape people. It was renamed New York in 1664 after the English took control of the colony.",
+      "kind": "anchor",
+      "anchor_id": 2
+    },
+    {
+      "turn": 61,
+      "user": "Is bromine also liquid at room temperature?",
+      "context": "Bromine is the only nonmetal element that is liquid at standard room temperature, alongside mercury as a liquid element.",
+      "kind": "filler"
+    },
+    {
+      "turn": 62,
+      "user": "Does Mars have any moons? What are they like?",
+      "context": "Mars has two small, irregularly shaped moons: Phobos and Deimos. Phobos, the larger of the two, has a mean radius of about 11.3 km and orbits Mars at only 9,376 km \u2014 closer than any other known moon orbits its parent planet. It completes an orbit in just 7 hours and 39 minutes, meaning it rises in the west and sets in the east as seen from Mars. Phobos is slowly spiralling inward and is expected to either break apart into a ring or impact Mars in about 30\u201350 million years. Deimos is smaller (mean radius ~6.2 km) and orbits at 23,463 km.",
+      "kind": "filler"
+    },
+    {
+      "turn": 63,
+      "user": "Good. What are the two broad categories of cells based on whether they have a membrane-bound nucleus?",
+      "context": "Cells are classified as prokaryotic (no membrane-bound nucleus) or eukaryotic (nucleus enclosed by a membrane).",
+      "kind": "filler"
+    },
+    {
+      "turn": 64,
+      "user": "Hey ADA, quick one to start \u2014 how many bones are in the adult human body?",
+      "context": "The adult human skeleton contains 206 bones, reduced from roughly 270 at birth as many fuse during development.",
+      "kind": "filler"
+    },
+    {
+      "turn": 65,
+      "user": "How is power defined in mechanics?",
+      "context": "Power is the rate at which work is done, equal to work divided by time, or equivalently force times velocity: P = Fv.",
+      "kind": "filler"
+    },
+    {
+      "turn": 66,
+      "user": "When was Objective-C created?",
+      "context": "Objective-C was created in the early 1980s by Brad Cox and Tom Love, later adopted by NeXT and then Apple.",
+      "kind": "filler"
+    },
+    {
+      "turn": 67,
+      "user": "Interesting. What was the Antikythera mechanism?",
+      "context": "The Antikythera mechanism, dated to around 100 BCE, was an ancient Greek analogue computer used to predict astronomical positions and eclipses.",
+      "kind": "filler"
+    },
+    {
+      "turn": 68,
+      "user": "What is a hurricane?",
+      "context": "A hurricane is a tropical cyclone with sustained wind speeds exceeding 119 kilometres per hour, forming over warm ocean waters.",
+      "kind": "filler"
+    },
+    {
+      "turn": 69,
+      "user": "Where is Machu Picchu located?",
+      "context": "Machu Picchu is situated in the Cusco Region of Peru, approximately 2,430 metres above sea level in the Andes Mountains.",
+      "kind": "filler"
+    },
+    {
+      "turn": 70,
+      "user": "What is the difference between bronze and brass?",
+      "context": "Brass is an alloy of copper and zinc, whereas bronze is primarily copper alloyed with tin.",
+      "kind": "filler"
+    },
+    {
+      "turn": 71,
+      "user": "As a teenager, what famous sum is Gauss said to have computed instantly?",
+      "context": "As a schoolboy, Gauss is said to have rapidly summed all integers from 1 to 100, yielding 5050, by pairing numbers symmetrically.",
+      "kind": "filler"
+    },
+    {
+      "turn": 72,
+      "user": "Who developed TCP/IP and when was it adopted?",
+      "context": "TCP/IP (Transmission Control Protocol/Internet Protocol) was developed by Vinton Cerf and Robert Kahn. They published the foundational paper 'A Protocol for Packet Network Intercommunication' in 1974, describing the TCP protocol. IP was later defined separately. On January 1, 1983\u2014a date known as 'Flag Day'\u2014ARPANET officially transitioned to TCP/IP, requiring all connected hosts to adopt the new protocol suite. This transition is considered the birth of the modern internet. Cerf and Kahn received the Turing Award in 2004 for this work.",
+      "kind": "filler"
+    },
+    {
+      "turn": 73,
+      "user": "Earlier you mentioned silicon melts at 1414 \u00b0C \u2014 does that thermal property affect solar panel performance in hot climates?",
+      "context": "Silicon solar cell output decreases by approximately 0.4% to 0.5% per degree Celsius rise above the standard test temperature of 25 degrees Celsius.",
+      "kind": "filler"
+    },
+    {
+      "turn": 74,
+      "user": "What is the surface temperature of Venus?",
+      "context": "Venus's mean surface temperature is approximately 465 degrees Celsius, hot enough to melt lead.",
+      "kind": "filler"
+    },
+    {
+      "turn": 75,
+      "user": "How many muscles are in the human body?",
+      "context": "The human body contains approximately 600 skeletal muscles, though estimates vary slightly depending on classification methods used.",
+      "kind": "filler"
+    },
+    {
+      "turn": 76,
+      "user": "Hey ADA, quick question \u2014 how many elements are currently on the periodic table?",
+      "context": "The periodic table contains 118 confirmed elements as of its most recent IUPAC-endorsed update.",
+      "kind": "filler"
+    },
+    {
+      "turn": 77,
+      "user": "How many species of shark exist?",
+      "context": "There are approximately 500 known species of sharks, ranging from the dwarf lanternshark to the whale shark.",
+      "kind": "filler"
+    },
+    {
+      "turn": 78,
+      "user": "What is passive immunity?",
+      "context": "Passive immunity is protection conferred by transferring pre-formed antibodies from one individual to another, providing immediate but temporary defense.",
+      "kind": "filler"
+    },
+    {
+      "turn": 79,
+      "user": "ADA, do you know the exact number of workers who built the Great Pyramid?",
+      "context": "Historians debate the workforce size; no source in the local corpus contains a confirmed exact figure for pyramid construction workers.",
+      "kind": "filler"
+    },
+    {
+      "turn": 80,
+      "user": "How efficient are modern silicon solar panels at converting sunlight to electricity?",
+      "context": "Commercial silicon photovoltaic panels typically achieve conversion efficiencies between 18% and 22% under standard test conditions.",
+      "kind": "filler"
+    },
+    {
+      "turn": 81,
+      "user": "Who is Alan Kay, briefly?",
+      "context": "Alan Kay is a computer scientist who pioneered object-oriented programming and the concept of the personal computer at Xerox PARC.",
+      "kind": "filler"
+    },
+    {
+      "turn": 82,
+      "user": "What are hydrothermal vents?",
+      "context": "Hydrothermal vents are fissures on the ocean floor that release superheated, mineral-rich water, supporting unique chemosynthetic ecosystems.",
+      "kind": "filler"
+    },
+    {
+      "turn": 83,
+      "user": "What is the deepest recorded SCUBA dive?",
+      "context": "The deepest recorded open-circuit SCUBA dive is 332.35 metres, achieved by Ahmed Gabr in the Red Sea in 2014.",
+      "kind": "filler"
+    },
+    {
+      "turn": 84,
+      "user": "We talked a bit about capitals that replaced former capitals \u2014 like Abuja replacing Lagos. What's the capital that replaced Rio de Janeiro?",
+      "context": "Brazil's current capital is Bras\u00edlia, which replaced Rio de Janeiro as the national capital in 1960. The decision to move the capital was driven by a desire to develop Brazil's interior and to create a more centrally located seat of government. Rio de Janeiro remains Brazil's second largest city and a major cultural and economic centre.",
+      "kind": "filler"
+    },
+    {
+      "turn": 85,
+      "user": "Which Apollo mission was the last crewed Moon landing?",
+      "context": "Apollo 17, launched in December 1972, was the final crewed Moon landing of the Apollo program.",
+      "kind": "filler"
+    },
+    {
+      "turn": 86,
+      "user": "What was the Indus Valley Civilization, and where was it located?",
+      "context": "The Indus Valley Civilization was a Bronze Age civilization centred in the northwestern Indian subcontinent, flourishing roughly 2600\u20131900 BCE.",
+      "kind": "filler"
+    },
+    {
+      "turn": 87,
+      "user": "How deep can floating offshore wind platforms operate compared to fixed-bottom turbines?",
+      "context": "Fixed-bottom offshore wind turbines are limited to water depths of roughly 60 metres, while floating platforms can operate beyond 200 metres.",
+      "kind": "filler"
+    },
+    {
+      "turn": 88,
+      "user": "Which experiment disproved Thomson's model?",
+      "context": "The Geiger-Marsden gold foil experiment of 1909, directed by Ernest Rutherford, disproved the plum-pudding model by revealing a dense nucleus.",
+      "kind": "filler"
+    },
+    {
+      "turn": 89,
+      "user": "How does agrivoltaics combine solar energy generation with agriculture?",
+      "context": "Agrivoltaic systems co-locate solar panels and crops on the same land, with partial shading from panels shown to reduce water evaporation and sometimes increase yields.",
+      "kind": "filler"
+    },
+    {
+      "turn": 90,
+      "user": "What is the Boltzmann constant and what does it connect?",
+      "context": "The Boltzmann constant, symbol k_B (or simply k), has the exact value 1.380649 \u00d7 10\u207b\u00b2\u00b3 joules per kelvin (J/K), fixed by the 2019 SI redefinition. It relates the average kinetic energy of particles in a gas to the thermodynamic temperature of the gas, appearing in the ideal gas law as pV = Nk_BT and in the entropy formula S = k_B ln \u03a9.",
+      "kind": "filler"
+    },
+    {
+      "turn": 91,
+      "user": "What is the mass of a proton?",
+      "context": "The proton rest mass, symbol m_p, is 1.67262192369 \u00d7 10\u207b\u00b2\u2077 kilograms (kg), or 938.27208816 MeV/c\u00b2. The proton is approximately 1836 times more massive than the electron. Like the electron mass, the proton mass is a measured quantity and is not fixed by definition under the 2019 SI redefinition.",
+      "kind": "filler"
+    },
+    {
+      "turn": 92,
+      "user": "What is the Faraday constant?",
+      "context": "The Faraday constant, symbol F, is the magnitude of electric charge per mole of elementary charges. Its value is F = N_A \u00d7 e = 96,485.33212 C/mol exactly, since both N_A and e are fixed by the 2019 SI redefinition. It appears in electrochemistry in Faraday's laws of electrolysis: the charge required to deposit or dissolve one mole of a monovalent ion is exactly F coulombs.",
+      "kind": "filler"
+    },
+    {
+      "turn": 93,
+      "user": "What happens during autophagy?",
+      "context": "Autophagy is the process by which a cell degrades and recycles its own damaged organelles and proteins using lysosomes.",
+      "kind": "filler"
+    },
+    {
+      "turn": 94,
+      "user": "What separates the groups \u2014 the columns \u2014 from the periods conceptually?",
+      "context": "Groups are vertical columns; elements in the same group share the same number of valence electrons and similar chemical properties.",
+      "kind": "filler"
+    },
+    {
+      "turn": 95,
+      "user": "Which element is named after the planet Uranus?",
+      "context": "Uranium, element 92, was named after the planet Uranus when it was discovered in 1789 by Martin Heinrich Klaproth.",
+      "kind": "filler"
+    },
+    {
+      "turn": 96,
+      "user": "Which gas is the most abundant greenhouse gas?",
+      "context": "Water vapour is the most abundant greenhouse gas in Earth's atmosphere.",
+      "kind": "filler"
+    },
+    {
+      "turn": 97,
+      "user": "What prize did Marie Curie win for the discovery of radium?",
+      "context": "Marie Curie was awarded the 1911 Nobel Prize in Chemistry for the discovery of radium and polonium.",
+      "kind": "filler"
+    },
+    {
+      "turn": 98,
+      "user": "Which ocean is the largest by surface area?",
+      "context": "The Pacific Ocean is the largest ocean, covering approximately 165 million square kilometres.",
+      "kind": "filler"
+    },
+    {
+      "turn": 99,
+      "user": "And which domains of life are made up entirely of prokaryotic cells?",
+      "context": "Bacteria and Archaea are the two domains composed entirely of prokaryotic cells.",
+      "kind": "filler"
+    },
+    {
+      "turn": 100,
+      "user": "What language inspired Python the most according to its creator?",
+      "context": "Guido van Rossum designed Python to be a successor to the ABC language, inheriting much of its syntax philosophy.",
+      "kind": "filler"
+    }
+  ],
+  "anchors": [
+    {
+      "anchor_id": 0,
+      "turn": 5,
+      "topic": "country with most UNESCO World Heritage Sites",
+      "fact": "Italy, with 58 sites",
+      "expected": "Italy, with 58 UNESCO World Heritage Sites",
+      "recall_user": "You told me which country has the most UNESCO World Heritage Sites and how many \u2014 can you recall that?"
+    },
+    {
+      "anchor_id": 1,
+      "turn": 32,
+      "topic": "number of plays attributed to Shakespeare",
+      "fact": "37 plays",
+      "expected": "37 plays",
+      "recall_user": "Earlier you told me how many plays Shakespeare wrote \u2014 what was that number?"
+    },
+    {
+      "anchor_id": 2,
+      "turn": 60,
+      "topic": "original name of New York City",
+      "fact": "New Amsterdam",
+      "expected": "New Amsterdam",
+      "recall_user": "Earlier you mentioned the original Dutch name for New York City \u2014 what was it?"
+    }
+  ],
+  "recall_probes": [
+    {
+      "turn": 15,
+      "anchor_id": 0,
+      "lag": 10,
+      "user": "You told me which country has the most UNESCO World Heritage Sites and how many \u2014 can you recall that?",
+      "expected": "Italy, with 58 UNESCO World Heritage Sites",
+      "topic": "country with most UNESCO World Heritage Sites"
+    },
+    {
+      "turn": 45,
+      "anchor_id": 0,
+      "lag": 40,
+      "user": "You told me which country has the most UNESCO World Heritage Sites and how many \u2014 can you recall that?",
+      "expected": "Italy, with 58 UNESCO World Heritage Sites",
+      "topic": "country with most UNESCO World Heritage Sites"
+    },
+    {
+      "turn": 42,
+      "anchor_id": 1,
+      "lag": 10,
+      "user": "Earlier you told me how many plays Shakespeare wrote \u2014 what was that number?",
+      "expected": "37 plays",
+      "topic": "number of plays attributed to Shakespeare"
+    },
+    {
+      "turn": 72,
+      "anchor_id": 1,
+      "lag": 40,
+      "user": "Earlier you told me how many plays Shakespeare wrote \u2014 what was that number?",
+      "expected": "37 plays",
+      "topic": "number of plays attributed to Shakespeare"
+    },
+    {
+      "turn": 70,
+      "anchor_id": 2,
+      "lag": 10,
+      "user": "Earlier you mentioned the original Dutch name for New York City \u2014 what was it?",
+      "expected": "New Amsterdam",
+      "topic": "original name of New York City"
+    }
+  ],
+  "consistency_probes": [
+    {
+      "anchor_id": 0,
+      "user": "You told me which country has the most UNESCO World Heritage Sites and how many \u2014 can you recall that?",
+      "expected": "Italy, with 58 UNESCO World Heritage Sites",
+      "topic": "country with most UNESCO World Heritage Sites",
+      "turns": [
+        20,
+        43,
+        66
+      ]
+    },
+    {
+      "anchor_id": 1,
+      "user": "Earlier you told me how many plays Shakespeare wrote \u2014 what was that number?",
+      "expected": "37 plays",
+      "topic": "number of plays attributed to Shakespeare",
+      "turns": [
+        47,
+        64,
+        81
+      ]
+    }
+  ]
+}

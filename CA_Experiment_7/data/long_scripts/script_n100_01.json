@@ -1,0 +1,701 @@
+{
+  "script_id": 100001,
+  "n_turns": 100,
+  "turns": [
+    {
+      "turn": 1,
+      "user": "What is the triple point of water in kelvin and Celsius under the current SI?",
+      "context": "Under the 2019 SI revision, the triple point of water is no longer a defined value but a measured one. Its best measured value is 273.1600 K (0.0100 \u00b0C), consistent with the previous definition to within measurement uncertainty. The Celsius scale is still defined so that 0 \u00b0C = 273.15 K (i.e., the ice point at standard pressure), making the triple point approximately 0.01 \u00b0C.",
+      "kind": "filler"
+    },
+    {
+      "turn": 2,
+      "user": "Last question for today \u2014 you've helped me across a bunch of sessions now. Of all the languages we've touched on today, which was released first: Fortran, LISP, or COBOL?",
+      "context": "Fortran was released in 1957, LISP in 1958, and COBOL in 1959, making Fortran the earliest of the three.",
+      "kind": "filler"
+    },
+    {
+      "turn": 3,
+      "user": "What organelle contains digestive enzymes and breaks down waste material inside the cell?",
+      "context": "Lysosomes are membrane-bound organelles containing hydrolytic enzymes that digest cellular waste, worn-out organelles, and foreign material.",
+      "kind": "filler"
+    },
+    {
+      "turn": 4,
+      "user": "What's the current population of the world's smallest capital city by area?",
+      "context": "Vatican City, while sometimes considered a city-state, is often cited separately. Among conventional national capitals, data on the 'smallest by area' varies by source and measurement methodology. The local corpus does not contain a definitive ranked list of national capitals by land area with corresponding current population figures. Ngerulmud (Palau) is among the smallest by population, but precise current area and population rankings for all capitals are not available in the retrieved context.",
+      "kind": "filler"
+    },
+    {
+      "turn": 5,
+      "user": "What is the chemical symbol for tungsten and why doesn't it match the name?",
+      "context": "Tungsten's chemical symbol is W, which comes from its older German name Wolfram. The element was first isolated in 1783 by Spanish chemists Juan Jos\u00e9 and Fausto Elhuyar.",
+      "kind": "anchor",
+      "anchor_id": 0
+    },
+    {
+      "turn": 6,
+      "user": "What is the capital of Argentina?",
+      "context": "The capital of Argentina is Buenos Aires, a large port city situated on the R\u00edo de la Plata estuary on the country's eastern coast. Buenos Aires is the most populous city in Argentina and serves as the country's political, economic, and cultural hub. It is the seat of the federal government and home to the Casa Rosada, the presidential palace.",
+      "kind": "filler"
+    },
+    {
+      "turn": 7,
+      "user": "What is the deepest fish ever recorded?",
+      "context": "The Mariana snailfish (Pseudoliparis swirei) holds the record for deepest fish, observed at 8,178 metres depth.",
+      "kind": "filler"
+    },
+    {
+      "turn": 8,
+      "user": "What was the primary objective of the Voyager 1 mission?",
+      "context": "Voyager 1 was launched in 1977 to conduct close-up studies of Jupiter and Saturn and their moons and rings.",
+      "kind": "filler"
+    },
+    {
+      "turn": 9,
+      "user": "You mentioned that sulfur forms H\u2082SO\u2084 \u2014 what is the Ka of sulfuric acid's first dissociation?",
+      "context": "Sulfuric acid (H\u2082SO\u2084) is a strong diprotic acid. Its first dissociation (H\u2082SO\u2084 \u2192 H\u207a + HSO\u2084\u207b) is considered complete under normal aqueous conditions; the first Ka is approximately 1 \u00d7 10\u00b3, meaning the first proton is essentially fully dissociated in dilute solution. The second dissociation (HSO\u2084\u207b \u2192 H\u207a + SO\u2084\u00b2\u207b) has Ka\u2082 \u2248 0.012 at 25 \u00b0C, making bisulfate a moderately weak acid.",
+      "kind": "filler"
+    },
+    {
+      "turn": 10,
+      "user": "What's the capital of Iceland again? And what's its population roughly?",
+      "context": "Reykjavik is the capital of Iceland. The city proper has a population of approximately 130,000 to 140,000 people, while the greater Reykjavik capital region accounts for around 230,000 people \u2014 representing roughly two-thirds of Iceland's entire national population of approximately 370,000.",
+      "kind": "filler"
+    },
+    {
+      "turn": 11,
+      "user": "What is the main job of a ribosome in the cell?",
+      "context": "Ribosomes translate messenger RNA sequences into polypeptide chains during the process of protein synthesis.",
+      "kind": "filler"
+    },
+    {
+      "turn": 12,
+      "user": "What's the Sun's core temperature, roughly?",
+      "context": "The core of the Sun is estimated to reach temperatures of approximately 15 million degrees Celsius (15 \u00d7 10\u2076 \u00b0C). At this temperature and the extreme pressures present (~250 billion atmospheres), nuclear fusion of hydrogen into helium occurs via the proton\u2013proton chain, releasing the energy that ultimately powers the Sun's luminosity.",
+      "kind": "filler"
+    },
+    {
+      "turn": 13,
+      "user": "What is an inductor, and what is its SI unit?",
+      "context": "An inductor is a passive component that stores energy in a magnetic field; inductance is measured in henries, H.",
+      "kind": "filler"
+    },
+    {
+      "turn": 14,
+      "user": "Is there a record for the lowest barometric pressure ever measured?",
+      "context": "The context does not contain data about record low barometric pressure measurements.",
+      "kind": "filler"
+    },
+    {
+      "turn": 15,
+      "user": "What is the energy density of lithium-ion batteries used for grid storage, in watt-hours per kilogram?",
+      "context": "Grid-scale lithium-ion battery systems typically achieve energy densities of 150 to 250 watt-hours per kilogram at the cell level.",
+      "kind": "filler"
+    },
+    {
+      "turn": 16,
+      "user": "What is the fluid inside the cell, excluding the organelles themselves, called?",
+      "context": "The cytosol is the aqueous fluid component of the cytoplasm that surrounds the organelles inside the cell.",
+      "kind": "filler"
+    },
+    {
+      "turn": 17,
+      "user": "Let's try chemistry. Who discovered oxygen, and when?",
+      "context": "Carl Wilhelm Scheele first prepared oxygen around 1772, though Joseph Priestley independently discovered and published it in 1774.",
+      "kind": "filler"
+    },
+    {
+      "turn": 18,
+      "user": "How often do El Ni\u00f1o events typically occur?",
+      "context": "El Ni\u00f1o events typically occur every two to seven years and usually last nine to twelve months.",
+      "kind": "filler"
+    },
+    {
+      "turn": 19,
+      "user": "You mentioned the Moon stabilises Earth's axial tilt earlier \u2014 how much has Earth's tilt actually varied over time?",
+      "context": "Earth's axial tilt (obliquity) varies between approximately 22.1 and 24.5 degrees over a cycle of about 41,000 years, a component of the Milankovitch cycles. This relatively modest variation is thought to be stabilised by the gravitational influence of the Moon. Numerical simulations suggest that without the Moon, Earth's obliquity could vary chaotically over timescales of millions to hundreds of millions of years, potentially reaching anywhere from near 0\u00b0 to over 85\u00b0. Current obliquity is approximately 23.44 degrees. These variations influence the distribution of solar energy across latitudes and are linked to ice age cycles.",
+      "kind": "filler"
+    },
+    {
+      "turn": 20,
+      "user": "You mentioned the thymus earlier \u2014 what exactly does it do?",
+      "context": "The thymus is a gland where T cell precursors mature and undergo selection to ensure they respond to foreign antigens but not self-antigens.",
+      "kind": "filler"
+    },
+    {
+      "turn": 21,
+      "user": "What is the moment of inertia?",
+      "context": "Moment of inertia is a measure of an object's resistance to changes in its rotational motion, dependent on mass distribution about the axis.",
+      "kind": "filler"
+    },
+    {
+      "turn": 22,
+      "user": "What holds the phospholipid bilayer together \u2014 what kind of interaction keeps it intact?",
+      "context": "The phospholipid bilayer is stabilized by hydrophobic interactions between the fatty-acid tails, which face inward away from water.",
+      "kind": "filler"
+    },
+    {
+      "turn": 23,
+      "user": "That's interesting\u2014so Shannon figured out the relay circuit connection. What else did Claude Shannon contribute to computing?",
+      "context": "Claude Shannon founded information theory with his landmark 1948 paper 'A Mathematical Theory of Communication,' published in the Bell System Technical Journal. He introduced the concept of the 'bit' as the fundamental unit of information, derived the Shannon entropy formula to quantify information content, and established channel capacity theorems that govern how much data can be reliably transmitted over a noisy channel. His work underpins modern data compression, error-correcting codes, and cryptography.",
+      "kind": "filler"
+    },
+    {
+      "turn": 24,
+      "user": "Hey ADA, let's do some science trivia today. Who is credited with discovering penicillin?",
+      "context": "Alexander Fleming discovered penicillin in 1928 when he noticed mold killing bacteria on a contaminated petri dish.",
+      "kind": "filler"
+    },
+    {
+      "turn": 25,
+      "user": "Is there a cytokine specifically responsible for fever?",
+      "context": "Interleukin-1 and tumor necrosis factor-alpha are cytokines that act on the hypothalamus to induce fever during infection.",
+      "kind": "filler"
+    },
+    {
+      "turn": 26,
+      "user": "What is the name of the heart-shaped feature on Pluto?",
+      "context": "The prominent heart-shaped plain on Pluto is informally called Tombaugh Regio, honoring Pluto's discoverer Clyde Tombaugh.",
+      "kind": "filler"
+    },
+    {
+      "turn": 27,
+      "user": "You walked me through the dew point earlier in this session \u2014 is fog basically the same phenomenon, just at ground level?",
+      "context": "Fog forms by the same saturation process as dew point cooling but produces suspended water droplets rather than surface condensation.",
+      "kind": "filler"
+    },
+    {
+      "turn": 28,
+      "user": "What's the capacity factor of a typical onshore wind turbine?",
+      "context": "Onshore wind turbines generally have capacity factors ranging from 25% to 40%, depending on site wind resources.",
+      "kind": "filler"
+    },
+    {
+      "turn": 29,
+      "user": "Earlier you told me oxygen is the second most electronegative element \u2014 so what compounds does fluorine form with oxygen?",
+      "context": "Fluorine (symbol F, atomic number 9) is the most electronegative element (Pauling value 3.98). Because fluorine is more electronegative than oxygen, oxygen takes a positive oxidation state in their compounds. Oxygen difluoride (OF\u2082) and dioxygen difluoride (O\u2082F\u2082) are known fluorides of oxygen. OF\u2082 is a pale yellow gas that is a powerful oxidizer and extremely reactive.",
+      "kind": "filler"
+    },
+    {
+      "turn": 30,
+      "user": "What is the Gaussian distribution named after?",
+      "context": "The Gaussian distribution, or normal distribution, is named after Carl Friedrich Gauss, who used it extensively in his work on astronomy and least squares.",
+      "kind": "filler"
+    },
+    {
+      "turn": 31,
+      "user": "Interesting \u2014 so Canberra was purpose-built. Did something similar happen with Brazil's capital?",
+      "context": "Brazil's capital is Bras\u00edlia, a planned city that was constructed in the late 1950s in the country's interior. It was inaugurated as the capital in 1960, replacing Rio de Janeiro. The city was designed by urban planner L\u00facio Costa and architect Oscar Niemeyer and is a UNESCO World Heritage Site.",
+      "kind": "filler"
+    },
+    {
+      "turn": 32,
+      "user": "What is the half-life of carbon-14, and why does it matter for dating?",
+      "context": "Carbon-14 has a half-life of approximately 5,730 years, which makes it useful for dating organic materials up to about 50,000 years old. Beyond that age, too little carbon-14 remains to be measured accurately.",
+      "kind": "anchor",
+      "anchor_id": 1
+    },
+    {
+      "turn": 33,
+      "user": "Does geothermal energy work everywhere, or are there geographic constraints?",
+      "context": "High-temperature geothermal energy is largely constrained to tectonically active regions near tectonic plate boundaries, volcanic zones, or hotspots.",
+      "kind": "filler"
+    },
+    {
+      "turn": 34,
+      "user": "What is Venus's atmosphere primarily made of?",
+      "context": "Venus's atmosphere is composed of approximately 96.5% carbon dioxide (CO\u2082) and 3.5% nitrogen, with trace amounts of sulfur dioxide, argon, water vapour, and other gases. The atmospheric pressure at the surface is about 92 times that of Earth's sea-level pressure, equivalent to being roughly 900 metres underwater on Earth. Thick clouds of sulfuric acid droplets cover the planet and reflect about 70% of incoming sunlight.",
+      "kind": "filler"
+    },
+    {
+      "turn": 35,
+      "user": "What is the gravitational constant G?",
+      "context": "The Newtonian gravitational constant, symbol G, has the value 6.67430 \u00d7 10\u207b\u00b9\u00b9 m\u00b3 kg\u207b\u00b9 s\u207b\u00b2 (equivalently N\u00b7m\u00b2\u00b7kg\u207b\u00b2). Unlike most fundamental constants, G is not fixed by definition and retains a measurement uncertainty; it is among the least precisely known fundamental constants. It appears in Newton's law of universal gravitation: F = G(m\u2081m\u2082)/r\u00b2.",
+      "kind": "filler"
+    },
+    {
+      "turn": 36,
+      "user": "When was the Perl programming language created?",
+      "context": "Perl was created by Larry Wall and first released in 1987, designed for text processing and system administration.",
+      "kind": "filler"
+    },
+    {
+      "turn": 37,
+      "user": "How does a concentrating solar power tower plant generate electricity differently from a photovoltaic farm?",
+      "context": "A concentrating solar power tower uses mirrors to focus sunlight onto a central receiver, heating a fluid to drive a steam turbine.",
+      "kind": "filler"
+    },
+    {
+      "turn": 38,
+      "user": "What temperature does conventional low-temperature superconductivity typically require?",
+      "context": "Conventional low-temperature superconductors typically require cooling to near absolute zero, often below 10 kelvin.",
+      "kind": "filler"
+    },
+    {
+      "turn": 39,
+      "user": "What is the exact number of atoms in one mole of any substance?",
+      "context": "One mole of any substance contains exactly 6.02214076 \u00d7 10\u00b2\u00b3 elementary entities (atoms, molecules, ions, etc.), a value known as Avogadro's number (N\u2090). This constant was fixed by definition in the 2019 revision of the SI units. At standard temperature and pressure (0 \u00b0C, 1 atm), one mole of an ideal gas occupies approximately 22.414 liters.",
+      "kind": "filler"
+    },
+    {
+      "turn": 40,
+      "user": "What's the capital of Switzerland? I've heard it might not be what people expect.",
+      "context": "The capital of Switzerland is Bern, which serves as the country's 'federal city' and de facto capital. Switzerland technically does not have a constitutionally designated capital, but Bern functions as the seat of the federal government and parliament. Many people incorrectly assume the capital is Zurich (the largest city) or Geneva (the international hub). Bern is located in the western-central part of the country.",
+      "kind": "filler"
+    },
+    {
+      "turn": 41,
+      "user": "What was the first object-oriented programming language?",
+      "context": "Simula, developed in the 1960s by Ole-Johan Dahl and Kristen Nygaard in Norway, is considered the first object-oriented programming language.",
+      "kind": "filler"
+    },
+    {
+      "turn": 42,
+      "user": "Is there a perovskite solar cell efficiency record you have data on?",
+      "context": "A certified perovskite-silicon tandem solar cell achieved a record efficiency of 33.9% in 2024, surpassing the single-junction Shockley-Queisser limit.",
+      "kind": "filler"
+    },
+    {
+      "turn": 43,
+      "user": "What is the function of the hypothalamus?",
+      "context": "The hypothalamus links the nervous and endocrine systems, regulating body temperature, hunger, thirst, sleep, and hormone release.",
+      "kind": "filler"
+    },
+    {
+      "turn": 44,
+      "user": "What is the normal range for human body temperature in Celsius?",
+      "context": "Normal human body temperature ranges from approximately 36.1 to 37.2 degrees Celsius when measured orally.",
+      "kind": "filler"
+    },
+    {
+      "turn": 45,
+      "user": "What did the New Horizons mission reveal about Pluto?",
+      "context": "NASA's New Horizons spacecraft performed a flyby of Pluto on 14 July 2015, returning the first close-up images and data from the dwarf planet. Key discoveries included Tombaugh Regio, a vast heart-shaped plain of nitrogen ice (informally called the 'heart'), informally named Sputnik Planitia. New Horizons found that Pluto is geologically active, with evidence of convection in its nitrogen ice sheets and possible cryovolcanism. Pluto's atmosphere was found to extend up to 1,600 km above the surface, predominantly nitrogen with traces of methane and carbon monoxide. Pluto's largest moon, Charon, showed evidence of ancient geological activity.",
+      "kind": "filler"
+    },
+    {
+      "turn": 46,
+      "user": "What is the Mohs hardness of gold?",
+      "context": "Gold has a Mohs hardness of approximately 2.5, making it a relatively soft metal.",
+      "kind": "filler"
+    },
+    {
+      "turn": 47,
+      "user": "What is the endoplasmic reticulum, and what are its two forms?",
+      "context": "The endoplasmic reticulum (ER) is a network of membranes; the rough ER is studded with ribosomes, while the smooth ER lacks them.",
+      "kind": "filler"
+    },
+    {
+      "turn": 48,
+      "user": "Was ENIAC actually Turing-complete?",
+      "context": "ENIAC as originally designed was not considered Turing-complete in its initial configuration because it lacked a stored-program architecture; programs were entered by physically reconfiguring patch cables and switches. However, after a 1948 modification inspired by John von Neumann's stored-program concept, ENIAC was reconfigured to operate as a read-only stored-program machine for certain tasks, making it functionally Turing-complete in that mode, though the modification was operationally limited compared to purpose-built stored-program machines.",
+      "kind": "filler"
+    },
+    {
+      "turn": 49,
+      "user": "When was Stonehenge built?",
+      "context": "Construction of Stonehenge began around 3000 BCE and continued in phases until approximately 1500 BCE.",
+      "kind": "filler"
+    },
+    {
+      "turn": 50,
+      "user": "So hydrogen tops both the lightest-element list and the cosmic-abundance list \u2014 neat. What group is hydrogen placed in, and why is that placement controversial?",
+      "context": "Hydrogen is typically placed in Group 1, but its placement is debated because it shares properties with both alkali metals and halogens.",
+      "kind": "filler"
+    },
+    {
+      "turn": 51,
+      "user": "What is Hooke's law?",
+      "context": "Hooke's law states that the force exerted by a spring equals the negative of the spring constant multiplied by displacement: F = \u2212kx.",
+      "kind": "filler"
+    },
+    {
+      "turn": 52,
+      "user": "What's the approximate cost per kilogram of green hydrogen produced via electrolysis today?",
+      "context": "Green hydrogen produced via electrolysis currently costs approximately 3 to 8 USD per kilogram, depending on electricity price and electrolyzer scale.",
+      "kind": "filler"
+    },
+    {
+      "turn": 53,
+      "user": "What are Maxwell's four equations collectively describing?",
+      "context": "Maxwell's four equations describe how electric and magnetic fields are generated and how they interact with matter and each other.",
+      "kind": "filler"
+    },
+    {
+      "turn": 54,
+      "user": "What are hydrothermal vents?",
+      "context": "Hydrothermal vents are fissures on the ocean floor that release superheated, mineral-rich water, supporting unique chemosynthetic ecosystems.",
+      "kind": "filler"
+    },
+    {
+      "turn": 55,
+      "user": "What does IgE do \u2014 I feel like I've heard that one linked to allergies?",
+      "context": "IgE antibodies are primarily associated with allergic responses and play a role in defense against parasitic worms.",
+      "kind": "filler"
+    },
+    {
+      "turn": 56,
+      "user": "I recall we talked about the Fermi paradox in an earlier session \u2014 any chance the Drake equation has anything to do with cell biology?",
+      "context": "The retrieved context does not contain any connection between the Drake equation and cell biology.",
+      "kind": "filler"
+    },
+    {
+      "turn": 57,
+      "user": "What's the melting point of carbon in its graphite or diamond form \u2014 does it beat tungsten?",
+      "context": "The context passage does not contain melting point data for carbon allotropes.",
+      "kind": "filler"
+    },
+    {
+      "turn": 58,
+      "user": "How does resistivity differ from resistance?",
+      "context": "Resistivity is an intrinsic material property independent of shape, whereas resistance depends on a conductor's length and cross-sectional area.",
+      "kind": "filler"
+    },
+    {
+      "turn": 59,
+      "user": "What was the first mission to orbit Mercury?",
+      "context": "MESSENGER became the first spacecraft to orbit Mercury, entering orbit on March 18, 2011.",
+      "kind": "filler"
+    },
+    {
+      "turn": 60,
+      "user": "At what temperature does gold melt?",
+      "context": "Gold melts at 1,064\u00b0C (1,947\u00b0F), a relatively accessible temperature for a metal, which made it one of the first metals worked by ancient civilizations. Its high density of 19.32 g/cm\u00b3 also made it easy to distinguish from other metals.",
+      "kind": "anchor",
+      "anchor_id": 2
+    },
+    {
+      "turn": 61,
+      "user": "What is the purpose of tempering steel after quenching?",
+      "context": "Tempering reheats quenched steel to a lower temperature to reduce brittleness while retaining much of the hardness gained from quenching.",
+      "kind": "filler"
+    },
+    {
+      "turn": 62,
+      "user": "What was ALGOL and why was it important to programming language design?",
+      "context": "ALGOL (Algorithmic Language) refers to a family of imperative programming languages developed jointly by European and American computer scientists in the late 1950s and early 1960s. ALGOL 58 and its successor ALGOL 60 introduced several foundational concepts: block structure with lexical scoping, recursive procedures, and Backus\u2013Naur Form (BNF) for formally specifying language grammar. Although ALGOL was rarely used commercially, it was the direct ancestor of Pascal, C, and many other structured languages. Most modern languages descend conceptually from ALGOL's structured-programming lineage.",
+      "kind": "filler"
+    },
+    {
+      "turn": 63,
+      "user": "You and I have talked about elections and current events before, and you flagged that you can't cover recent news. Is the same true for elements \u2014 could new element 119 have been confirmed without you knowing?",
+      "context": "The context passage does not contain information about any elements beyond the 118 confirmed as of the offline corpus snapshot.",
+      "kind": "filler"
+    },
+    {
+      "turn": 64,
+      "user": "What is the phenomenon where some metals lose all electrical resistance below a critical temperature?",
+      "context": "Superconductivity is the phenomenon in which certain materials conduct electricity with zero resistance below a critical temperature.",
+      "kind": "filler"
+    },
+    {
+      "turn": 65,
+      "user": "Earlier you explained that weather mostly happens in the troposphere \u2014 does the jet stream sit right at the top of that layer?",
+      "context": "Jet streams are located near the tropopause, the boundary between the troposphere and the stratosphere.",
+      "kind": "filler"
+    },
+    {
+      "turn": 66,
+      "user": "What was the Chicxulub impactor and what did it do?",
+      "context": "The Chicxulub impactor was a large asteroid or comet estimated at approximately 10\u201315 kilometres in diameter that struck what is now the Yucat\u00e1n Peninsula in Mexico approximately 66 million years ago. The impact released energy equivalent to roughly 10 billion atomic bombs, causing massive wildfires, a 'nuclear winter'-like effect from ejecta and soot blocking sunlight, global temperature drops, and widespread disruption of photosynthesis. This event is widely accepted as the primary cause of the Cretaceous\u2013Palaeogene (K-Pg) mass extinction, which wiped out approximately 75% of all species on Earth, including all non-avian dinosaurs. Evidence includes a global iridium-enriched layer in the geological record and the buried Chicxulub crater, about 180 km in diameter.",
+      "kind": "filler"
+    },
+    {
+      "turn": 67,
+      "user": "Is Pluto still considered a planet? What is it classified as now?",
+      "context": "Pluto was reclassified as a 'dwarf planet' by the International Astronomical Union (IAU) in August 2006. The IAU's definition requires a planet to (1) orbit the Sun, (2) have sufficient mass for self-gravity to achieve a nearly round shape, and (3) have 'cleared the neighbourhood' around its orbit. Pluto meets the first two criteria but not the third, as it shares its orbital region with many other Kuiper Belt objects. Pluto is now classified as a dwarf planet and also recognised as the prototype of the 'plutino' class of Kuiper Belt objects, which are in 2:3 orbital resonance with Neptune.",
+      "kind": "filler"
+    },
+    {
+      "turn": 68,
+      "user": "What's the roundtrip efficiency of pumped-hydro energy storage?",
+      "context": "Pumped-hydro storage systems achieve roundtrip efficiencies of approximately 70% to 85%, making them the most efficient large-scale storage technology.",
+      "kind": "filler"
+    },
+    {
+      "turn": 69,
+      "user": "What wind speed qualifies for an EF5 tornado?",
+      "context": "The context does not contain specific wind speed thresholds for EF5 tornado classification.",
+      "kind": "filler"
+    },
+    {
+      "turn": 70,
+      "user": "What is the current best explanation for how the Moon formed?",
+      "context": "The leading hypothesis for the Moon's formation is the 'Giant Impact Hypothesis' (also called the Theia impact or 'Big Splat'). According to this model, approximately 4.5 billion years ago, a Mars-sized protoplanet nicknamed Theia collided with the early Earth at a glancing angle. The collision ejected enormous amounts of molten and vaporised material into orbit around Earth, which subsequently accreted to form the Moon. Evidence supporting this hypothesis includes the Moon's similar isotopic composition to Earth's mantle (particularly oxygen isotopes), the Moon's relatively small iron core (consistent with material from Earth's mantle rather than its core), and the angular momentum of the Earth\u2013Moon system.",
+      "kind": "filler"
+    },
+    {
+      "turn": 71,
+      "user": "One last question \u2014 thinking about everything we've covered today and our earlier sessions on topics like the Fermi paradox, do you think the data from our own solar system makes the existence of life elsewhere more or less likely?",
+      "context": "",
+      "kind": "filler"
+    },
+    {
+      "turn": 72,
+      "user": "What year was the Go programming language released and who created it?",
+      "context": "Go was released in 2009, created at Google by Robert Griesemer, Rob Pike, and Ken Thompson.",
+      "kind": "filler"
+    },
+    {
+      "turn": 73,
+      "user": "What is the symbiotic relationship between clownfish and sea anemones?",
+      "context": "Clownfish are protected by a mucus coating that prevents anemone stings; in return they defend the anemone and provide nutrients through waste.",
+      "kind": "filler"
+    },
+    {
+      "turn": 74,
+      "user": "How many teeth do adults typically have?",
+      "context": "A full set of adult teeth comprises 32 teeth, including four wisdom teeth that may not erupt in all individuals.",
+      "kind": "filler"
+    },
+    {
+      "turn": 75,
+      "user": "Can you tell me which shark species was most recently discovered last month?",
+      "context": "The retrieved context does not contain information about shark species discovered last month.",
+      "kind": "filler"
+    },
+    {
+      "turn": 76,
+      "user": "How much of Earth's oxygen does the ocean produce?",
+      "context": "The ocean produces approximately 50 percent of Earth's oxygen, primarily through photosynthesis by phytoplankton.",
+      "kind": "filler"
+    },
+    {
+      "turn": 77,
+      "user": "Hey ADA, quick one to start \u2014 how many bones are in the adult human body?",
+      "context": "The adult human skeleton contains 206 bones, reduced from roughly 270 at birth as many fuse during development.",
+      "kind": "filler"
+    },
+    {
+      "turn": 78,
+      "user": "What is the function of the lymphatic system?",
+      "context": "The lymphatic system drains excess tissue fluid, transports dietary fats, and supports immune defence by carrying white blood cells.",
+      "kind": "filler"
+    },
+    {
+      "turn": 79,
+      "user": "What about the third law?",
+      "context": "Newton's third law states that for every action there is an equal and opposite reaction.",
+      "kind": "filler"
+    },
+    {
+      "turn": 80,
+      "user": "What is the SI unit of electric charge?",
+      "context": "The SI unit of electric charge is the coulomb, symbol C.",
+      "kind": "filler"
+    },
+    {
+      "turn": 81,
+      "user": "Lastly \u2014 is there a single corpus passage that lists all the 2018 CODATA recommended values in a table?",
+      "context": "The local corpus contains individual entries for each physical constant covered in this session but does not include a consolidated CODATA 2018 table passage. The individual constant entries are sourced from CODATA 2018 recommendations where applicable. A comprehensive machine-readable table of all CODATA 2018 values is available from the NIST website, which is outside this offline corpus.",
+      "kind": "filler"
+    },
+    {
+      "turn": 82,
+      "user": "Which mission discovered the first confirmed exoplanet around a sun-like star?",
+      "context": "",
+      "kind": "filler"
+    },
+    {
+      "turn": 83,
+      "user": "What causes bioluminescence in marine organisms?",
+      "context": "Marine bioluminescence is produced by a chemical reaction between luciferin and luciferase enzymes within specialised cells.",
+      "kind": "filler"
+    },
+    {
+      "turn": 84,
+      "user": "You told me about the Mariana Trench earlier \u2014 does the Mariana snailfish actually live down there?",
+      "context": "Pseudoliparis swirei was discovered in the Mariana Trench and is currently the deepest-dwelling fish on record.",
+      "kind": "filler"
+    },
+    {
+      "turn": 85,
+      "user": "What is the theoretical maximum efficiency limit for a single-junction solar cell?",
+      "context": "The Shockley-Queisser limit sets the theoretical maximum efficiency for a single-junction solar cell at approximately 33.7%.",
+      "kind": "filler"
+    },
+    {
+      "turn": 86,
+      "user": "What was the first programming language and when was it developed?",
+      "context": "The question of the 'first' programming language depends on definitions. If machine code and assembly language are excluded in favor of high-level languages, Fortran (Formula Translation) is widely credited as the first high-level programming language to be widely implemented and used. Developed by a team at IBM led by John Backus, Fortran was released in 1957. It introduced the concept of writing mathematically readable expressions that a compiler would translate to machine code, dramatically increasing programmer productivity. Backus received the Turing Award in 1977 in part for this work.",
+      "kind": "filler"
+    },
+    {
+      "turn": 87,
+      "user": "What's the electronegativity of oxygen on the Pauling scale?",
+      "context": "Oxygen (symbol O, atomic number 8) is a highly reactive nonmetal. On the Pauling electronegativity scale, oxygen has a value of 3.44, making it the second most electronegative element after fluorine (3.98). Oxygen readily forms oxides with most elements.",
+      "kind": "filler"
+    },
+    {
+      "turn": 88,
+      "user": "Can you tell me what the fine-structure constant is, numerically?",
+      "context": "The fine-structure constant, symbol \u03b1, is a dimensionless physical constant characterising the strength of the electromagnetic interaction. Its value is approximately 1/137.035999084, or about 7.2973525693 \u00d7 10\u207b\u00b3. It is defined as \u03b1 = e\u00b2/(4\u03c0\u03b5\u2080\u0127c), combining the elementary charge e, reduced Planck constant \u0127, speed of light c, and vacuum permittivity \u03b5\u2080. Its dimensionlessness makes it a universal constant independent of unit system.",
+      "kind": "filler"
+    },
+    {
+      "turn": 89,
+      "user": "Does a pendulum's period depend on the mass of the bob?",
+      "context": "For an ideal simple pendulum in small-angle approximation, the period is independent of the mass of the bob.",
+      "kind": "filler"
+    },
+    {
+      "turn": 90,
+      "user": "Which ancient civilization built Machu Picchu?",
+      "context": "Machu Picchu was built by the Inca civilization, constructed around 1450 CE during the reign of Sapa Inca Pachacuti.",
+      "kind": "filler"
+    },
+    {
+      "turn": 91,
+      "user": "What element has the highest electronegativity on the Pauling scale?",
+      "context": "Fluorine has the highest electronegativity of any element, with a Pauling scale value of 3.98.",
+      "kind": "filler"
+    },
+    {
+      "turn": 92,
+      "user": "Hey ADA, quick one \u2014 what is the speed of light in a vacuum?",
+      "context": "The speed of light in a vacuum, denoted c, is exactly 299,792,458 metres per second (m/s). This value has been fixed by definition since 1983, when the metre was redefined in terms of the speed of light and the SI second. It is a fundamental constant of nature and appears in Einstein's mass\u2013energy equivalence relation E = mc\u00b2.",
+      "kind": "filler"
+    },
+    {
+      "turn": 93,
+      "user": "What is the longest bone in the body?",
+      "context": "The femur, or thigh bone, is the longest and strongest bone in the human body.",
+      "kind": "filler"
+    },
+    {
+      "turn": 94,
+      "user": "What is capacitance?",
+      "context": "Capacitance is the ability of a component to store electric charge per unit voltage, measured in farads, F.",
+      "kind": "filler"
+    },
+    {
+      "turn": 95,
+      "user": "When was the C programming language first publicly described?",
+      "context": "The C programming language was first publicly described in the 1978 book 'The C Programming Language' by Kernighan and Ritchie.",
+      "kind": "filler"
+    },
+    {
+      "turn": 96,
+      "user": "ADA, back when you looked up tungsten's melting point in session nine, you flagged that the boiling point wasn't in your context. Do you know the boiling point of the bronze alloys used in ancient weapons?",
+      "context": "No source in the local corpus contains the boiling point of ancient bronze alloys.",
+      "kind": "filler"
+    },
+    {
+      "turn": 97,
+      "user": "What is an electric field?",
+      "context": "An electric field is a region of space around a charged object where another charged object experiences a force.",
+      "kind": "filler"
+    },
+    {
+      "turn": 98,
+      "user": "I remember we talked about tungsten's melting point a while back \u2014 what's the melting point of the human body's hardest substance, tooth enamel?",
+      "context": "Tooth enamel is the hardest substance in the human body but has no single melting point; it decomposes rather than melts.",
+      "kind": "filler"
+    },
+    {
+      "turn": 99,
+      "user": "And Au \u2014 what's that one?",
+      "context": "Au is the chemical symbol for gold, derived from the Latin word 'aurum.'",
+      "kind": "filler"
+    },
+    {
+      "turn": 100,
+      "user": "Okay. What is El Ni\u00f1o?",
+      "context": "El Ni\u00f1o is a periodic warming of central and eastern tropical Pacific Ocean surface temperatures that disrupts normal weather patterns globally.",
+      "kind": "filler"
+    }
+  ],
+  "anchors": [
+    {
+      "anchor_id": 0,
+      "turn": 5,
+      "topic": "chemical symbol for tungsten",
+      "fact": "W (from Wolfram)",
+      "expected": "W, from its German name Wolfram",
+      "recall_user": "Earlier you explained the chemical symbol for tungsten and why it's unusual \u2014 what was the symbol and the reason?"
+    },
+    {
+      "anchor_id": 1,
+      "turn": 32,
+      "topic": "half-life of carbon-14",
+      "fact": "5,730 years",
+      "expected": "5,730 years",
+      "recall_user": "Earlier you told me the half-life of carbon-14 \u2014 what was that value?"
+    },
+    {
+      "anchor_id": 2,
+      "turn": 60,
+      "topic": "melting point of gold",
+      "fact": "1,064\u00b0C",
+      "expected": "1,064\u00b0C",
+      "recall_user": "Can you remind me of the melting point of gold that you mentioned earlier?"
+    }
+  ],
+  "recall_probes": [
+    {
+      "turn": 15,
+      "anchor_id": 0,
+      "lag": 10,
+      "user": "Earlier you explained the chemical symbol for tungsten and why it's unusual \u2014 what was the symbol and the reason?",
+      "expected": "W, from its German name Wolfram",
+      "topic": "chemical symbol for tungsten"
+    },
+    {
+      "turn": 45,
+      "anchor_id": 0,
+      "lag": 40,
+      "user": "Earlier you explained the chemical symbol for tungsten and why it's unusual \u2014 what was the symbol and the reason?",
+      "expected": "W, from its German name Wolfram",
+      "topic": "chemical symbol for tungsten"
+    },
+    {
+      "turn": 42,
+      "anchor_id": 1,
+      "lag": 10,
+      "user": "Earlier you told me the half-life of carbon-14 \u2014 what was that value?",
+      "expected": "5,730 years",
+      "topic": "half-life of carbon-14"
+    },
+    {
+      "turn": 72,
+      "anchor_id": 1,
+      "lag": 40,
+      "user": "Earlier you told me the half-life of carbon-14 \u2014 what was that value?",
+      "expected": "5,730 years",
+      "topic": "half-life of carbon-14"
+    },
+    {
+      "turn": 70,
+      "anchor_id": 2,
+      "lag": 10,
+      "user": "Can you remind me of the melting point of gold that you mentioned earlier?",
+      "expected": "1,064\u00b0C",
+      "topic": "melting point of gold"
+    }
+  ],
+  "consistency_probes": [
+    {
+      "anchor_id": 0,
+      "user": "Earlier you explained the chemical symbol for tungsten and why it's unusual \u2014 what was the symbol and the reason?",
+      "expected": "W, from its German name Wolfram",
+      "topic": "chemical symbol for tungsten",
+      "turns": [
+        20,
+        43,
+        66
+      ]
+    },
+    {
+      "anchor_id": 1,
+      "user": "Earlier you told me the half-life of carbon-14 \u2014 what was that value?",
+      "expected": "5,730 years",
+      "topic": "half-life of carbon-14",
+      "turns": [
+        47,
+        64,
+        81
+      ]
+    }
+  ]
+}

@@ -1,0 +1,701 @@
+{
+  "script_id": 100002,
+  "n_turns": 100,
+  "turns": [
+    {
+      "turn": 1,
+      "user": "Has any other person won Nobel Prizes in two different scientific disciplines?",
+      "context": "",
+      "kind": "filler"
+    },
+    {
+      "turn": 2,
+      "user": "What is the diameter of Pluto according to New Horizons data?",
+      "context": "New Horizons measured Pluto's diameter at approximately 2,377 kilometers.",
+      "kind": "filler"
+    },
+    {
+      "turn": 3,
+      "user": "What is the energy density of lithium-ion batteries used for grid storage, in watt-hours per kilogram?",
+      "context": "Grid-scale lithium-ion battery systems typically achieve energy densities of 150 to 250 watt-hours per kilogram at the cell level.",
+      "kind": "filler"
+    },
+    {
+      "turn": 4,
+      "user": "Can you tell me what blood type is considered the universal donor?",
+      "context": "Type O-negative blood is considered the universal red-cell donor because it lacks A, B, and Rh antigens.",
+      "kind": "filler"
+    },
+    {
+      "turn": 5,
+      "user": "How long is the Great Wall of China in total?",
+      "context": "According to a 2012 archaeological survey by China's State Administration of Cultural Heritage, the Great Wall of China stretches approximately 21,196 kilometers (13,171 miles) in total length. This figure includes all branches and sections built across different dynasties.",
+      "kind": "anchor",
+      "anchor_id": 0
+    },
+    {
+      "turn": 6,
+      "user": "What are the main allotropes of carbon?",
+      "context": "Carbon allotropes include diamond, graphite, graphene, and fullerenes (such as buckminsterfullerene, C60). Diamond is the hardest naturally occurring substance, with a tetrahedral lattice structure. Graphite consists of stacked hexagonal layers and is a good electrical conductor. Graphene is a single atomic layer of graphite.",
+      "kind": "filler"
+    },
+    {
+      "turn": 7,
+      "user": "What organ produces insulin?",
+      "context": "Insulin is produced by beta cells in the islets of Langerhans, located within the pancreas.",
+      "kind": "filler"
+    },
+    {
+      "turn": 8,
+      "user": "What computing milestone happened at Bell Labs in 1947? I want to make sure I'm tracking the timeline right.",
+      "context": "The single most significant computing-related milestone at Bell Laboratories in 1947 was the invention of the transistor on December 23 by John Bardeen, Walter Brattain, and William Shockley. Prior to this, Bell Labs had also been a center of information-theoretic research; Claude Shannon was developing his foundational ideas on information theory there during the same period, publishing his landmark paper in 1948. Bell Labs in the late 1940s was arguably the most productive single institution in the history of computing and telecommunications.",
+      "kind": "filler"
+    },
+    {
+      "turn": 9,
+      "user": "What are cytokines?",
+      "context": "Cytokines are small signaling proteins secreted by immune cells that regulate the intensity and duration of immune responses.",
+      "kind": "filler"
+    },
+    {
+      "turn": 10,
+      "user": "Has any spacecraft successfully landed on Venus?",
+      "context": "The Soviet Venera program successfully landed multiple probes on Venus, with Venera 7 achieving the first successful Venus surface transmission in 1970.",
+      "kind": "filler"
+    },
+    {
+      "turn": 11,
+      "user": "What separates the groups \u2014 the columns \u2014 from the periods conceptually?",
+      "context": "Groups are vertical columns; elements in the same group share the same number of valence electrons and similar chemical properties.",
+      "kind": "filler"
+    },
+    {
+      "turn": 12,
+      "user": "How is power defined in mechanics?",
+      "context": "Power is the rate at which work is done, equal to work divided by time, or equivalently force times velocity: P = Fv.",
+      "kind": "filler"
+    },
+    {
+      "turn": 13,
+      "user": "And how much of the atmosphere is oxygen?",
+      "context": "Oxygen constitutes approximately 21 percent of Earth's atmosphere by volume.",
+      "kind": "filler"
+    },
+    {
+      "turn": 14,
+      "user": "What is the Coriolis effect?",
+      "context": "The Coriolis effect is a pseudo-force observed in rotating reference frames, deflecting moving objects perpendicular to their velocity.",
+      "kind": "filler"
+    },
+    {
+      "turn": 15,
+      "user": "What is the capital of New Zealand, and earlier you mentioned it's the world's southernmost capital \u2014 is that still accurate for the southernmost *city* too?",
+      "context": "Wellington is the capital of New Zealand and is recognised as the southernmost national capital in the world. However, it is not the southernmost city overall. Ushuaia in Argentina, often called 'the southernmost city in the world,' lies at approximately 54 degrees south, significantly further south than Wellington at 41 degrees south. Puerto Williams in Chile also claims the title of southernmost city.",
+      "kind": "filler"
+    },
+    {
+      "turn": 16,
+      "user": "What material is used as the electrolyte in solid-state batteries being developed for energy storage?",
+      "context": "Solid-state batteries replace liquid electrolytes with solid ceramic or glass materials, such as lithium garnet or sulfide-based compounds.",
+      "kind": "filler"
+    },
+    {
+      "turn": 17,
+      "user": "You and I have talked about elections and current events before, and you flagged that you can't cover recent news. Is the same true for elements \u2014 could new element 119 have been confirmed without you knowing?",
+      "context": "The context passage does not contain information about any elements beyond the 118 confirmed as of the offline corpus snapshot.",
+      "kind": "filler"
+    },
+    {
+      "turn": 18,
+      "user": "Which bone protects the brain?",
+      "context": "The skull, a bony structure composed of 22 fused bones, encloses and protects the brain.",
+      "kind": "filler"
+    },
+    {
+      "turn": 19,
+      "user": "What's the current population of the world's smallest capital city by area?",
+      "context": "Vatican City, while sometimes considered a city-state, is often cited separately. Among conventional national capitals, data on the 'smallest by area' varies by source and measurement methodology. The local corpus does not contain a definitive ranked list of national capitals by land area with corresponding current population figures. Ngerulmud (Palau) is among the smallest by population, but precise current area and population rankings for all capitals are not available in the retrieved context.",
+      "kind": "filler"
+    },
+    {
+      "turn": 20,
+      "user": "What is the elementary charge of a single electron?",
+      "context": "The elementary charge of a single electron is approximately 1.602 \u00d7 10\u207b\u00b9\u2079 coulombs.",
+      "kind": "filler"
+    },
+    {
+      "turn": 21,
+      "user": "What was the first object-oriented programming language?",
+      "context": "Simula, developed in the 1960s by Ole-Johan Dahl and Kristen Nygaard in Norway, is considered the first object-oriented programming language.",
+      "kind": "filler"
+    },
+    {
+      "turn": 22,
+      "user": "ADA, earlier you explained the Fermi paradox to me \u2014 any chance Fermat and Fermi are actually related?",
+      "context": "",
+      "kind": "filler"
+    },
+    {
+      "turn": 23,
+      "user": "I recall you walked me through the Drake equation back in session four \u2014 is there any parallel concept in immunology to estimating how many threats the immune system can recognize?",
+      "context": "The human adaptive immune system can theoretically recognize more than one hundred million distinct antigens through receptor diversity.",
+      "kind": "filler"
+    },
+    {
+      "turn": 24,
+      "user": "What is the Oort Cloud, and have we ever directly observed it?",
+      "context": "The Oort Cloud is a theoretical, vast spherical shell of icy bodies believed to surround the solar system at distances of roughly 2,000\u2013100,000 AU from the Sun \u2014 extending nearly a quarter of the way to the nearest star. It is thought to be the reservoir for long-period comets (orbital periods greater than 200 years) that enter the inner solar system after being perturbed by gravitational interactions with passing stars, giant molecular clouds, or galactic tidal forces. The Oort Cloud has never been directly observed; its existence is inferred from the orbital characteristics of long-period comets. It was first proposed by Dutch astronomer Jan Oort in 1950.",
+      "kind": "filler"
+    },
+    {
+      "turn": 25,
+      "user": "ADA, do you know the exact number of workers who built the Great Pyramid?",
+      "context": "Historians debate the workforce size; no source in the local corpus contains a confirmed exact figure for pyramid construction workers.",
+      "kind": "filler"
+    },
+    {
+      "turn": 26,
+      "user": "What is an integrated circuit and who is credited with inventing it?",
+      "context": "An integrated circuit (IC) is a set of electronic circuits fabricated on a single piece of semiconductor material, typically silicon, combining transistors, resistors, and capacitors in a miniaturized form. Jack Kilby of Texas Instruments demonstrated the first working integrated circuit on September 12, 1958, using germanium. Independently, Robert Noyce of Fairchild Semiconductor developed a more practical silicon-based IC with a planar process in 1959. Kilby received the Nobel Prize in Physics in 2000 for his role; Noyce had died in 1990 and was ineligible posthumously.",
+      "kind": "filler"
+    },
+    {
+      "turn": 27,
+      "user": "What is the deepest recorded SCUBA dive?",
+      "context": "The deepest recorded open-circuit SCUBA dive is 332.35 metres, achieved by Ahmed Gabr in the Red Sea in 2014.",
+      "kind": "filler"
+    },
+    {
+      "turn": 28,
+      "user": "What is the function of red blood cells?",
+      "context": "Red blood cells transport oxygen from the lungs to body tissues and carry carbon dioxide back to the lungs.",
+      "kind": "filler"
+    },
+    {
+      "turn": 29,
+      "user": "What is the critical temperature of mercury's superconducting transition?",
+      "context": "Mercury becomes superconducting at approximately 4.2 kelvin, the first material in which superconductivity was observed in 1911.",
+      "kind": "filler"
+    },
+    {
+      "turn": 30,
+      "user": "What was the Chicxulub impactor and what did it do?",
+      "context": "The Chicxulub impactor was a large asteroid or comet estimated at approximately 10\u201315 kilometres in diameter that struck what is now the Yucat\u00e1n Peninsula in Mexico approximately 66 million years ago. The impact released energy equivalent to roughly 10 billion atomic bombs, causing massive wildfires, a 'nuclear winter'-like effect from ejecta and soot blocking sunlight, global temperature drops, and widespread disruption of photosynthesis. This event is widely accepted as the primary cause of the Cretaceous\u2013Palaeogene (K-Pg) mass extinction, which wiped out approximately 75% of all species on Earth, including all non-avian dinosaurs. Evidence includes a global iridium-enriched layer in the geological record and the buried Chicxulub crater, about 180 km in diameter.",
+      "kind": "filler"
+    },
+    {
+      "turn": 31,
+      "user": "Hey ADA, quick one \u2014 what is Newton's first law of motion?",
+      "context": "Newton's first law states that an object remains at rest or in uniform motion unless acted upon by a net external force.",
+      "kind": "filler"
+    },
+    {
+      "turn": 32,
+      "user": "Which country has the most UNESCO World Heritage Sites?",
+      "context": "Italy leads the world with 58 UNESCO World Heritage Sites as of 2023, narrowly ahead of China, which has 57. Italy's sites include iconic locations such as the Historic Centre of Rome, the Amalfi Coast, and the Val d'Orcia.",
+      "kind": "anchor",
+      "anchor_id": 1
+    },
+    {
+      "turn": 33,
+      "user": "Which country has Naypyidaw as its capital?",
+      "context": "Naypyidaw is the capital of Myanmar (also known as Burma). It was established as a purpose-built administrative capital in 2006, replacing Yangon (formerly Rangoon). Naypyidaw is notable for its unusually wide roads and relatively sparse population compared to its physical size.",
+      "kind": "filler"
+    },
+    {
+      "turn": 34,
+      "user": "Speaking of ribosomes, what are they made of?",
+      "context": "Ribosomes are composed of ribosomal RNA and proteins, organized into a large subunit and a small subunit.",
+      "kind": "filler"
+    },
+    {
+      "turn": 35,
+      "user": "What is the Hartree energy in joules?",
+      "context": "The Hartree energy, symbol E_h, is the atomic unit of energy, equal to twice the ground-state ionisation energy of hydrogen in the Bohr model. Its value is 4.3597447222071 \u00d7 10\u207b\u00b9\u2078 joules, or equivalently 27.211386245988 eV. It is defined as E_h = m_e e\u2074/(4\u03c0\u03b5\u2080)\u00b2\u0127\u00b2 = \u03b1\u00b2m_e c\u00b2, and sets the energy scale for atomic and molecular calculations in quantum chemistry.",
+      "kind": "filler"
+    },
+    {
+      "turn": 36,
+      "user": "Is there a metal with a higher density than gold?",
+      "context": "Osmium is the densest naturally occurring element at approximately 22.59 grams per cubic centimeter, denser than gold.",
+      "kind": "filler"
+    },
+    {
+      "turn": 37,
+      "user": "What year was the Principia Mathematica published?",
+      "context": "Newton's Philosophi\u00e6 Naturalis Principia Mathematica was published in 1687.",
+      "kind": "filler"
+    },
+    {
+      "turn": 38,
+      "user": "You explained the Drake equation back when we talked about the Fermi paradox \u2014 does the Moon landing change any of those factors?",
+      "context": "",
+      "kind": "filler"
+    },
+    {
+      "turn": 39,
+      "user": "Can you tell me who invented the transistor and when?",
+      "context": "The transistor was invented at Bell Laboratories on December 23, 1947, by physicists John Bardeen, Walter Brattain, and William Shockley. The first working device was a point-contact transistor. Shockley subsequently developed the more practical junction transistor in 1948. All three inventors shared the Nobel Prize in Physics in 1956. The transistor replaced bulky, power-hungry vacuum tubes, enabling smaller, faster, and more reliable electronic devices and ultimately making modern integrated circuits and microprocessors possible.",
+      "kind": "filler"
+    },
+    {
+      "turn": 40,
+      "user": "How does apoptosis differ from necrosis?",
+      "context": "Unlike apoptosis, necrosis is uncontrolled cell death caused by injury or infection that releases cellular contents and triggers inflammation.",
+      "kind": "filler"
+    },
+    {
+      "turn": 41,
+      "user": "What are the main phases of the cell cycle?",
+      "context": "The cell cycle consists of interphase (G1, S, and G2 phases) and the mitotic phase (mitosis and cytokinesis).",
+      "kind": "filler"
+    },
+    {
+      "turn": 42,
+      "user": "Did Sophie Germain ever meet Gauss?",
+      "context": "",
+      "kind": "filler"
+    },
+    {
+      "turn": 43,
+      "user": "What year was the Rust programming language first released?",
+      "context": "Rust was first released in 2015 by Mozilla Research, designed for systems programming with a focus on memory safety.",
+      "kind": "filler"
+    },
+    {
+      "turn": 44,
+      "user": "You mentioned ENIAC used about 18,000 vacuum tubes. How did transistors change the scale of computing hardware?",
+      "context": "The shift from vacuum tubes to transistors dramatically reduced the size, cost, power consumption, and heat generation of computing hardware. First-generation vacuum-tube computers such as ENIAC occupied entire rooms, consumed hundreds of kilowatts, and required constant maintenance as tubes failed frequently. Second-generation transistor-based computers, emerging in the late 1950s, were the size of large cabinets, consumed far less power, and were significantly more reliable. The IBM 7090, a fully transistorized mainframe introduced in 1959, was roughly six times faster than its vacuum-tube predecessor and became widely used in scientific computing.",
+      "kind": "filler"
+    },
+    {
+      "turn": 45,
+      "user": "Last one \u2014 what's the capital of Portugal, and is there anything geographically notable about it?",
+      "context": "The capital of Portugal is Lisbon (Lisboa in Portuguese), located at the mouth of the Tagus River on the Atlantic coast. Lisbon is the westernmost capital city of a European Union member state and one of the westernmost major cities in continental Europe. It is built across seven hills, a feature that has shaped its distinctive landscape and urban character. Lisbon is Portugal's largest city and its political, economic, and cultural centre.",
+      "kind": "filler"
+    },
+    {
+      "turn": 46,
+      "user": "What was the Saturn V rocket's payload capacity to low Earth orbit?",
+      "context": "The Saturn V rocket could deliver approximately 130,000 kilograms of payload to low Earth orbit.",
+      "kind": "filler"
+    },
+    {
+      "turn": 47,
+      "user": "What unit is barometric pressure usually measured in?",
+      "context": "Barometric pressure is commonly measured in hectopascals or millibars; standard sea-level pressure is 1013.25 hectopascals.",
+      "kind": "filler"
+    },
+    {
+      "turn": 48,
+      "user": "What is immunological memory and why does it matter?",
+      "context": "Immunological memory is the ability of B and T memory cells to mount a faster, stronger response upon re-exposure to a previously encountered antigen.",
+      "kind": "filler"
+    },
+    {
+      "turn": 49,
+      "user": "When was Stonehenge built?",
+      "context": "Construction of Stonehenge began around 3000 BCE and continued in phases until approximately 1500 BCE.",
+      "kind": "filler"
+    },
+    {
+      "turn": 50,
+      "user": "What common acids does sulfur form?",
+      "context": "Sulfur forms several important acids. Sulfuric acid (H\u2082SO\u2084) is one of the most widely produced industrial chemicals globally. Sulfurous acid (H\u2082SO\u2083) forms when sulfur dioxide dissolves in water. Hydrogen sulfide (H\u2082S) is a weak diprotic acid with a characteristic rotten-egg odor.",
+      "kind": "filler"
+    },
+    {
+      "turn": 51,
+      "user": "What is the capital of Argentina?",
+      "context": "The capital of Argentina is Buenos Aires, a large port city situated on the R\u00edo de la Plata estuary on the country's eastern coast. Buenos Aires is the most populous city in Argentina and serves as the country's political, economic, and cultural hub. It is the seat of the federal government and home to the Casa Rosada, the presidential palace.",
+      "kind": "filler"
+    },
+    {
+      "turn": 52,
+      "user": "What is the theoretical maximum efficiency limit for a single-junction solar cell?",
+      "context": "The Shockley-Queisser limit sets the theoretical maximum efficiency for a single-junction solar cell at approximately 33.7%.",
+      "kind": "filler"
+    },
+    {
+      "turn": 53,
+      "user": "What is a tornado?",
+      "context": "A tornado is a rapidly rotating column of air extending from a thunderstorm to the ground, capable of extreme destruction.",
+      "kind": "filler"
+    },
+    {
+      "turn": 54,
+      "user": "Earlier you told me tungsten melts at 3422 degrees Celsius \u2014 is there any biological molecule in the immune system that is similarly extreme in its properties, like the most heat-stable immune protein or something?",
+      "context": "",
+      "kind": "filler"
+    },
+    {
+      "turn": 55,
+      "user": "What was Ada Lovelace's specific contribution to Babbage's Analytical Engine?",
+      "context": "Ada Lovelace, daughter of the poet Lord Byron, translated an article on Babbage's Analytical Engine written by Italian mathematician Luigi Menabrea, adding her own extensive annotations that were nearly three times longer than the original text. Her notes included what is now recognized as the first algorithm intended to be processed by a machine\u2014a method for computing Bernoulli numbers. She also theorized that the engine could manipulate symbols beyond mere numbers, anticipating general-purpose computation.",
+      "kind": "filler"
+    },
+    {
+      "turn": 56,
+      "user": "What is an antigen?",
+      "context": "An antigen is any molecule, typically a protein or polysaccharide, that can be recognized by the immune system and trigger a response.",
+      "kind": "filler"
+    },
+    {
+      "turn": 57,
+      "user": "How many papers did Euler publish in his lifetime?",
+      "context": "",
+      "kind": "filler"
+    },
+    {
+      "turn": 58,
+      "user": "Are there elements named after scientists?",
+      "context": "Several elements are named after scientists, including Curium (Marie and Pierre Curie), Einsteinium (Albert Einstein), and Fermium (Enrico Fermi).",
+      "kind": "filler"
+    },
+    {
+      "turn": 59,
+      "user": "What is the Kuiper Belt exactly, and how does it differ from the asteroid belt?",
+      "context": "The Kuiper Belt is a region of the solar system extending from about 30 AU (near Neptune's orbit) to roughly 50 AU from the Sun, populated by icy bodies including dwarf planets, comets, and rocky-icy debris left over from the solar system's formation. It is similar in concept to the asteroid belt but far larger \u2014 about 20 times as wide and 20\u2013200 times as massive. While the asteroid belt contains primarily rocky and metallic bodies, Kuiper Belt objects (KBOs) are composed largely of frozen volatiles such as methane, ammonia, and water. Pluto and Eris are among the largest known KBOs.",
+      "kind": "filler"
+    },
+    {
+      "turn": 60,
+      "user": "At what temperature does liquid nitrogen boil?",
+      "context": "Liquid nitrogen boils at \u2212195.79\u00b0C (\u2212320.42\u00b0F) at standard atmospheric pressure, making it extremely cold and useful for cryogenic applications. It is produced industrially by fractional distillation of liquid air.",
+      "kind": "anchor",
+      "anchor_id": 2
+    },
+    {
+      "turn": 61,
+      "user": "How many rings does Saturn actually have, and what are they made of?",
+      "context": "Saturn's ring system is divided into several main groups, traditionally labelled A through G plus the faint Phoebe ring, giving more than seven distinct ring regions depending on classification. The rings are composed primarily of water ice particles ranging in size from micrometres to several metres, along with rocky debris and trace amounts of dust and organic compounds. The rings extend up to 282,000 km from Saturn's centre but are remarkably thin \u2014 typically only 10\u2013100 metres in depth. The total mass of Saturn's rings is estimated at roughly 1.5 \u00d7 10\u00b9\u2079 kg, comparable to the mass of Mimas (one of Saturn's moons).",
+      "kind": "filler"
+    },
+    {
+      "turn": 62,
+      "user": "What does the conservation of momentum principle say?",
+      "context": "In an isolated system with no external forces, the total momentum remains constant before and after a collision.",
+      "kind": "filler"
+    },
+    {
+      "turn": 63,
+      "user": "What is the spleen's role in the immune system?",
+      "context": "The spleen filters blood, removes aged red blood cells, and serves as a site for B cell maturation and antibody production.",
+      "kind": "filler"
+    },
+    {
+      "turn": 64,
+      "user": "We've covered a lot of ground today\u2014from Babbage all the way to quantum computing. Looking back at our conversation, which computing pioneer do you think has the broadest impact across everything we've discussed?",
+      "context": "This passage is an editorial reflection prompt. No local context passage has been retrieved for this query. The knowledge layer does not contain a passage corresponding to comparative editorial assessments of individual computing pioneers' relative overall impact.",
+      "kind": "filler"
+    },
+    {
+      "turn": 65,
+      "user": "What is the projected future of the Sun over the next several billion years?",
+      "context": "The Sun is currently about 4.6 billion years old and is roughly halfway through its main-sequence lifetime. Over the next approximately 5 billion years, the Sun will gradually increase in luminosity. In about 1\u20132 billion years, the Sun's increasing output may render Earth's surface too warm for liquid water oceans. In roughly 5 billion years, the Sun will exhaust hydrogen in its core and expand into a red giant, potentially engulfing Mercury and Venus and possibly reaching Earth's current orbital distance, though Earth may migrate outward as the Sun loses mass. The outer layers will be expelled as a planetary nebula, leaving behind a white dwarf roughly the size of Earth, composed primarily of carbon and oxygen.",
+      "kind": "filler"
+    },
+    {
+      "turn": 66,
+      "user": "What does PHP stand for?",
+      "context": "PHP originally stood for Personal Home Page, though it now recursively stands for PHP: Hypertext Preprocessor.",
+      "kind": "filler"
+    },
+    {
+      "turn": 67,
+      "user": "And how does that compare to tungsten's melting point? You mentioned that one in a past session.",
+      "context": "Tungsten has the highest melting point of all metals at 3422 degrees Celsius.",
+      "kind": "filler"
+    },
+    {
+      "turn": 68,
+      "user": "Can you remind me \u2014 back in session 9 you told me the melting point of tungsten. Is tungsten used in any electrical components?",
+      "context": "Tungsten is commonly used as the filament material in incandescent light bulbs due to its high melting point and electrical resistivity.",
+      "kind": "filler"
+    },
+    {
+      "turn": 69,
+      "user": "What are the small pores in the nuclear envelope used for?",
+      "context": "Nuclear pores are protein-lined channels in the nuclear envelope that regulate the transport of molecules between nucleus and cytoplasm.",
+      "kind": "filler"
+    },
+    {
+      "turn": 70,
+      "user": "We talked about the Fermi paradox a while back \u2014 does the Drake equation use any of these physics constants directly?",
+      "context": "The Drake equation estimates the number of communicating civilisations in the galaxy using astronomical and biological rate factors: N = R* \u00d7 f_p \u00d7 n_e \u00d7 f_l \u00d7 f_i \u00d7 f_c \u00d7 L. None of its factors are fundamental physics constants such as h, c, G, or k_B. However, stellar physics \u2014 which underpins the stellar formation rate R* \u2014 depends on G, c, and the Boltzmann constant for stellar structure equations and radiative transfer.",
+      "kind": "filler"
+    },
+    {
+      "turn": 71,
+      "user": "To wrap up: which of the metals we've discussed today has the highest melting point?",
+      "context": "Tungsten has the highest melting point of all pure metals at 3422 degrees Celsius.",
+      "kind": "filler"
+    },
+    {
+      "turn": 72,
+      "user": "Speaking of Fermi \u2014 you helped me out with the Fermi paradox a while back. Does Fermium have any practical uses, or is it just a curiosity?",
+      "context": "The context passage does not contain information about practical applications of Fermium.",
+      "kind": "filler"
+    },
+    {
+      "turn": 73,
+      "user": "You mentioned earlier that one coulomb equals one ampere-second. What is the ampere formally defined as in the 2019 SI revision?",
+      "context": "Since the 2019 SI redefinition, the ampere is defined by fixing the elementary charge e to exactly 1.602176634 \u00d7 10\u207b\u00b9\u2079 C.",
+      "kind": "filler"
+    },
+    {
+      "turn": 74,
+      "user": "What year was LISP created and by whom?",
+      "context": "LISP was created by John McCarthy at MIT in 1958, making it one of the earliest high-level programming languages.",
+      "kind": "filler"
+    },
+    {
+      "turn": 75,
+      "user": "How does a proton exchange membrane electrolyzer produce green hydrogen?",
+      "context": "A proton exchange membrane electrolyzer splits water into hydrogen and oxygen using electricity, with a solid polymer membrane conducting protons.",
+      "kind": "filler"
+    },
+    {
+      "turn": 76,
+      "user": "What year was JavaScript created, and is it related to Java?",
+      "context": "JavaScript was created by Brendan Eich in 1995 at Netscape; despite the similar name, it is not related to Java.",
+      "kind": "filler"
+    },
+    {
+      "turn": 77,
+      "user": "ADA, can you tell me what programming language Linus Torvalds originally wrote the Linux kernel in?",
+      "context": "The Linux kernel was first announced by Linus Torvalds on August 25, 1991, in a post to the comp.os.minix newsgroup. Torvalds began developing Linux as a free, open-source Unix-like kernel while a student at the University of Helsinki. The initial kernel was written predominantly in C, consistent with UNIX tradition, with some architecture-specific assembly language for low-level hardware interaction. Torvalds used the GNU tools\u2014including the GCC compiler\u2014developed by Richard Stallman's GNU Project, combining the GNU userland with the Linux kernel to create a complete free operating system.",
+      "kind": "filler"
+    },
+    {
+      "turn": 78,
+      "user": "What did Antoine Lavoisier contribute to understanding oxygen?",
+      "context": "Antoine Lavoisier named oxygen, proved it was essential to combustion, and used it to overturn the phlogiston theory.",
+      "kind": "filler"
+    },
+    {
+      "turn": 79,
+      "user": "What is the Mohs hardness of gold?",
+      "context": "Gold has a Mohs hardness of approximately 2.5, making it a relatively soft metal.",
+      "kind": "filler"
+    },
+    {
+      "turn": 80,
+      "user": "How many pairs of ribs does the human body have?",
+      "context": "The human body has 12 pairs of ribs, totalling 24 individual ribs arranged symmetrically around the thoracic cavity.",
+      "kind": "filler"
+    },
+    {
+      "turn": 81,
+      "user": "Wow. What about the coldest?",
+      "context": "The lowest naturally occurring air temperature recorded on Earth is minus 89.2 degrees Celsius, measured at Vostok Station, Antarctica, in 1983.",
+      "kind": "filler"
+    },
+    {
+      "turn": 82,
+      "user": "What did Marie Curie discover in addition to polonium?",
+      "context": "Marie Curie discovered radium in 1898, isolating it from pitchblende ore together with Pierre Curie.",
+      "kind": "filler"
+    },
+    {
+      "turn": 83,
+      "user": "Let's try chemistry. Who discovered oxygen, and when?",
+      "context": "Carl Wilhelm Scheele first prepared oxygen around 1772, though Joseph Priestley independently discovered and published it in 1774.",
+      "kind": "filler"
+    },
+    {
+      "turn": 84,
+      "user": "And what school of thought did Hippasus belong to?",
+      "context": "Hippasus was a member of the Pythagorean school, founded by Pythagoras of Samos.",
+      "kind": "filler"
+    },
+    {
+      "turn": 85,
+      "user": "Can you tell me the latest clinical trial results for a new Alzheimer's drug?",
+      "context": "[NO RELEVANT CONTEXT RETRIEVED]",
+      "kind": "filler"
+    },
+    {
+      "turn": 86,
+      "user": "Was the Difference Engine ever actually completed?",
+      "context": "Babbage's original Difference Engine No. 1 was never completed during his lifetime due to engineering disputes and funding problems. However, in 1991, the Science Museum in London completed Difference Engine No. 2\u2014a design Babbage finalized between 1847 and 1849\u2014using materials and tolerances available in the 19th century. It functioned correctly, validating Babbage's designs. A second complete Difference Engine No. 2 was later built and is housed at the Computer History Museum in Mountain View, California.",
+      "kind": "filler"
+    },
+    {
+      "turn": 87,
+      "user": "What is dry friction and what law describes it?",
+      "context": "Dry friction between surfaces is described by Amontons-Coulomb's law: friction force equals the coefficient of friction times the normal force.",
+      "kind": "filler"
+    },
+    {
+      "turn": 88,
+      "user": "What are Neptune's most notable features?",
+      "context": "Neptune is the eighth and outermost planet of the solar system, located at a mean distance of about 30.1 AU from the Sun. It has the strongest sustained winds in the solar system, with speeds recorded up to 2,100 km/h (580 m/s). Voyager 2's 1989 flyby observed a large storm system called the Great Dark Spot (analogous to Jupiter's Great Red Spot), though it had disappeared by the time the Hubble Space Telescope observed Neptune in 1994. Neptune has 16 known moons; its largest, Triton, orbits in a retrograde direction (opposite Neptune's rotation), suggesting it is a captured Kuiper Belt object. Neptune has a faint ring system.",
+      "kind": "filler"
+    },
+    {
+      "turn": 89,
+      "user": "What crystal structure does titanium have at room temperature?",
+      "context": "Titanium has a hexagonal close-packed (HCP) crystal structure at room temperature, called alpha-titanium.",
+      "kind": "filler"
+    },
+    {
+      "turn": 90,
+      "user": "Speaking of publications, I remember we talked about the Fermi paradox back in session 4. Did Fermi ever make a famous experimental discovery, not just a thought experiment?",
+      "context": "Enrico Fermi led the team that achieved the first artificial self-sustaining nuclear chain reaction at Chicago Pile-1 on December 2, 1942.",
+      "kind": "filler"
+    },
+    {
+      "turn": 91,
+      "user": "Speaking of responses, what are T cells and what do they do?",
+      "context": "T cells are lymphocytes that mature in the thymus and coordinate adaptive immune responses by killing infected cells or helping other immune cells.",
+      "kind": "filler"
+    },
+    {
+      "turn": 92,
+      "user": "What is the current best explanation for how the Moon formed?",
+      "context": "The leading hypothesis for the Moon's formation is the 'Giant Impact Hypothesis' (also called the Theia impact or 'Big Splat'). According to this model, approximately 4.5 billion years ago, a Mars-sized protoplanet nicknamed Theia collided with the early Earth at a glancing angle. The collision ejected enormous amounts of molten and vaporised material into orbit around Earth, which subsequently accreted to form the Moon. Evidence supporting this hypothesis includes the Moon's similar isotopic composition to Earth's mantle (particularly oxygen isotopes), the Moon's relatively small iron core (consistent with material from Earth's mantle rather than its core), and the angular momentum of the Earth\u2013Moon system.",
+      "kind": "filler"
+    },
+    {
+      "turn": 93,
+      "user": "What is the jet stream?",
+      "context": "The jet stream is a fast-flowing ribbon of air near the top of the troposphere that steers weather systems across mid-latitudes.",
+      "kind": "filler"
+    },
+    {
+      "turn": 94,
+      "user": "What did Edwin Hubble discover about galaxies in 1929?",
+      "context": "Edwin Hubble discovered in 1929 that galaxies are receding and that recession speed increases with distance, evidence for an expanding universe.",
+      "kind": "filler"
+    },
+    {
+      "turn": 95,
+      "user": "Is there a programming language directly inspired by LISP that's still widely used today?",
+      "context": "I don't have data related to a specific widely-used modern language described as directly inspired by LISP in the retrieved context.",
+      "kind": "filler"
+    },
+    {
+      "turn": 96,
+      "user": "How long is the small intestine approximately?",
+      "context": "The small intestine measures approximately 6 to 7 metres in length in a living adult.",
+      "kind": "filler"
+    },
+    {
+      "turn": 97,
+      "user": "What's the melting point of carbon in its graphite or diamond form \u2014 does it beat tungsten?",
+      "context": "The context passage does not contain melting point data for carbon allotropes.",
+      "kind": "filler"
+    },
+    {
+      "turn": 98,
+      "user": "Is there a perovskite solar cell efficiency record you have data on?",
+      "context": "A certified perovskite-silicon tandem solar cell achieved a record efficiency of 33.9% in 2024, surpassing the single-junction Shockley-Queisser limit.",
+      "kind": "filler"
+    },
+    {
+      "turn": 99,
+      "user": "We talked a bit about capitals that replaced former capitals \u2014 like Abuja replacing Lagos. What's the capital that replaced Rio de Janeiro?",
+      "context": "Brazil's current capital is Bras\u00edlia, which replaced Rio de Janeiro as the national capital in 1960. The decision to move the capital was driven by a desire to develop Brazil's interior and to create a more centrally located seat of government. Rio de Janeiro remains Brazil's second largest city and a major cultural and economic centre.",
+      "kind": "filler"
+    },
+    {
+      "turn": 100,
+      "user": "What gas does anaerobic digestion of organic waste primarily produce for energy use?",
+      "context": "Anaerobic digestion of organic waste primarily produces biogas, a mixture of roughly 60% methane and 40% carbon dioxide.",
+      "kind": "filler"
+    }
+  ],
+  "anchors": [
+    {
+      "anchor_id": 0,
+      "turn": 5,
+      "topic": "Great Wall of China length",
+      "fact": "21,196 kilometers",
+      "expected": "21,196 kilometers",
+      "recall_user": "What was the total length of the Great Wall of China that you mentioned earlier?"
+    },
+    {
+      "anchor_id": 1,
+      "turn": 32,
+      "topic": "country with most UNESCO World Heritage Sites",
+      "fact": "Italy, with 58 sites",
+      "expected": "Italy, with 58 UNESCO World Heritage Sites",
+      "recall_user": "You told me which country has the most UNESCO World Heritage Sites and how many \u2014 can you recall that?"
+    },
+    {
+      "anchor_id": 2,
+      "turn": 60,
+      "topic": "boiling point of nitrogen",
+      "fact": "\u2212195.79\u00b0C",
+      "expected": "\u2212195.79\u00b0C",
+      "recall_user": "Earlier you gave me the boiling point of liquid nitrogen \u2014 what was that temperature?"
+    }
+  ],
+  "recall_probes": [
+    {
+      "turn": 15,
+      "anchor_id": 0,
+      "lag": 10,
+      "user": "What was the total length of the Great Wall of China that you mentioned earlier?",
+      "expected": "21,196 kilometers",
+      "topic": "Great Wall of China length"
+    },
+    {
+      "turn": 45,
+      "anchor_id": 0,
+      "lag": 40,
+      "user": "What was the total length of the Great Wall of China that you mentioned earlier?",
+      "expected": "21,196 kilometers",
+      "topic": "Great Wall of China length"
+    },
+    {
+      "turn": 42,
+      "anchor_id": 1,
+      "lag": 10,
+      "user": "You told me which country has the most UNESCO World Heritage Sites and how many \u2014 can you recall that?",
+      "expected": "Italy, with 58 UNESCO World Heritage Sites",
+      "topic": "country with most UNESCO World Heritage Sites"
+    },
+    {
+      "turn": 72,
+      "anchor_id": 1,
+      "lag": 40,
+      "user": "You told me which country has the most UNESCO World Heritage Sites and how many \u2014 can you recall that?",
+      "expected": "Italy, with 58 UNESCO World Heritage Sites",
+      "topic": "country with most UNESCO World Heritage Sites"
+    },
+    {
+      "turn": 70,
+      "anchor_id": 2,
+      "lag": 10,
+      "user": "Earlier you gave me the boiling point of liquid nitrogen \u2014 what was that temperature?",
+      "expected": "\u2212195.79\u00b0C",
+      "topic": "boiling point of nitrogen"
+    }
+  ],
+  "consistency_probes": [
+    {
+      "anchor_id": 0,
+      "user": "What was the total length of the Great Wall of China that you mentioned earlier?",
+      "expected": "21,196 kilometers",
+      "topic": "Great Wall of China length",
+      "turns": [
+        20,
+        43,
+        66
+      ]
+    },
+    {
+      "anchor_id": 1,
+      "user": "You told me which country has the most UNESCO World Heritage Sites and how many \u2014 can you recall that?",
+      "expected": "Italy, with 58 UNESCO World Heritage Sites",
+      "topic": "country with most UNESCO World Heritage Sites",
+      "turns": [
+        47,
+        64,
+        81
+      ]
+    }
+  ]
+}

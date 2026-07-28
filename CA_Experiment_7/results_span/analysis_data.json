@@ -1,0 +1,264 @@
+{
+  "recall": {
+    "C0": {
+      "overall_acc": 0.0,
+      "overall_mean": 1,
+      "n": 207,
+      "by_lag": {
+        "10": {
+          "acc": 0.0,
+          "mean": 1,
+          "n": 63
+        },
+        "40": {
+          "acc": 0.0,
+          "mean": 1,
+          "n": 63
+        },
+        "100": {
+          "acc": 0.0,
+          "mean": 1,
+          "n": 57
+        },
+        "300": {
+          "acc": 0.0,
+          "mean": 1,
+          "n": 24
+        }
+      },
+      "out_of_window_acc": 0.0,
+      "out_of_window_n": 144
+    },
+    "C1": {
+      "overall_acc": 0.0,
+      "overall_mean": 1.0145,
+      "n": 207,
+      "by_lag": {
+        "10": {
+          "acc": 0.0,
+          "mean": 1.032,
+          "n": 63
+        },
+        "40": {
+          "acc": 0.0,
+          "mean": 1.016,
+          "n": 63
+        },
+        "100": {
+          "acc": 0.0,
+          "mean": 1,
+          "n": 57
+        },
+        "300": {
+          "acc": 0.0,
+          "mean": 1,
+          "n": 24
+        }
+      },
+      "out_of_window_acc": 0.0,
+      "out_of_window_n": 144
+    },
+    "C2": {
+      "overall_acc": 0.5314,
+      "overall_mean": 3.3382,
+      "n": 207,
+      "by_lag": {
+        "10": {
+          "acc": 0.5079,
+          "mean": 3.254,
+          "n": 63
+        },
+        "40": {
+          "acc": 0.5238,
+          "mean": 3.286,
+          "n": 63
+        },
+        "100": {
+          "acc": 0.5263,
+          "mean": 3.351,
+          "n": 57
+        },
+        "300": {
+          "acc": 0.625,
+          "mean": 3.667,
+          "n": 24
+        }
+      },
+      "out_of_window_acc": 0.5417,
+      "out_of_window_n": 144
+    }
+  },
+  "persona": {
+    "C0": {
+      "overall": 3.9,
+      "per_dimension": {
+        "T": 4.007,
+        "E": 3.333,
+        "C": 4.489,
+        "S": 3.77
+      },
+      "per_turn": {
+        "20": 3.694,
+        "40": 4.111,
+        "60": 3.889,
+        "80": 3.806,
+        "100": 4.222,
+        "120": 3.458,
+        "140": 4.333,
+        "160": 3.875,
+        "180": 3.708,
+        "200": 3.792,
+        "220": 4,
+        "240": 3.417,
+        "260": 3.875,
+        "280": 4.125,
+        "300": 3.458,
+        "320": 3.583,
+        "340": 3.833,
+        "360": 3.583,
+        "380": 4.333,
+        "400": 4.667,
+        "420": 3.833,
+        "440": 3.917,
+        "460": 3.917,
+        "480": 3.833,
+        "500": 4.75
+      },
+      "n": 540
+    },
+    "C1": {
+      "overall": 3.763,
+      "per_dimension": {
+        "T": 3.785,
+        "E": 3.281,
+        "C": 4.474,
+        "S": 3.511
+      },
+      "per_turn": {
+        "20": 3.694,
+        "40": 4.056,
+        "60": 4.028,
+        "80": 3.806,
+        "100": 4.306,
+        "120": 3.375,
+        "140": 4.167,
+        "160": 3.583,
+        "180": 3.875,
+        "200": 3.375,
+        "220": 3.583,
+        "240": 2.958,
+        "260": 3.417,
+        "280": 3.833,
+        "300": 3.208,
+        "320": 2.917,
+        "340": 3.833,
+        "360": 3.167,
+        "380": 4.333,
+        "400": 5,
+        "420": 3.583,
+        "440": 4.417,
+        "460": 3.25,
+        "480": 3.5,
+        "500": 4.917
+      },
+      "n": 540
+    },
+    "C2": {
+      "overall": 3.787,
+      "per_dimension": {
+        "T": 3.904,
+        "E": 3.252,
+        "C": 4.57,
+        "S": 3.422
+      },
+      "per_turn": {
+        "20": 3.611,
+        "40": 4.028,
+        "60": 3.722,
+        "80": 4,
+        "100": 4.306,
+        "120": 3.208,
+        "140": 4.625,
+        "160": 3.5,
+        "180": 3.708,
+        "200": 3.333,
+        "220": 3.708,
+        "240": 3.25,
+        "260": 3.458,
+        "280": 4.083,
+        "300": 3.042,
+        "320": 3.167,
+        "340": 3.833,
+        "360": 3.167,
+        "380": 4,
+        "400": 4.667,
+        "420": 4.167,
+        "440": 4,
+        "460": 4,
+        "480": 3.917,
+        "500": 4.667
+      },
+      "n": 540
+    }
+  },
+  "consistency": {
+    "C0": {
+      "n_groups": 18,
+      "mean_within_group_std": 0.0,
+      "stable_frac": 1.0
+    },
+    "C1": {
+      "n_groups": 18,
+      "mean_within_group_std": 0.026,
+      "stable_frac": 1.0
+    },
+    "C2": {
+      "n_groups": 18,
+      "mean_within_group_std": 0.19,
+      "stable_frac": 0.944
+    }
+  },
+  "cost": {
+    "C0": {
+      "mean_mem_tokens": 0,
+      "mean_prompt_tokens": 732.9,
+      "mean_latency_s": 1.39,
+      "prompt_tokens_lo_store": 734.3,
+      "prompt_tokens_hi_store": 732.9,
+      "latency_lo_store": 1.399,
+      "latency_hi_store": 1.4
+    },
+    "C1": {
+      "mean_mem_tokens": 272.3,
+      "mean_prompt_tokens": 994.2,
+      "mean_latency_s": 1.797,
+      "prompt_tokens_lo_store": 977.8,
+      "prompt_tokens_hi_store": 998.1,
+      "latency_lo_store": 1.781,
+      "latency_hi_store": 1.755
+    },
+    "C2": {
+      "mean_mem_tokens": 187.6,
+      "mean_prompt_tokens": 924.0,
+      "mean_latency_s": 1.811,
+      "prompt_tokens_lo_store": 915.5,
+      "prompt_tokens_hi_store": 926.5,
+      "latency_lo_store": 1.784,
+      "latency_hi_store": 1.827
+    }
+  },
+  "params": {
+    "oow_lag": 40
+  },
+  "decision": {
+    "H1_persona_flat": false,
+    "H1_recall_floor": true,
+    "H2_c2_oow_acc": 0.5417,
+    "H2_pass": false,
+    "H3_min_turn_score": 3.042,
+    "H3_pass": false,
+    "H4_ctx_ratio": 1.012,
+    "H4_pass": true,
+    "action": "Frozen model cannot consume retrieved memory zero-shot \u2014 trigger Phase B (memory-aware SFT)."
+  }
+}

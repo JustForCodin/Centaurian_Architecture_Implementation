@@ -1,0 +1,2057 @@
+{
+  "script_id": 300002,
+  "n_turns": 300,
+  "turns": [
+    {
+      "turn": 1,
+      "user": "Does geothermal energy work everywhere, or are there geographic constraints?",
+      "context": "High-temperature geothermal energy is largely constrained to tectonically active regions near tectonic plate boundaries, volcanic zones, or hotspots.",
+      "kind": "filler"
+    },
+    {
+      "turn": 2,
+      "user": "What is HIV and how does it specifically undermine the immune system?",
+      "context": "HIV targets and destroys CD4-positive helper T cells, progressively impairing adaptive immunity and leaving the host vulnerable to opportunistic infections.",
+      "kind": "filler"
+    },
+    {
+      "turn": 3,
+      "user": "How is power defined in mechanics?",
+      "context": "Power is the rate at which work is done, equal to work divided by time, or equivalently force times velocity: P = Fv.",
+      "kind": "filler"
+    },
+    {
+      "turn": 4,
+      "user": "What is the mass of an electron in kilograms?",
+      "context": "The electron rest mass, symbol m_e, is 9.1093837015 \u00d7 10\u207b\u00b3\u00b9 kilograms (kg). It is also commonly expressed as 0.51099895000 MeV/c\u00b2 in particle physics contexts. The electron mass is not a fixed-by-definition constant under the 2019 SI system; it retains a small measurement uncertainty of about 3.0 \u00d7 10\u207b\u00b9\u2070 in relative terms.",
+      "kind": "filler"
+    },
+    {
+      "turn": 5,
+      "user": "What is the chemical symbol for tungsten and why doesn't it match the name?",
+      "context": "Tungsten's chemical symbol is W, which comes from its older German name Wolfram. The element was first isolated in 1783 by Spanish chemists Juan Jos\u00e9 and Fausto Elhuyar.",
+      "kind": "anchor",
+      "anchor_id": 0
+    },
+    {
+      "turn": 6,
+      "user": "What is the K\u00f6nigsberg bridge problem and who solved it?",
+      "context": "Euler solved the K\u00f6nigsberg bridge problem in 1736, proving no path could cross all seven bridges exactly once, founding graph theory.",
+      "kind": "filler"
+    },
+    {
+      "turn": 7,
+      "user": "What are checkpoint inhibitors?",
+      "context": "Checkpoint inhibitors are drugs that block inhibitory proteins such as PD-1 or CTLA-4, allowing T cells to attack cancer cells more effectively.",
+      "kind": "filler"
+    },
+    {
+      "turn": 8,
+      "user": "Does gold react with hydrochloric acid alone?",
+      "context": "Gold (symbol Au, atomic number 79) is a noble metal with an extremely high resistance to chemical attack. Gold does not react with hydrochloric acid (HCl) alone, nor with nitric acid (HNO\u2083) alone, because neither can oxidize gold under standard conditions. However, a 3:1 mixture of hydrochloric acid and nitric acid, known as aqua regia, does dissolve gold by forming the stable tetrachloroaurate complex ion [AuCl\u2084]\u207b.",
+      "kind": "filler"
+    },
+    {
+      "turn": 9,
+      "user": "How long does it take to manufacture and install a single offshore wind turbine from raw materials to first power?",
+      "context": "",
+      "kind": "filler"
+    },
+    {
+      "turn": 10,
+      "user": "What was Charles Darwin's landmark publication and when did it appear?",
+      "context": "Charles Darwin published On the Origin of Species on November 24, 1859, presenting natural selection as the mechanism of evolution.",
+      "kind": "filler"
+    },
+    {
+      "turn": 11,
+      "user": "I know we've talked about tungsten's melting point before \u2014 out of curiosity, which planet has the highest surface atmospheric pressure?",
+      "context": "Among the planets of the solar system, Venus has the highest surface atmospheric pressure, measured at approximately 92 bar (about 92 times Earth's sea-level pressure, or roughly 9.2 megapascals). This is primarily due to the sheer mass of Venus's dense carbon-dioxide atmosphere. For comparison, Earth's surface pressure is 1 bar, Mars's is less than 0.01 bar, and the gas and ice giants do not have a defined solid surface at which to measure pressure, though pressures increase enormously with depth into their atmospheres.",
+      "kind": "filler"
+    },
+    {
+      "turn": 12,
+      "user": "That's interesting\u2014so Shannon figured out the relay circuit connection. What else did Claude Shannon contribute to computing?",
+      "context": "Claude Shannon founded information theory with his landmark 1948 paper 'A Mathematical Theory of Communication,' published in the Bell System Technical Journal. He introduced the concept of the 'bit' as the fundamental unit of information, derived the Shannon entropy formula to quantify information content, and established channel capacity theorems that govern how much data can be reliably transmitted over a noisy channel. His work underpins modern data compression, error-correcting codes, and cryptography.",
+      "kind": "filler"
+    },
+    {
+      "turn": 13,
+      "user": "How many teeth do adults typically have?",
+      "context": "A full set of adult teeth comprises 32 teeth, including four wisdom teeth that may not erupt in all individuals.",
+      "kind": "filler"
+    },
+    {
+      "turn": 14,
+      "user": "What is the elementary charge of a single electron?",
+      "context": "The elementary charge of a single electron is approximately 1.602 \u00d7 10\u207b\u00b9\u2079 coulombs.",
+      "kind": "filler"
+    },
+    {
+      "turn": 15,
+      "user": "What is the Coriolis effect?",
+      "context": "The Coriolis effect is a pseudo-force observed in rotating reference frames, deflecting moving objects perpendicular to their velocity.",
+      "kind": "filler"
+    },
+    {
+      "turn": 16,
+      "user": "What are the alkali metals?",
+      "context": "The alkali metals are Group 1 elements \u2014 lithium, sodium, potassium, rubidium, cesium, and francium \u2014 known for being highly reactive soft metals.",
+      "kind": "filler"
+    },
+    {
+      "turn": 17,
+      "user": "What is the mass of a proton?",
+      "context": "The proton rest mass, symbol m_p, is 1.67262192369 \u00d7 10\u207b\u00b2\u2077 kilograms (kg), or 938.27208816 MeV/c\u00b2. The proton is approximately 1836 times more massive than the electron. Like the electron mass, the proton mass is a measured quantity and is not fixed by definition under the 2019 SI redefinition.",
+      "kind": "filler"
+    },
+    {
+      "turn": 18,
+      "user": "Is Ken Thompson the same person who co-created Unix?",
+      "context": "Yes, Ken Thompson co-created the Unix operating system at Bell Labs alongside Dennis Ritchie in 1969.",
+      "kind": "filler"
+    },
+    {
+      "turn": 19,
+      "user": "What is the magnetic flux quantum?",
+      "context": "The magnetic flux quantum, symbol \u03a6\u2080, is the quantum of magnetic flux threading a superconducting loop. Its value is h/(2e) = 2.067833848 \u00d7 10\u207b\u00b9\u2075 Wb (webers), where h is Planck's constant and e is the elementary charge. It is the inverse of the Josephson constant: \u03a6\u2080 = 1/K_J. It plays a central role in superconductivity and the quantisation of magnetic flux in type-II superconductors.",
+      "kind": "filler"
+    },
+    {
+      "turn": 20,
+      "user": "What is the salinity of the Dead Sea compared to regular ocean water?",
+      "context": "The retrieved context does not contain comparative salinity data for the Dead Sea versus ocean water.",
+      "kind": "filler"
+    },
+    {
+      "turn": 21,
+      "user": "Did Sophie Germain ever meet Gauss?",
+      "context": "",
+      "kind": "filler"
+    },
+    {
+      "turn": 22,
+      "user": "I recall we talked about tungsten's melting point in a past session \u2014 is there a material used in solar cells with a similarly extreme melting point?",
+      "context": "Silicon, the dominant solar cell material, melts at approximately 1414 degrees Celsius, far below tungsten's 3422 degrees Celsius.",
+      "kind": "filler"
+    },
+    {
+      "turn": 23,
+      "user": "What was the main objective of the Kepler Space Telescope?",
+      "context": "The Kepler Space Telescope was designed to survey a portion of the Milky Way to discover Earth-size planets in habitable zones.",
+      "kind": "filler"
+    },
+    {
+      "turn": 24,
+      "user": "Who took the X-ray diffraction image that helped them figure it out?",
+      "context": "Rosalind Franklin produced X-ray diffraction image Photo 51, which provided critical evidence for the double-helix structure of DNA.",
+      "kind": "filler"
+    },
+    {
+      "turn": 25,
+      "user": "What is the von Klitzing constant?",
+      "context": "The von Klitzing constant, symbol R_K, is defined as h/e\u00b2 and has the exact value 25,812.80745 ohms (\u03a9) under the 2019 SI redefinition. It arises in the quantum Hall effect, where the Hall resistance of a two-dimensional electron gas at low temperature and high magnetic field is quantised in integer fractions of R_K. Like the Josephson constant, R_K was used as a metrological reference before 2019, and is now exactly defined.",
+      "kind": "filler"
+    },
+    {
+      "turn": 26,
+      "user": "What is the most common shape-memory alloy in practical use?",
+      "context": "Nitinol, an alloy of nickel and titanium in roughly equal atomic proportions, is the most widely used shape-memory alloy.",
+      "kind": "filler"
+    },
+    {
+      "turn": 27,
+      "user": "What is the Josephson constant and why does it matter for SI units?",
+      "context": "The Josephson constant, symbol K_J, is defined as 2e/h and has the exact value 483,597,848.4 GHz/V under the 2019 SI redefinition (since both e and h are now fixed). It relates to the AC Josephson effect in superconductors, where a voltage V across a Josephson junction produces an oscillation frequency f = K_J \u00d7 V. Before 2019, a conventional value K_J-90 was used as a metrological standard; since 2019 the true SI value applies.",
+      "kind": "filler"
+    },
+    {
+      "turn": 28,
+      "user": "After leaving the ER, proteins often go to the Golgi apparatus. What does it do?",
+      "context": "The Golgi apparatus modifies, sorts, and packages proteins and lipids received from the ER for transport to their final destinations.",
+      "kind": "filler"
+    },
+    {
+      "turn": 29,
+      "user": "I recall you told me tungsten has an extremely high melting point in a previous session. Is tungsten the element with the highest melting point of all?",
+      "context": "Tungsten has the highest melting point of all pure metals, at 3422 degrees Celsius.",
+      "kind": "filler"
+    },
+    {
+      "turn": 30,
+      "user": "You mentioned the Moon stabilises Earth's axial tilt earlier \u2014 how much has Earth's tilt actually varied over time?",
+      "context": "Earth's axial tilt (obliquity) varies between approximately 22.1 and 24.5 degrees over a cycle of about 41,000 years, a component of the Milankovitch cycles. This relatively modest variation is thought to be stabilised by the gravitational influence of the Moon. Numerical simulations suggest that without the Moon, Earth's obliquity could vary chaotically over timescales of millions to hundreds of millions of years, potentially reaching anywhere from near 0\u00b0 to over 85\u00b0. Current obliquity is approximately 23.44 degrees. These variations influence the distribution of solar energy across latitudes and are linked to ice age cycles.",
+      "kind": "filler"
+    },
+    {
+      "turn": 31,
+      "user": "What is the Coriolis effect and how does it affect weather?",
+      "context": "The Coriolis effect is the deflection of moving air due to Earth's rotation, causing winds to curve right in the Northern Hemisphere and left in the Southern.",
+      "kind": "filler"
+    },
+    {
+      "turn": 32,
+      "user": "What's the melting point of carbon in its graphite or diamond form \u2014 does it beat tungsten?",
+      "context": "The context passage does not contain melting point data for carbon allotropes.",
+      "kind": "filler"
+    },
+    {
+      "turn": 33,
+      "user": "What correction did Maxwell add to Ampere's law?",
+      "context": "Maxwell added the displacement current term \u03b5\u2080(\u2202E/\u2202t) to Ampere's law, allowing the equations to predict electromagnetic waves.",
+      "kind": "filler"
+    },
+    {
+      "turn": 34,
+      "user": "What is the longest river in Africa and how long is it?",
+      "context": "The Nile River, flowing northward through northeastern Africa into the Mediterranean Sea, is traditionally cited as the longest river in Africa and the world at approximately 6,650 kilometers (4,130 miles). Some recent studies contest this, suggesting the Amazon may be longer depending on measurement methodology.",
+      "kind": "anchor",
+      "anchor_id": 1
+    },
+    {
+      "turn": 35,
+      "user": "What's the most well-known radioactive isotope, at least for general audiences?",
+      "context": "Carbon-14 is one of the most widely recognized radioactive isotopes, commonly used in radiocarbon dating of organic materials.",
+      "kind": "filler"
+    },
+    {
+      "turn": 36,
+      "user": "Last question for today \u2014 we've talked about carbon, oxygen, nitrogen, sulfur, iron, sodium, chlorine, silicon, hydrogen, phosphorus, and more. Which of these has the highest first ionization energy?",
+      "context": "Among the common main-group elements, first ionization energies generally increase across a period and decrease down a group. Within the elements discussed: fluorine has the highest first ionization energy of any halogen at 1681 kJ/mol; oxygen's is 1313.9 kJ/mol; nitrogen has an anomalously high first ionization energy of 1402.3 kJ/mol (due to its stable half-filled 2p subshell), exceeding oxygen's. Among all the elements discussed today, nitrogen has the highest first ionization energy at 1402.3 kJ/mol, higher than oxygen, carbon (1086.5 kJ/mol), sulfur (999.6 kJ/mol), and the metals.",
+      "kind": "filler"
+    },
+    {
+      "turn": 37,
+      "user": "What does the Pythagorean theorem state?",
+      "context": "The Pythagorean theorem states that in a right triangle, the square of the hypotenuse equals the sum of the squares of the other two sides.",
+      "kind": "filler"
+    },
+    {
+      "turn": 38,
+      "user": "When was Stonehenge built?",
+      "context": "Construction of Stonehenge began around 3000 BCE and continued in phases until approximately 1500 BCE.",
+      "kind": "filler"
+    },
+    {
+      "turn": 39,
+      "user": "What is the average salinity of seawater?",
+      "context": "Average ocean salinity is approximately 35 parts per thousand, or 3.5 percent dissolved salts.",
+      "kind": "filler"
+    },
+    {
+      "turn": 40,
+      "user": "What's the eye of a hurricane?",
+      "context": "The eye is the calm, clear centre of a hurricane, typically 30 to 65 kilometres in diameter.",
+      "kind": "filler"
+    },
+    {
+      "turn": 41,
+      "user": "What is the famous equation from his mass-energy equivalence paper?",
+      "context": "Einstein's mass-energy equivalence is expressed as E equals mc squared, where c is the speed of light.",
+      "kind": "filler"
+    },
+    {
+      "turn": 42,
+      "user": "What is an electric field?",
+      "context": "An electric field is a region of space around a charged object where another charged object experiences a force.",
+      "kind": "filler"
+    },
+    {
+      "turn": 43,
+      "user": "To wrap up \u2014 you've answered a bunch of anatomy facts today. What's one topic from our earlier sessions that connects to what we discussed today?",
+      "context": "[NO RELEVANT CONTEXT RETRIEVED]",
+      "kind": "filler"
+    },
+    {
+      "turn": 44,
+      "user": "Did Franklin win a Nobel Prize for that work?",
+      "context": "",
+      "kind": "filler"
+    },
+    {
+      "turn": 45,
+      "user": "What is Coulomb's law?",
+      "context": "Coulomb's law states that the electrostatic force between two point charges is proportional to the product of their charges and inversely proportional to the square of the distance between them.",
+      "kind": "filler"
+    },
+    {
+      "turn": 46,
+      "user": "And what role do macrophages play?",
+      "context": "Macrophages are phagocytic cells that engulf pathogens, present antigens to T cells, and secrete cytokines to coordinate immune responses.",
+      "kind": "filler"
+    },
+    {
+      "turn": 47,
+      "user": "Is Pluto still considered a planet? What is it classified as now?",
+      "context": "Pluto was reclassified as a 'dwarf planet' by the International Astronomical Union (IAU) in August 2006. The IAU's definition requires a planet to (1) orbit the Sun, (2) have sufficient mass for self-gravity to achieve a nearly round shape, and (3) have 'cleared the neighbourhood' around its orbit. Pluto meets the first two criteria but not the third, as it shares its orbital region with many other Kuiper Belt objects. Pluto is now classified as a dwarf planet and also recognised as the prototype of the 'plutino' class of Kuiper Belt objects, which are in 2:3 orbital resonance with Neptune.",
+      "kind": "filler"
+    },
+    {
+      "turn": 48,
+      "user": "What is dielectric breakdown?",
+      "context": "Dielectric breakdown occurs when an insulating material suddenly conducts electricity after the applied electric field exceeds its dielectric strength.",
+      "kind": "filler"
+    },
+    {
+      "turn": 49,
+      "user": "Has the Collatz conjecture been proven?",
+      "context": "",
+      "kind": "filler"
+    },
+    {
+      "turn": 50,
+      "user": "What is the numerical value of the speed of light in miles per second? Is that in your corpus?",
+      "context": "The speed of light in a vacuum is exactly 299,792,458 metres per second. One mile is defined as exactly 1,609.344 metres. No direct conversion of c to miles per second or miles per hour is listed in this passage; the corpus entry for the speed of light expresses the value only in SI units (m/s).",
+      "kind": "filler"
+    },
+    {
+      "turn": 51,
+      "user": "What process is used to refine bauxite into alumina?",
+      "context": "The Bayer process uses hot sodium hydroxide solution to dissolve aluminum hydroxide from bauxite, producing alumina.",
+      "kind": "filler"
+    },
+    {
+      "turn": 52,
+      "user": "What was unique about Harrison Schmitt compared to other Moon walkers?",
+      "context": "Harrison Schmitt was the only professional geologist to walk on the Moon.",
+      "kind": "filler"
+    },
+    {
+      "turn": 53,
+      "user": "What is simple harmonic motion?",
+      "context": "Simple harmonic motion is periodic oscillation where the restoring force is proportional to displacement and directed toward equilibrium.",
+      "kind": "filler"
+    },
+    {
+      "turn": 54,
+      "user": "What is the name of the virtual machine that runs Java bytecode?",
+      "context": "Java bytecode runs on the Java Virtual Machine, commonly abbreviated JVM.",
+      "kind": "filler"
+    },
+    {
+      "turn": 55,
+      "user": "Earlier you explained the Fermi paradox in session 4. Does electromagnetism play any role in SETI radio searches?",
+      "context": "SETI radio searches exploit the electromagnetic spectrum, particularly microwave frequencies, to detect artificial signals from potential extraterrestrial civilisations.",
+      "kind": "filler"
+    },
+    {
+      "turn": 56,
+      "user": "What is the World Wide Web and how is it different from the internet?",
+      "context": "The World Wide Web is an information system of interlinked hypertext documents and resources, accessible via the internet using the HTTP protocol and web browsers. It was invented by British computer scientist Tim Berners-Lee at CERN in 1989, when he proposed a system for sharing information among researchers. He implemented the first web server and browser in 1990, and the web became publicly available in 1991. The internet is the underlying global network infrastructure of interconnected computers; the web is one of many services\u2014alongside email, FTP, and others\u2014that run on top of that infrastructure.",
+      "kind": "filler"
+    },
+    {
+      "turn": 57,
+      "user": "Can you explain what torque is?",
+      "context": "Torque is the rotational equivalent of force, calculated as the product of force and the perpendicular distance from the pivot point.",
+      "kind": "filler"
+    },
+    {
+      "turn": 58,
+      "user": "Is lupus also autoimmune?",
+      "context": "Systemic lupus erythematosus is an autoimmune disease in which immune complexes deposit in organs such as the kidneys, skin, and joints.",
+      "kind": "filler"
+    },
+    {
+      "turn": 59,
+      "user": "Who developed TCP/IP and when was it adopted?",
+      "context": "TCP/IP (Transmission Control Protocol/Internet Protocol) was developed by Vinton Cerf and Robert Kahn. They published the foundational paper 'A Protocol for Packet Network Intercommunication' in 1974, describing the TCP protocol. IP was later defined separately. On January 1, 1983\u2014a date known as 'Flag Day'\u2014ARPANET officially transitioned to TCP/IP, requiring all connected hosts to adopt the new protocol suite. This transition is considered the birth of the modern internet. Cerf and Kahn received the Turing Award in 2004 for this work.",
+      "kind": "filler"
+    },
+    {
+      "turn": 60,
+      "user": "Was ENIAC actually Turing-complete?",
+      "context": "ENIAC as originally designed was not considered Turing-complete in its initial configuration because it lacked a stored-program architecture; programs were entered by physically reconfiguring patch cables and switches. However, after a 1948 modification inspired by John von Neumann's stored-program concept, ENIAC was reconfigured to operate as a read-only stored-program machine for certain tasks, making it functionally Turing-complete in that mode, though the modification was operationally limited compared to purpose-built stored-program machines.",
+      "kind": "filler"
+    },
+    {
+      "turn": 61,
+      "user": "What did Marie Curie discover in addition to polonium?",
+      "context": "Marie Curie discovered radium in 1898, isolating it from pitchblende ore together with Pierre Curie.",
+      "kind": "filler"
+    },
+    {
+      "turn": 62,
+      "user": "What are Maxwell's four equations collectively describing?",
+      "context": "Maxwell's four equations describe how electric and magnetic fields are generated and how they interact with matter and each other.",
+      "kind": "filler"
+    },
+    {
+      "turn": 63,
+      "user": "What is the wavelength range of visible light that humans can see?",
+      "context": "The human eye can detect electromagnetic radiation in the wavelength range of approximately 380 to 740 nanometers, which we perceive as visible light ranging from violet to red. Wavelengths just outside this range \u2014 ultraviolet and infrared \u2014 are invisible to the naked eye.",
+      "kind": "anchor",
+      "anchor_id": 2
+    },
+    {
+      "turn": 64,
+      "user": "Can you remind me \u2014 back in session 9 you told me the melting point of tungsten. Is tungsten used in any electrical components?",
+      "context": "Tungsten is commonly used as the filament material in incandescent light bulbs due to its high melting point and electrical resistivity.",
+      "kind": "filler"
+    },
+    {
+      "turn": 65,
+      "user": "What is the specific heat capacity of water, and what element is responsible for its unusually high value?",
+      "context": "Water (H\u2082O) has a specific heat capacity of 4.184 J/(g\u00b7\u00b0C), one of the highest of any common liquid. This anomalously high value is primarily attributed to hydrogen bonding between water molecules. Each water molecule can form up to four hydrogen bonds due to the two lone pairs and two O\u2013H bonds on the oxygen atom, requiring significant energy input to disrupt.",
+      "kind": "filler"
+    },
+    {
+      "turn": 66,
+      "user": "What is the longest bone in the body?",
+      "context": "The femur, or thigh bone, is the longest and strongest bone in the human body.",
+      "kind": "filler"
+    },
+    {
+      "turn": 67,
+      "user": "To wrap up: which of the metals we've discussed today has the highest melting point?",
+      "context": "Tungsten has the highest melting point of all pure metals at 3422 degrees Celsius.",
+      "kind": "filler"
+    },
+    {
+      "turn": 68,
+      "user": "What language was C derived from?",
+      "context": "C was derived from the B programming language, which was itself based on BCPL.",
+      "kind": "filler"
+    },
+    {
+      "turn": 69,
+      "user": "How is the speed of a wave on a string related to tension?",
+      "context": "The speed of a transverse wave on a string equals the square root of tension divided by linear mass density: v = \u221a(T/\u03bc).",
+      "kind": "filler"
+    },
+    {
+      "turn": 70,
+      "user": "What is the gravitational constant G?",
+      "context": "The Newtonian gravitational constant, symbol G, has the value 6.67430 \u00d7 10\u207b\u00b9\u00b9 m\u00b3 kg\u207b\u00b9 s\u207b\u00b2 (equivalently N\u00b7m\u00b2\u00b7kg\u207b\u00b2). Unlike most fundamental constants, G is not fixed by definition and retains a measurement uncertainty; it is among the least precisely known fundamental constants. It appears in Newton's law of universal gravitation: F = G(m\u2081m\u2082)/r\u00b2.",
+      "kind": "filler"
+    },
+    {
+      "turn": 71,
+      "user": "What was the name of that mold?",
+      "context": "The mold responsible was Penicillium notatum, later reclassified as Penicillium chrysogenum.",
+      "kind": "filler"
+    },
+    {
+      "turn": 72,
+      "user": "ADA, earlier in our sessions you explained the Fermi paradox and Drake equation \u2014 does anything in ancient civilization studies relate to the idea of lost advanced knowledge?",
+      "context": "Some historians note that ancient Greek engineer Hero of Alexandria described early steam-powered devices, suggesting isolated advanced knowledge that was not developed further.",
+      "kind": "filler"
+    },
+    {
+      "turn": 73,
+      "user": "You walked me through the dew point earlier in this session \u2014 is fog basically the same phenomenon, just at ground level?",
+      "context": "Fog forms by the same saturation process as dew point cooling but produces suspended water droplets rather than surface condensation.",
+      "kind": "filler"
+    },
+    {
+      "turn": 74,
+      "user": "What asteroid did the Hayabusa2 mission sample?",
+      "context": "Hayabusa2 collected subsurface samples from the asteroid Ryugu and returned them to Earth in December 2020.",
+      "kind": "filler"
+    },
+    {
+      "turn": 75,
+      "user": "What's the capital of Indonesia? I know it's being moved \u2014 what's the story there?",
+      "context": "Indonesia's current official capital is Jakarta, located on the northwest coast of Java. However, Indonesia has announced plans to relocate its capital to a new city called Nusantara, being constructed in East Kalimantan on the island of Borneo. The relocation is driven by Jakarta's chronic issues with overcrowding, flooding, and land subsidence. As of the corpus snapshot, Jakarta remains the functioning capital while Nusantara is under construction.",
+      "kind": "filler"
+    },
+    {
+      "turn": 76,
+      "user": "How long can a sperm whale hold its breath?",
+      "context": "Sperm whales can hold their breath for up to 90 minutes during deep dives.",
+      "kind": "filler"
+    },
+    {
+      "turn": 77,
+      "user": "What is the Stefan-Boltzmann constant?",
+      "context": "The Stefan-Boltzmann constant, symbol \u03c3, has the value 5.670374419 \u00d7 10\u207b\u2078 W\u00b7m\u207b\u00b2\u00b7K\u207b\u2074. It governs the total radiant emittance of a black body: P/A = \u03c3T\u2074. It is derived from other constants: \u03c3 = 2\u03c0\u2075k_B\u2074/(15h\u00b3c\u00b2). Because k_B, h, and c are now all fixed by definition, \u03c3 is also exactly determined within the SI.",
+      "kind": "filler"
+    },
+    {
+      "turn": 78,
+      "user": "What is the difference between cytotoxic T cells and helper T cells?",
+      "context": "Cytotoxic T cells directly kill infected or cancerous cells, while helper T cells activate B cells and other immune cells by releasing cytokines.",
+      "kind": "filler"
+    },
+    {
+      "turn": 79,
+      "user": "Last question \u2014 what is considered the most important unanswered question in fundamental physics today?",
+      "context": "",
+      "kind": "filler"
+    },
+    {
+      "turn": 80,
+      "user": "What is the theoretical maximum efficiency limit for a single-junction solar cell?",
+      "context": "The Shockley-Queisser limit sets the theoretical maximum efficiency for a single-junction solar cell at approximately 33.7%.",
+      "kind": "filler"
+    },
+    {
+      "turn": 81,
+      "user": "What is capacitance?",
+      "context": "Capacitance is the ability of a component to store electric charge per unit voltage, measured in farads, F.",
+      "kind": "filler"
+    },
+    {
+      "turn": 82,
+      "user": "What causes bioluminescence in marine organisms?",
+      "context": "Marine bioluminescence is produced by a chemical reaction between luciferin and luciferase enzymes within specialised cells.",
+      "kind": "filler"
+    },
+    {
+      "turn": 83,
+      "user": "What is the vacuum permittivity \u03b5\u2080?",
+      "context": "The vacuum electric permittivity (also called the permittivity of free space), symbol \u03b5\u2080, has the value 8.8541878128 \u00d7 10\u207b\u00b9\u00b2 farads per metre (F/m). It is no longer exact under the 2019 SI revision because it is derived from the defined values of c and \u03bc\u2080 via \u03b5\u2080 = 1/(\u03bc\u2080c\u00b2), and \u03bc\u2080 itself now carries a small measurement uncertainty. \u03b5\u2080 appears in Coulomb's law and Maxwell's equations.",
+      "kind": "filler"
+    },
+    {
+      "turn": 84,
+      "user": "How long is a Martian day compared to Earth's?",
+      "context": "A Martian solar day, called a 'sol', lasts approximately 24 hours, 39 minutes, and 35 seconds \u2014 only about 39 minutes longer than an Earth day. The Martian sidereal day (rotation relative to distant stars) is 24 hours and 37 minutes. Because of this similarity, Mars rovers and landers are operated on Martian sol schedules. A Martian year, however, is about 687 Earth days \u2014 nearly twice as long as an Earth year.",
+      "kind": "filler"
+    },
+    {
+      "turn": 85,
+      "user": "ADA, what is quantum computing and when was the concept first proposed?",
+      "context": "Quantum computing is a model of computation that uses quantum-mechanical phenomena\u2014such as superposition and entanglement\u2014to process information in ways that classical binary computers cannot efficiently replicate. The concept was first proposed by physicist Richard Feynman in a 1981 lecture at MIT, where he argued that simulating quantum physical systems would require a computer that itself operates on quantum principles. David Deutsch formalized the quantum Turing machine in a 1985 paper, and Peter Shor's 1994 algorithm showing that a quantum computer could factor large integers in polynomial time\u2014potentially breaking RSA encryption\u2014dramatically increased research interest.",
+      "kind": "filler"
+    },
+    {
+      "turn": 86,
+      "user": "What are the Galilean moons of Jupiter?",
+      "context": "The four Galilean moons of Jupiter \u2014 Io, Europa, Ganymede, and Callisto \u2014 were discovered by Galileo Galilei in January 1610 and independently by Simon Marius around the same time. Io is the most volcanically active body in the solar system, driven by tidal heating from Jupiter's powerful gravity. Europa is believed to harbour a subsurface liquid-water ocean beneath an icy crust, making it a prime candidate for extraterrestrial life searches. Ganymede is the largest moon in the solar system (radius 2,634 km, larger than Mercury) and has its own magnetosphere. Callisto is heavily cratered and largely geologically inactive.",
+      "kind": "filler"
+    },
+    {
+      "turn": 87,
+      "user": "What is the half-life of carbon-14, and how is it used in dating?",
+      "context": "Carbon-14 (\u00b9\u2074C) is a radioactive isotope of carbon with a half-life of 5,730 years. It is produced in the upper atmosphere when nitrogen-14 is struck by cosmic-ray neutrons: \u00b9\u2074N + n \u2192 \u00b9\u2074C + p. Living organisms continuously exchange carbon with their environment, maintaining a constant \u00b9\u2074C/\u00b9\u00b2C ratio. After death, the ratio decreases as \u00b9\u2074C decays by beta emission, allowing age estimation of organic material up to about 50,000 years old.",
+      "kind": "filler"
+    },
+    {
+      "turn": 88,
+      "user": "You mentioned phytoplankton produce about 50 percent of Earth's oxygen \u2014 what threatens phytoplankton populations?",
+      "context": "Ocean warming and acidification are the primary threats to phytoplankton populations, disrupting their growth and distribution.",
+      "kind": "filler"
+    },
+    {
+      "turn": 89,
+      "user": "How much is the prize for solving a Millennium Prize Problem?",
+      "context": "Each of the seven Millennium Prize Problems carries a prize of one million US dollars, offered by the Clay Mathematics Institute.",
+      "kind": "filler"
+    },
+    {
+      "turn": 90,
+      "user": "What are Neptune's most notable features?",
+      "context": "Neptune is the eighth and outermost planet of the solar system, located at a mean distance of about 30.1 AU from the Sun. It has the strongest sustained winds in the solar system, with speeds recorded up to 2,100 km/h (580 m/s). Voyager 2's 1989 flyby observed a large storm system called the Great Dark Spot (analogous to Jupiter's Great Red Spot), though it had disappeared by the time the Hubble Space Telescope observed Neptune in 1994. Neptune has 16 known moons; its largest, Triton, orbits in a retrograde direction (opposite Neptune's rotation), suggesting it is a captured Kuiper Belt object. Neptune has a faint ring system.",
+      "kind": "filler"
+    },
+    {
+      "turn": 91,
+      "user": "What proportion of Denmark's electricity was supplied by wind power in 2023?",
+      "context": "Wind power supplied approximately 53% of Denmark's total electricity consumption in 2023, the highest share of any country.",
+      "kind": "filler"
+    },
+    {
+      "turn": 92,
+      "user": "At what temperature does liquid nitrogen boil?",
+      "context": "Liquid nitrogen boils at \u2212195.79\u00b0C (\u2212320.42\u00b0F) at standard atmospheric pressure, making it extremely cold and useful for cryogenic applications. It is produced industrially by fractional distillation of liquid air.",
+      "kind": "anchor",
+      "anchor_id": 3
+    },
+    {
+      "turn": 93,
+      "user": "What is the Riemann Hypothesis?",
+      "context": "The Riemann Hypothesis conjectures that all non-trivial zeros of the Riemann zeta function have real part equal to one-half.",
+      "kind": "filler"
+    },
+    {
+      "turn": 94,
+      "user": "What is the melting point of iron?",
+      "context": "Pure iron melts at approximately 1538 degrees Celsius at standard atmospheric pressure.",
+      "kind": "filler"
+    },
+    {
+      "turn": 95,
+      "user": "You mentioned earlier in this session that you abstained on the hurricane sea-surface temperature question \u2014 is there anything in your local data about how climate change is affecting hurricane intensity?",
+      "context": "The context does not contain information about climate change impacts on hurricane intensity.",
+      "kind": "filler"
+    },
+    {
+      "turn": 96,
+      "user": "How is potential energy defined in a gravitational field?",
+      "context": "Gravitational potential energy is calculated as mass times gravitational acceleration times height above a reference point: PE = mgh.",
+      "kind": "filler"
+    },
+    {
+      "turn": 97,
+      "user": "Where is that stele kept today?",
+      "context": "The stele bearing the Code of Hammurabi is currently housed in the Louvre Museum in Paris, France.",
+      "kind": "filler"
+    },
+    {
+      "turn": 98,
+      "user": "What is dry friction and what law describes it?",
+      "context": "Dry friction between surfaces is described by Amontons-Coulomb's law: friction force equals the coefficient of friction times the normal force.",
+      "kind": "filler"
+    },
+    {
+      "turn": 99,
+      "user": "Hey ADA, let's do some ocean trivia today. How deep is the Mariana Trench at its deepest point?",
+      "context": "The Mariana Trench reaches a maximum depth of approximately 11,034 metres at Challenger Deep.",
+      "kind": "filler"
+    },
+    {
+      "turn": 100,
+      "user": "What is the Great Red Spot on Jupiter?",
+      "context": "The Great Red Spot (GRS) is a persistent high-pressure anticyclonic storm in Jupiter's southern hemisphere, observed continuously since at least 1831 and possibly since 1665. It rotates counterclockwise with wind speeds at its periphery exceeding 430 km/h. The GRS is currently about 1.3 times the diameter of Earth, though it has been shrinking; in the 19th century it was estimated to be more than three times Earth's diameter. The reddish colour is thought to result from complex organic compounds or sulphur compounds brought up from lower atmospheric layers, though the precise chemistry is still debated.",
+      "kind": "filler"
+    },
+    {
+      "turn": 101,
+      "user": "Hey ADA, quick one \u2014 what is Newton's first law of motion?",
+      "context": "Newton's first law states that an object remains at rest or in uniform motion unless acted upon by a net external force.",
+      "kind": "filler"
+    },
+    {
+      "turn": 102,
+      "user": "How long is Curiosity, roughly?",
+      "context": "Curiosity is approximately 2.9 meters long, about the size of a small car.",
+      "kind": "filler"
+    },
+    {
+      "turn": 103,
+      "user": "Who was Leonhard Euler?",
+      "context": "Leonhard Euler was an eighteenth-century Swiss mathematician who made pioneering contributions to graph theory, topology, mechanics, and analysis.",
+      "kind": "filler"
+    },
+    {
+      "turn": 104,
+      "user": "Going back to iron \u2014 can you explain what stainless steel is and which element makes it corrosion-resistant?",
+      "context": "Stainless steel is an iron alloy containing at minimum 10.5% chromium (Cr) by mass. The corrosion resistance arises because chromium reacts with atmospheric oxygen to form a thin, adherent, self-repairing chromium oxide (Cr\u2082O\u2083) passive layer on the surface, preventing further oxidation of the underlying iron. Common grades also include nickel (for austenitic structure) and molybdenum (for enhanced chloride resistance).",
+      "kind": "filler"
+    },
+    {
+      "turn": 105,
+      "user": "What is the photoelectric effect in the context of electromagnetism?",
+      "context": "The photoelectric effect is the emission of electrons from a metal surface when struck by electromagnetic radiation above a threshold frequency.",
+      "kind": "filler"
+    },
+    {
+      "turn": 106,
+      "user": "Earlier you explained that the nucleus holds most of the DNA \u2014 is there any DNA outside the nucleus in eukaryotes?",
+      "context": "In eukaryotes, small amounts of DNA are also found in mitochondria and chloroplasts outside the nucleus.",
+      "kind": "filler"
+    },
+    {
+      "turn": 107,
+      "user": "What is the capital of Nigeria?",
+      "context": "The capital of Nigeria is Abuja, a planned city located in the Federal Capital Territory in the centre of the country. Abuja replaced Lagos as the capital in 1991 to provide a more neutral, centrally located seat of government. Lagos remains Nigeria's largest city and its commercial centre.",
+      "kind": "filler"
+    },
+    {
+      "turn": 108,
+      "user": "Is there a cytokine specifically responsible for fever?",
+      "context": "Interleukin-1 and tumor necrosis factor-alpha are cytokines that act on the hypothalamus to induce fever during infection.",
+      "kind": "filler"
+    },
+    {
+      "turn": 109,
+      "user": "What green pigment in chloroplasts absorbs light?",
+      "context": "Chlorophyll is the primary green pigment in chloroplasts that absorbs light energy to drive photosynthesis.",
+      "kind": "filler"
+    },
+    {
+      "turn": 110,
+      "user": "What is a reference frame in classical mechanics?",
+      "context": "A reference frame is a coordinate system used to measure the position and motion of objects relative to an observer.",
+      "kind": "filler"
+    },
+    {
+      "turn": 111,
+      "user": "Now, you mentioned in our DNA discussion earlier that Photo 51 was an X-ray diffraction image. What technique does X-ray diffraction use to reveal molecular structure?",
+      "context": "X-ray crystallography works by directing X-rays at a crystal; the diffraction pattern produced reveals the arrangement of atoms.",
+      "kind": "filler"
+    },
+    {
+      "turn": 112,
+      "user": "What's the melting point of sodium compared to iron?",
+      "context": "Sodium has a melting point of 97.79 \u00b0C (370.94 K), making it one of the lower-melting metals. This low melting point reflects the weak metallic bonding in sodium's body-centered cubic structure, where only one valence electron per atom participates in the electron sea.",
+      "kind": "filler"
+    },
+    {
+      "turn": 113,
+      "user": "Which part of the brain controls balance and coordination?",
+      "context": "The cerebellum, located at the back of the brain, coordinates voluntary movements, balance, and fine motor control.",
+      "kind": "filler"
+    },
+    {
+      "turn": 114,
+      "user": "What structure inside the nucleus is responsible for producing ribosomal RNA?",
+      "context": "The nucleolus is a dense region inside the nucleus where ribosomal RNA (rRNA) is synthesized and ribosome subunits are assembled.",
+      "kind": "filler"
+    },
+    {
+      "turn": 115,
+      "user": "Which bone protects the brain?",
+      "context": "The skull, a bony structure composed of 22 fused bones, encloses and protects the brain.",
+      "kind": "filler"
+    },
+    {
+      "turn": 116,
+      "user": "Which element is named after the planet Uranus?",
+      "context": "Uranium, element 92, was named after the planet Uranus when it was discovered in 1789 by Martin Heinrich Klaproth.",
+      "kind": "filler"
+    },
+    {
+      "turn": 117,
+      "user": "How do octopuses change colour if they are colourblind?",
+      "context": "Octopuses are believed to use skin photoreceptors called opsins to detect light directly through their skin, bypassing their eyes.",
+      "kind": "filler"
+    },
+    {
+      "turn": 118,
+      "user": "And which domains of life are made up entirely of prokaryotic cells?",
+      "context": "Bacteria and Archaea are the two domains composed entirely of prokaryotic cells.",
+      "kind": "filler"
+    },
+    {
+      "turn": 119,
+      "user": "What power source does Curiosity use?",
+      "context": "Curiosity is powered by a Multi-Mission Radioisotope Thermoelectric Generator using plutonium-238 decay heat.",
+      "kind": "filler"
+    },
+    {
+      "turn": 120,
+      "user": "What is the capital of Argentina?",
+      "context": "The capital of Argentina is Buenos Aires, a large port city situated on the R\u00edo de la Plata estuary on the country's eastern coast. Buenos Aires is the most populous city in Argentina and serves as the country's political, economic, and cultural hub. It is the seat of the federal government and home to the Casa Rosada, the presidential palace.",
+      "kind": "filler"
+    },
+    {
+      "turn": 121,
+      "user": "Can you tell me the current global installed capacity of offshore wind as of last month?",
+      "context": "",
+      "kind": "filler"
+    },
+    {
+      "turn": 122,
+      "user": "How many bones does an adult human body have?",
+      "context": "An adult human body has 206 bones, down from around 270 to 300 at birth as many bones fuse during childhood and adolescence. The femur, or thigh bone, is the longest and strongest bone in the body.",
+      "kind": "anchor",
+      "anchor_id": 4
+    },
+    {
+      "turn": 123,
+      "user": "What layer of the atmosphere is weather mostly found in?",
+      "context": "Most weather occurs in the troposphere, the lowest layer of Earth's atmosphere.",
+      "kind": "filler"
+    },
+    {
+      "turn": 124,
+      "user": "What's the capital of the Philippines?",
+      "context": "The capital of the Philippines is Manila, located on the eastern shore of Manila Bay on the island of Luzon. Manila is one of the most densely populated cities in the world. The broader metropolitan area, often called Metro Manila or the National Capital Region, includes the city of Quezon City, which was the official capital from 1948 to 1976.",
+      "kind": "filler"
+    },
+    {
+      "turn": 125,
+      "user": "Earlier you mentioned Curium is named after Marie and Pierre Curie. What element did Marie Curie discover that's also on the table?",
+      "context": "Marie Curie discovered polonium (element 84) and radium (element 88); polonium was named after her homeland, Poland.",
+      "kind": "filler"
+    },
+    {
+      "turn": 126,
+      "user": "What is the Kuiper Belt exactly, and how does it differ from the asteroid belt?",
+      "context": "The Kuiper Belt is a region of the solar system extending from about 30 AU (near Neptune's orbit) to roughly 50 AU from the Sun, populated by icy bodies including dwarf planets, comets, and rocky-icy debris left over from the solar system's formation. It is similar in concept to the asteroid belt but far larger \u2014 about 20 times as wide and 20\u2013200 times as massive. While the asteroid belt contains primarily rocky and metallic bodies, Kuiper Belt objects (KBOs) are composed largely of frozen volatiles such as methane, ammonia, and water. Pluto and Eris are among the largest known KBOs.",
+      "kind": "filler"
+    },
+    {
+      "turn": 127,
+      "user": "Fair enough. What is immunotherapy in general?",
+      "context": "Immunotherapy is a treatment approach that uses or enhances the body's own immune responses to fight diseases such as cancer or autoimmune conditions.",
+      "kind": "filler"
+    },
+    {
+      "turn": 128,
+      "user": "What is the mucosa-associated lymphoid tissue?",
+      "context": "Mucosa-associated lymphoid tissue, or MALT, is immune tissue found in mucosal surfaces such as the gut and respiratory tract that intercepts pathogens at entry points.",
+      "kind": "filler"
+    },
+    {
+      "turn": 129,
+      "user": "What makes an inertial reference frame special?",
+      "context": "An inertial reference frame is one in which Newton's laws hold without the need to introduce fictitious forces.",
+      "kind": "filler"
+    },
+    {
+      "turn": 130,
+      "user": "What language was Ruby created by, and when?",
+      "context": "Ruby was created by Yukihiro Matsumoto, first released in 1995, designed to be a natural and readable object-oriented language.",
+      "kind": "filler"
+    },
+    {
+      "turn": 131,
+      "user": "What's the most recent major discovery about Jupiter's moons \u2014 any new ones found recently?",
+      "context": "",
+      "kind": "filler"
+    },
+    {
+      "turn": 132,
+      "user": "What is the carbon content range that distinguishes steel from cast iron?",
+      "context": "Steel contains between 0.02 and 2.14 percent carbon by weight; cast iron contains more than 2.14 percent carbon.",
+      "kind": "filler"
+    },
+    {
+      "turn": 133,
+      "user": "What's the current status of the Voyager probes \u2014 where are they now?",
+      "context": "Voyager 1, launched in September 1977, crossed the heliopause (the boundary of the heliosphere) around 2012 and is now in interstellar space, making it the most distant human-made object. As of early 2025, Voyager 1 is approximately 24 billion kilometres (about 163 AU) from the Sun. Voyager 2, launched slightly earlier in August 1977 on a different trajectory, crossed the heliopause in late 2018 and is approximately 20 billion km (~136 AU) from the Sun. Both probes continue to transmit data, though their power output is declining; some instruments have been turned off to conserve energy.",
+      "kind": "filler"
+    },
+    {
+      "turn": 134,
+      "user": "What is 'marine snow'?",
+      "context": "Marine snow refers to the continuous shower of organic particles, dead cells, and debris that drifts from surface waters to the deep ocean.",
+      "kind": "filler"
+    },
+    {
+      "turn": 135,
+      "user": "What is the Oort Cloud, and have we ever directly observed it?",
+      "context": "The Oort Cloud is a theoretical, vast spherical shell of icy bodies believed to surround the solar system at distances of roughly 2,000\u2013100,000 AU from the Sun \u2014 extending nearly a quarter of the way to the nearest star. It is thought to be the reservoir for long-period comets (orbital periods greater than 200 years) that enter the inner solar system after being perturbed by gravitational interactions with passing stars, giant molecular clouds, or galactic tidal forces. The Oort Cloud has never been directly observed; its existence is inferred from the orbital characteristics of long-period comets. It was first proposed by Dutch astronomer Jan Oort in 1950.",
+      "kind": "filler"
+    },
+    {
+      "turn": 136,
+      "user": "Is there a capital city that sits on two continents?",
+      "context": "Istanbul, the largest city in Turkey, is often cited as a city that straddles two continents \u2014 Europe and Asia \u2014 being divided by the Bosphorus Strait. However, Istanbul is not Turkey's capital. Turkey's capital is Ankara, located entirely within Anatolia in Asia. No nationally recognised capital city is officially split across two continents, though Istanbul's transcontinental geography is frequently noted.",
+      "kind": "filler"
+    },
+    {
+      "turn": 137,
+      "user": "What are the two capital cities that sit directly across a river from each other?",
+      "context": "Kinshasa (capital of the Democratic Republic of the Congo) and Brazzaville (capital of the Republic of the Congo) face each other across the Congo River, separated by only a few kilometres. They are considered the world's closest pair of national capital cities. The Congo River at this point is one of the widest rivers in the world.",
+      "kind": "filler"
+    },
+    {
+      "turn": 138,
+      "user": "What did the New Horizons mission reveal about Pluto?",
+      "context": "NASA's New Horizons spacecraft performed a flyby of Pluto on 14 July 2015, returning the first close-up images and data from the dwarf planet. Key discoveries included Tombaugh Regio, a vast heart-shaped plain of nitrogen ice (informally called the 'heart'), informally named Sputnik Planitia. New Horizons found that Pluto is geologically active, with evidence of convection in its nitrogen ice sheets and possible cryovolcanism. Pluto's atmosphere was found to extend up to 1,600 km above the surface, predominantly nitrogen with traces of methane and carbon monoxide. Pluto's largest moon, Charon, showed evidence of ancient geological activity.",
+      "kind": "filler"
+    },
+    {
+      "turn": 139,
+      "user": "How do we actually know the age of the solar system?",
+      "context": "The age of the solar system is estimated at approximately 4.568 billion years, derived primarily from radiometric dating of the oldest known meteorites \u2014 specifically carbonaceous chondrites containing calcium-aluminium-rich inclusions (CAIs), which are thought to be among the first solids to condense from the solar nebula. Techniques include uranium-lead (U-Pb) dating, which uses the well-characterised decay rates of uranium-235 and uranium-238 into lead isotopes. Independent confirmation comes from helioseismology (study of solar oscillations) and stellar evolution models. All methods converge on an age of approximately 4.5\u20134.6 billion years.",
+      "kind": "filler"
+    },
+    {
+      "turn": 140,
+      "user": "What is a Sophie Germain prime?",
+      "context": "A Sophie Germain prime is a prime p such that 2p + 1 is also prime; the number 11 is an example.",
+      "kind": "filler"
+    },
+    {
+      "turn": 141,
+      "user": "Earlier you mentioned Naypyidaw replaced Yangon as Myanmar's capital. Do you know what year that happened exactly?",
+      "context": "Myanmar officially moved its capital from Yangon (formerly Rangoon) to the newly constructed city of Naypyidaw in 2006. The move was announced by the military government in 2005, and the administrative transfer was largely completed by March 2006. The reasons cited by the government included Naypyidaw's more central location, but many observers attributed it to strategic and security motivations.",
+      "kind": "filler"
+    },
+    {
+      "turn": 142,
+      "user": "Alright, last one for today \u2014 what is the Hadley cell?",
+      "context": "The Hadley cell is a large-scale atmospheric circulation pattern in which warm air rises near the equator, moves poleward, cools, and sinks near 30 degrees latitude.",
+      "kind": "filler"
+    },
+    {
+      "turn": 143,
+      "user": "What is electromagnetic shielding?",
+      "context": "Electromagnetic shielding uses conductive or magnetic materials to block external electric or magnetic fields from penetrating an enclosure.",
+      "kind": "filler"
+    },
+    {
+      "turn": 144,
+      "user": "What was the capital city of ancient Egypt during the New Kingdom period?",
+      "context": "Thebes, known today as Luxor, served as the capital of Egypt during much of the New Kingdom period.",
+      "kind": "filler"
+    },
+    {
+      "turn": 145,
+      "user": "What is the purpose of tempering steel after quenching?",
+      "context": "Tempering reheats quenched steel to a lower temperature to reduce brittleness while retaining much of the hardness gained from quenching.",
+      "kind": "filler"
+    },
+    {
+      "turn": 146,
+      "user": "What was the name of the first American satellite launched in response to Sputnik?",
+      "context": "Explorer 1, launched on January 31, 1958, was the first successful American satellite.",
+      "kind": "filler"
+    },
+    {
+      "turn": 147,
+      "user": "Speaking of Fermi \u2014 you helped me out with the Fermi paradox a while back. Does Fermium have any practical uses, or is it just a curiosity?",
+      "context": "The context passage does not contain information about practical applications of Fermium.",
+      "kind": "filler"
+    },
+    {
+      "turn": 148,
+      "user": "What is a transformer, and what principle does it rely on?",
+      "context": "A transformer transfers electrical energy between circuits using electromagnetic induction through a shared magnetic core.",
+      "kind": "filler"
+    },
+    {
+      "turn": 149,
+      "user": "What type of tidal energy device captures energy from tidal stream currents rather than tidal range?",
+      "context": "Tidal stream generators, resembling submerged wind turbines, extract kinetic energy from flowing tidal currents without requiring a barrage or dam.",
+      "kind": "filler"
+    },
+    {
+      "turn": 150,
+      "user": "Earlier you mentioned tungsten has the highest melting point among metals. Does it also have the highest boiling point?",
+      "context": "",
+      "kind": "filler"
+    },
+    {
+      "turn": 151,
+      "user": "What year did the Berlin Wall fall, and on what specific date did it happen?",
+      "context": "The Berlin Wall fell on 9 November 1989, when the East German government announced that citizens could cross the border freely. Crowds immediately began dismantling sections of the wall that had divided the city since 1961.",
+      "kind": "anchor",
+      "anchor_id": 5
+    },
+    {
+      "turn": 152,
+      "user": "What is the resistivity of silver compared to copper?",
+      "context": "Silver has a slightly lower electrical resistivity than copper: 1.59 versus 1.68 micro-ohm-centimeters at room temperature.",
+      "kind": "filler"
+    },
+    {
+      "turn": 153,
+      "user": "What is the molar mass of silicon dioxide?",
+      "context": "Silicon (symbol Si, atomic number 14) has a standard atomic weight of 28.085 u. Silicon dioxide (SiO\u2082) has a molar mass of approximately 60.08 g/mol (28.09 for Si + 2 \u00d7 16.00 for O). SiO\u2082 is the primary component of quartz, sand, and many minerals, and exists in several crystalline polymorphs including quartz, cristobalite, and tridymite.",
+      "kind": "filler"
+    },
+    {
+      "turn": 154,
+      "user": "I recall you walked me through the Drake equation back in session four \u2014 is there any parallel concept in immunology to estimating how many threats the immune system can recognize?",
+      "context": "The human adaptive immune system can theoretically recognize more than one hundred million distinct antigens through receptor diversity.",
+      "kind": "filler"
+    },
+    {
+      "turn": 155,
+      "user": "Last question for today \u2014 if you had to name one ancient civilization discovery that researchers still cannot fully explain, what does your local corpus say?",
+      "context": "No source in the local corpus contains a ranked or editorial list of unexplained ancient civilization discoveries.",
+      "kind": "filler"
+    },
+    {
+      "turn": 156,
+      "user": "Let's try chemistry. Who discovered oxygen, and when?",
+      "context": "Carl Wilhelm Scheele first prepared oxygen around 1772, though Joseph Priestley independently discovered and published it in 1774.",
+      "kind": "filler"
+    },
+    {
+      "turn": 157,
+      "user": "How often do El Ni\u00f1o events typically occur?",
+      "context": "El Ni\u00f1o events typically occur every two to seven years and usually last nine to twelve months.",
+      "kind": "filler"
+    },
+    {
+      "turn": 158,
+      "user": "Who discovered radioactivity?",
+      "context": "Henri Becquerel discovered radioactivity in 1896 while studying uranium salts and their effect on photographic plates.",
+      "kind": "filler"
+    },
+    {
+      "turn": 159,
+      "user": "How does that compare to the Sun's surface temperature?",
+      "context": "The photosphere, the visible surface layer of the Sun, has an effective temperature of approximately 5,500 degrees Celsius (5,778 K). Sunspots, which are regions of intense magnetic activity, appear darker because they are cooler \u2014 typically around 3,500 \u00b0C. The corona, the Sun's outer atmosphere, paradoxically reaches temperatures of 1\u20133 million \u00b0C, a phenomenon still under active investigation.",
+      "kind": "filler"
+    },
+    {
+      "turn": 160,
+      "user": "What is the shape-memory effect in metals?",
+      "context": "The shape-memory effect is the ability of certain alloys to return to a pre-defined shape when heated above a transformation temperature.",
+      "kind": "filler"
+    },
+    {
+      "turn": 161,
+      "user": "Earlier we established that skin is the largest organ \u2014 is the liver the largest internal organ?",
+      "context": "The liver is the largest internal organ, weighing approximately 1.4 kilograms in a healthy adult.",
+      "kind": "filler"
+    },
+    {
+      "turn": 162,
+      "user": "What role do microtubules play during cell division?",
+      "context": "During cell division, microtubules form the mitotic spindle that separates duplicated chromosomes to opposite poles of the cell.",
+      "kind": "filler"
+    },
+    {
+      "turn": 163,
+      "user": "What is impulse and how does it relate to momentum?",
+      "context": "Impulse is the product of force and the time interval over which it acts, and it equals the change in momentum of an object.",
+      "kind": "filler"
+    },
+    {
+      "turn": 164,
+      "user": "What are natural killer cells and how are they different from the cytotoxic T cells you mentioned earlier?",
+      "context": "Natural killer cells are innate lymphocytes that destroy virus-infected and tumor cells without requiring prior antigen sensitization.",
+      "kind": "filler"
+    },
+    {
+      "turn": 165,
+      "user": "This reminds me of our session about tungsten. Is the melting point of tungsten listed anywhere in your physics corpus, or is that a different domain?",
+      "context": "Tungsten (chemical symbol W) has the highest melting point of all known metals, at 3422 degrees Celsius (3695 K). Its exceptionally high melting point is attributed to strong metallic bonding arising from its half-filled d-orbital configuration. Tungsten is commonly used in incandescent lamp filaments and high-temperature industrial applications.",
+      "kind": "filler"
+    },
+    {
+      "turn": 166,
+      "user": "What is the thermal conductivity of copper?",
+      "context": "Copper has a thermal conductivity of approximately 401 watts per meter-kelvin, making it an excellent heat conductor.",
+      "kind": "filler"
+    },
+    {
+      "turn": 167,
+      "user": "What was the Saturn V rocket's payload capacity to low Earth orbit?",
+      "context": "The Saturn V rocket could deliver approximately 130,000 kilograms of payload to low Earth orbit.",
+      "kind": "filler"
+    },
+    {
+      "turn": 168,
+      "user": "Can you tell me the standard atomic weight of nitrogen?",
+      "context": "Nitrogen (symbol N, atomic number 7) is a diatomic nonmetal gas at standard conditions. Its standard atomic weight is 14.007 u. Nitrogen constitutes about 78% of Earth's atmosphere by volume, primarily as N\u2082. It is essential for the synthesis of amino acids, nucleic acids, and other biological molecules.",
+      "kind": "filler"
+    },
+    {
+      "turn": 169,
+      "user": "What writing system did ancient Egyptians use?",
+      "context": "Ancient Egyptians used hieroglyphics, a writing system combining logographic and alphabetic elements, from around 3200 BCE.",
+      "kind": "filler"
+    },
+    {
+      "turn": 170,
+      "user": "What is the Wien displacement law constant?",
+      "context": "The Wien displacement law states that the peak wavelength of black-body radiation is inversely proportional to temperature: \u03bb_max = b/T. The Wien displacement constant, symbol b, has the value 2.897771955 \u00d7 10\u207b\u00b3 m\u00b7K. It is derived from fundamental constants: b = hc / (k_B \u00d7 x\u2080), where x\u2080 \u2248 4.965114 is the solution to the transcendental equation x = 5(1 \u2212 e\u207b\u02e3). Since h, c, and k_B are all fixed by definition, b is exactly determined.",
+      "kind": "filler"
+    },
+    {
+      "turn": 171,
+      "user": "How does a vanadium redox flow battery differ from a lithium-ion battery for grid storage?",
+      "context": "Vanadium redox flow batteries store energy in liquid electrolyte tanks external to the cell, allowing energy and power capacity to be scaled independently.",
+      "kind": "filler"
+    },
+    {
+      "turn": 172,
+      "user": "Who developed the concept of Boolean algebra, and why does it matter to computing?",
+      "context": "George Boole, an English mathematician, published 'An Investigation of the Laws of Thought' in 1854, introducing Boolean algebra\u2014a system of logic based on binary variables (true/false, 1/0) combined using operations AND, OR, and NOT. Boolean algebra became the mathematical foundation of digital circuit design after Claude Shannon demonstrated in his 1937 master's thesis that Boolean logic could be implemented with electrical relay circuits, directly enabling the design of all modern digital computers.",
+      "kind": "filler"
+    },
+    {
+      "turn": 173,
+      "user": "What did Antoine Lavoisier contribute to understanding oxygen?",
+      "context": "Antoine Lavoisier named oxygen, proved it was essential to combustion, and used it to overturn the phlogiston theory.",
+      "kind": "filler"
+    },
+    {
+      "turn": 174,
+      "user": "What probe performed the first flyby of Pluto?",
+      "context": "New Horizons performed the first flyby of Pluto on July 14, 2015, returning detailed images and data.",
+      "kind": "filler"
+    },
+    {
+      "turn": 175,
+      "user": "What was the von Neumann architecture and who proposed it?",
+      "context": "The von Neumann architecture is a computer design model described in a 1945 draft report titled 'First Draft of a Report on the EDVAC,' attributed to mathematician John von Neumann. It describes a machine with four main components: a processing unit (with an arithmetic logic unit and processor registers), a control unit, memory that stores both data and program instructions, and input/output mechanisms. The critical innovation was the stored-program concept\u2014instructions and data share the same memory space, allowing programs to be modified and reloaded without hardware changes. This architecture remains the basis of most computers today.",
+      "kind": "filler"
+    },
+    {
+      "turn": 176,
+      "user": "How many papers did Euler publish in his lifetime?",
+      "context": "",
+      "kind": "filler"
+    },
+    {
+      "turn": 177,
+      "user": "We've covered a lot of high-altitude capitals today \u2014 Addis Ababa, Bogot\u00e1, Caracas. Which one is actually the highest capital city in the world?",
+      "context": "The highest national capital city in the world is Sucre, the constitutional capital of Bolivia, at an elevation of approximately 2,750 metres above sea level. However, Bolivia's seat of government is La Paz, which sits at an even higher elevation of approximately 3,640 metres, making it the highest seat of government in the world. Quito, the capital of Ecuador, sits at around 2,850 metres. Addis Ababa is at approximately 2,355 metres, and Bogot\u00e1 at approximately 2,625 metres.",
+      "kind": "filler"
+    },
+    {
+      "turn": 178,
+      "user": "Who deciphered Egyptian hieroglyphics in the modern era?",
+      "context": "Jean-Fran\u00e7ois Champollion deciphered Egyptian hieroglyphics in 1822 using the trilingual Rosetta Stone as his key.",
+      "kind": "filler"
+    },
+    {
+      "turn": 179,
+      "user": "What is an astronomical unit, and who first measured it accurately?",
+      "context": "One astronomical unit (AU) is defined as exactly 149,597,870,700 metres (approximately 149.6 million km), formalised by the IAU in 2012. Early estimates were made using the parallax of Mars (by Giovanni Cassini and Jean Richer in 1672) and later refined using transits of Venus. Edmond Halley proposed in 1716 that observations of Venus transits from widely separated points on Earth could yield an accurate solar parallax. The 1761 and 1769 transits of Venus allowed astronomers to calculate 1 AU to within about 2% of the modern value. Radar measurements of Venus in the 1960s allowed the AU to be fixed with high precision.",
+      "kind": "filler"
+    },
+    {
+      "turn": 180,
+      "user": "How large is the Mona Lisa painting?",
+      "context": "The Mona Lisa, painted by Leonardo da Vinci, measures 77 cm \u00d7 53 cm (30 in \u00d7 21 in). It is painted in oil on a poplar wood panel and is currently housed in the Louvre Museum in Paris.",
+      "kind": "anchor",
+      "anchor_id": 6
+    },
+    {
+      "turn": 181,
+      "user": "And how does that compare to tungsten's melting point? You mentioned that one in a past session.",
+      "context": "Tungsten has the highest melting point of all metals at 3422 degrees Celsius.",
+      "kind": "filler"
+    },
+    {
+      "turn": 182,
+      "user": "What is Ampere's circuital law?",
+      "context": "Ampere's circuital law states that the line integral of the magnetic field around a closed loop equals the permeability of free space times the enclosed current.",
+      "kind": "filler"
+    },
+    {
+      "turn": 183,
+      "user": "I remember we talked about the Fermi paradox a few sessions back. Totally different topic, but \u2014 does the Drake equation have anything to do with geography?",
+      "context": "The Drake equation is a probabilistic formula used in the search for extraterrestrial intelligence (SETI). It estimates the number of active, communicative civilisations in the Milky Way galaxy. Its factors include the rate of star formation, the fraction of stars with planets, and the fraction of those planets that develop intelligent life. The equation has no established connection to terrestrial geography or capitals.",
+      "kind": "filler"
+    },
+    {
+      "turn": 184,
+      "user": "What was the significance of the Intel 4004 microprocessor?",
+      "context": "The Intel 4004, released in November 1971, was the first commercially available single-chip microprocessor. Designed by Federico Faggin, Ted Hoff, and Stanley Mazor, it integrated approximately 2,300 transistors on a single chip, operated at 740 kHz, and could process 4-bit data. Originally developed for the Busicom calculator, Intel negotiated the rights to market it independently. The 4004 marked the beginning of the microprocessor era, establishing the concept that a general-purpose CPU could exist on a single chip and setting the stage for personal computing.",
+      "kind": "filler"
+    },
+    {
+      "turn": 185,
+      "user": "And the smooth ER \u2014 what is one of its main roles?",
+      "context": "The smooth ER is involved in lipid synthesis, detoxification of drugs and toxins, and calcium ion storage.",
+      "kind": "filler"
+    },
+    {
+      "turn": 186,
+      "user": "What is Fermat's Last Theorem?",
+      "context": "Fermat's Last Theorem states that no three positive integers a, b, c satisfy the equation a^n + b^n = c^n for any integer n greater than 2.",
+      "kind": "filler"
+    },
+    {
+      "turn": 187,
+      "user": "Which alkali metal is used in many rechargeable batteries?",
+      "context": "Lithium is widely used in rechargeable lithium-ion batteries due to its high electrochemical potential and low atomic mass.",
+      "kind": "filler"
+    },
+    {
+      "turn": 188,
+      "user": "Speaking of materials \u2014 I remember asking you about tungsten's melting point last time. Is there a classical mechanics concept that explains why denser materials are harder to accelerate?",
+      "context": "Greater mass means greater inertia; Newton's second law shows that for the same force, a more massive object undergoes less acceleration.",
+      "kind": "filler"
+    },
+    {
+      "turn": 189,
+      "user": "What is the period of a simple pendulum?",
+      "context": "The period of a simple pendulum is approximately 2\u03c0 times the square root of length divided by gravitational acceleration: T = 2\u03c0\u221a(L/g).",
+      "kind": "filler"
+    },
+    {
+      "turn": 190,
+      "user": "Can you tell me the current GDP of Canberra compared to Sydney? I want to understand their economic difference.",
+      "context": "Canberra is the capital of Australia, located in the Australian Capital Territory. It is primarily a government and administrative city, housing federal institutions, embassies, and national cultural facilities. Sydney is Australia's largest city and its main financial and commercial centre. Specific current GDP figures comparing the two cities are not available in the retrieved context.",
+      "kind": "filler"
+    },
+    {
+      "turn": 191,
+      "user": "You helped me look up tungsten's melting point a while back \u2014 how does oxygen's boiling point compare to tungsten's melting point?",
+      "context": "Oxygen has a boiling point of \u2212182.96 \u00b0C (90.19 K) at standard atmospheric pressure. It liquefies at \u2212183 \u00b0C and solidifies at \u2212218.79 \u00b0C. Liquid oxygen is pale blue and is paramagnetic.",
+      "kind": "filler"
+    },
+    {
+      "turn": 192,
+      "user": "How does electric potential differ from electric field?",
+      "context": "Electric potential is the work done per unit charge to bring a test charge from infinity to a point, measured in volts.",
+      "kind": "filler"
+    },
+    {
+      "turn": 193,
+      "user": "And what process converts alumina into pure aluminum metal?",
+      "context": "The Hall-H\u00e9roult process uses electrolysis to reduce alumina dissolved in molten cryolite to produce aluminum.",
+      "kind": "filler"
+    },
+    {
+      "turn": 194,
+      "user": "Is that memory the reason vaccines work?",
+      "context": "Vaccines exploit immunological memory by exposing the immune system to a harmless antigen form, prompting memory cell formation without causing disease.",
+      "kind": "filler"
+    },
+    {
+      "turn": 195,
+      "user": "ADA, do you know the exact number of workers who built the Great Pyramid?",
+      "context": "Historians debate the workforce size; no source in the local corpus contains a confirmed exact figure for pyramid construction workers.",
+      "kind": "filler"
+    },
+    {
+      "turn": 196,
+      "user": "What gas does anaerobic digestion of organic waste primarily produce for energy use?",
+      "context": "Anaerobic digestion of organic waste primarily produces biogas, a mixture of roughly 60% methane and 40% carbon dioxide.",
+      "kind": "filler"
+    },
+    {
+      "turn": 197,
+      "user": "How does resistivity differ from resistance?",
+      "context": "Resistivity is an intrinsic material property independent of shape, whereas resistance depends on a conductor's length and cross-sectional area.",
+      "kind": "filler"
+    },
+    {
+      "turn": 198,
+      "user": "What is the double-layered structure that forms the boundary of the cell?",
+      "context": "The plasma membrane is a phospholipid bilayer that encloses the cell and regulates what enters and exits.",
+      "kind": "filler"
+    },
+    {
+      "turn": 199,
+      "user": "What's the approximate cost per kilogram of green hydrogen produced via electrolysis today?",
+      "context": "Green hydrogen produced via electrolysis currently costs approximately 3 to 8 USD per kilogram, depending on electricity price and electrolyzer scale.",
+      "kind": "filler"
+    },
+    {
+      "turn": 200,
+      "user": "What is the world's largest coral reef system?",
+      "context": "The Great Barrier Reef, off the coast of Queensland, Australia, is the world's largest coral reef system, stretching over 2,300 kilometres.",
+      "kind": "filler"
+    },
+    {
+      "turn": 201,
+      "user": "Which ancient civilization is credited with first developing bronze metallurgy on a large scale?",
+      "context": "The Sumerians of ancient Mesopotamia are among the earliest civilizations credited with large-scale bronze production, beginning around 3000 BCE.",
+      "kind": "filler"
+    },
+    {
+      "turn": 202,
+      "user": "Which country has Naypyidaw as its capital?",
+      "context": "Naypyidaw is the capital of Myanmar (also known as Burma). It was established as a purpose-built administrative capital in 2006, replacing Yangon (formerly Rangoon). Naypyidaw is notable for its unusually wide roads and relatively sparse population compared to its physical size.",
+      "kind": "filler"
+    },
+    {
+      "turn": 203,
+      "user": "Roughly how long did Wiles work on that proof in secret?",
+      "context": "Andrew Wiles worked on the proof of Fermat's Last Theorem in near-secrecy for approximately seven years.",
+      "kind": "filler"
+    },
+    {
+      "turn": 204,
+      "user": "What organelle is often called the powerhouse of the cell?",
+      "context": "The mitochondrion is often called the powerhouse of the cell because it produces most of the cell's ATP.",
+      "kind": "filler"
+    },
+    {
+      "turn": 205,
+      "user": "What is the chemical formula and structure of ammonia?",
+      "context": "Ammonia (NH\u2083) consists of one nitrogen atom covalently bonded to three hydrogen atoms. It has a trigonal pyramidal molecular geometry due to the lone pair of electrons on nitrogen, with H\u2013N\u2013H bond angles of approximately 107\u00b0, slightly less than the tetrahedral angle due to lone-pair repulsion. Ammonia has a dipole moment of 1.47 D and a boiling point of \u221233.35 \u00b0C. It is highly soluble in water, forming ammonium hydroxide (NH\u2084OH).",
+      "kind": "filler"
+    },
+    {
+      "turn": 206,
+      "user": "What element has the highest electronegativity on the Pauling scale?",
+      "context": "Fluorine has the highest electronegativity of any element, with a Pauling scale value of 3.98.",
+      "kind": "filler"
+    },
+    {
+      "turn": 207,
+      "user": "You mentioned the thymus earlier \u2014 what exactly does it do?",
+      "context": "The thymus is a gland where T cell precursors mature and undergo selection to ensure they respond to foreign antigens but not self-antigens.",
+      "kind": "filler"
+    },
+    {
+      "turn": 208,
+      "user": "What is the main job of a ribosome in the cell?",
+      "context": "Ribosomes translate messenger RNA sequences into polypeptide chains during the process of protein synthesis.",
+      "kind": "filler"
+    },
+    {
+      "turn": 209,
+      "user": "Can you tell me who won the most recent Nobel Prize in Physics for superconductivity research?",
+      "context": "The local corpus does not contain information about recent Nobel Prize announcements or award recipients.",
+      "kind": "filler"
+    },
+    {
+      "turn": 210,
+      "user": "How does iron rusting actually work chemically?",
+      "context": "Rusting is an electrochemical process in which iron reacts with oxygen and water to form hydrated iron(III) oxide, Fe\u2082O\u2083\u00b7nH\u2082O. The process requires both oxygen and moisture; neither alone is sufficient. The overall simplified reaction is: 4Fe + 3O\u2082 + 6H\u2082O \u2192 4Fe(OH)\u2083, which dehydrates to Fe\u2082O\u2083\u00b7nH\u2082O. Electrolytes such as dissolved salts accelerate the process.",
+      "kind": "filler"
+    },
+    {
+      "turn": 211,
+      "user": "And Au \u2014 what's that one?",
+      "context": "Au is the chemical symbol for gold, derived from the Latin word 'aurum.'",
+      "kind": "filler"
+    },
+    {
+      "turn": 212,
+      "user": "What is Planck's constant, and what are its units?",
+      "context": "Planck's constant, symbol h, has the value 6.62607015 \u00d7 10\u207b\u00b3\u2074 joule-seconds (J\u00b7s). It was fixed at this exact value in the 2019 redefinition of SI units. Planck's constant relates the energy of a photon to its frequency via E = hf. The reduced Planck constant, \u0127 (h-bar), equals h divided by 2\u03c0, approximately 1.054571817 \u00d7 10\u207b\u00b3\u2074 J\u00b7s.",
+      "kind": "filler"
+    },
+    {
+      "turn": 213,
+      "user": "What is an inductor, and what is its SI unit?",
+      "context": "An inductor is a passive component that stores energy in a magnetic field; inductance is measured in henries, H.",
+      "kind": "filler"
+    },
+    {
+      "turn": 214,
+      "user": "Who were the astronauts on Apollo 17?",
+      "context": "Apollo 17's crew consisted of commander Eugene Cernan, lunar module pilot Harrison Schmitt, and command module pilot Ronald Evans.",
+      "kind": "filler"
+    },
+    {
+      "turn": 215,
+      "user": "Lastly \u2014 is there a single corpus passage that lists all the 2018 CODATA recommended values in a table?",
+      "context": "The local corpus contains individual entries for each physical constant covered in this session but does not include a consolidated CODATA 2018 table passage. The individual constant entries are sourced from CODATA 2018 recommendations where applicable. A comprehensive machine-readable table of all CODATA 2018 values is available from the NIST website, which is outside this offline corpus.",
+      "kind": "filler"
+    },
+    {
+      "turn": 216,
+      "user": "How thick is the troposphere roughly?",
+      "context": "The troposphere extends from Earth's surface to about 12 kilometres altitude on average.",
+      "kind": "filler"
+    },
+    {
+      "turn": 217,
+      "user": "Was the Difference Engine ever actually completed?",
+      "context": "Babbage's original Difference Engine No. 1 was never completed during his lifetime due to engineering disputes and funding problems. However, in 1991, the Science Museum in London completed Difference Engine No. 2\u2014a design Babbage finalized between 1847 and 1849\u2014using materials and tolerances available in the 19th century. It functioned correctly, validating Babbage's designs. A second complete Difference Engine No. 2 was later built and is housed at the Computer History Museum in Mountain View, California.",
+      "kind": "filler"
+    },
+    {
+      "turn": 218,
+      "user": "What's the capital of Iceland again? And what's its population roughly?",
+      "context": "Reykjavik is the capital of Iceland. The city proper has a population of approximately 130,000 to 140,000 people, while the greater Reykjavik capital region accounts for around 230,000 people \u2014 representing roughly two-thirds of Iceland's entire national population of approximately 370,000.",
+      "kind": "filler"
+    },
+    {
+      "turn": 219,
+      "user": "What is the spleen's role in the immune system?",
+      "context": "The spleen filters blood, removes aged red blood cells, and serves as a site for B cell maturation and antibody production.",
+      "kind": "filler"
+    },
+    {
+      "turn": 220,
+      "user": "I remember we talked about tungsten's melting point a while back \u2014 what's the melting point of the human body's hardest substance, tooth enamel?",
+      "context": "Tooth enamel is the hardest substance in the human body but has no single melting point; it decomposes rather than melts.",
+      "kind": "filler"
+    },
+    {
+      "turn": 221,
+      "user": "What is the diameter of Pluto according to New Horizons data?",
+      "context": "New Horizons measured Pluto's diameter at approximately 2,377 kilometers.",
+      "kind": "filler"
+    },
+    {
+      "turn": 222,
+      "user": "What rover did NASA land on Mars in the Curiosity mission, and when did it land?",
+      "context": "NASA's Curiosity rover landed in Gale Crater on Mars on August 6, 2012.",
+      "kind": "filler"
+    },
+    {
+      "turn": 223,
+      "user": "Does your corpus include the value of the proton charge radius from the 2022 CODATA adjustment?",
+      "context": "The proton charge radius, symbol r_p, has been the subject of considerable controversy due to a discrepancy between electron-scattering measurements (~0.88 fm) and the 2010 muonic hydrogen Lamb shift measurement (~0.84 fm). The CODATA 2018 recommended value is 0.8414 \u00d7 10\u207b\u00b9\u2075 m (0.8414 fm). A 2022 CODATA adjusted value is not present in this corpus passage.",
+      "kind": "filler"
+    },
+    {
+      "turn": 224,
+      "user": "Do prokaryotic cells have lysosomes too?",
+      "context": "The retrieved context does not contain information about lysosome distribution in prokaryotic cells.",
+      "kind": "filler"
+    },
+    {
+      "turn": 225,
+      "user": "What is barometric pressure and why does it matter for weather?",
+      "context": "Barometric pressure is the weight of the atmosphere pressing down; falling pressure typically signals approaching storms while rising pressure indicates clearing skies.",
+      "kind": "filler"
+    },
+    {
+      "turn": 226,
+      "user": "What is the law of conservation of energy?",
+      "context": "The law of conservation of energy states that energy cannot be created or destroyed, only converted from one form to another.",
+      "kind": "filler"
+    },
+    {
+      "turn": 227,
+      "user": "Earlier in our sessions you helped me understand the Fermi paradox in terms of the Drake equation. Is there any computing angle to how scientists use the Drake equation\u2014like, was it ever run on early computers?",
+      "context": "The Drake equation, formulated by Frank Drake in 1961, is a probabilistic argument consisting of simple multiplicative factors rather than a computationally intensive simulation. Early estimations were performed by hand or with simple calculators. Large-scale computational efforts related to the search for extraterrestrial intelligence emerged later, most notably through distributed computing projects such as SETI@home, launched in 1999, which used volunteer computers worldwide to analyze radio telescope data\u2014a project unrelated to solving the Drake equation itself but illustrative of how computing power transformed SETI research.",
+      "kind": "filler"
+    },
+    {
+      "turn": 228,
+      "user": "What does COBOL stand for?",
+      "context": "COBOL stands for Common Business-Oriented Language, designed for business data processing.",
+      "kind": "filler"
+    },
+    {
+      "turn": 229,
+      "user": "What was the ancient Chinese dynasty considered the first historically verified one?",
+      "context": "The Shang Dynasty, roughly 1600\u20131046 BCE, is widely considered the first Chinese dynasty confirmed by both archaeological and written evidence.",
+      "kind": "filler"
+    },
+    {
+      "turn": 230,
+      "user": "What's the capital of Ethiopia?",
+      "context": "The capital of Ethiopia is Addis Ababa, which also serves as the headquarters of the African Union and the United Nations Economic Commission for Africa. Addis Ababa means 'new flower' in Amharic. It is the largest city in Ethiopia and is located in the central highlands of the country at an elevation of approximately 2,355 metres above sea level, making it one of the highest capital cities in the world.",
+      "kind": "filler"
+    },
+    {
+      "turn": 231,
+      "user": "How does a catalytic converter use platinum chemically?",
+      "context": "Catalytic converters use platinum (and often palladium and rhodium) as heterogeneous catalysts to reduce harmful exhaust emissions. Platinum catalyzes the oxidation of carbon monoxide (CO + \u00bdO\u2082 \u2192 CO\u2082) and unburned hydrocarbons, and also aids in the reduction of nitrogen oxides (2NO \u2192 N\u2082 + O\u2082). The platinum surface provides active sites where reactants adsorb, react at lower activation energies, and desorb as less harmful products.",
+      "kind": "filler"
+    },
+    {
+      "turn": 232,
+      "user": "What's a pulsar, and is there one in our solar system?",
+      "context": "A pulsar is a highly magnetised, rapidly rotating neutron star that emits beams of electromagnetic radiation from its magnetic poles. Because these beams sweep through space like a lighthouse, they are detected as regular pulses when the beam crosses Earth's line of sight \u2014 hence the name. Pulsars rotate at rates from once per several seconds to hundreds of times per second (millisecond pulsars). The first pulsar was discovered by Jocelyn Bell Burnell and Antony Hewish in 1967. There is no pulsar within the solar system; the nearest known pulsar to Earth is PSR J0437\u20134715, approximately 510 light-years away.",
+      "kind": "filler"
+    },
+    {
+      "turn": 233,
+      "user": "What is the density of iron at room temperature?",
+      "context": "Iron (symbol Fe, atomic number 26) is a lustrous, ductile metal in group 8 of the periodic table. Its density at room temperature is approximately 7.874 g/cm\u00b3. Iron is the most abundant element on Earth by mass and the fourth most abundant element in the Earth's crust.",
+      "kind": "filler"
+    },
+    {
+      "turn": 234,
+      "user": "What are the physical properties of phosphorus's white allotrope?",
+      "context": "White phosphorus (P\u2084) is a waxy, pale yellow or colorless solid with a melting point of 44.15 \u00b0C and a boiling point of 280.5 \u00b0C. It has a density of 1.823 g/cm\u00b3. White phosphorus is highly flammable, igniting spontaneously in air at about 34 \u00b0C, and is highly toxic. It emits a faint greenish glow (chemiluminescence) in the presence of oxygen.",
+      "kind": "filler"
+    },
+    {
+      "turn": 235,
+      "user": "What is the southernmost national capital in the world?",
+      "context": "Wellington, the capital of New Zealand, is widely recognised as the southernmost national capital city in the world, located at approximately 41 degrees south latitude. It sits at the southern tip of New Zealand's North Island, on the Cook Strait. Wellington became New Zealand's capital in 1865, replacing Auckland.",
+      "kind": "filler"
+    },
+    {
+      "turn": 236,
+      "user": "Which actinide is used in nuclear reactors as fuel?",
+      "context": "Uranium-235 and plutonium-239 are the primary actinide isotopes used as fuel in nuclear fission reactors.",
+      "kind": "filler"
+    },
+    {
+      "turn": 237,
+      "user": "You described the thermohaline circulation earlier \u2014 what happens if it slows down significantly?",
+      "context": "The retrieved context does not contain information about consequences of thermohaline circulation slowdown.",
+      "kind": "filler"
+    },
+    {
+      "turn": 238,
+      "user": "What is Hooke's law?",
+      "context": "Hooke's law states that the force exerted by a spring equals the negative of the spring constant multiplied by displacement: F = \u2212kx.",
+      "kind": "filler"
+    },
+    {
+      "turn": 239,
+      "user": "What is Faraday's law of electromagnetic induction?",
+      "context": "Faraday's law states that the induced electromotive force in a loop equals the negative rate of change of magnetic flux through that loop.",
+      "kind": "filler"
+    },
+    {
+      "turn": 240,
+      "user": "What are the halogens?",
+      "context": "Halogens are Group 17 elements \u2014 fluorine, chlorine, bromine, iodine, and astatine \u2014 highly reactive nonmetals that readily form salts.",
+      "kind": "filler"
+    },
+    {
+      "turn": 241,
+      "user": "How fast can a sailfish swim?",
+      "context": "The sailfish is considered the fastest fish in the ocean, capable of reaching speeds of up to 110 kilometres per hour.",
+      "kind": "filler"
+    },
+    {
+      "turn": 242,
+      "user": "What oxidation states does iron commonly exhibit?",
+      "context": "Iron commonly exhibits +2 (ferrous) and +3 (ferric) oxidation states in its compounds. Fe\u00b2\u207a ions are found in compounds such as iron(II) sulfate (FeSO\u2084), while Fe\u00b3\u207a ions appear in iron(III) oxide (Fe\u2082O\u2083), commonly known as rust. In some rare compounds, iron can also exhibit +4, +5, or +6 oxidation states.",
+      "kind": "filler"
+    },
+    {
+      "turn": 243,
+      "user": "What is the Vickers hardness of tungsten carbide?",
+      "context": "",
+      "kind": "filler"
+    },
+    {
+      "turn": 244,
+      "user": "What is the complement system?",
+      "context": "The complement system is a set of plasma proteins that enhance antibody activity, promote inflammation, and directly lyse pathogens by forming membrane attack complexes.",
+      "kind": "filler"
+    },
+    {
+      "turn": 245,
+      "user": "How many chambers does the human heart have?",
+      "context": "The human heart has four chambers: the left atrium, right atrium, left ventricle, and right ventricle.",
+      "kind": "filler"
+    },
+    {
+      "turn": 246,
+      "user": "Can you tell me what the current recommended daily calorie intake is for adults in my country?",
+      "context": "[NO RELEVANT CONTEXT RETRIEVED]",
+      "kind": "filler"
+    },
+    {
+      "turn": 247,
+      "user": "How long is the small intestine approximately?",
+      "context": "The small intestine measures approximately 6 to 7 metres in length in a living adult.",
+      "kind": "filler"
+    },
+    {
+      "turn": 248,
+      "user": "What is one well-known example of an autoimmune disease?",
+      "context": "Rheumatoid arthritis is an autoimmune disease in which the immune system attacks the synovial membranes of joints, causing inflammation and damage.",
+      "kind": "filler"
+    },
+    {
+      "turn": 249,
+      "user": "What is the Collatz conjecture?",
+      "context": "The Collatz conjecture states that repeatedly applying the rule n\u2192n/2 for even n and n\u21923n+1 for odd n always eventually reaches 1.",
+      "kind": "filler"
+    },
+    {
+      "turn": 250,
+      "user": "Who originally designed Rust before Mozilla adopted it?",
+      "context": "Rust was originally designed by Graydon Hoare as a personal project before Mozilla Research began sponsoring its development in 2009.",
+      "kind": "filler"
+    },
+    {
+      "turn": 251,
+      "user": "What computing milestone happened at Bell Labs in 1947? I want to make sure I'm tracking the timeline right.",
+      "context": "The single most significant computing-related milestone at Bell Laboratories in 1947 was the invention of the transistor on December 23 by John Bardeen, Walter Brattain, and William Shockley. Prior to this, Bell Labs had also been a center of information-theoretic research; Claude Shannon was developing his foundational ideas on information theory there during the same period, publishing his landmark paper in 1948. Bell Labs in the late 1940s was arguably the most productive single institution in the history of computing and telecommunications.",
+      "kind": "filler"
+    },
+    {
+      "turn": 252,
+      "user": "What's the lightest element on the table?",
+      "context": "Hydrogen is the lightest element, with an atomic number of 1 and an atomic mass of approximately 1.008 u.",
+      "kind": "filler"
+    },
+    {
+      "turn": 253,
+      "user": "Going back to our tungsten session \u2014 you knew that melting point precisely. On that note, what is the exact version number of Python's first stable release?",
+      "context": "I don't have data related to the exact version number of Python's first stable release in the retrieved context.",
+      "kind": "filler"
+    },
+    {
+      "turn": 254,
+      "user": "How is that receptor diversity generated?",
+      "context": "B and T cell receptor diversity is generated by V(D)J recombination, a process that randomly combines gene segments to produce unique receptor sequences.",
+      "kind": "filler"
+    },
+    {
+      "turn": 255,
+      "user": "Earlier you told me oxygen is the second most electronegative element \u2014 so what compounds does fluorine form with oxygen?",
+      "context": "Fluorine (symbol F, atomic number 9) is the most electronegative element (Pauling value 3.98). Because fluorine is more electronegative than oxygen, oxygen takes a positive oxidation state in their compounds. Oxygen difluoride (OF\u2082) and dioxygen difluoride (O\u2082F\u2082) are known fluorides of oxygen. OF\u2082 is a pale yellow gas that is a powerful oxidizer and extremely reactive.",
+      "kind": "filler"
+    },
+    {
+      "turn": 256,
+      "user": "Which servicing mission corrected Hubble's flawed mirror?",
+      "context": "Space Shuttle mission STS-61 in December 1993 installed corrective optics to fix Hubble's spherical aberration.",
+      "kind": "filler"
+    },
+    {
+      "turn": 257,
+      "user": "How do dolphins communicate with each other?",
+      "context": "Dolphins communicate using a complex system of clicks, whistles, and burst-pulse sounds, with signature whistles acting like individual names.",
+      "kind": "filler"
+    },
+    {
+      "turn": 258,
+      "user": "What is the value of the Coulomb constant k?",
+      "context": "The Coulomb constant k is approximately 8.988 \u00d7 10\u2079 N\u00b7m\u00b2\u00b7C\u207b\u00b2.",
+      "kind": "filler"
+    },
+    {
+      "turn": 259,
+      "user": "What percentage of the ocean has been explored by humans?",
+      "context": "Scientists estimate that only about 20 percent of the world's oceans have been mapped and explored.",
+      "kind": "filler"
+    },
+    {
+      "turn": 260,
+      "user": "What is the surface temperature of Venus?",
+      "context": "Venus's mean surface temperature is approximately 465 degrees Celsius, hot enough to melt lead.",
+      "kind": "filler"
+    },
+    {
+      "turn": 261,
+      "user": "How is one coulomb formally defined?",
+      "context": "One coulomb is the charge transported by a current of one ampere flowing for one second.",
+      "kind": "filler"
+    },
+    {
+      "turn": 262,
+      "user": "Which mission discovered the first confirmed exoplanet around a sun-like star?",
+      "context": "",
+      "kind": "filler"
+    },
+    {
+      "turn": 263,
+      "user": "Who invented Java?",
+      "context": "Java was invented primarily by James Gosling at Sun Microsystems, with first public release in 1995.",
+      "kind": "filler"
+    },
+    {
+      "turn": 264,
+      "user": "Last question for today \u2014 you've helped me across a bunch of sessions now. Of all the languages we've touched on today, which was released first: Fortran, LISP, or COBOL?",
+      "context": "Fortran was released in 1957, LISP in 1958, and COBOL in 1959, making Fortran the earliest of the three.",
+      "kind": "filler"
+    },
+    {
+      "turn": 265,
+      "user": "What is the approximate lifespan of a red blood cell?",
+      "context": "A red blood cell survives approximately 120 days before being removed from circulation by the spleen and liver.",
+      "kind": "filler"
+    },
+    {
+      "turn": 266,
+      "user": "What spacecraft have actually visited Europa up close?",
+      "context": "Europa has been observed by several spacecraft. Pioneer 10 and 11 provided the first distant images in the early 1970s. The Voyager 1 and 2 flybys in 1979 returned more detailed images revealing Europa's surprisingly smooth and cracked surface. The Galileo spacecraft, which orbited Jupiter from 1995 to 2003, conducted multiple close flybys of Europa and provided the most detailed data to date, including magnetic field measurements suggesting a conducting layer (likely a salty ocean) beneath the surface. NASA's Europa Clipper mission, launched in October 2024, is designed to perform approximately 50 close flybys of Europa.",
+      "kind": "filler"
+    },
+    {
+      "turn": 267,
+      "user": "Hey ADA, quick one \u2014 what is the difference between weather and climate?",
+      "context": "Weather refers to short-term atmospheric conditions, while climate describes the average atmospheric conditions over long periods.",
+      "kind": "filler"
+    },
+    {
+      "turn": 268,
+      "user": "How is angular momentum defined?",
+      "context": "Angular momentum is the product of moment of inertia and angular velocity, and is conserved in the absence of external torques.",
+      "kind": "filler"
+    },
+    {
+      "turn": 269,
+      "user": "What is the Fundamental Theorem of Calculus?",
+      "context": "The Fundamental Theorem of Calculus links differentiation and integration, stating that differentiation and integration are inverse operations.",
+      "kind": "filler"
+    },
+    {
+      "turn": 270,
+      "user": "In session 12 you abstained on a recent election question because your corpus was out of date. Does that same limitation apply if I ask you the exact date today's electrical grid standard IEC 60038 was last revised?",
+      "context": "The local corpus does not contain the revision date of IEC 60038 or any recent updates to that standard.",
+      "kind": "filler"
+    },
+    {
+      "turn": 271,
+      "user": "Got it. What causes wind?",
+      "context": "Wind is caused by differences in air pressure; air moves from high-pressure areas to low-pressure areas.",
+      "kind": "filler"
+    },
+    {
+      "turn": 272,
+      "user": "How long did it take Brendan Eich to create the first version of JavaScript?",
+      "context": "Brendan Eich developed the first prototype of JavaScript in approximately ten days in May 1995.",
+      "kind": "filler"
+    },
+    {
+      "turn": 273,
+      "user": "Let's talk astronomy. What did Galileo discover when he first pointed a telescope at Jupiter?",
+      "context": "Galileo discovered four large moons of Jupiter \u2014 Io, Europa, Ganymede, and Callisto \u2014 in January 1610.",
+      "kind": "filler"
+    },
+    {
+      "turn": 274,
+      "user": "Speaking of the Fields Medal, what is it exactly?",
+      "context": "The Fields Medal is awarded every four years to up to four mathematicians under forty years old and is considered the highest honour in mathematics.",
+      "kind": "filler"
+    },
+    {
+      "turn": 275,
+      "user": "What vitamin does skin synthesise when exposed to sunlight?",
+      "context": "Skin synthesises vitamin D when ultraviolet B radiation from sunlight converts 7-dehydrocholesterol in the skin.",
+      "kind": "filler"
+    },
+    {
+      "turn": 276,
+      "user": "What is Kepler's second law?",
+      "context": "Kepler's second law states that a line joining a planet to the Sun sweeps out equal areas in equal time intervals.",
+      "kind": "filler"
+    },
+    {
+      "turn": 277,
+      "user": "Switching topics \u2014 what was the Great Pyramid of Giza built for?",
+      "context": "The Great Pyramid of Giza was constructed as a tomb for the pharaoh Khufu, around 2560 BCE.",
+      "kind": "filler"
+    },
+    {
+      "turn": 278,
+      "user": "What's the current population of the world's smallest capital city by area?",
+      "context": "Vatican City, while sometimes considered a city-state, is often cited separately. Among conventional national capitals, data on the 'smallest by area' varies by source and measurement methodology. The local corpus does not contain a definitive ranked list of national capitals by land area with corresponding current population figures. Ngerulmud (Palau) is among the smallest by population, but precise current area and population rankings for all capitals are not available in the retrieved context.",
+      "kind": "filler"
+    },
+    {
+      "turn": 279,
+      "user": "What was its largest known city?",
+      "context": "Mohenjo-daro was the largest known city of the Indus Valley Civilization, located in present-day Sindh, Pakistan.",
+      "kind": "filler"
+    },
+    {
+      "turn": 280,
+      "user": "ADA, building on the heart chambers question \u2014 what is the name of the valve between the left atrium and left ventricle?",
+      "context": "The mitral valve, also called the bicuspid valve, separates the left atrium from the left ventricle.",
+      "kind": "filler"
+    },
+    {
+      "turn": 281,
+      "user": "What is the tensile strength of pure copper?",
+      "context": "",
+      "kind": "filler"
+    },
+    {
+      "turn": 282,
+      "user": "Who is credited with creating COBOL?",
+      "context": "Grace Hopper is widely credited as the primary force behind COBOL's creation, which was standardized in 1959.",
+      "kind": "filler"
+    },
+    {
+      "turn": 283,
+      "user": "What is an integrated circuit and who is credited with inventing it?",
+      "context": "An integrated circuit (IC) is a set of electronic circuits fabricated on a single piece of semiconductor material, typically silicon, combining transistors, resistors, and capacitors in a miniaturized form. Jack Kilby of Texas Instruments demonstrated the first working integrated circuit on September 12, 1958, using germanium. Independently, Robert Noyce of Fairchild Semiconductor developed a more practical silicon-based IC with a planar process in 1959. Kilby received the Nobel Prize in Physics in 2000 for his role; Noyce had died in 1990 and was ineligible posthumously.",
+      "kind": "filler"
+    },
+    {
+      "turn": 284,
+      "user": "Fair enough. What about the Mesopotamian civilization \u2014 where was it located geographically?",
+      "context": "Mesopotamia was located in the region between the Tigris and Euphrates rivers, largely in present-day Iraq.",
+      "kind": "filler"
+    },
+    {
+      "turn": 285,
+      "user": "What is titanium's Young's modulus compared to steel?",
+      "context": "Titanium has a Young's modulus of approximately 116 gigapascals, roughly 58 percent that of steel.",
+      "kind": "filler"
+    },
+    {
+      "turn": 286,
+      "user": "Is the coefficient of static friction always higher than kinetic friction?",
+      "context": "I don't have data related to this in the retrieved context.",
+      "kind": "filler"
+    },
+    {
+      "turn": 287,
+      "user": "How does a proton exchange membrane electrolyzer produce green hydrogen?",
+      "context": "A proton exchange membrane electrolyzer splits water into hydrogen and oxygen using electricity, with a solid polymer membrane conducting protons.",
+      "kind": "filler"
+    },
+    {
+      "turn": 288,
+      "user": "What programming philosophy most influenced Ruby's design?",
+      "context": "Ruby's design was heavily influenced by Smalltalk and Lisp, with Matsumoto citing the principle of least surprise as a guiding philosophy.",
+      "kind": "filler"
+    },
+    {
+      "turn": 289,
+      "user": "What is the turns ratio formula for an ideal transformer?",
+      "context": "For an ideal transformer, the voltage ratio equals the turns ratio: V\u2081/V\u2082 = N\u2081/N\u2082.",
+      "kind": "filler"
+    },
+    {
+      "turn": 290,
+      "user": "What atomic model did Thomson propose after that?",
+      "context": "Thomson proposed the plum-pudding model, in which electrons are embedded in a diffuse positive charge.",
+      "kind": "filler"
+    },
+    {
+      "turn": 291,
+      "user": "What's the capital of a country that no longer exists \u2014 like the USSR?",
+      "context": "The Union of Soviet Socialist Republics (USSR), which dissolved in 1991, had Moscow as its capital. Moscow served as the Soviet capital from 1918 until the dissolution of the USSR, after which it became and remains the capital of the Russian Federation. Before 1918, the Russian imperial capital had been Saint Petersburg (known as Petrograd during World War I).",
+      "kind": "filler"
+    },
+    {
+      "turn": 292,
+      "user": "Does breast milk confer any immune benefits?",
+      "context": "Breast milk contains IgA antibodies and antimicrobial proteins that provide passive immunity and gut protection to newborns.",
+      "kind": "filler"
+    },
+    {
+      "turn": 293,
+      "user": "You and I have talked about elections and current events before, and you flagged that you can't cover recent news. Is the same true for elements \u2014 could new element 119 have been confirmed without you knowing?",
+      "context": "The context passage does not contain information about any elements beyond the 118 confirmed as of the offline corpus snapshot.",
+      "kind": "filler"
+    },
+    {
+      "turn": 294,
+      "user": "One last question \u2014 thinking about everything we've covered today and our earlier sessions on topics like the Fermi paradox, do you think the data from our own solar system makes the existence of life elsewhere more or less likely?",
+      "context": "",
+      "kind": "filler"
+    },
+    {
+      "turn": 295,
+      "user": "Hey ADA, let's do some geography today. What's the capital of France?",
+      "context": "France is a country in Western Europe. Its capital and largest city is Paris, which has served as the nation's political and cultural centre for centuries. Paris is situated on the Seine River and is home to the \u00c9lys\u00e9e Palace, the official residence of the French President.",
+      "kind": "filler"
+    },
+    {
+      "turn": 296,
+      "user": "What role did Turing play during World War II?",
+      "context": "During World War II, Alan Turing worked at Bletchley Park, the British codebreaking establishment, where he made crucial contributions to breaking the German Enigma cipher. He designed the Bombe, an electromechanical device that exploited known weaknesses in Enigma-encrypted messages to rapidly search for the daily key settings. Turing also contributed to breaking the more complex Lorenz cipher. Historians estimate that Turing's codebreaking work shortened the war in Europe by approximately two to four years and saved millions of lives.",
+      "kind": "filler"
+    },
+    {
+      "turn": 297,
+      "user": "What is the lanthanide contraction and which elements does it affect?",
+      "context": "The lanthanide contraction refers to the steady decrease in atomic and ionic radii observed across the lanthanide series (elements 57\u201371, lanthanum through lutetium). As atomic number increases across the series, protons are added to the nucleus while electrons fill the 4f subshell. The 4f electrons provide poor shielding of the nuclear charge compared to d or s electrons, so the effective nuclear charge experienced by outer electrons increases, contracting the atomic radius.",
+      "kind": "filler"
+    },
+    {
+      "turn": 298,
+      "user": "What is the jet stream?",
+      "context": "The jet stream is a fast-flowing ribbon of air near the top of the troposphere that steers weather systems across mid-latitudes.",
+      "kind": "filler"
+    },
+    {
+      "turn": 299,
+      "user": "What is the current best explanation for how the Moon formed?",
+      "context": "The leading hypothesis for the Moon's formation is the 'Giant Impact Hypothesis' (also called the Theia impact or 'Big Splat'). According to this model, approximately 4.5 billion years ago, a Mars-sized protoplanet nicknamed Theia collided with the early Earth at a glancing angle. The collision ejected enormous amounts of molten and vaporised material into orbit around Earth, which subsequently accreted to form the Moon. Evidence supporting this hypothesis includes the Moon's similar isotopic composition to Earth's mantle (particularly oxygen isotopes), the Moon's relatively small iron core (consistent with material from Earth's mantle rather than its core), and the angular momentum of the Earth\u2013Moon system.",
+      "kind": "filler"
+    },
+    {
+      "turn": 300,
+      "user": "What's the elementary charge of a proton?",
+      "context": "The elementary charge, symbol e, is the electric charge carried by a single proton (or equivalently, the magnitude of the charge of a single electron). Its exact value, fixed by the 2019 SI redefinition, is 1.602176634 \u00d7 10\u207b\u00b9\u2079 coulombs (C). The electron carries charge \u2212e and the proton carries charge +e.",
+      "kind": "filler"
+    }
+  ],
+  "anchors": [
+    {
+      "anchor_id": 0,
+      "turn": 5,
+      "topic": "chemical symbol for tungsten",
+      "fact": "W (from Wolfram)",
+      "expected": "W, from its German name Wolfram",
+      "recall_user": "Earlier you explained the chemical symbol for tungsten and why it's unusual \u2014 what was the symbol and the reason?"
+    },
+    {
+      "anchor_id": 1,
+      "turn": 34,
+      "topic": "longest river in Africa",
+      "fact": "6,650 kilometers",
+      "expected": "6,650 kilometers",
+      "recall_user": "What length did you give for the Nile River earlier in our conversation?"
+    },
+    {
+      "anchor_id": 2,
+      "turn": 63,
+      "topic": "wavelength range of visible light",
+      "fact": "380 to 740 nanometers",
+      "expected": "380 to 740 nanometers",
+      "recall_user": "Can you remind me of the visible light wavelength range you described earlier?"
+    },
+    {
+      "anchor_id": 3,
+      "turn": 92,
+      "topic": "boiling point of nitrogen",
+      "fact": "\u2212195.79\u00b0C",
+      "expected": "\u2212195.79\u00b0C",
+      "recall_user": "Earlier you gave me the boiling point of liquid nitrogen \u2014 what was that temperature?"
+    },
+    {
+      "anchor_id": 4,
+      "turn": 122,
+      "topic": "number of bones in adult human body",
+      "fact": "206 bones",
+      "expected": "206 bones",
+      "recall_user": "Remind me \u2014 how many bones did you say an adult human has?"
+    },
+    {
+      "anchor_id": 5,
+      "turn": 151,
+      "topic": "year the Berlin Wall fell",
+      "fact": "9 November 1989",
+      "expected": "9 November 1989",
+      "recall_user": "You mentioned the exact date the Berlin Wall fell \u2014 can you repeat that date?"
+    },
+    {
+      "anchor_id": 6,
+      "turn": 180,
+      "topic": "Mona Lisa painting dimensions",
+      "fact": "77 cm \u00d7 53 cm",
+      "expected": "77 cm \u00d7 53 cm",
+      "recall_user": "We talked about the Mona Lisa's dimensions earlier \u2014 what were they?"
+    }
+  ],
+  "recall_probes": [
+    {
+      "turn": 15,
+      "anchor_id": 0,
+      "lag": 10,
+      "user": "Earlier you explained the chemical symbol for tungsten and why it's unusual \u2014 what was the symbol and the reason?",
+      "expected": "W, from its German name Wolfram",
+      "topic": "chemical symbol for tungsten"
+    },
+    {
+      "turn": 45,
+      "anchor_id": 0,
+      "lag": 40,
+      "user": "Earlier you explained the chemical symbol for tungsten and why it's unusual \u2014 what was the symbol and the reason?",
+      "expected": "W, from its German name Wolfram",
+      "topic": "chemical symbol for tungsten"
+    },
+    {
+      "turn": 105,
+      "anchor_id": 0,
+      "lag": 100,
+      "user": "Earlier you explained the chemical symbol for tungsten and why it's unusual \u2014 what was the symbol and the reason?",
+      "expected": "W, from its German name Wolfram",
+      "topic": "chemical symbol for tungsten"
+    },
+    {
+      "turn": 44,
+      "anchor_id": 1,
+      "lag": 10,
+      "user": "What length did you give for the Nile River earlier in our conversation?",
+      "expected": "6,650 kilometers",
+      "topic": "longest river in Africa"
+    },
+    {
+      "turn": 74,
+      "anchor_id": 1,
+      "lag": 40,
+      "user": "What length did you give for the Nile River earlier in our conversation?",
+      "expected": "6,650 kilometers",
+      "topic": "longest river in Africa"
+    },
+    {
+      "turn": 134,
+      "anchor_id": 1,
+      "lag": 100,
+      "user": "What length did you give for the Nile River earlier in our conversation?",
+      "expected": "6,650 kilometers",
+      "topic": "longest river in Africa"
+    },
+    {
+      "turn": 73,
+      "anchor_id": 2,
+      "lag": 10,
+      "user": "Can you remind me of the visible light wavelength range you described earlier?",
+      "expected": "380 to 740 nanometers",
+      "topic": "wavelength range of visible light"
+    },
+    {
+      "turn": 103,
+      "anchor_id": 2,
+      "lag": 40,
+      "user": "Can you remind me of the visible light wavelength range you described earlier?",
+      "expected": "380 to 740 nanometers",
+      "topic": "wavelength range of visible light"
+    },
+    {
+      "turn": 163,
+      "anchor_id": 2,
+      "lag": 100,
+      "user": "Can you remind me of the visible light wavelength range you described earlier?",
+      "expected": "380 to 740 nanometers",
+      "topic": "wavelength range of visible light"
+    },
+    {
+      "turn": 102,
+      "anchor_id": 3,
+      "lag": 10,
+      "user": "Earlier you gave me the boiling point of liquid nitrogen \u2014 what was that temperature?",
+      "expected": "\u2212195.79\u00b0C",
+      "topic": "boiling point of nitrogen"
+    },
+    {
+      "turn": 132,
+      "anchor_id": 3,
+      "lag": 40,
+      "user": "Earlier you gave me the boiling point of liquid nitrogen \u2014 what was that temperature?",
+      "expected": "\u2212195.79\u00b0C",
+      "topic": "boiling point of nitrogen"
+    },
+    {
+      "turn": 192,
+      "anchor_id": 3,
+      "lag": 100,
+      "user": "Earlier you gave me the boiling point of liquid nitrogen \u2014 what was that temperature?",
+      "expected": "\u2212195.79\u00b0C",
+      "topic": "boiling point of nitrogen"
+    },
+    {
+      "turn": 162,
+      "anchor_id": 4,
+      "lag": 40,
+      "user": "Remind me \u2014 how many bones did you say an adult human has?",
+      "expected": "206 bones",
+      "topic": "number of bones in adult human body"
+    },
+    {
+      "turn": 222,
+      "anchor_id": 4,
+      "lag": 100,
+      "user": "Remind me \u2014 how many bones did you say an adult human has?",
+      "expected": "206 bones",
+      "topic": "number of bones in adult human body"
+    },
+    {
+      "turn": 161,
+      "anchor_id": 5,
+      "lag": 10,
+      "user": "You mentioned the exact date the Berlin Wall fell \u2014 can you repeat that date?",
+      "expected": "9 November 1989",
+      "topic": "year the Berlin Wall fell"
+    },
+    {
+      "turn": 191,
+      "anchor_id": 5,
+      "lag": 40,
+      "user": "You mentioned the exact date the Berlin Wall fell \u2014 can you repeat that date?",
+      "expected": "9 November 1989",
+      "topic": "year the Berlin Wall fell"
+    },
+    {
+      "turn": 251,
+      "anchor_id": 5,
+      "lag": 100,
+      "user": "You mentioned the exact date the Berlin Wall fell \u2014 can you repeat that date?",
+      "expected": "9 November 1989",
+      "topic": "year the Berlin Wall fell"
+    },
+    {
+      "turn": 190,
+      "anchor_id": 6,
+      "lag": 10,
+      "user": "We talked about the Mona Lisa's dimensions earlier \u2014 what were they?",
+      "expected": "77 cm \u00d7 53 cm",
+      "topic": "Mona Lisa painting dimensions"
+    },
+    {
+      "turn": 220,
+      "anchor_id": 6,
+      "lag": 40,
+      "user": "We talked about the Mona Lisa's dimensions earlier \u2014 what were they?",
+      "expected": "77 cm \u00d7 53 cm",
+      "topic": "Mona Lisa painting dimensions"
+    },
+    {
+      "turn": 280,
+      "anchor_id": 6,
+      "lag": 100,
+      "user": "We talked about the Mona Lisa's dimensions earlier \u2014 what were they?",
+      "expected": "77 cm \u00d7 53 cm",
+      "topic": "Mona Lisa painting dimensions"
+    }
+  ],
+  "consistency_probes": [
+    {
+      "anchor_id": 0,
+      "user": "Earlier you explained the chemical symbol for tungsten and why it's unusual \u2014 what was the symbol and the reason?",
+      "expected": "W, from its German name Wolfram",
+      "topic": "chemical symbol for tungsten",
+      "turns": [
+        20,
+        93,
+        166
+      ]
+    },
+    {
+      "anchor_id": 1,
+      "user": "What length did you give for the Nile River earlier in our conversation?",
+      "expected": "6,650 kilometers",
+      "topic": "longest river in Africa",
+      "turns": [
+        49,
+        115,
+        181
+      ]
+    }
+  ]
+}
