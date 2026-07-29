@@ -188,6 +188,7 @@ DATA_SOURCES = {
     "sonnet_recall",                       # episodic recall of salient_past_events (E)
     "sonnet_consistency",                  # T/E/C/S self-probes interleaved mid-factoid-session
     "sonnet_memrecall",                     # Exp 7 Phase B: recall a fact from an injected memory block
+    "sonnet_disclaim",                      # Exp 8: day-1 honest disclaim ("no record of prior sessions yet")
     "oasst", "dolly", "sonnet_instruct",   # Stage-B instruction-following substrate
 }
 
