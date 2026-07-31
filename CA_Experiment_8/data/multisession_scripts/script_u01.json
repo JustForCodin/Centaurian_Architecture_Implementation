@@ -1,0 +1,802 @@
+{
+  "script_id": 20001,
+  "n_sessions": 4,
+  "turns_per_session": 25,
+  "sessions": [
+    {
+      "session_id": 1,
+      "n_turns": 25,
+      "turns": [
+        {
+          "turn": 1,
+          "user": "After leaving the ER, proteins often go to the Golgi apparatus. What does it do?",
+          "context": "The Golgi apparatus modifies, sorts, and packages proteins and lipids received from the ER for transport to their final destinations.",
+          "kind": "filler"
+        },
+        {
+          "turn": 2,
+          "user": "And how long does it take light to travel that distance?",
+          "context": "Light travels at approximately 299,792 kilometres per second in a vacuum. At a distance of 149.6 million kilometres (one AU), light takes approximately 8 minutes and 20 seconds to travel from the Sun to Earth. This figure varies slightly with Earth's position in its orbit, ranging from about 8 minutes 10 seconds at perihelion to 8 minutes 27 seconds at aphelion.",
+          "kind": "filler"
+        },
+        {
+          "turn": 3,
+          "user": "What is the wavelength range of visible light?",
+          "context": "Visible light occupies the electromagnetic spectrum between approximately 380 nanometers (violet) and 700 nanometers (red), a narrow band flanked by ultraviolet radiation on the short-wavelength side and infrared on the long-wavelength side.",
+          "kind": "anchor",
+          "anchor_id": 0
+        },
+        {
+          "turn": 4,
+          "user": "What does the rough ER do specifically?",
+          "context": "The rough ER synthesizes and processes proteins destined for secretion, membrane insertion, or delivery to other organelles.",
+          "kind": "filler"
+        },
+        {
+          "turn": 5,
+          "user": "What is the speed of electromagnetic waves in a vacuum?",
+          "context": "Electromagnetic waves travel in a vacuum at approximately 2.998 \u00d7 10\u2078 metres per second, the speed of light c.",
+          "kind": "filler"
+        },
+        {
+          "turn": 6,
+          "user": "What's the rarest naturally occurring element on Earth?",
+          "context": "Astatine is considered the rarest naturally occurring element, with an estimated total of only about 25 grams present in Earth's crust at any time.",
+          "kind": "filler"
+        },
+        {
+          "turn": 7,
+          "user": "What year was Java first released?",
+          "context": "Java was first released by Sun Microsystems in 1995, initially under the name Oak before being renamed.",
+          "kind": "filler"
+        },
+        {
+          "turn": 8,
+          "user": "Can you tell me who invented the transistor and when?",
+          "context": "The transistor was invented at Bell Laboratories on December 23, 1947, by physicists John Bardeen, Walter Brattain, and William Shockley. The first working device was a point-contact transistor. Shockley subsequently developed the more practical junction transistor in 1948. All three inventors shared the Nobel Prize in Physics in 1956. The transistor replaced bulky, power-hungry vacuum tubes, enabling smaller, faster, and more reliable electronic devices and ultimately making modern integrated circuits and microprocessors possible.",
+          "kind": "filler"
+        },
+        {
+          "turn": 9,
+          "user": "How long is the small intestine approximately?",
+          "context": "The small intestine measures approximately 6 to 7 metres in length in a living adult.",
+          "kind": "filler"
+        },
+        {
+          "turn": 10,
+          "user": "What does the symbol e stand for in Euler's identity?",
+          "context": "The constant e, approximately 2.71828, is the base of the natural logarithm and is sometimes called Euler's number.",
+          "kind": "filler"
+        },
+        {
+          "turn": 11,
+          "user": "Who developed TCP/IP and when was it adopted?",
+          "context": "TCP/IP (Transmission Control Protocol/Internet Protocol) was developed by Vinton Cerf and Robert Kahn. They published the foundational paper 'A Protocol for Packet Network Intercommunication' in 1974, describing the TCP protocol. IP was later defined separately. On January 1, 1983\u2014a date known as 'Flag Day'\u2014ARPANET officially transitioned to TCP/IP, requiring all connected hosts to adopt the new protocol suite. This transition is considered the birth of the modern internet. Cerf and Kahn received the Turing Award in 2004 for this work.",
+          "kind": "filler"
+        },
+        {
+          "turn": 12,
+          "user": "One last question \u2014 thinking about everything we've covered today and our earlier sessions on topics like the Fermi paradox, do you think the data from our own solar system makes the existence of life elsewhere more or less likely?",
+          "context": "",
+          "kind": "filler"
+        },
+        {
+          "turn": 13,
+          "user": "You mentioned earlier that C came out in 1972\u20131973 at Bell Labs \u2014 was C++ also developed at Bell Labs?",
+          "context": "C++ was developed by Bjarne Stroustrup at Bell Labs, making it a direct successor to C in the same institution.",
+          "kind": "filler"
+        },
+        {
+          "turn": 14,
+          "user": "What is the carbon content range that distinguishes steel from cast iron?",
+          "context": "Steel contains between 0.02 and 2.14 percent carbon by weight; cast iron contains more than 2.14 percent carbon.",
+          "kind": "filler"
+        },
+        {
+          "turn": 15,
+          "user": "What was its largest known city?",
+          "context": "Mohenjo-daro was the largest known city of the Indus Valley Civilization, located in present-day Sindh, Pakistan.",
+          "kind": "filler"
+        },
+        {
+          "turn": 16,
+          "user": "What country is Reykjavik the capital of, and what's notable about it geographically?",
+          "context": "Reykjavik is the capital and largest city of Iceland. Geographically, it is notable for being the world's northernmost capital of a sovereign state. It is located on the Faxafl\u00f3i bay on the southwestern coast of Iceland. Reykjavik houses around two-thirds of Iceland's total population.",
+          "kind": "filler"
+        },
+        {
+          "turn": 17,
+          "user": "Got it. What causes wind?",
+          "context": "Wind is caused by differences in air pressure; air moves from high-pressure areas to low-pressure areas.",
+          "kind": "filler"
+        },
+        {
+          "turn": 18,
+          "user": "Who discovered the electron, and how?",
+          "context": "J.J. Thomson discovered the electron in 1897 using cathode ray tube experiments that showed negatively charged particles lighter than atoms.",
+          "kind": "filler"
+        },
+        {
+          "turn": 19,
+          "user": "You mentioned abstaining when you lacked data on that recent election \u2014 by that logic, do you have data on any missions launched in the last few months?",
+          "context": "",
+          "kind": "filler"
+        },
+        {
+          "turn": 20,
+          "user": "Speaking of publications, I remember we talked about the Fermi paradox back in session 4. Did Fermi ever make a famous experimental discovery, not just a thought experiment?",
+          "context": "Enrico Fermi led the team that achieved the first artificial self-sustaining nuclear chain reaction at Chicago Pile-1 on December 2, 1942.",
+          "kind": "filler"
+        },
+        {
+          "turn": 21,
+          "user": "Is the coefficient of static friction always higher than kinetic friction?",
+          "context": "I don't have data related to this in the retrieved context.",
+          "kind": "filler"
+        },
+        {
+          "turn": 22,
+          "user": "How many symphonies did Beethoven complete?",
+          "context": "Ludwig van Beethoven completed nine symphonies over his lifetime; his Ninth Symphony, premiered in Vienna on May 7, 1824, is particularly celebrated for its choral finale based on Schiller's 'Ode to Joy.'",
+          "kind": "anchor",
+          "anchor_id": 1
+        },
+        {
+          "turn": 23,
+          "user": "What about the vacuum permeability \u03bc\u2080?",
+          "context": "The vacuum magnetic permeability (permeability of free space), symbol \u03bc\u2080, has the value 1.25663706212 \u00d7 10\u207b\u2076 N/A\u00b2 (equivalently H/m or kg\u00b7m\u00b7s\u207b\u00b2\u00b7A\u207b\u00b2). Prior to 2019 it was defined exactly as 4\u03c0 \u00d7 10\u207b\u2077 N/A\u00b2; since the 2019 SI redefinition it is a measured quantity with a relative uncertainty of about 1.5 \u00d7 10\u207b\u00b9\u2070. It relates to \u03b5\u2080 and c via \u03bc\u2080\u03b5\u2080 = 1/c\u00b2.",
+          "kind": "filler"
+        },
+        {
+          "turn": 24,
+          "user": "What was the first object-oriented programming language?",
+          "context": "Simula, developed in the 1960s by Ole-Johan Dahl and Kristen Nygaard in Norway, is considered the first object-oriented programming language.",
+          "kind": "filler"
+        },
+        {
+          "turn": 25,
+          "user": "Earlier you explained bioluminescence \u2014 does the anglerfish's esca use the same luciferin-luciferase reaction?",
+          "context": "The anglerfish esca produces bioluminescence through symbiotic bacteria rather than the fish's own luciferin-luciferase system.",
+          "kind": "filler"
+        }
+      ]
+    },
+    {
+      "session_id": 2,
+      "n_turns": 25,
+      "turns": [
+        {
+          "turn": 1,
+          "user": "What's the capital of South Africa? I've heard it might have more than one.",
+          "context": "South Africa has three capital cities serving different governmental functions. Pretoria is the executive capital and seat of the presidency. Cape Town is the legislative capital, where Parliament sits. Bloemfontein is the judicial capital, home to the Supreme Court of Appeal. Johannesburg, the largest city, is not a capital.",
+          "kind": "filler"
+        },
+        {
+          "turn": 2,
+          "user": "What was the first programming language and when was it developed?",
+          "context": "The question of the 'first' programming language depends on definitions. If machine code and assembly language are excluded in favor of high-level languages, Fortran (Formula Translation) is widely credited as the first high-level programming language to be widely implemented and used. Developed by a team at IBM led by John Backus, Fortran was released in 1957. It introduced the concept of writing mathematically readable expressions that a compiler would translate to machine code, dramatically increasing programmer productivity. Backus received the Turing Award in 1977 in part for this work.",
+          "kind": "filler"
+        },
+        {
+          "turn": 3,
+          "user": "Who actually invented Pascal's Triangle before Pascal?",
+          "context": "Although called Pascal's Triangle in the West, the pattern was described by the Persian mathematician Al-Karaji around 1000 CE and systematically studied by Chinese mathematician Yang Hui in 1261, predating Blaise Pascal's 1653 work by centuries.",
+          "kind": "anchor",
+          "anchor_id": 2
+        },
+        {
+          "turn": 4,
+          "user": "Fair enough. What's the most abundant element in the Earth's crust?",
+          "context": "Oxygen is the most abundant element in Earth's crust, making up approximately 46 percent of its mass.",
+          "kind": "filler"
+        },
+        {
+          "turn": 5,
+          "user": "How efficient are modern silicon solar panels at converting sunlight to electricity?",
+          "context": "Commercial silicon photovoltaic panels typically achieve conversion efficiencies between 18% and 22% under standard test conditions.",
+          "kind": "filler"
+        },
+        {
+          "turn": 6,
+          "user": "What was the primary objective of the Voyager 1 mission?",
+          "context": "Voyager 1 was launched in 1977 to conduct close-up studies of Jupiter and Saturn and their moons and rings.",
+          "kind": "filler"
+        },
+        {
+          "turn": 7,
+          "user": "What's the capital of the Philippines?",
+          "context": "The capital of the Philippines is Manila, located on the eastern shore of Manila Bay on the island of Luzon. Manila is one of the most densely populated cities in the world. The broader metropolitan area, often called Metro Manila or the National Capital Region, includes the city of Quezon City, which was the official capital from 1948 to 1976.",
+          "kind": "filler"
+        },
+        {
+          "turn": 8,
+          "user": "Who is Alan Kay, briefly?",
+          "context": "Alan Kay is a computer scientist who pioneered object-oriented programming and the concept of the personal computer at Xerox PARC.",
+          "kind": "filler"
+        },
+        {
+          "turn": 9,
+          "user": "What exactly is the heliopause?",
+          "context": "The heliopause is the theoretical boundary where the solar wind, a stream of charged particles emanating from the Sun, is halted and balanced by the pressure of the interstellar medium. Inside the heliopause lies the heliosphere \u2014 a vast bubble of plasma and magnetic field dominated by the Sun. Just inside the heliopause is the heliosheath, a turbulent region where the solar wind slows dramatically after crossing the termination shock. Beyond the heliopause, the interstellar medium \u2014 gas, dust, and particles from other stars \u2014 prevails.",
+          "kind": "filler"
+        },
+        {
+          "turn": 10,
+          "user": "What is the normal range for human body temperature in Celsius?",
+          "context": "Normal human body temperature ranges from approximately 36.1 to 37.2 degrees Celsius when measured orally.",
+          "kind": "filler"
+        },
+        {
+          "turn": 11,
+          "user": "Has there been any recent experimental update to the value of the fine-structure constant after 2022?",
+          "context": "Precision measurements of the fine-structure constant using atom interferometry were reported in 2020 (Berkeley group, caesium-133) and in 2022 (Paris group, rubidium-87), yielding values that agreed to within 1.5 standard deviations. The CODATA 2018 recommended value is \u03b1\u207b\u00b9 = 137.035999084(21). A 2023 or later updated CODATA value is not present in this corpus.",
+          "kind": "filler"
+        },
+        {
+          "turn": 12,
+          "user": "Who is credited with the first recorded proof of the Pythagorean theorem?",
+          "context": "",
+          "kind": "filler"
+        },
+        {
+          "turn": 13,
+          "user": "What process do mitochondria use to generate that ATP?",
+          "context": "Mitochondria generate ATP through cellular respiration, specifically via oxidative phosphorylation on the inner mitochondrial membrane.",
+          "kind": "filler"
+        },
+        {
+          "turn": 14,
+          "user": "What makes titanium attractive for aerospace applications despite its higher cost?",
+          "context": "Titanium offers an exceptional strength-to-weight ratio and excellent corrosion resistance, making it ideal for aerospace use.",
+          "kind": "filler"
+        },
+        {
+          "turn": 15,
+          "user": "What separates the groups \u2014 the columns \u2014 from the periods conceptually?",
+          "context": "Groups are vertical columns; elements in the same group share the same number of valence electrons and similar chemical properties.",
+          "kind": "filler"
+        },
+        {
+          "turn": 16,
+          "user": "What are the physical properties of phosphorus's white allotrope?",
+          "context": "White phosphorus (P\u2084) is a waxy, pale yellow or colorless solid with a melting point of 44.15 \u00b0C and a boiling point of 280.5 \u00b0C. It has a density of 1.823 g/cm\u00b3. White phosphorus is highly flammable, igniting spontaneously in air at about 34 \u00b0C, and is highly toxic. It emits a faint greenish glow (chemiluminescence) in the presence of oxygen.",
+          "kind": "filler"
+        },
+        {
+          "turn": 17,
+          "user": "What is the principle of superposition of forces?",
+          "context": "The principle of superposition states that the net force on an object is the vector sum of all individual forces acting on it.",
+          "kind": "filler"
+        },
+        {
+          "turn": 18,
+          "user": "How much of Earth's oxygen does the ocean produce?",
+          "context": "The ocean produces approximately 50 percent of Earth's oxygen, primarily through photosynthesis by phytoplankton.",
+          "kind": "filler"
+        },
+        {
+          "turn": 19,
+          "user": "Last one \u2014 you helped me with the Fermi paradox back in session 4. Is there a mathematical framework in number theory that parallels the Drake equation's chain-of-probabilities structure?",
+          "context": "",
+          "kind": "filler"
+        },
+        {
+          "turn": 20,
+          "user": "What is immunological memory and why does it matter?",
+          "context": "Immunological memory is the ability of B and T memory cells to mount a faster, stronger response upon re-exposure to a previously encountered antigen.",
+          "kind": "filler"
+        },
+        {
+          "turn": 21,
+          "user": "What element has the highest electronegativity on the Pauling scale?",
+          "context": "Fluorine has the highest electronegativity of any element, with a Pauling scale value of 3.98.",
+          "kind": "filler"
+        },
+        {
+          "turn": 22,
+          "user": "When was the Eiffel Tower finished?",
+          "context": "The Eiffel Tower was completed on March 31, 1889, serving as the entrance arch for the 1889 World's Fair held in Paris to celebrate the centennial of the French Revolution.",
+          "kind": "anchor",
+          "anchor_id": 3
+        },
+        {
+          "turn": 23,
+          "user": "What is kinetic energy and how is it calculated?",
+          "context": "Kinetic energy is the energy of motion, calculated as one-half times mass times velocity squared: KE = \u00bdmv\u00b2.",
+          "kind": "filler"
+        },
+        {
+          "turn": 24,
+          "user": "Going back to our tungsten session \u2014 you knew that melting point precisely. On that note, what is the exact version number of Python's first stable release?",
+          "context": "I don't have data related to the exact version number of Python's first stable release in the retrieved context.",
+          "kind": "filler"
+        },
+        {
+          "turn": 25,
+          "user": "What is the melting point of iron?",
+          "context": "Pure iron melts at approximately 1538 degrees Celsius at standard atmospheric pressure.",
+          "kind": "filler"
+        }
+      ]
+    },
+    {
+      "session_id": 3,
+      "n_turns": 25,
+      "turns": [
+        {
+          "turn": 1,
+          "user": "What is the crystal structure of iron at room temperature?",
+          "context": "Iron exists as a body-centered cubic (BCC) crystal structure at room temperature, called alpha-iron or ferrite.",
+          "kind": "filler"
+        },
+        {
+          "turn": 2,
+          "user": "What programming philosophy most influenced Ruby's design?",
+          "context": "Ruby's design was heavily influenced by Smalltalk and Lisp, with Matsumoto citing the principle of least surprise as a guiding philosophy.",
+          "kind": "filler"
+        },
+        {
+          "turn": 3,
+          "user": "Way back at the start of today's session you asked me about iron's crystal structure. Does iron change crystal structure at higher temperatures?",
+          "context": "Iron transforms from BCC alpha-iron to FCC gamma-iron (austenite) at 912 degrees Celsius upon heating.",
+          "kind": "filler"
+        },
+        {
+          "turn": 4,
+          "user": "How often do El Ni\u00f1o events typically occur?",
+          "context": "El Ni\u00f1o events typically occur every two to seven years and usually last nine to twelve months.",
+          "kind": "filler"
+        },
+        {
+          "turn": 5,
+          "user": "What's the current market price of platinum per gram?",
+          "context": "Platinum (symbol Pt, atomic number 78) is a dense, malleable, highly unreactive transition metal. Its density is 21.45 g/cm\u00b3 and its melting point is 1768.3 \u00b0C. Platinum is widely used in catalytic converters, laboratory equipment, dentistry, and jewelry. It is one of the rarest elements in Earth's crust, at about 0.005 parts per million.",
+          "kind": "filler"
+        },
+        {
+          "turn": 6,
+          "user": "How do anglerfish lure their prey in the deep sea?",
+          "context": "Female anglerfish use a bioluminescent lure called an esca, dangled from a dorsal spine, to attract prey.",
+          "kind": "filler"
+        },
+        {
+          "turn": 7,
+          "user": "How does agrivoltaics combine solar energy generation with agriculture?",
+          "context": "Agrivoltaic systems co-locate solar panels and crops on the same land, with partial shading from panels shown to reduce water evaporation and sometimes increase yields.",
+          "kind": "filler"
+        },
+        {
+          "turn": 8,
+          "user": "Where is that stele kept today?",
+          "context": "The stele bearing the Code of Hammurabi is currently housed in the Louvre Museum in Paris, France.",
+          "kind": "filler"
+        },
+        {
+          "turn": 9,
+          "user": "What is the complement system?",
+          "context": "The complement system is a set of plasma proteins that enhance antibody activity, promote inflammation, and directly lyse pathogens by forming membrane attack complexes.",
+          "kind": "filler"
+        },
+        {
+          "turn": 10,
+          "user": "What was the ancient city of Carthage known for?",
+          "context": "Carthage was a powerful ancient Phoenician city-state in North Africa, known for its trade empire and prolonged wars with Rome called the Punic Wars.",
+          "kind": "filler"
+        },
+        {
+          "turn": 11,
+          "user": "Back to our solar system \u2014 what is the largest known asteroid in the asteroid belt?",
+          "context": "Ceres is the largest object in the asteroid belt between Mars and Jupiter, with a mean diameter of approximately 939 kilometres. It accounts for roughly 30\u201340% of the total mass of the asteroid belt. Ceres is large enough for self-gravity to have shaped it into a roughly spherical body, qualifying it as a dwarf planet under the IAU's 2006 definition \u2014 making it the only dwarf planet in the inner solar system. NASA's Dawn spacecraft orbited Ceres from 2015 to 2018, discovering bright spots in the Occator crater identified as deposits of sodium carbonate, suggesting Ceres may have or had an internal brine reservoir.",
+          "kind": "filler"
+        },
+        {
+          "turn": 12,
+          "user": "What is the mucosa-associated lymphoid tissue?",
+          "context": "Mucosa-associated lymphoid tissue, or MALT, is immune tissue found in mucosal surfaces such as the gut and respiratory tract that intercepts pathogens at entry points.",
+          "kind": "filler"
+        },
+        {
+          "turn": 13,
+          "user": "What does PHP stand for?",
+          "context": "PHP originally stood for Personal Home Page, though it now recursively stands for PHP: Hypertext Preprocessor.",
+          "kind": "filler"
+        },
+        {
+          "turn": 14,
+          "user": "I remember we talked about tungsten's melting point a while back \u2014 what's the melting point of the human body's hardest substance, tooth enamel?",
+          "context": "Tooth enamel is the hardest substance in the human body but has no single melting point; it decomposes rather than melts.",
+          "kind": "filler"
+        },
+        {
+          "turn": 15,
+          "user": "Does your corpus include the value of the proton charge radius from the 2022 CODATA adjustment?",
+          "context": "The proton charge radius, symbol r_p, has been the subject of considerable controversy due to a discrepancy between electron-scattering measurements (~0.88 fm) and the 2010 muonic hydrogen Lamb shift measurement (~0.84 fm). The CODATA 2018 recommended value is 0.8414 \u00d7 10\u207b\u00b9\u2075 m (0.8414 fm). A 2022 CODATA adjusted value is not present in this corpus passage.",
+          "kind": "filler"
+        },
+        {
+          "turn": 16,
+          "user": "What's the largest organ in the human body?",
+          "context": "The skin is the largest organ of the human body, covering approximately 1.5 to 2 square metres in adults.",
+          "kind": "filler"
+        },
+        {
+          "turn": 17,
+          "user": "What language did Dennis Ritchie create?",
+          "context": "Dennis Ritchie created the C programming language at Bell Labs, with development occurring primarily between 1969 and 1973.",
+          "kind": "filler"
+        },
+        {
+          "turn": 18,
+          "user": "What is the reduced Compton wavelength of the electron?",
+          "context": "The reduced Compton wavelength of the electron, symbol \u019b_C = \u0127/(m_e c), has the value 3.8615926796 \u00d7 10\u207b\u00b9\u00b3 metres. The (unreduced) Compton wavelength \u03bb_C = h/(m_e c) = 2.42631023867 \u00d7 10\u207b\u00b9\u00b2 m. The Compton wavelength sets the scale at which quantum field effects become important for a particle; for the electron it marks the transition between the non-relativistic quantum and relativistic quantum regimes.",
+          "kind": "filler"
+        },
+        {
+          "turn": 19,
+          "user": "What is the Hubble Space Telescope's orbital altitude?",
+          "context": "The Hubble Space Telescope orbits Earth at an altitude of approximately 547 kilometers.",
+          "kind": "filler"
+        },
+        {
+          "turn": 20,
+          "user": "How does that compare to the Sun's surface temperature?",
+          "context": "The photosphere, the visible surface layer of the Sun, has an effective temperature of approximately 5,500 degrees Celsius (5,778 K). Sunspots, which are regions of intense magnetic activity, appear darker because they are cooler \u2014 typically around 3,500 \u00b0C. The corona, the Sun's outer atmosphere, paradoxically reaches temperatures of 1\u20133 million \u00b0C, a phenomenon still under active investigation.",
+          "kind": "filler"
+        },
+        {
+          "turn": 21,
+          "user": "Going back to something we covered \u2014 you mentioned the Boltzmann constant earlier. How does it connect to the kelvin's current definition?",
+          "context": "Since the 2019 revision of the SI, the kelvin is defined by fixing the Boltzmann constant k_B at exactly 1.380649 \u00d7 10\u207b\u00b2\u00b3 J/K. One kelvin is thus the thermodynamic temperature change that corresponds to a thermal energy change of exactly 1.380649 \u00d7 10\u207b\u00b2\u00b3 joules per degree of freedom. This replaced the previous definition based on the triple point of water (273.16 K), which is now a measured quantity rather than a definition.",
+          "kind": "filler"
+        },
+        {
+          "turn": 22,
+          "user": "Good. What are the two broad categories of cells based on whether they have a membrane-bound nucleus?",
+          "context": "Cells are classified as prokaryotic (no membrane-bound nucleus) or eukaryotic (nucleus enclosed by a membrane).",
+          "kind": "filler"
+        },
+        {
+          "turn": 23,
+          "user": "What does the work-energy theorem say?",
+          "context": "The work-energy theorem states that the net work done on an object equals its change in kinetic energy.",
+          "kind": "filler"
+        },
+        {
+          "turn": 24,
+          "user": "How do mantis shrimp see colour?",
+          "context": "Mantis shrimp possess up to 16 types of photoreceptors, compared to three in humans, enabling detection of UV and polarised light.",
+          "kind": "filler"
+        },
+        {
+          "turn": 25,
+          "user": "You mentioned earlier in this session that you abstained on the hurricane sea-surface temperature question \u2014 is there anything in your local data about how climate change is affecting hurricane intensity?",
+          "context": "The context does not contain information about climate change impacts on hurricane intensity.",
+          "kind": "filler"
+        }
+      ]
+    },
+    {
+      "session_id": 4,
+      "n_turns": 25,
+      "turns": [
+        {
+          "turn": 1,
+          "user": "What is the capital of Nigeria?",
+          "context": "The capital of Nigeria is Abuja, a planned city located in the Federal Capital Territory in the centre of the country. Abuja replaced Lagos as the capital in 1991 to provide a more neutral, centrally located seat of government. Lagos remains Nigeria's largest city and its commercial centre.",
+          "kind": "filler"
+        },
+        {
+          "turn": 2,
+          "user": "How many species of shark exist?",
+          "context": "There are approximately 500 known species of sharks, ranging from the dwarf lanternshark to the whale shark.",
+          "kind": "filler"
+        },
+        {
+          "turn": 3,
+          "user": "What's the melting point of sodium compared to iron?",
+          "context": "Sodium has a melting point of 97.79 \u00b0C (370.94 K), making it one of the lower-melting metals. This low melting point reflects the weak metallic bonding in sodium's body-centered cubic structure, where only one valence electron per atom participates in the electron sea.",
+          "kind": "filler"
+        },
+        {
+          "turn": 4,
+          "user": "Last one for today \u2014 can you summarize the overall sequence of events when the immune system first encounters a new pathogen?",
+          "context": "Upon encountering a new pathogen, innate immune cells respond first, then dendritic cells present antigens to T cells, which activate B cells to produce antibodies and form memory cells.",
+          "kind": "filler"
+        },
+        {
+          "turn": 5,
+          "user": "This reminds me of our session about tungsten. Is the melting point of tungsten listed anywhere in your physics corpus, or is that a different domain?",
+          "context": "Tungsten (chemical symbol W) has the highest melting point of all known metals, at 3422 degrees Celsius (3695 K). Its exceptionally high melting point is attributed to strong metallic bonding arising from its half-filled d-orbital configuration. Tungsten is commonly used in incandescent lamp filaments and high-temperature industrial applications.",
+          "kind": "filler"
+        },
+        {
+          "turn": 6,
+          "user": "How is the speed of a wave on a string related to tension?",
+          "context": "The speed of a transverse wave on a string equals the square root of tension divided by linear mass density: v = \u221a(T/\u03bc).",
+          "kind": "filler"
+        },
+        {
+          "turn": 7,
+          "user": "What's the capacity factor of a typical onshore wind turbine?",
+          "context": "Onshore wind turbines generally have capacity factors ranging from 25% to 40%, depending on site wind resources.",
+          "kind": "filler"
+        },
+        {
+          "turn": 8,
+          "user": "Which part of the eye is responsible for colour vision?",
+          "context": "Cone cells in the retina are responsible for colour vision and function best in bright light conditions.",
+          "kind": "filler"
+        },
+        {
+          "turn": 9,
+          "user": "What is fog, technically?",
+          "context": "Fog is a cloud that forms at ground level when air near the surface cools to its dew point and water vapour condenses into tiny droplets.",
+          "kind": "filler"
+        },
+        {
+          "turn": 10,
+          "user": "What is Fermat's Last Theorem?",
+          "context": "Fermat's Last Theorem states that no three positive integers a, b, c satisfy the equation a^n + b^n = c^n for any integer n greater than 2.",
+          "kind": "filler"
+        },
+        {
+          "turn": 11,
+          "user": "Speaking of radioactivity \u2014 what element is famously associated with the Chernobyl and Fukushima disasters?",
+          "context": "The context passage does not contain information linking specific elements to the Chernobyl or Fukushima disasters.",
+          "kind": "filler"
+        },
+        {
+          "turn": 12,
+          "user": "What provides the centripetal force for a planet orbiting the Sun?",
+          "context": "Gravity provides the centripetal force that keeps planets in approximately elliptical orbits around the Sun.",
+          "kind": "filler"
+        },
+        {
+          "turn": 13,
+          "user": "How many planets did Kepler confirm?",
+          "context": "The Kepler mission confirmed the existence of more than 2,600 exoplanets during its operational lifetime.",
+          "kind": "filler"
+        },
+        {
+          "turn": 14,
+          "user": "Where was it discovered?",
+          "context": "The Antikythera mechanism was recovered in 1901 from a Roman-era shipwreck near the Greek island of Antikythera.",
+          "kind": "filler"
+        },
+        {
+          "turn": 15,
+          "user": "What's the eye of a hurricane?",
+          "context": "The eye is the calm, clear centre of a hurricane, typically 30 to 65 kilometres in diameter.",
+          "kind": "filler"
+        },
+        {
+          "turn": 16,
+          "user": "What is the Hall effect?",
+          "context": "The Hall effect is the production of a voltage difference across a conductor carrying current when placed in a perpendicular magnetic field.",
+          "kind": "filler"
+        },
+        {
+          "turn": 17,
+          "user": "What is relative humidity?",
+          "context": "Relative humidity is the percentage of water vapour present in air relative to the maximum it can hold at that temperature.",
+          "kind": "filler"
+        },
+        {
+          "turn": 18,
+          "user": "ADA, earlier in our sessions you explained the Fermi paradox and Drake equation \u2014 does anything in ancient civilization studies relate to the idea of lost advanced knowledge?",
+          "context": "Some historians note that ancient Greek engineer Hero of Alexandria described early steam-powered devices, suggesting isolated advanced knowledge that was not developed further.",
+          "kind": "filler"
+        },
+        {
+          "turn": 19,
+          "user": "Hey ADA, quick question \u2014 how many elements are currently on the periodic table?",
+          "context": "The periodic table contains 118 confirmed elements as of its most recent IUPAC-endorsed update.",
+          "kind": "filler"
+        },
+        {
+          "turn": 20,
+          "user": "Alright, last one for today \u2014 what is the Hadley cell?",
+          "context": "The Hadley cell is a large-scale atmospheric circulation pattern in which warm air rises near the equator, moves poleward, cools, and sinks near 30 degrees latitude.",
+          "kind": "filler"
+        },
+        {
+          "turn": 21,
+          "user": "Can you tell me what isotopes of hydrogen exist?",
+          "context": "Hydrogen (symbol H, atomic number 1) has three naturally occurring isotopes. Protium (\u00b9H) is the most abundant, making up 99.98% of natural hydrogen, and has no neutrons. Deuterium (\u00b2H or D) contains one neutron and makes up about 0.02% of natural hydrogen. Tritium (\u00b3H or T) contains two neutrons and is radioactive with a half-life of 12.32 years. Heavy water (D\u2082O) contains deuterium instead of protium.",
+          "kind": "filler"
+        },
+        {
+          "turn": 22,
+          "user": "How much land area does a utility-scale solar farm typically require per megawatt of capacity?",
+          "context": "Utility-scale solar photovoltaic farms require approximately 5 to 10 acres of land per megawatt of installed capacity.",
+          "kind": "filler"
+        },
+        {
+          "turn": 23,
+          "user": "What instrument confirmed Hubble's findings with far greater precision in the 1990s?",
+          "context": "",
+          "kind": "filler"
+        },
+        {
+          "turn": 24,
+          "user": "What is the mass of an electron in kilograms?",
+          "context": "The electron rest mass, symbol m_e, is 9.1093837015 \u00d7 10\u207b\u00b3\u00b9 kilograms (kg). It is also commonly expressed as 0.51099895000 MeV/c\u00b2 in particle physics contexts. The electron mass is not a fixed-by-definition constant under the 2019 SI system; it retains a small measurement uncertainty of about 3.0 \u00d7 10\u207b\u00b9\u2070 in relative terms.",
+          "kind": "filler"
+        },
+        {
+          "turn": 25,
+          "user": "Can you explain why chlorine is such a good oxidizing agent?",
+          "context": "Chlorine is a strong oxidizing agent due to its high electronegativity (3.16 on the Pauling scale) and high electron affinity. It readily accepts electrons to achieve a stable octet configuration, forming the chloride ion Cl\u207b. Its standard reduction potential of +1.36 V (for Cl\u2082/Cl\u207b) means it can oxidize many metals and nonmetals under standard conditions.",
+          "kind": "filler"
+        }
+      ]
+    }
+  ],
+  "anchors": [
+    {
+      "anchor_id": 0,
+      "session_id": 1,
+      "turn": 3,
+      "topic": "wavelength range of visible light",
+      "fact": "380 to 700 nanometers",
+      "expected": "380 to 700 nanometers",
+      "recall_user": "Earlier you described the wavelength range of visible light \u2014 what were the two boundary values?"
+    },
+    {
+      "anchor_id": 1,
+      "session_id": 1,
+      "turn": 22,
+      "topic": "number of symphonies Beethoven composed",
+      "fact": "9 symphonies",
+      "expected": "9 symphonies",
+      "recall_user": "How many symphonies did Beethoven complete \u2014 you mentioned it earlier?"
+    },
+    {
+      "anchor_id": 2,
+      "session_id": 2,
+      "turn": 3,
+      "topic": "Pascal's triangle inventor nationality",
+      "fact": "Yang Hui, 1261",
+      "expected": "Yang Hui, in 1261",
+      "recall_user": "Earlier you told me about a Chinese mathematician who studied Pascal's Triangle before Pascal \u2014 who was it and what year?"
+    },
+    {
+      "anchor_id": 3,
+      "session_id": 2,
+      "turn": 22,
+      "topic": "year the Eiffel Tower was completed",
+      "fact": "March 31, 1889",
+      "expected": "March 31, 1889",
+      "recall_user": "Do you remember the completion date of the Eiffel Tower that you mentioned earlier?"
+    }
+  ],
+  "recall_probes": [
+    {
+      "session_id": 2,
+      "turn": 4,
+      "anchor_id": 0,
+      "session_gap": 1,
+      "user": "Earlier you described the wavelength range of visible light \u2014 what were the two boundary values?",
+      "expected": "380 to 700 nanometers",
+      "topic": "wavelength range of visible light"
+    },
+    {
+      "session_id": 3,
+      "turn": 14,
+      "anchor_id": 0,
+      "session_gap": 2,
+      "user": "Earlier you described the wavelength range of visible light \u2014 what were the two boundary values?",
+      "expected": "380 to 700 nanometers",
+      "topic": "wavelength range of visible light"
+    },
+    {
+      "session_id": 4,
+      "turn": 23,
+      "anchor_id": 0,
+      "session_gap": 3,
+      "user": "Earlier you described the wavelength range of visible light \u2014 what were the two boundary values?",
+      "expected": "380 to 700 nanometers",
+      "topic": "wavelength range of visible light"
+    },
+    {
+      "session_id": 2,
+      "turn": 4,
+      "anchor_id": 1,
+      "session_gap": 1,
+      "user": "How many symphonies did Beethoven complete \u2014 you mentioned it earlier?",
+      "expected": "9 symphonies",
+      "topic": "number of symphonies Beethoven composed"
+    },
+    {
+      "session_id": 3,
+      "turn": 14,
+      "anchor_id": 1,
+      "session_gap": 2,
+      "user": "How many symphonies did Beethoven complete \u2014 you mentioned it earlier?",
+      "expected": "9 symphonies",
+      "topic": "number of symphonies Beethoven composed"
+    },
+    {
+      "session_id": 4,
+      "turn": 23,
+      "anchor_id": 1,
+      "session_gap": 3,
+      "user": "How many symphonies did Beethoven complete \u2014 you mentioned it earlier?",
+      "expected": "9 symphonies",
+      "topic": "number of symphonies Beethoven composed"
+    },
+    {
+      "session_id": 3,
+      "turn": 4,
+      "anchor_id": 2,
+      "session_gap": 1,
+      "user": "Earlier you told me about a Chinese mathematician who studied Pascal's Triangle before Pascal \u2014 who was it and what year?",
+      "expected": "Yang Hui, in 1261",
+      "topic": "Pascal's triangle inventor nationality"
+    },
+    {
+      "session_id": 4,
+      "turn": 23,
+      "anchor_id": 2,
+      "session_gap": 2,
+      "user": "Earlier you told me about a Chinese mathematician who studied Pascal's Triangle before Pascal \u2014 who was it and what year?",
+      "expected": "Yang Hui, in 1261",
+      "topic": "Pascal's triangle inventor nationality"
+    },
+    {
+      "session_id": 3,
+      "turn": 4,
+      "anchor_id": 3,
+      "session_gap": 1,
+      "user": "Do you remember the completion date of the Eiffel Tower that you mentioned earlier?",
+      "expected": "March 31, 1889",
+      "topic": "year the Eiffel Tower was completed"
+    },
+    {
+      "session_id": 4,
+      "turn": 23,
+      "anchor_id": 3,
+      "session_gap": 2,
+      "user": "Do you remember the completion date of the Eiffel Tower that you mentioned earlier?",
+      "expected": "March 31, 1889",
+      "topic": "year the Eiffel Tower was completed"
+    }
+  ],
+  "day1_probes": [
+    {
+      "session_id": 1,
+      "turn": 1,
+      "user": "In a previous session you mentioned an astronomy topic. What was it again?",
+      "expected": "I don't have a record of any prior sessions yet.",
+      "topic": "an astronomy topic"
+    },
+    {
+      "session_id": 1,
+      "turn": 1,
+      "user": "What did we conclude about that history date the last time we talked?",
+      "expected": "I don't have a record of any prior sessions yet.",
+      "topic": "that history date"
+    },
+    {
+      "session_id": 1,
+      "turn": 2,
+      "user": "Earlier you cited a passage about the physics constant \u2014 which one was it?",
+      "expected": "I don't have a record of any prior sessions yet.",
+      "topic": "the physics constant"
+    },
+    {
+      "session_id": 1,
+      "turn": 2,
+      "user": "Last time we spoke, what did you tell me about a geography fact?",
+      "expected": "I don't have a record of any prior sessions yet.",
+      "topic": "a geography fact"
+    },
+    {
+      "session_id": 1,
+      "turn": 2,
+      "user": "Remember our earlier session on the biology question? What was the figure you gave?",
+      "expected": "I don't have a record of any prior sessions yet.",
+      "topic": "the biology question"
+    }
+  ]
+}

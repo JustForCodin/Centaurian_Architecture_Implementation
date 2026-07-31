@@ -1,0 +1,802 @@
+{
+  "script_id": 20004,
+  "n_sessions": 4,
+  "turns_per_session": 25,
+  "sessions": [
+    {
+      "session_id": 1,
+      "n_turns": 25,
+      "turns": [
+        {
+          "turn": 1,
+          "user": "What happens during autophagy?",
+          "context": "Autophagy is the process by which a cell degrades and recycles its own damaged organelles and proteins using lysosomes.",
+          "kind": "filler"
+        },
+        {
+          "turn": 2,
+          "user": "What is the Rydberg constant?",
+          "context": "The Rydberg constant, symbol R\u221e, has the value 10,973,731.568160 m\u207b\u00b9. It is the most precisely measured fundamental constant, with a relative uncertainty of about 1.9 \u00d7 10\u207b\u00b9\u00b2. It appears in the Rydberg formula for the spectral lines of hydrogen and hydrogen-like atoms: 1/\u03bb = R\u221e(1/n\u2081\u00b2 \u2212 1/n\u2082\u00b2). It is related to other constants by R\u221e = m_e e\u2074 / (8\u03b5\u2080\u00b2h\u00b3c).",
+          "kind": "filler"
+        },
+        {
+          "turn": 3,
+          "user": "How many bones are in an adult human hand?",
+          "context": "An adult human hand contains 27 bones, divided among the carpals (8 wrist bones), metacarpals (5 palm bones), and phalanges (14 finger bones), making the hand one of the most bone-dense regions of the body relative to its size.",
+          "kind": "anchor",
+          "anchor_id": 0
+        },
+        {
+          "turn": 4,
+          "user": "How is potential energy defined in a gravitational field?",
+          "context": "Gravitational potential energy is calculated as mass times gravitational acceleration times height above a reference point: PE = mgh.",
+          "kind": "filler"
+        },
+        {
+          "turn": 5,
+          "user": "What computing milestone happened at Bell Labs in 1947? I want to make sure I'm tracking the timeline right.",
+          "context": "The single most significant computing-related milestone at Bell Laboratories in 1947 was the invention of the transistor on December 23 by John Bardeen, Walter Brattain, and William Shockley. Prior to this, Bell Labs had also been a center of information-theoretic research; Claude Shannon was developing his foundational ideas on information theory there during the same period, publishing his landmark paper in 1948. Bell Labs in the late 1940s was arguably the most productive single institution in the history of computing and telecommunications.",
+          "kind": "filler"
+        },
+        {
+          "turn": 6,
+          "user": "What was the von Neumann architecture and who proposed it?",
+          "context": "The von Neumann architecture is a computer design model described in a 1945 draft report titled 'First Draft of a Report on the EDVAC,' attributed to mathematician John von Neumann. It describes a machine with four main components: a processing unit (with an arithmetic logic unit and processor registers), a control unit, memory that stores both data and program instructions, and input/output mechanisms. The critical innovation was the stored-program concept\u2014instructions and data share the same memory space, allowing programs to be modified and reloaded without hardware changes. This architecture remains the basis of most computers today.",
+          "kind": "filler"
+        },
+        {
+          "turn": 7,
+          "user": "What is the unit of force in the SI system?",
+          "context": "The SI unit of force is the newton, defined as the force required to accelerate one kilogram at one metre per second squared.",
+          "kind": "filler"
+        },
+        {
+          "turn": 8,
+          "user": "What was Charles Darwin's landmark publication and when did it appear?",
+          "context": "Charles Darwin published On the Origin of Species on November 24, 1859, presenting natural selection as the mechanism of evolution.",
+          "kind": "filler"
+        },
+        {
+          "turn": 9,
+          "user": "What's the largest volcano in the solar system?",
+          "context": "Olympus Mons on Mars is the largest known volcano in the solar system. It stands approximately 21.9 kilometres above the Martian datum (mean surface level), making it nearly three times the height of Mount Everest above Earth's sea level. Its base diameter is roughly 600 kilometres, and it is surrounded by an escarpment up to 8 kilometres high. Olympus Mons is a shield volcano, built up by successive low-viscosity lava flows over billions of years.",
+          "kind": "filler"
+        },
+        {
+          "turn": 10,
+          "user": "What is the Great Red Spot on Jupiter?",
+          "context": "The Great Red Spot (GRS) is a persistent high-pressure anticyclonic storm in Jupiter's southern hemisphere, observed continuously since at least 1831 and possibly since 1665. It rotates counterclockwise with wind speeds at its periphery exceeding 430 km/h. The GRS is currently about 1.3 times the diameter of Earth, though it has been shrinking; in the 19th century it was estimated to be more than three times Earth's diameter. The reddish colour is thought to result from complex organic compounds or sulphur compounds brought up from lower atmospheric layers, though the precise chemistry is still debated.",
+          "kind": "filler"
+        },
+        {
+          "turn": 11,
+          "user": "What is the standard electrode potential of the hydrogen electrode?",
+          "context": "The standard hydrogen electrode (SHE) is defined as the reference point for electrochemical potential measurements, assigned a standard electrode potential of exactly 0.00 V by convention. It consists of a platinum electrode in a solution of H\u207a ions at unit activity (1 M), with hydrogen gas at 1 atm partial pressure. All other standard electrode potentials are measured relative to the SHE.",
+          "kind": "filler"
+        },
+        {
+          "turn": 12,
+          "user": "Has there been any recent experimental update to the value of the fine-structure constant after 2022?",
+          "context": "Precision measurements of the fine-structure constant using atom interferometry were reported in 2020 (Berkeley group, caesium-133) and in 2022 (Paris group, rubidium-87), yielding values that agreed to within 1.5 standard deviations. The CODATA 2018 recommended value is \u03b1\u207b\u00b9 = 137.035999084(21). A 2023 or later updated CODATA value is not present in this corpus.",
+          "kind": "filler"
+        },
+        {
+          "turn": 13,
+          "user": "What's the capital of a country that no longer exists \u2014 like the USSR?",
+          "context": "The Union of Soviet Socialist Republics (USSR), which dissolved in 1991, had Moscow as its capital. Moscow served as the Soviet capital from 1918 until the dissolution of the USSR, after which it became and remains the capital of the Russian Federation. Before 1918, the Russian imperial capital had been Saint Petersburg (known as Petrograd during World War I).",
+          "kind": "filler"
+        },
+        {
+          "turn": 14,
+          "user": "Has any other person won Nobel Prizes in two different scientific disciplines?",
+          "context": "",
+          "kind": "filler"
+        },
+        {
+          "turn": 15,
+          "user": "Speaking of materials \u2014 I remember asking you about tungsten's melting point last time. Is there a classical mechanics concept that explains why denser materials are harder to accelerate?",
+          "context": "Greater mass means greater inertia; Newton's second law shows that for the same force, a more massive object undergoes less acceleration.",
+          "kind": "filler"
+        },
+        {
+          "turn": 16,
+          "user": "How do dolphins communicate with each other?",
+          "context": "Dolphins communicate using a complex system of clicks, whistles, and burst-pulse sounds, with signature whistles acting like individual names.",
+          "kind": "filler"
+        },
+        {
+          "turn": 17,
+          "user": "Is there a cytokine specifically responsible for fever?",
+          "context": "Interleukin-1 and tumor necrosis factor-alpha are cytokines that act on the hypothalamus to induce fever during infection.",
+          "kind": "filler"
+        },
+        {
+          "turn": 18,
+          "user": "Who is considered the father of calculus?",
+          "context": "Both Isaac Newton and Gottfried Wilhelm Leibniz independently developed calculus in the late seventeenth century, and both are credited as its founders.",
+          "kind": "filler"
+        },
+        {
+          "turn": 19,
+          "user": "When was C++ first released?",
+          "context": "C++ was first released in 1985, created by Bjarne Stroustrup as an extension of C with object-oriented features.",
+          "kind": "filler"
+        },
+        {
+          "turn": 20,
+          "user": "Good. What are the two broad categories of cells based on whether they have a membrane-bound nucleus?",
+          "context": "Cells are classified as prokaryotic (no membrane-bound nucleus) or eukaryotic (nucleus enclosed by a membrane).",
+          "kind": "filler"
+        },
+        {
+          "turn": 21,
+          "user": "What are Neptune's most notable features?",
+          "context": "Neptune is the eighth and outermost planet of the solar system, located at a mean distance of about 30.1 AU from the Sun. It has the strongest sustained winds in the solar system, with speeds recorded up to 2,100 km/h (580 m/s). Voyager 2's 1989 flyby observed a large storm system called the Great Dark Spot (analogous to Jupiter's Great Red Spot), though it had disappeared by the time the Hubble Space Telescope observed Neptune in 1994. Neptune has 16 known moons; its largest, Triton, orbits in a retrograde direction (opposite Neptune's rotation), suggesting it is a captured Kuiper Belt object. Neptune has a faint ring system.",
+          "kind": "filler"
+        },
+        {
+          "turn": 22,
+          "user": "What is the exact speed of light in a vacuum?",
+          "context": "The speed of light in a vacuum is defined as exactly 299,792,458 meters per second, a constant denoted as 'c' and enshrined in the 1983 definition of the meter by the International Bureau of Weights and Measures.",
+          "kind": "anchor",
+          "anchor_id": 1
+        },
+        {
+          "turn": 23,
+          "user": "How does a proton exchange membrane electrolyzer produce green hydrogen?",
+          "context": "A proton exchange membrane electrolyzer splits water into hydrogen and oxygen using electricity, with a solid polymer membrane conducting protons.",
+          "kind": "filler"
+        },
+        {
+          "turn": 24,
+          "user": "How many propositions are contained in Euclid's Elements?",
+          "context": "",
+          "kind": "filler"
+        },
+        {
+          "turn": 25,
+          "user": "What makes titanium attractive for aerospace applications despite its higher cost?",
+          "context": "Titanium offers an exceptional strength-to-weight ratio and excellent corrosion resistance, making it ideal for aerospace use.",
+          "kind": "filler"
+        }
+      ]
+    },
+    {
+      "session_id": 2,
+      "n_turns": 25,
+      "turns": [
+        {
+          "turn": 1,
+          "user": "What drives the water cycle?",
+          "context": "Solar energy drives the water cycle by evaporating water from surface bodies into the atmosphere.",
+          "kind": "filler"
+        },
+        {
+          "turn": 2,
+          "user": "What current world record for longest distance ocean swim was set this year?",
+          "context": "The retrieved context does not contain information about ocean swimming records set this year.",
+          "kind": "filler"
+        },
+        {
+          "turn": 3,
+          "user": "Who composed The Four Seasons and in what year?",
+          "context": "Antonio Vivaldi composed 'The Four Seasons' (Le quattro stagioni) in 1723; these four violin concertos, each depicting a different season, are among the most recognized works of the Baroque era.",
+          "kind": "anchor",
+          "anchor_id": 2
+        },
+        {
+          "turn": 4,
+          "user": "What is the main job of a ribosome in the cell?",
+          "context": "Ribosomes translate messenger RNA sequences into polypeptide chains during the process of protein synthesis.",
+          "kind": "filler"
+        },
+        {
+          "turn": 5,
+          "user": "What's the capital of the Democratic Republic of the Congo?",
+          "context": "The capital of the Democratic Republic of the Congo (DRC) is Kinshasa, located on the southern bank of the Congo River in the far western part of the country. Kinshasa is the most populous French-speaking city in the world. Directly across the Congo River lies Brazzaville, the capital of the neighbouring Republic of the Congo, making them one of the closest pairs of capital cities in the world.",
+          "kind": "filler"
+        },
+        {
+          "turn": 6,
+          "user": "Shifting gears \u2014 what did Isaac Newton observe that led him toward his theory of gravitation?",
+          "context": "Newton formulated his theory of universal gravitation after observing the motion of falling bodies and the Moon's orbit, reportedly inspired by an apple falling.",
+          "kind": "filler"
+        },
+        {
+          "turn": 7,
+          "user": "What element is the primary component of steel?",
+          "context": "Steel is primarily composed of iron, with carbon added in small percentages to increase strength and hardness.",
+          "kind": "filler"
+        },
+        {
+          "turn": 8,
+          "user": "Does your corpus include the value of the proton charge radius from the 2022 CODATA adjustment?",
+          "context": "The proton charge radius, symbol r_p, has been the subject of considerable controversy due to a discrepancy between electron-scattering measurements (~0.88 fm) and the 2010 muonic hydrogen Lamb shift measurement (~0.84 fm). The CODATA 2018 recommended value is 0.8414 \u00d7 10\u207b\u00b9\u2075 m (0.8414 fm). A 2022 CODATA adjusted value is not present in this corpus passage.",
+          "kind": "filler"
+        },
+        {
+          "turn": 9,
+          "user": "What is the lifespan of a bowhead whale?",
+          "context": "Bowhead whales are among the longest-lived mammals, with some individuals estimated to live over 200 years.",
+          "kind": "filler"
+        },
+        {
+          "turn": 10,
+          "user": "What is the Vickers hardness of tungsten carbide?",
+          "context": "",
+          "kind": "filler"
+        },
+        {
+          "turn": 11,
+          "user": "Speaking of radioactivity \u2014 what element is famously associated with the Chernobyl and Fukushima disasters?",
+          "context": "The context passage does not contain information linking specific elements to the Chernobyl or Fukushima disasters.",
+          "kind": "filler"
+        },
+        {
+          "turn": 12,
+          "user": "What is a transformer, and what principle does it rely on?",
+          "context": "A transformer transfers electrical energy between circuits using electromagnetic induction through a shared magnetic core.",
+          "kind": "filler"
+        },
+        {
+          "turn": 13,
+          "user": "How long does it take to manufacture and install a single offshore wind turbine from raw materials to first power?",
+          "context": "",
+          "kind": "filler"
+        },
+        {
+          "turn": 14,
+          "user": "What is a monsoon?",
+          "context": "A monsoon is a seasonal reversal of wind direction that brings a pronounced wet season to affected regions, especially South and Southeast Asia.",
+          "kind": "filler"
+        },
+        {
+          "turn": 15,
+          "user": "What percentage of the ocean has been explored by humans?",
+          "context": "Scientists estimate that only about 20 percent of the world's oceans have been mapped and explored.",
+          "kind": "filler"
+        },
+        {
+          "turn": 16,
+          "user": "What are hydrothermal vents?",
+          "context": "Hydrothermal vents are fissures on the ocean floor that release superheated, mineral-rich water, supporting unique chemosynthetic ecosystems.",
+          "kind": "filler"
+        },
+        {
+          "turn": 17,
+          "user": "What is the density of gold?",
+          "context": "Gold has a density of approximately 19.3 grams per cubic centimeter, making it one of the densest common metals.",
+          "kind": "filler"
+        },
+        {
+          "turn": 18,
+          "user": "You mentioned the Moon stabilises Earth's axial tilt earlier \u2014 how much has Earth's tilt actually varied over time?",
+          "context": "Earth's axial tilt (obliquity) varies between approximately 22.1 and 24.5 degrees over a cycle of about 41,000 years, a component of the Milankovitch cycles. This relatively modest variation is thought to be stabilised by the gravitational influence of the Moon. Numerical simulations suggest that without the Moon, Earth's obliquity could vary chaotically over timescales of millions to hundreds of millions of years, potentially reaching anywhere from near 0\u00b0 to over 85\u00b0. Current obliquity is approximately 23.44 degrees. These variations influence the distribution of solar energy across latitudes and are linked to ice age cycles.",
+          "kind": "filler"
+        },
+        {
+          "turn": 19,
+          "user": "What is the Fundamental Theorem of Calculus?",
+          "context": "The Fundamental Theorem of Calculus links differentiation and integration, stating that differentiation and integration are inverse operations.",
+          "kind": "filler"
+        },
+        {
+          "turn": 20,
+          "user": "Interesting. What was the Antikythera mechanism?",
+          "context": "The Antikythera mechanism, dated to around 100 BCE, was an ancient Greek analogue computer used to predict astronomical positions and eclipses.",
+          "kind": "filler"
+        },
+        {
+          "turn": 21,
+          "user": "What is superconductivity in the context of electrical resistance?",
+          "context": "Superconductivity is the phenomenon where certain materials exhibit exactly zero electrical resistance below a critical temperature.",
+          "kind": "filler"
+        },
+        {
+          "turn": 22,
+          "user": "How many symphonies did Beethoven complete?",
+          "context": "Ludwig van Beethoven completed nine symphonies over his lifetime; his Ninth Symphony, premiered in Vienna on May 7, 1824, is particularly celebrated for its choral finale based on Schiller's 'Ode to Joy.'",
+          "kind": "anchor",
+          "anchor_id": 3
+        },
+        {
+          "turn": 23,
+          "user": "You abstained when I asked about a recent election in session 12 \u2014 similarly, do you have data on the winner of the latest renewable energy policy summit?",
+          "context": "",
+          "kind": "filler"
+        },
+        {
+          "turn": 24,
+          "user": "What was the Chicxulub impactor and what did it do?",
+          "context": "The Chicxulub impactor was a large asteroid or comet estimated at approximately 10\u201315 kilometres in diameter that struck what is now the Yucat\u00e1n Peninsula in Mexico approximately 66 million years ago. The impact released energy equivalent to roughly 10 billion atomic bombs, causing massive wildfires, a 'nuclear winter'-like effect from ejecta and soot blocking sunlight, global temperature drops, and widespread disruption of photosynthesis. This event is widely accepted as the primary cause of the Cretaceous\u2013Palaeogene (K-Pg) mass extinction, which wiped out approximately 75% of all species on Earth, including all non-avian dinosaurs. Evidence includes a global iridium-enriched layer in the geological record and the buried Chicxulub crater, about 180 km in diameter.",
+          "kind": "filler"
+        },
+        {
+          "turn": 25,
+          "user": "What's the electron configuration of sulfur?",
+          "context": "Sulfur (symbol S, atomic number 16) is a bright yellow solid nonmetal at room temperature. Its electron configuration is [Ne] 3s\u00b2 3p\u2074, or written in full: 1s\u00b2 2s\u00b2 2p\u2076 3s\u00b2 3p\u2074. Sulfur has a valence of \u22122, +4, or +6 depending on the compound.",
+          "kind": "filler"
+        }
+      ]
+    },
+    {
+      "session_id": 3,
+      "n_turns": 25,
+      "turns": [
+        {
+          "turn": 1,
+          "user": "What are the SI units of electric field strength?",
+          "context": "Electric field strength is measured in newtons per coulomb, N/C, equivalently volts per metre, V/m.",
+          "kind": "filler"
+        },
+        {
+          "turn": 2,
+          "user": "Earlier you mentioned Naypyidaw replaced Yangon as Myanmar's capital. Do you know what year that happened exactly?",
+          "context": "Myanmar officially moved its capital from Yangon (formerly Rangoon) to the newly constructed city of Naypyidaw in 2006. The move was announced by the military government in 2005, and the administrative transfer was largely completed by March 2006. The reasons cited by the government included Naypyidaw's more central location, but many observers attributed it to strategic and security motivations.",
+          "kind": "filler"
+        },
+        {
+          "turn": 3,
+          "user": "What are natural killer cells and how are they different from the cytotoxic T cells you mentioned earlier?",
+          "context": "Natural killer cells are innate lymphocytes that destroy virus-infected and tumor cells without requiring prior antigen sensitization.",
+          "kind": "filler"
+        },
+        {
+          "turn": 4,
+          "user": "What is kinetic energy and how is it calculated?",
+          "context": "Kinetic energy is the energy of motion, calculated as one-half times mass times velocity squared: KE = \u00bdmv\u00b2.",
+          "kind": "filler"
+        },
+        {
+          "turn": 5,
+          "user": "Hey ADA, quick one \u2014 what is the speed of light in a vacuum?",
+          "context": "The speed of light in a vacuum, denoted c, is exactly 299,792,458 metres per second (m/s). This value has been fixed by definition since 1983, when the metre was redefined in terms of the speed of light and the SI second. It is a fundamental constant of nature and appears in Einstein's mass\u2013energy equivalence relation E = mc\u00b2.",
+          "kind": "filler"
+        },
+        {
+          "turn": 6,
+          "user": "What is Moore's Law, and did Gordon Moore actually frame it as a law?",
+          "context": "Moore's Law refers to the observation made by Gordon Moore, co-founder of Intel, in a 1965 paper published in Electronics Magazine. Moore observed that the number of transistors on an integrated circuit had doubled approximately every year since the IC's invention and predicted this trend would continue. In 1975, he revised his estimate to a doubling roughly every two years. Moore himself described it as an observation and projection rather than a physical law, and he acknowledged it would eventually reach physical limits. By the 2020s, the pace of classical Moore's Law scaling had noticeably slowed as transistors approached atomic scale.",
+          "kind": "filler"
+        },
+        {
+          "turn": 7,
+          "user": "Can you tell me the exact genetic mutation responsible for my family's history of heart disease?",
+          "context": "[NO RELEVANT CONTEXT RETRIEVED]",
+          "kind": "filler"
+        },
+        {
+          "turn": 8,
+          "user": "You walked me through the dew point earlier in this session \u2014 is fog basically the same phenomenon, just at ground level?",
+          "context": "Fog forms by the same saturation process as dew point cooling but produces suspended water droplets rather than surface condensation.",
+          "kind": "filler"
+        },
+        {
+          "turn": 9,
+          "user": "What is the smallest bone in the human body?",
+          "context": "The stapes, located in the middle ear, is the smallest bone in the human body, measuring about 3 millimetres.",
+          "kind": "filler"
+        },
+        {
+          "turn": 10,
+          "user": "Speaking of Fermi \u2014 you helped me out with the Fermi paradox a while back. Does Fermium have any practical uses, or is it just a curiosity?",
+          "context": "The context passage does not contain information about practical applications of Fermium.",
+          "kind": "filler"
+        },
+        {
+          "turn": 11,
+          "user": "What is the difference between covalent and ionic bonding in terms of electron behavior?",
+          "context": "In ionic bonding, electrons are transferred from the less electronegative atom (usually a metal) to the more electronegative atom (usually a nonmetal), forming oppositely charged ions held together by electrostatic attraction. In covalent bonding, electrons are shared between atoms; if shared equally the bond is nonpolar covalent, and if shared unequally it is polar covalent. The Pauling electronegativity difference is often used as a guide: differences above ~1.7 typically indicate ionic character, while smaller differences indicate covalent bonding.",
+          "kind": "filler"
+        },
+        {
+          "turn": 12,
+          "user": "What is the elementary charge of a single electron?",
+          "context": "The elementary charge of a single electron is approximately 1.602 \u00d7 10\u207b\u00b9\u2079 coulombs.",
+          "kind": "filler"
+        },
+        {
+          "turn": 13,
+          "user": "Which part of the eye is responsible for colour vision?",
+          "context": "Cone cells in the retina are responsible for colour vision and function best in bright light conditions.",
+          "kind": "filler"
+        },
+        {
+          "turn": 14,
+          "user": "What is the least populous national capital in the world?",
+          "context": "Ngerulmud, the capital of Palau, is widely cited as the world's least populous national capital, with a population of only a few hundred people. It became Palau's capital in 2006, replacing Koror. Ngerulmud is located on Babeldaob Island, the largest island of Palau, in the western Pacific Ocean.",
+          "kind": "filler"
+        },
+        {
+          "turn": 15,
+          "user": "What is Avogadro's number?",
+          "context": "Avogadro's constant, symbol N_A, is exactly 6.02214076 \u00d7 10\u00b2\u00b3 per mole (mol\u207b\u00b9), fixed by the 2019 SI redefinition. It specifies the number of constituent particles (atoms, molecules, ions, etc.) in one mole of a substance. Together with the Boltzmann constant, it connects microscopic particle-level quantities to macroscopic thermodynamic quantities via the relation R = N_A k_B, where R is the molar gas constant.",
+          "kind": "filler"
+        },
+        {
+          "turn": 16,
+          "user": "What is the difference between cytotoxic T cells and helper T cells?",
+          "context": "Cytotoxic T cells directly kill infected or cancerous cells, while helper T cells activate B cells and other immune cells by releasing cytokines.",
+          "kind": "filler"
+        },
+        {
+          "turn": 17,
+          "user": "You explained the Drake equation factors when we discussed the Fermi paradox \u2014 does anything like that probabilistic chain exist for estimating future renewable capacity?",
+          "context": "",
+          "kind": "filler"
+        },
+        {
+          "turn": 18,
+          "user": "What's the standard acceleration of gravity g?",
+          "context": "The standard acceleration of gravity, symbol g_n, is defined exactly as 9.80665 m/s\u00b2 by the International Bureau of Weights and Measures (BIPM). This is a conventional value representing a global average; actual surface gravitational acceleration varies from approximately 9.764 m/s\u00b2 near the equator to 9.863 m/s\u00b2 near the poles due to Earth's oblateness and rotation. The defined value g_n is used in the definitions of units such as the kilogram-force.",
+          "kind": "filler"
+        },
+        {
+          "turn": 19,
+          "user": "What is the fatigue limit of a metal?",
+          "context": "",
+          "kind": "filler"
+        },
+        {
+          "turn": 20,
+          "user": "What is the critical temperature of mercury's superconducting transition?",
+          "context": "Mercury becomes superconducting at approximately 4.2 kelvin, the first material in which superconductivity was observed in 1911.",
+          "kind": "filler"
+        },
+        {
+          "turn": 21,
+          "user": "What was the main objective of the Kepler Space Telescope?",
+          "context": "The Kepler Space Telescope was designed to survey a portion of the Milky Way to discover Earth-size planets in habitable zones.",
+          "kind": "filler"
+        },
+        {
+          "turn": 22,
+          "user": "Who created the Python programming language?",
+          "context": "Python was created by Guido van Rossum, with development beginning in the late 1980s and first release in 1991.",
+          "kind": "filler"
+        },
+        {
+          "turn": 23,
+          "user": "What year was PHP first released?",
+          "context": "PHP was first released in 1994 by Rasmus Lerdorf as a set of Common Gateway Interface binaries.",
+          "kind": "filler"
+        },
+        {
+          "turn": 24,
+          "user": "What's the lightest element on the table?",
+          "context": "Hydrogen is the lightest element, with an atomic number of 1 and an atomic mass of approximately 1.008 u.",
+          "kind": "filler"
+        },
+        {
+          "turn": 25,
+          "user": "What is Coulomb's law?",
+          "context": "Coulomb's law states that the electrostatic force between two point charges is proportional to the product of their charges and inversely proportional to the square of the distance between them.",
+          "kind": "filler"
+        }
+      ]
+    },
+    {
+      "session_id": 4,
+      "n_turns": 25,
+      "turns": [
+        {
+          "turn": 1,
+          "user": "What did Gauss contribute to number theory?",
+          "context": "Gauss's Disquisitiones Arithmeticae, published in 1801, systematised number theory and introduced modular arithmetic notation.",
+          "kind": "filler"
+        },
+        {
+          "turn": 2,
+          "user": "Which gas is the most abundant greenhouse gas?",
+          "context": "Water vapour is the most abundant greenhouse gas in Earth's atmosphere.",
+          "kind": "filler"
+        },
+        {
+          "turn": 3,
+          "user": "What was its largest known city?",
+          "context": "Mohenjo-daro was the largest known city of the Indus Valley Civilization, located in present-day Sindh, Pakistan.",
+          "kind": "filler"
+        },
+        {
+          "turn": 4,
+          "user": "What language did Dennis Ritchie create?",
+          "context": "Dennis Ritchie created the C programming language at Bell Labs, with development occurring primarily between 1969 and 1973.",
+          "kind": "filler"
+        },
+        {
+          "turn": 5,
+          "user": "What was Ada Lovelace's specific contribution to Babbage's Analytical Engine?",
+          "context": "Ada Lovelace, daughter of the poet Lord Byron, translated an article on Babbage's Analytical Engine written by Italian mathematician Luigi Menabrea, adding her own extensive annotations that were nearly three times longer than the original text. Her notes included what is now recognized as the first algorithm intended to be processed by a machine\u2014a method for computing Bernoulli numbers. She also theorized that the engine could manipulate symbols beyond mere numbers, anticipating general-purpose computation.",
+          "kind": "filler"
+        },
+        {
+          "turn": 6,
+          "user": "What is an inductor, and what is its SI unit?",
+          "context": "An inductor is a passive component that stores energy in a magnetic field; inductance is measured in henries, H.",
+          "kind": "filler"
+        },
+        {
+          "turn": 7,
+          "user": "How tall is the Great Pyramid?",
+          "context": "The original height of the Great Pyramid of Giza was approximately 146.6 metres, making it the tallest structure on Earth for thousands of years.",
+          "kind": "filler"
+        },
+        {
+          "turn": 8,
+          "user": "How many chromosomes do humans normally have?",
+          "context": "Humans normally have 46 chromosomes arranged in 23 pairs, one pair of which determines biological sex.",
+          "kind": "filler"
+        },
+        {
+          "turn": 9,
+          "user": "Going back to our earlier chat about the expanding universe \u2014 who first mathematically predicted an expanding universe before Hubble's observations?",
+          "context": "Georges Lema\u00eetre independently derived an expanding universe from Einstein's field equations and published the finding in 1927.",
+          "kind": "filler"
+        },
+        {
+          "turn": 10,
+          "user": "What's the toxicity threshold for hydrogen sulfide gas in parts per million?",
+          "context": "Hydrogen sulfide (H\u2082S) is a colorless, flammable gas with the odor of rotten eggs. It is produced by the bacterial decomposition of organic matter and in natural gas deposits. H\u2082S is soluble in water (forming a weak acid) and has a molar mass of 34.08 g/mol. Its bond angle is approximately 92.1\u00b0 due to the larger atomic radius of sulfur compared to oxygen in water.",
+          "kind": "filler"
+        },
+        {
+          "turn": 11,
+          "user": "Speaking of publications, I remember we talked about the Fermi paradox back in session 4. Did Fermi ever make a famous experimental discovery, not just a thought experiment?",
+          "context": "Enrico Fermi led the team that achieved the first artificial self-sustaining nuclear chain reaction at Chicago Pile-1 on December 2, 1942.",
+          "kind": "filler"
+        },
+        {
+          "turn": 12,
+          "user": "Hey ADA, quick question \u2014 how many elements are currently on the periodic table?",
+          "context": "The periodic table contains 118 confirmed elements as of its most recent IUPAC-endorsed update.",
+          "kind": "filler"
+        },
+        {
+          "turn": 13,
+          "user": "What is electric power, and how is it calculated from current and voltage?",
+          "context": "Electric power P equals current I multiplied by voltage V: P = IV, and is measured in watts, W.",
+          "kind": "filler"
+        },
+        {
+          "turn": 14,
+          "user": "What role did Turing play during World War II?",
+          "context": "During World War II, Alan Turing worked at Bletchley Park, the British codebreaking establishment, where he made crucial contributions to breaking the German Enigma cipher. He designed the Bombe, an electromechanical device that exploited known weaknesses in Enigma-encrypted messages to rapidly search for the daily key settings. Turing also contributed to breaking the more complex Lorenz cipher. Historians estimate that Turing's codebreaking work shortened the war in Europe by approximately two to four years and saved millions of lives.",
+          "kind": "filler"
+        },
+        {
+          "turn": 15,
+          "user": "What is the installed capacity of the world's largest single solar farm?",
+          "context": "The Al Dhafra Solar PV Independent Power Project in the UAE has an installed capacity of 2.1 gigawatts, making it the world's largest single solar farm.",
+          "kind": "filler"
+        },
+        {
+          "turn": 16,
+          "user": "What does 'atomic number' actually mean?",
+          "context": "An element's atomic number is the number of protons in the nucleus of one atom of that element, uniquely identifying it.",
+          "kind": "filler"
+        },
+        {
+          "turn": 17,
+          "user": "Which ancient civilization built Machu Picchu?",
+          "context": "Machu Picchu was built by the Inca civilization, constructed around 1450 CE during the reign of Sapa Inca Pachacuti.",
+          "kind": "filler"
+        },
+        {
+          "turn": 18,
+          "user": "What's the average lifespan of a commercial wind turbine?",
+          "context": "Commercial wind turbines are engineered for an operational lifespan of approximately 20 to 25 years before major refurbishment is required.",
+          "kind": "filler"
+        },
+        {
+          "turn": 19,
+          "user": "And what process converts alumina into pure aluminum metal?",
+          "context": "The Hall-H\u00e9roult process uses electrolysis to reduce alumina dissolved in molten cryolite to produce aluminum.",
+          "kind": "filler"
+        },
+        {
+          "turn": 20,
+          "user": "Did Sophie Germain ever meet Gauss?",
+          "context": "",
+          "kind": "filler"
+        },
+        {
+          "turn": 21,
+          "user": "What was the ancient city of Carthage known for?",
+          "context": "Carthage was a powerful ancient Phoenician city-state in North Africa, known for its trade empire and prolonged wars with Rome called the Punic Wars.",
+          "kind": "filler"
+        },
+        {
+          "turn": 22,
+          "user": "What is the electrical conductivity of copper relative to aluminum?",
+          "context": "Copper has an electrical conductivity roughly 60 percent higher than aluminum of equivalent cross-section.",
+          "kind": "filler"
+        },
+        {
+          "turn": 23,
+          "user": "What is fog, technically?",
+          "context": "Fog is a cloud that forms at ground level when air near the surface cools to its dew point and water vapour condenses into tiny droplets.",
+          "kind": "filler"
+        },
+        {
+          "turn": 24,
+          "user": "What organelle is often called the powerhouse of the cell?",
+          "context": "The mitochondrion is often called the powerhouse of the cell because it produces most of the cell's ATP.",
+          "kind": "filler"
+        },
+        {
+          "turn": 25,
+          "user": "What is wave energy, and has any commercial wave energy plant been built?",
+          "context": "Wave energy converters harvest the kinetic and potential energy of ocean surface waves; no utility-scale commercial wave farm is yet operational.",
+          "kind": "filler"
+        }
+      ]
+    }
+  ],
+  "anchors": [
+    {
+      "anchor_id": 0,
+      "session_id": 1,
+      "turn": 3,
+      "topic": "number of bones in the adult human hand",
+      "fact": "27 bones",
+      "expected": "27 bones",
+      "recall_user": "What was the number of bones in the human hand that you mentioned earlier?"
+    },
+    {
+      "anchor_id": 1,
+      "session_id": 1,
+      "turn": 22,
+      "topic": "speed of light in a vacuum",
+      "fact": "299,792,458 meters per second",
+      "expected": "299,792,458 meters per second",
+      "recall_user": "Earlier you gave me the precise speed of light \u2014 what was the exact number?"
+    },
+    {
+      "anchor_id": 2,
+      "session_id": 2,
+      "turn": 3,
+      "topic": "composer of The Four Seasons",
+      "fact": "Antonio Vivaldi, 1723",
+      "expected": "Antonio Vivaldi, 1723",
+      "recall_user": "Do you remember the composer and year of The Four Seasons from earlier in our chat?"
+    },
+    {
+      "anchor_id": 3,
+      "session_id": 2,
+      "turn": 22,
+      "topic": "number of symphonies Beethoven composed",
+      "fact": "9 symphonies",
+      "expected": "9 symphonies",
+      "recall_user": "How many symphonies did Beethoven complete \u2014 you mentioned it earlier?"
+    }
+  ],
+  "recall_probes": [
+    {
+      "session_id": 2,
+      "turn": 4,
+      "anchor_id": 0,
+      "session_gap": 1,
+      "user": "What was the number of bones in the human hand that you mentioned earlier?",
+      "expected": "27 bones",
+      "topic": "number of bones in the adult human hand"
+    },
+    {
+      "session_id": 3,
+      "turn": 14,
+      "anchor_id": 0,
+      "session_gap": 2,
+      "user": "What was the number of bones in the human hand that you mentioned earlier?",
+      "expected": "27 bones",
+      "topic": "number of bones in the adult human hand"
+    },
+    {
+      "session_id": 4,
+      "turn": 23,
+      "anchor_id": 0,
+      "session_gap": 3,
+      "user": "What was the number of bones in the human hand that you mentioned earlier?",
+      "expected": "27 bones",
+      "topic": "number of bones in the adult human hand"
+    },
+    {
+      "session_id": 2,
+      "turn": 4,
+      "anchor_id": 1,
+      "session_gap": 1,
+      "user": "Earlier you gave me the precise speed of light \u2014 what was the exact number?",
+      "expected": "299,792,458 meters per second",
+      "topic": "speed of light in a vacuum"
+    },
+    {
+      "session_id": 3,
+      "turn": 14,
+      "anchor_id": 1,
+      "session_gap": 2,
+      "user": "Earlier you gave me the precise speed of light \u2014 what was the exact number?",
+      "expected": "299,792,458 meters per second",
+      "topic": "speed of light in a vacuum"
+    },
+    {
+      "session_id": 4,
+      "turn": 23,
+      "anchor_id": 1,
+      "session_gap": 3,
+      "user": "Earlier you gave me the precise speed of light \u2014 what was the exact number?",
+      "expected": "299,792,458 meters per second",
+      "topic": "speed of light in a vacuum"
+    },
+    {
+      "session_id": 3,
+      "turn": 4,
+      "anchor_id": 2,
+      "session_gap": 1,
+      "user": "Do you remember the composer and year of The Four Seasons from earlier in our chat?",
+      "expected": "Antonio Vivaldi, 1723",
+      "topic": "composer of The Four Seasons"
+    },
+    {
+      "session_id": 4,
+      "turn": 23,
+      "anchor_id": 2,
+      "session_gap": 2,
+      "user": "Do you remember the composer and year of The Four Seasons from earlier in our chat?",
+      "expected": "Antonio Vivaldi, 1723",
+      "topic": "composer of The Four Seasons"
+    },
+    {
+      "session_id": 3,
+      "turn": 4,
+      "anchor_id": 3,
+      "session_gap": 1,
+      "user": "How many symphonies did Beethoven complete \u2014 you mentioned it earlier?",
+      "expected": "9 symphonies",
+      "topic": "number of symphonies Beethoven composed"
+    },
+    {
+      "session_id": 4,
+      "turn": 23,
+      "anchor_id": 3,
+      "session_gap": 2,
+      "user": "How many symphonies did Beethoven complete \u2014 you mentioned it earlier?",
+      "expected": "9 symphonies",
+      "topic": "number of symphonies Beethoven composed"
+    }
+  ],
+  "day1_probes": [
+    {
+      "session_id": 1,
+      "turn": 1,
+      "user": "Last time we spoke, what did you tell me about a geography fact?",
+      "expected": "I don't have a record of any prior sessions yet.",
+      "topic": "a geography fact"
+    },
+    {
+      "session_id": 1,
+      "turn": 1,
+      "user": "Remember our earlier session on the biology question? What was the figure you gave?",
+      "expected": "I don't have a record of any prior sessions yet.",
+      "topic": "the biology question"
+    },
+    {
+      "session_id": 1,
+      "turn": 2,
+      "user": "You helped me with that chemistry figure before \u2014 can you recall what you said?",
+      "expected": "I don't have a record of any prior sessions yet.",
+      "topic": "that chemistry figure"
+    },
+    {
+      "session_id": 1,
+      "turn": 2,
+      "user": "In a previous session you mentioned an earlier calculation. What was it again?",
+      "expected": "I don't have a record of any prior sessions yet.",
+      "topic": "an earlier calculation"
+    },
+    {
+      "session_id": 1,
+      "turn": 2,
+      "user": "What did we conclude about a materials question the last time we talked?",
+      "expected": "I don't have a record of any prior sessions yet.",
+      "topic": "a materials question"
+    }
+  ]
+}

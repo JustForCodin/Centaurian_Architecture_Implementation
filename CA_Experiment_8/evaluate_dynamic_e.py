@@ -202,17 +202,17 @@ def run_script(gen, span_gen, sys_prompt, script, cfg, args):
                     val = _reply
                 mem.write_event(sid, t, user, val, topic=turn.get("topic", ""))
 
-            # T/C/S PersonaScore probes on schedule (E handled by the episodic probes)
+            # T/C/S PersonaScore probes on schedule (E handled by the episodic probes).
+            # These are SELF-MODEL probes → answered by the LM head with NO episodic
+            # retrieval. Injecting a memory block into "are you concise?" is a category
+            # error (recall → span head, persona → LM head — the CA role boundary) and
+            # pollutes style; it is what tanked D1's S dimension in the first run.
             if t % args.persona_interval == 0:
                 for dim, probe in get_probes_for_turn(t, script["script_id"]):
                     if dim == "E":
                         continue
                     psp = gen._persona_state(probe, None) if not args.no_qpm else None
-                    pblk = ""
-                    if mem is not None and not mem.is_empty():
-                        pblk, _ = mem.block_for("C2", probe, k=args.top_k, n=args.window_n,
-                                                budget_tokens=args.memory_budget, tok=tok, rerank=args.rerank)
-                    presp, _ = _generate(gen, sys_prompt, probe, (pblk or None), psp,
+                    presp, _ = _generate(gen, sys_prompt, probe, None, psp,
                                          max_new=args.max_new_tokens)
                     sc, rs = (3, "dry") if args.dry_run_judge else _persona_score(probe, presp, dim)
                     rows.append({"kind": "persona", "session_id": sid, "turn": t, "dimension": dim,

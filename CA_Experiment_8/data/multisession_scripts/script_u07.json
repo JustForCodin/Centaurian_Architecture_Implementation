@@ -1,0 +1,802 @@
+{
+  "script_id": 20007,
+  "n_sessions": 4,
+  "turns_per_session": 25,
+  "sessions": [
+    {
+      "session_id": 1,
+      "n_turns": 25,
+      "turns": [
+        {
+          "turn": 1,
+          "user": "Which part of the brain controls balance and coordination?",
+          "context": "The cerebellum, located at the back of the brain, coordinates voluntary movements, balance, and fine motor control.",
+          "kind": "filler"
+        },
+        {
+          "turn": 2,
+          "user": "ADA, in our session where you explained the Fermi paradox, you mentioned the Drake equation. Is there any element-level chemistry relevant to the origin-of-life question?",
+          "context": "The chemistry of life's origin centers on a small set of elements: carbon, hydrogen, oxygen, nitrogen, phosphorus, and sulfur \u2014 often abbreviated CHNOPS. Carbon's unique ability to form four covalent bonds and create long chains and rings underlies organic chemistry. Phosphorus is central to energy transfer via ATP (adenosine triphosphate) and forms the backbone of DNA and RNA. Sulfur is present in amino acids cysteine and methionine, and nitrogen is essential for amino and nucleic acid synthesis.",
+          "kind": "filler"
+        },
+        {
+          "turn": 3,
+          "user": "What is the atomic number of plutonium?",
+          "context": "Plutonium has the atomic number 94, meaning each atom contains 94 protons; it was first synthesized on December 14, 1940, by Glenn Seaborg and his team at the University of California, Berkeley.",
+          "kind": "anchor",
+          "anchor_id": 0
+        },
+        {
+          "turn": 4,
+          "user": "Can you tell me the exact genetic mutation responsible for my family's history of heart disease?",
+          "context": "[NO RELEVANT CONTEXT RETRIEVED]",
+          "kind": "filler"
+        },
+        {
+          "turn": 5,
+          "user": "What year was PHP first released?",
+          "context": "PHP was first released in 1994 by Rasmus Lerdorf as a set of Common Gateway Interface binaries.",
+          "kind": "filler"
+        },
+        {
+          "turn": 6,
+          "user": "What's the most recent major discovery about Jupiter's moons \u2014 any new ones found recently?",
+          "context": "",
+          "kind": "filler"
+        },
+        {
+          "turn": 7,
+          "user": "What language did ancient Romans speak?",
+          "context": "Latin was the official spoken and written language of ancient Rome and its administration across the empire.",
+          "kind": "filler"
+        },
+        {
+          "turn": 8,
+          "user": "How do we actually know the age of the solar system?",
+          "context": "The age of the solar system is estimated at approximately 4.568 billion years, derived primarily from radiometric dating of the oldest known meteorites \u2014 specifically carbonaceous chondrites containing calcium-aluminium-rich inclusions (CAIs), which are thought to be among the first solids to condense from the solar nebula. Techniques include uranium-lead (U-Pb) dating, which uses the well-characterised decay rates of uranium-235 and uranium-238 into lead isotopes. Independent confirmation comes from helioseismology (study of solar oscillations) and stellar evolution models. All methods converge on an age of approximately 4.5\u20134.6 billion years.",
+          "kind": "filler"
+        },
+        {
+          "turn": 9,
+          "user": "What is electric power, and how is it calculated from current and voltage?",
+          "context": "Electric power P equals current I multiplied by voltage V: P = IV, and is measured in watts, W.",
+          "kind": "filler"
+        },
+        {
+          "turn": 10,
+          "user": "What is the half-life of carbon-14, and how is it used in dating?",
+          "context": "Carbon-14 (\u00b9\u2074C) is a radioactive isotope of carbon with a half-life of 5,730 years. It is produced in the upper atmosphere when nitrogen-14 is struck by cosmic-ray neutrons: \u00b9\u2074N + n \u2192 \u00b9\u2074C + p. Living organisms continuously exchange carbon with their environment, maintaining a constant \u00b9\u2074C/\u00b9\u00b2C ratio. After death, the ratio decreases as \u00b9\u2074C decays by beta emission, allowing age estimation of organic material up to about 50,000 years old.",
+          "kind": "filler"
+        },
+        {
+          "turn": 11,
+          "user": "What is an astronomical unit, and who first measured it accurately?",
+          "context": "One astronomical unit (AU) is defined as exactly 149,597,870,700 metres (approximately 149.6 million km), formalised by the IAU in 2012. Early estimates were made using the parallax of Mars (by Giovanni Cassini and Jean Richer in 1672) and later refined using transits of Venus. Edmond Halley proposed in 1716 that observations of Venus transits from widely separated points on Earth could yield an accurate solar parallax. The 1761 and 1769 transits of Venus allowed astronomers to calculate 1 AU to within about 2% of the modern value. Radar measurements of Venus in the 1960s allowed the AU to be fixed with high precision.",
+          "kind": "filler"
+        },
+        {
+          "turn": 12,
+          "user": "Did Mars 3 send back useful data after landing?",
+          "context": "Mars 3 transmitted a partial image for about 20 seconds before its signal inexplicably failed.",
+          "kind": "filler"
+        },
+        {
+          "turn": 13,
+          "user": "Last one \u2014 what's the capital of Portugal, and is there anything geographically notable about it?",
+          "context": "The capital of Portugal is Lisbon (Lisboa in Portuguese), located at the mouth of the Tagus River on the Atlantic coast. Lisbon is the westernmost capital city of a European Union member state and one of the westernmost major cities in continental Europe. It is built across seven hills, a feature that has shaped its distinctive landscape and urban character. Lisbon is Portugal's largest city and its political, economic, and cultural centre.",
+          "kind": "filler"
+        },
+        {
+          "turn": 14,
+          "user": "What is a transformer, and what principle does it rely on?",
+          "context": "A transformer transfers electrical energy between circuits using electromagnetic induction through a shared magnetic core.",
+          "kind": "filler"
+        },
+        {
+          "turn": 15,
+          "user": "What power source does Curiosity use?",
+          "context": "Curiosity is powered by a Multi-Mission Radioisotope Thermoelectric Generator using plutonium-238 decay heat.",
+          "kind": "filler"
+        },
+        {
+          "turn": 16,
+          "user": "How often do El Ni\u00f1o events typically occur?",
+          "context": "El Ni\u00f1o events typically occur every two to seven years and usually last nine to twelve months.",
+          "kind": "filler"
+        },
+        {
+          "turn": 17,
+          "user": "What is Perl's official motto or tagline?",
+          "context": "I don't have data related to Perl's official motto in the retrieved context.",
+          "kind": "filler"
+        },
+        {
+          "turn": 18,
+          "user": "What does Lenz's law add to Faraday's law?",
+          "context": "Lenz's law specifies that the induced current flows in a direction that opposes the change in magnetic flux that caused it.",
+          "kind": "filler"
+        },
+        {
+          "turn": 19,
+          "user": "If silver is more conductive than copper, why is copper used more in wiring?",
+          "context": "Copper is used in preference to silver primarily due to its vastly lower cost and adequate conductivity for most applications.",
+          "kind": "filler"
+        },
+        {
+          "turn": 20,
+          "user": "What is the largest recorded giant squid?",
+          "context": "The largest giant squid on record measured approximately 13 metres in total length, including its two long tentacles.",
+          "kind": "filler"
+        },
+        {
+          "turn": 21,
+          "user": "How does a catalytic converter use platinum chemically?",
+          "context": "Catalytic converters use platinum (and often palladium and rhodium) as heterogeneous catalysts to reduce harmful exhaust emissions. Platinum catalyzes the oxidation of carbon monoxide (CO + \u00bdO\u2082 \u2192 CO\u2082) and unburned hydrocarbons, and also aids in the reduction of nitrogen oxides (2NO \u2192 N\u2082 + O\u2082). The platinum surface provides active sites where reactants adsorb, react at lower activation energies, and desorb as less harmful products.",
+          "kind": "filler"
+        },
+        {
+          "turn": 22,
+          "user": "What is the exact speed of light in a vacuum?",
+          "context": "The speed of light in a vacuum is defined as exactly 299,792,458 meters per second, a constant denoted as 'c' and enshrined in the 1983 definition of the meter by the International Bureau of Weights and Measures.",
+          "kind": "anchor",
+          "anchor_id": 1
+        },
+        {
+          "turn": 23,
+          "user": "ADA, do you know the exact number of workers who built the Great Pyramid?",
+          "context": "Historians debate the workforce size; no source in the local corpus contains a confirmed exact figure for pyramid construction workers.",
+          "kind": "filler"
+        },
+        {
+          "turn": 24,
+          "user": "What was Java's original name?",
+          "context": "Java was originally named Oak by James Gosling, before being renamed Java in 1995.",
+          "kind": "filler"
+        },
+        {
+          "turn": 25,
+          "user": "What was the significance of the IBM PC introduced in 1981?",
+          "context": "IBM introduced the IBM Personal Computer (model 5150) on August 12, 1981. Departing from IBM's tradition of proprietary hardware, the IBM PC was built from off-the-shelf components\u2014including an Intel 8088 processor\u2014and used an open architecture with published specifications. IBM contracted Microsoft to supply the operating system; Microsoft acquired QDOS (Quick and Dirty Operating System), modified it, and licensed it to IBM as PC-DOS while retaining rights to sell it to others as MS-DOS. The open architecture enabled a massive ecosystem of compatible 'clone' manufacturers, standardizing the PC platform and making it the dominant business computing standard through the 1980s and 1990s.",
+          "kind": "filler"
+        }
+      ]
+    },
+    {
+      "session_id": 2,
+      "n_turns": 25,
+      "turns": [
+        {
+          "turn": 1,
+          "user": "Earlier you mentioned Curium is named after Marie and Pierre Curie. What element did Marie Curie discover that's also on the table?",
+          "context": "Marie Curie discovered polonium (element 84) and radium (element 88); polonium was named after her homeland, Poland.",
+          "kind": "filler"
+        },
+        {
+          "turn": 2,
+          "user": "How efficient are modern silicon solar panels at converting sunlight to electricity?",
+          "context": "Commercial silicon photovoltaic panels typically achieve conversion efficiencies between 18% and 22% under standard test conditions.",
+          "kind": "filler"
+        },
+        {
+          "turn": 3,
+          "user": "Who composed The Four Seasons and in what year?",
+          "context": "Antonio Vivaldi composed 'The Four Seasons' (Le quattro stagioni) in 1723; these four violin concertos, each depicting a different season, are among the most recognized works of the Baroque era.",
+          "kind": "anchor",
+          "anchor_id": 2
+        },
+        {
+          "turn": 4,
+          "user": "How do dolphins communicate with each other?",
+          "context": "Dolphins communicate using a complex system of clicks, whistles, and burst-pulse sounds, with signature whistles acting like individual names.",
+          "kind": "filler"
+        },
+        {
+          "turn": 5,
+          "user": "What is the diameter of Pluto according to New Horizons data?",
+          "context": "New Horizons measured Pluto's diameter at approximately 2,377 kilometers.",
+          "kind": "filler"
+        },
+        {
+          "turn": 6,
+          "user": "How many vertebrae make up the human spine?",
+          "context": "The adult human spine consists of 33 vertebrae divided into five regions: cervical, thoracic, lumbar, sacral, and coccygeal.",
+          "kind": "filler"
+        },
+        {
+          "turn": 7,
+          "user": "What about the vacuum permeability \u03bc\u2080?",
+          "context": "The vacuum magnetic permeability (permeability of free space), symbol \u03bc\u2080, has the value 1.25663706212 \u00d7 10\u207b\u2076 N/A\u00b2 (equivalently H/m or kg\u00b7m\u00b7s\u207b\u00b2\u00b7A\u207b\u00b2). Prior to 2019 it was defined exactly as 4\u03c0 \u00d7 10\u207b\u2077 N/A\u00b2; since the 2019 SI redefinition it is a measured quantity with a relative uncertainty of about 1.5 \u00d7 10\u207b\u00b9\u2070. It relates to \u03b5\u2080 and c via \u03bc\u2080\u03b5\u2080 = 1/c\u00b2.",
+          "kind": "filler"
+        },
+        {
+          "turn": 8,
+          "user": "You abstained when I asked about a recent election in session 12 \u2014 similarly, do you have data on the winner of the latest renewable energy policy summit?",
+          "context": "",
+          "kind": "filler"
+        },
+        {
+          "turn": 9,
+          "user": "Which servicing mission corrected Hubble's flawed mirror?",
+          "context": "Space Shuttle mission STS-61 in December 1993 installed corrective optics to fix Hubble's spherical aberration.",
+          "kind": "filler"
+        },
+        {
+          "turn": 10,
+          "user": "What does the conservation of momentum principle say?",
+          "context": "In an isolated system with no external forces, the total momentum remains constant before and after a collision.",
+          "kind": "filler"
+        },
+        {
+          "turn": 11,
+          "user": "What does the Pythagorean theorem state?",
+          "context": "The Pythagorean theorem states that in a right triangle, the square of the hypotenuse equals the sum of the squares of the other two sides.",
+          "kind": "filler"
+        },
+        {
+          "turn": 12,
+          "user": "Who actually came up with the original periodic table?",
+          "context": "Dmitri Mendeleev published the first widely recognized periodic table in 1869, arranging elements by atomic mass.",
+          "kind": "filler"
+        },
+        {
+          "turn": 13,
+          "user": "Why does chromium make steel stainless?",
+          "context": "Chromium forms a thin, self-repairing passive oxide layer on the steel surface that resists corrosion.",
+          "kind": "filler"
+        },
+        {
+          "turn": 14,
+          "user": "Who was the first emperor of Rome?",
+          "context": "Augustus, born Gaius Octavius, became the first Roman emperor in 27 BCE following the fall of the Republic.",
+          "kind": "filler"
+        },
+        {
+          "turn": 15,
+          "user": "What is magnetic flux, and what unit is it measured in?",
+          "context": "Magnetic flux is the total magnetic field passing through a surface, measured in webers, Wb.",
+          "kind": "filler"
+        },
+        {
+          "turn": 16,
+          "user": "What was the main objective of the Kepler Space Telescope?",
+          "context": "The Kepler Space Telescope was designed to survey a portion of the Milky Way to discover Earth-size planets in habitable zones.",
+          "kind": "filler"
+        },
+        {
+          "turn": 17,
+          "user": "You mentioned sea turtles use Earth's magnetic field \u2014 do sharks navigate the same way?",
+          "context": "Many shark species also use magnetoreception, sensing the Earth's magnetic field to navigate during long migrations.",
+          "kind": "filler"
+        },
+        {
+          "turn": 18,
+          "user": "How does that compare to the Sun's surface temperature?",
+          "context": "The photosphere, the visible surface layer of the Sun, has an effective temperature of approximately 5,500 degrees Celsius (5,778 K). Sunspots, which are regions of intense magnetic activity, appear darker because they are cooler \u2014 typically around 3,500 \u00b0C. The corona, the Sun's outer atmosphere, paradoxically reaches temperatures of 1\u20133 million \u00b0C, a phenomenon still under active investigation.",
+          "kind": "filler"
+        },
+        {
+          "turn": 19,
+          "user": "No problem. What metals composed bronze in ancient metallurgy?",
+          "context": "Bronze is an alloy primarily composed of copper and tin, typically around 88% copper and 12% tin in ancient formulations.",
+          "kind": "filler"
+        },
+        {
+          "turn": 20,
+          "user": "Who took the X-ray diffraction image that helped them figure it out?",
+          "context": "Rosalind Franklin produced X-ray diffraction image Photo 51, which provided critical evidence for the double-helix structure of DNA.",
+          "kind": "filler"
+        },
+        {
+          "turn": 21,
+          "user": "What organelle is often called the powerhouse of the cell?",
+          "context": "The mitochondrion is often called the powerhouse of the cell because it produces most of the cell's ATP.",
+          "kind": "filler"
+        },
+        {
+          "turn": 22,
+          "user": "How large is Vatican City in square kilometers?",
+          "context": "Vatican City, the world's smallest internationally recognized independent state, covers an area of just 0.44 square kilometers, entirely enclosed within Rome, Italy.",
+          "kind": "anchor",
+          "anchor_id": 3
+        },
+        {
+          "turn": 23,
+          "user": "What is the carbon content range that distinguishes steel from cast iron?",
+          "context": "Steel contains between 0.02 and 2.14 percent carbon by weight; cast iron contains more than 2.14 percent carbon.",
+          "kind": "filler"
+        },
+        {
+          "turn": 24,
+          "user": "And what are the SI base units? Can you list them?",
+          "context": "The International System of Units (SI) defines seven base units: the metre (m) for length, the kilogram (kg) for mass, the second (s) for time, the ampere (A) for electric current, the kelvin (K) for thermodynamic temperature, the mole (mol) for amount of substance, and the candela (cd) for luminous intensity. All other SI units are derived from these seven.",
+          "kind": "filler"
+        },
+        {
+          "turn": 25,
+          "user": "What material is used as the electrolyte in solid-state batteries being developed for energy storage?",
+          "context": "Solid-state batteries replace liquid electrolytes with solid ceramic or glass materials, such as lithium garnet or sulfide-based compounds.",
+          "kind": "filler"
+        }
+      ]
+    },
+    {
+      "session_id": 3,
+      "n_turns": 25,
+      "turns": [
+        {
+          "turn": 1,
+          "user": "We talked a bit about Mars earlier \u2014 what is the current atmospheric composition of Mars?",
+          "context": "Mars's atmosphere is thin and composed primarily of carbon dioxide (CO\u2082) at approximately 95.3%, nitrogen (N\u2082) at about 2.7%, and argon (Ar) at about 1.6%, with trace amounts of oxygen, carbon monoxide, water vapour, and other gases. The average surface atmospheric pressure is about 600 pascals (0.6% of Earth's sea-level pressure), varying with season and elevation. Dust storms, both local and planet-wide, are a major feature of Martian weather. Planet-wide dust storms can last for months and significantly reduce sunlight reaching the surface, affecting solar-powered missions.",
+          "kind": "filler"
+        },
+        {
+          "turn": 2,
+          "user": "Who developed TCP/IP and when was it adopted?",
+          "context": "TCP/IP (Transmission Control Protocol/Internet Protocol) was developed by Vinton Cerf and Robert Kahn. They published the foundational paper 'A Protocol for Packet Network Intercommunication' in 1974, describing the TCP protocol. IP was later defined separately. On January 1, 1983\u2014a date known as 'Flag Day'\u2014ARPANET officially transitioned to TCP/IP, requiring all connected hosts to adopt the new protocol suite. This transition is considered the birth of the modern internet. Cerf and Kahn received the Turing Award in 2004 for this work.",
+          "kind": "filler"
+        },
+        {
+          "turn": 3,
+          "user": "What current world record for longest distance ocean swim was set this year?",
+          "context": "The retrieved context does not contain information about ocean swimming records set this year.",
+          "kind": "filler"
+        },
+        {
+          "turn": 4,
+          "user": "What writing material did ancient Chinese civilizations famously use before paper?",
+          "context": "Before paper, ancient Chinese scribes wrote on oracle bones \u2014 animal bones and turtle shells \u2014 particularly during the Shang Dynasty.",
+          "kind": "filler"
+        },
+        {
+          "turn": 5,
+          "user": "What is kinetic energy and how is it calculated?",
+          "context": "Kinetic energy is the energy of motion, calculated as one-half times mass times velocity squared: KE = \u00bdmv\u00b2.",
+          "kind": "filler"
+        },
+        {
+          "turn": 6,
+          "user": "What process do mitochondria use to generate that ATP?",
+          "context": "Mitochondria generate ATP through cellular respiration, specifically via oxidative phosphorylation on the inner mitochondrial membrane.",
+          "kind": "filler"
+        },
+        {
+          "turn": 7,
+          "user": "What is the SI unit of electric charge?",
+          "context": "The SI unit of electric charge is the coulomb, symbol C.",
+          "kind": "filler"
+        },
+        {
+          "turn": 8,
+          "user": "What year was Smalltalk first developed?",
+          "context": "Smalltalk was first developed at Xerox PARC in 1972 by Alan Kay and colleagues.",
+          "kind": "filler"
+        },
+        {
+          "turn": 9,
+          "user": "What did MESSENGER discover about Mercury's poles?",
+          "context": "MESSENGER confirmed the presence of water ice in permanently shadowed craters near Mercury's poles.",
+          "kind": "filler"
+        },
+        {
+          "turn": 10,
+          "user": "How is the speed of a wave on a string related to tension?",
+          "context": "The speed of a transverse wave on a string equals the square root of tension divided by linear mass density: v = \u221a(T/\u03bc).",
+          "kind": "filler"
+        },
+        {
+          "turn": 11,
+          "user": "What is the Kuiper Belt exactly, and how does it differ from the asteroid belt?",
+          "context": "The Kuiper Belt is a region of the solar system extending from about 30 AU (near Neptune's orbit) to roughly 50 AU from the Sun, populated by icy bodies including dwarf planets, comets, and rocky-icy debris left over from the solar system's formation. It is similar in concept to the asteroid belt but far larger \u2014 about 20 times as wide and 20\u2013200 times as massive. While the asteroid belt contains primarily rocky and metallic bodies, Kuiper Belt objects (KBOs) are composed largely of frozen volatiles such as methane, ammonia, and water. Pluto and Eris are among the largest known KBOs.",
+          "kind": "filler"
+        },
+        {
+          "turn": 12,
+          "user": "What is the critical temperature of mercury's superconducting transition?",
+          "context": "Mercury becomes superconducting at approximately 4.2 kelvin, the first material in which superconductivity was observed in 1911.",
+          "kind": "filler"
+        },
+        {
+          "turn": 13,
+          "user": "What is the Lorentz force law?",
+          "context": "The Lorentz force on a charge q moving with velocity v in fields E and B is F = q(E + v \u00d7 B).",
+          "kind": "filler"
+        },
+        {
+          "turn": 14,
+          "user": "What role did Turing play during World War II?",
+          "context": "During World War II, Alan Turing worked at Bletchley Park, the British codebreaking establishment, where he made crucial contributions to breaking the German Enigma cipher. He designed the Bombe, an electromechanical device that exploited known weaknesses in Enigma-encrypted messages to rapidly search for the daily key settings. Turing also contributed to breaking the more complex Lorenz cipher. Historians estimate that Turing's codebreaking work shortened the war in Europe by approximately two to four years and saved millions of lives.",
+          "kind": "filler"
+        },
+        {
+          "turn": 15,
+          "user": "Who is credited with creating COBOL?",
+          "context": "Grace Hopper is widely credited as the primary force behind COBOL's creation, which was standardized in 1959.",
+          "kind": "filler"
+        },
+        {
+          "turn": 16,
+          "user": "How many species of shark exist?",
+          "context": "There are approximately 500 known species of sharks, ranging from the dwarf lanternshark to the whale shark.",
+          "kind": "filler"
+        },
+        {
+          "turn": 17,
+          "user": "What's the capital of Venezuela?",
+          "context": "The capital of Venezuela is Caracas, officially known as Santiago de Le\u00f3n de Caracas. It is located in the northern part of the country in a valley in the coastal mountain range, close to the Caribbean coast. Caracas is Venezuela's largest city and serves as its political, financial, and cultural centre. It sits at an elevation of approximately 900 metres above sea level.",
+          "kind": "filler"
+        },
+        {
+          "turn": 18,
+          "user": "What did the New Horizons mission reveal about Pluto?",
+          "context": "NASA's New Horizons spacecraft performed a flyby of Pluto on 14 July 2015, returning the first close-up images and data from the dwarf planet. Key discoveries included Tombaugh Regio, a vast heart-shaped plain of nitrogen ice (informally called the 'heart'), informally named Sputnik Planitia. New Horizons found that Pluto is geologically active, with evidence of convection in its nitrogen ice sheets and possible cryovolcanism. Pluto's atmosphere was found to extend up to 1,600 km above the surface, predominantly nitrogen with traces of methane and carbon monoxide. Pluto's largest moon, Charon, showed evidence of ancient geological activity.",
+          "kind": "filler"
+        },
+        {
+          "turn": 19,
+          "user": "What is the turns ratio formula for an ideal transformer?",
+          "context": "For an ideal transformer, the voltage ratio equals the turns ratio: V\u2081/V\u2082 = N\u2081/N\u2082.",
+          "kind": "filler"
+        },
+        {
+          "turn": 20,
+          "user": "How are tornadoes rated?",
+          "context": "Tornadoes are rated on the Enhanced Fujita scale from EF0 to EF5 based on estimated wind speeds and damage indicators.",
+          "kind": "filler"
+        },
+        {
+          "turn": 21,
+          "user": "Does your corpus include the value of the proton charge radius from the 2022 CODATA adjustment?",
+          "context": "The proton charge radius, symbol r_p, has been the subject of considerable controversy due to a discrepancy between electron-scattering measurements (~0.88 fm) and the 2010 muonic hydrogen Lamb shift measurement (~0.84 fm). The CODATA 2018 recommended value is 0.8414 \u00d7 10\u207b\u00b9\u2075 m (0.8414 fm). A 2022 CODATA adjusted value is not present in this corpus passage.",
+          "kind": "filler"
+        },
+        {
+          "turn": 22,
+          "user": "What is osmosis in the context of cells?",
+          "context": "Osmosis is the diffusion of water across a selectively permeable membrane from a region of lower to higher solute concentration.",
+          "kind": "filler"
+        },
+        {
+          "turn": 23,
+          "user": "What was the first mission to orbit Mercury?",
+          "context": "MESSENGER became the first spacecraft to orbit Mercury, entering orbit on March 18, 2011.",
+          "kind": "filler"
+        },
+        {
+          "turn": 24,
+          "user": "I'm curious\u2014does your local corpus have anything on when the first commercial quantum computer was sold and to whom?",
+          "context": "The passage discusses early quantum computing research milestones including Feynman's 1981 proposal, Deutsch's 1985 formalization, and Shor's 1994 algorithm. It notes ongoing research at IBM, Google, and other institutions in the development of superconducting qubit systems. The passage does not contain specific records of commercial quantum computer sales, delivery dates, or named purchasers.",
+          "kind": "filler"
+        },
+        {
+          "turn": 25,
+          "user": "Is lupus also autoimmune?",
+          "context": "Systemic lupus erythematosus is an autoimmune disease in which immune complexes deposit in organs such as the kidneys, skin, and joints.",
+          "kind": "filler"
+        }
+      ]
+    },
+    {
+      "session_id": 4,
+      "n_turns": 25,
+      "turns": [
+        {
+          "turn": 1,
+          "user": "Earlier you helped me with the Fermi paradox and we talked about planets \u2014 does classical mechanics explain planetary orbit shapes?",
+          "context": "Newtonian gravity and classical mechanics together predict that two-body gravitational orbits follow conic sections, including ellipses.",
+          "kind": "filler"
+        },
+        {
+          "turn": 2,
+          "user": "Hey ADA, quick one \u2014 what is Newton's first law of motion?",
+          "context": "Newton's first law states that an object remains at rest or in uniform motion unless acted upon by a net external force.",
+          "kind": "filler"
+        },
+        {
+          "turn": 3,
+          "user": "Speaking of publications, I remember we talked about the Fermi paradox back in session 4. Did Fermi ever make a famous experimental discovery, not just a thought experiment?",
+          "context": "Enrico Fermi led the team that achieved the first artificial self-sustaining nuclear chain reaction at Chicago Pile-1 on December 2, 1942.",
+          "kind": "filler"
+        },
+        {
+          "turn": 4,
+          "user": "What's one electron-volt in joules?",
+          "context": "One electron-volt (eV) is the kinetic energy acquired by an electron accelerating through an electric potential difference of one volt in vacuum. Its value in SI units is 1.602176634 \u00d7 10\u207b\u00b9\u2079 joules (J), exactly equal to the elementary charge e expressed in coulombs, since 1 eV = e \u00d7 1 V = 1.602176634 \u00d7 10\u207b\u00b9\u2079 C \u00d7 1 V. It is widely used in atomic, nuclear, and particle physics.",
+          "kind": "filler"
+        },
+        {
+          "turn": 5,
+          "user": "Has the Collatz conjecture been proven?",
+          "context": "",
+          "kind": "filler"
+        },
+        {
+          "turn": 6,
+          "user": "Which actinide is used in nuclear reactors as fuel?",
+          "context": "Uranium-235 and plutonium-239 are the primary actinide isotopes used as fuel in nuclear fission reactors.",
+          "kind": "filler"
+        },
+        {
+          "turn": 7,
+          "user": "What does the work-energy theorem say?",
+          "context": "The work-energy theorem states that the net work done on an object equals its change in kinetic energy.",
+          "kind": "filler"
+        },
+        {
+          "turn": 8,
+          "user": "Were Mendel's findings widely recognized in his lifetime?",
+          "context": "Mendel's work was largely ignored until 1900 when it was independently rediscovered by three European botanists.",
+          "kind": "filler"
+        },
+        {
+          "turn": 9,
+          "user": "What organ produces insulin?",
+          "context": "Insulin is produced by beta cells in the islets of Langerhans, located within the pancreas.",
+          "kind": "filler"
+        },
+        {
+          "turn": 10,
+          "user": "What is bronze made of?",
+          "context": "Bronze is an alloy composed primarily of copper with tin, typically around 12 percent tin by weight.",
+          "kind": "filler"
+        },
+        {
+          "turn": 11,
+          "user": "What was ALGOL and why was it important to programming language design?",
+          "context": "ALGOL (Algorithmic Language) refers to a family of imperative programming languages developed jointly by European and American computer scientists in the late 1950s and early 1960s. ALGOL 58 and its successor ALGOL 60 introduced several foundational concepts: block structure with lexical scoping, recursive procedures, and Backus\u2013Naur Form (BNF) for formally specifying language grammar. Although ALGOL was rarely used commercially, it was the direct ancestor of Pascal, C, and many other structured languages. Most modern languages descend conceptually from ALGOL's structured-programming lineage.",
+          "kind": "filler"
+        },
+        {
+          "turn": 12,
+          "user": "What is the longest bone in the body?",
+          "context": "The femur, or thigh bone, is the longest and strongest bone in the human body.",
+          "kind": "filler"
+        },
+        {
+          "turn": 13,
+          "user": "Can you tell me who invented the transistor and when?",
+          "context": "The transistor was invented at Bell Laboratories on December 23, 1947, by physicists John Bardeen, Walter Brattain, and William Shockley. The first working device was a point-contact transistor. Shockley subsequently developed the more practical junction transistor in 1948. All three inventors shared the Nobel Prize in Physics in 1956. The transistor replaced bulky, power-hungry vacuum tubes, enabling smaller, faster, and more reliable electronic devices and ultimately making modern integrated circuits and microprocessors possible.",
+          "kind": "filler"
+        },
+        {
+          "turn": 14,
+          "user": "What is the density of gold?",
+          "context": "Gold has a density of approximately 19.3 grams per cubic centimeter, making it one of the densest common metals.",
+          "kind": "filler"
+        },
+        {
+          "turn": 15,
+          "user": "Is that memory the reason vaccines work?",
+          "context": "Vaccines exploit immunological memory by exposing the immune system to a harmless antigen form, prompting memory cell formation without causing disease.",
+          "kind": "filler"
+        },
+        {
+          "turn": 16,
+          "user": "What causes the seasons on Earth \u2014 is it really about distance from the Sun?",
+          "context": "Earth's seasons are caused primarily by the planet's axial tilt of approximately 23.5 degrees relative to its orbital plane, not by variations in distance from the Sun. When Earth's Northern Hemisphere is tilted toward the Sun (Northern Hemisphere summer, around June), that hemisphere receives more direct sunlight over longer days. Six months later, the Northern Hemisphere tilts away (winter), receiving less direct sunlight over shorter days. Earth is actually closest to the Sun (perihelion) in early January \u2014 Northern Hemisphere winter \u2014 confirming that distance is not the primary driver of seasons.",
+          "kind": "filler"
+        },
+        {
+          "turn": 17,
+          "user": "What causes a comet's tail, and does it always point away from the Sun?",
+          "context": "A comet's tail forms when solar radiation and solar wind interact with the comet's nucleus as it approaches the Sun, sublimating ices and releasing dust and gas. Most comets develop two distinct tails: an ion (plasma) tail, which is pushed directly away from the Sun by the solar wind and therefore always points radially away from the Sun regardless of the comet's direction of travel; and a dust tail, which curves gently along the comet's orbital path due to the combined effects of solar radiation pressure and orbital mechanics. The ion tail is typically bluish; the dust tail is broader and yellowish-white, reflecting sunlight.",
+          "kind": "filler"
+        },
+        {
+          "turn": 18,
+          "user": "What year was the Swift programming language released by Apple?",
+          "context": "Swift was introduced by Apple in 2014 as a replacement for Objective-C for iOS and macOS development.",
+          "kind": "filler"
+        },
+        {
+          "turn": 19,
+          "user": "What's the Sun's core temperature, roughly?",
+          "context": "The core of the Sun is estimated to reach temperatures of approximately 15 million degrees Celsius (15 \u00d7 10\u2076 \u00b0C). At this temperature and the extreme pressures present (~250 billion atmospheres), nuclear fusion of hydrogen into helium occurs via the proton\u2013proton chain, releasing the energy that ultimately powers the Sun's luminosity.",
+          "kind": "filler"
+        },
+        {
+          "turn": 20,
+          "user": "What is the function of red blood cells?",
+          "context": "Red blood cells transport oxygen from the lungs to body tissues and carry carbon dioxide back to the lungs.",
+          "kind": "filler"
+        },
+        {
+          "turn": 21,
+          "user": "What is the symbiotic relationship between clownfish and sea anemones?",
+          "context": "Clownfish are protected by a mucus coating that prevents anemone stings; in return they defend the anemone and provide nutrients through waste.",
+          "kind": "filler"
+        },
+        {
+          "turn": 22,
+          "user": "How do mantis shrimp see colour?",
+          "context": "Mantis shrimp possess up to 16 types of photoreceptors, compared to three in humans, enabling detection of UV and polarised light.",
+          "kind": "filler"
+        },
+        {
+          "turn": 23,
+          "user": "I recall you walked me through the Drake equation back in session four \u2014 is there any parallel concept in immunology to estimating how many threats the immune system can recognize?",
+          "context": "The human adaptive immune system can theoretically recognize more than one hundred million distinct antigens through receptor diversity.",
+          "kind": "filler"
+        },
+        {
+          "turn": 24,
+          "user": "How long did the Roman Empire last in the West?",
+          "context": "The Western Roman Empire is conventionally dated from 27 BCE to its fall in 476 CE, lasting roughly 500 years.",
+          "kind": "filler"
+        },
+        {
+          "turn": 25,
+          "user": "What are the small pores in the nuclear envelope used for?",
+          "context": "Nuclear pores are protein-lined channels in the nuclear envelope that regulate the transport of molecules between nucleus and cytoplasm.",
+          "kind": "filler"
+        }
+      ]
+    }
+  ],
+  "anchors": [
+    {
+      "anchor_id": 0,
+      "session_id": 1,
+      "turn": 3,
+      "topic": "atomic number of plutonium",
+      "fact": "94",
+      "expected": "94",
+      "recall_user": "What atomic number did you give me for plutonium earlier?"
+    },
+    {
+      "anchor_id": 1,
+      "session_id": 1,
+      "turn": 22,
+      "topic": "speed of light in a vacuum",
+      "fact": "299,792,458 meters per second",
+      "expected": "299,792,458 meters per second",
+      "recall_user": "Earlier you gave me the precise speed of light \u2014 what was the exact number?"
+    },
+    {
+      "anchor_id": 2,
+      "session_id": 2,
+      "turn": 3,
+      "topic": "composer of The Four Seasons",
+      "fact": "Antonio Vivaldi, 1723",
+      "expected": "Antonio Vivaldi, 1723",
+      "recall_user": "Do you remember the composer and year of The Four Seasons from earlier in our chat?"
+    },
+    {
+      "anchor_id": 3,
+      "session_id": 2,
+      "turn": 22,
+      "topic": "area of Vatican City",
+      "fact": "0.44 square kilometers",
+      "expected": "0.44 square kilometers",
+      "recall_user": "What was the area of Vatican City you mentioned earlier \u2014 I can't remember the exact number?"
+    }
+  ],
+  "recall_probes": [
+    {
+      "session_id": 2,
+      "turn": 4,
+      "anchor_id": 0,
+      "session_gap": 1,
+      "user": "What atomic number did you give me for plutonium earlier?",
+      "expected": "94",
+      "topic": "atomic number of plutonium"
+    },
+    {
+      "session_id": 3,
+      "turn": 14,
+      "anchor_id": 0,
+      "session_gap": 2,
+      "user": "What atomic number did you give me for plutonium earlier?",
+      "expected": "94",
+      "topic": "atomic number of plutonium"
+    },
+    {
+      "session_id": 4,
+      "turn": 23,
+      "anchor_id": 0,
+      "session_gap": 3,
+      "user": "What atomic number did you give me for plutonium earlier?",
+      "expected": "94",
+      "topic": "atomic number of plutonium"
+    },
+    {
+      "session_id": 2,
+      "turn": 4,
+      "anchor_id": 1,
+      "session_gap": 1,
+      "user": "Earlier you gave me the precise speed of light \u2014 what was the exact number?",
+      "expected": "299,792,458 meters per second",
+      "topic": "speed of light in a vacuum"
+    },
+    {
+      "session_id": 3,
+      "turn": 14,
+      "anchor_id": 1,
+      "session_gap": 2,
+      "user": "Earlier you gave me the precise speed of light \u2014 what was the exact number?",
+      "expected": "299,792,458 meters per second",
+      "topic": "speed of light in a vacuum"
+    },
+    {
+      "session_id": 4,
+      "turn": 23,
+      "anchor_id": 1,
+      "session_gap": 3,
+      "user": "Earlier you gave me the precise speed of light \u2014 what was the exact number?",
+      "expected": "299,792,458 meters per second",
+      "topic": "speed of light in a vacuum"
+    },
+    {
+      "session_id": 3,
+      "turn": 4,
+      "anchor_id": 2,
+      "session_gap": 1,
+      "user": "Do you remember the composer and year of The Four Seasons from earlier in our chat?",
+      "expected": "Antonio Vivaldi, 1723",
+      "topic": "composer of The Four Seasons"
+    },
+    {
+      "session_id": 4,
+      "turn": 23,
+      "anchor_id": 2,
+      "session_gap": 2,
+      "user": "Do you remember the composer and year of The Four Seasons from earlier in our chat?",
+      "expected": "Antonio Vivaldi, 1723",
+      "topic": "composer of The Four Seasons"
+    },
+    {
+      "session_id": 3,
+      "turn": 4,
+      "anchor_id": 3,
+      "session_gap": 1,
+      "user": "What was the area of Vatican City you mentioned earlier \u2014 I can't remember the exact number?",
+      "expected": "0.44 square kilometers",
+      "topic": "area of Vatican City"
+    },
+    {
+      "session_id": 4,
+      "turn": 23,
+      "anchor_id": 3,
+      "session_gap": 2,
+      "user": "What was the area of Vatican City you mentioned earlier \u2014 I can't remember the exact number?",
+      "expected": "0.44 square kilometers",
+      "topic": "area of Vatican City"
+    }
+  ],
+  "day1_probes": [
+    {
+      "session_id": 1,
+      "turn": 1,
+      "user": "In a previous session you mentioned an earlier calculation. What was it again?",
+      "expected": "I don't have a record of any prior sessions yet.",
+      "topic": "an earlier calculation"
+    },
+    {
+      "session_id": 1,
+      "turn": 1,
+      "user": "What did we conclude about a materials question the last time we talked?",
+      "expected": "I don't have a record of any prior sessions yet.",
+      "topic": "a materials question"
+    },
+    {
+      "session_id": 1,
+      "turn": 2,
+      "user": "Earlier you cited a passage about an astronomy topic \u2014 which one was it?",
+      "expected": "I don't have a record of any prior sessions yet.",
+      "topic": "an astronomy topic"
+    },
+    {
+      "session_id": 1,
+      "turn": 2,
+      "user": "Last time we spoke, what did you tell me about that history date?",
+      "expected": "I don't have a record of any prior sessions yet.",
+      "topic": "that history date"
+    },
+    {
+      "session_id": 1,
+      "turn": 2,
+      "user": "Remember our earlier session on the physics constant? What was the figure you gave?",
+      "expected": "I don't have a record of any prior sessions yet.",
+      "topic": "the physics constant"
+    }
+  ]
+}

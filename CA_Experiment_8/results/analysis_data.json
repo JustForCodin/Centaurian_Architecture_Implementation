@@ -1,0 +1,172 @@
+{
+  "false_memory": {
+    "B0": {
+      "false_memory_rate": 0.85,
+      "disclaim_acc": 0.15,
+      "mean_score": 2.45,
+      "n": 40
+    },
+    "D0": {
+      "false_memory_rate": 0.2,
+      "disclaim_acc": 0.8,
+      "mean_score": 4.4,
+      "n": 40
+    },
+    "D1": {
+      "false_memory_rate": 0.25,
+      "disclaim_acc": 0.75,
+      "mean_score": 4.25,
+      "n": 40
+    }
+  },
+  "recall": {
+    "B0": {
+      "recall_acc": 0.0,
+      "mean_score": 1.95,
+      "fabricate_rate": 0.95,
+      "n": 80,
+      "by_gap": {
+        "1": {
+          "acc": 0.0,
+          "mean": 1.938,
+          "n": 32
+        },
+        "2": {
+          "acc": 0.0,
+          "mean": 1.969,
+          "n": 32
+        },
+        "3": {
+          "acc": 0.0,
+          "mean": 1.938,
+          "n": 16
+        }
+      }
+    },
+    "D0": {
+      "recall_acc": 0.0125,
+      "mean_score": 1.425,
+      "fabricate_rate": 0.4,
+      "n": 80,
+      "by_gap": {
+        "1": {
+          "acc": 0.0,
+          "mean": 1.406,
+          "n": 32
+        },
+        "2": {
+          "acc": 0.0312,
+          "mean": 1.469,
+          "n": 32
+        },
+        "3": {
+          "acc": 0.0,
+          "mean": 1.375,
+          "n": 16
+        }
+      }
+    },
+    "D1": {
+      "recall_acc": 0.85,
+      "mean_score": 4.088,
+      "fabricate_rate": 0.0,
+      "n": 80,
+      "by_gap": {
+        "1": {
+          "acc": 0.8438,
+          "mean": 4.062,
+          "n": 32
+        },
+        "2": {
+          "acc": 0.8438,
+          "mean": 4.062,
+          "n": 32
+        },
+        "3": {
+          "acc": 0.875,
+          "mean": 4.188,
+          "n": 16
+        }
+      }
+    }
+  },
+  "episodic_E": {
+    "B0": {
+      "overall_E": 2.1167,
+      "n": 120,
+      "vs_exp6_fixture_E": -1.173
+    },
+    "D0": {
+      "overall_E": 2.4167,
+      "n": 120,
+      "vs_exp6_fixture_E": -0.873
+    },
+    "D1": {
+      "overall_E": 4.1417,
+      "n": 120,
+      "vs_exp6_fixture_E": 0.852
+    }
+  },
+  "persona": {
+    "B0": {
+      "overall": 4.1979,
+      "per_dimension": {
+        "C": 4.062,
+        "S": 4.578,
+        "T": 3.953
+      },
+      "n": 192
+    },
+    "D0": {
+      "overall": 4,
+      "per_dimension": {
+        "C": 4.125,
+        "S": 3.922,
+        "T": 3.953
+      },
+      "n": 192
+    },
+    "D1": {
+      "overall": 4.099,
+      "per_dimension": {
+        "C": 4.234,
+        "S": 3.984,
+        "T": 4.078
+      },
+      "n": 192
+    }
+  },
+  "cost": {
+    "B0": {
+      "mean_mem_tokens": 0,
+      "mem_tokens_lo_store": 0,
+      "mem_tokens_hi_store": null,
+      "mean_latency_s": 1.367
+    },
+    "D0": {
+      "mean_mem_tokens": 0,
+      "mem_tokens_lo_store": 0,
+      "mem_tokens_hi_store": null,
+      "mean_latency_s": 1.34
+    },
+    "D1": {
+      "mean_mem_tokens": 101.7,
+      "mem_tokens_lo_store": 67.7,
+      "mem_tokens_hi_store": null,
+      "mean_latency_s": 1.54
+    }
+  },
+  "decision": {
+    "H1_dynamic_disclaim_acc": 0.75,
+    "H1_dynamic_false_memory": 0.25,
+    "H1_baked_false_memory": 0.85,
+    "H1_pass": false,
+    "H2_recall_acc": 0.85,
+    "H2_overall_E": 4.1417,
+    "H2_pass": true,
+    "H3_persona_overall": 4.099,
+    "H3_pass": true,
+    "H4_recall_gap_spread": 0.031,
+    "action": "Re-fit STRONGLY reduced baked-event leakage (day-1 false-memory 0.250 vs baked 0.850) but did not clear the \u22640.10 bar; the residual is a patch floor (targeted counter-signal barely moved it). Mechanism (H2/H3/H4) is validated \u2014 adopt the dynamic Episodic Register, but build it CLEAN: a from-clean-backbone Stage-C (episodic events enter only at Stage C) or a dynamic-SCI re-pretrain, NOT more re-fit."
+  }
+}

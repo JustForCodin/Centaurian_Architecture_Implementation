@@ -156,8 +156,19 @@ def _decide(out):
                        "Improve the register/write path (plant quality, summary granularity); "
                        "larger-base fallback if capacity-bound.")
     elif d.get("H1_pass") is False:
-        d["action"] = ("Re-fit did not remove the baked memories (still confabulates day-1) → "
-                       "strengthen removal (retrain scope / de-bias data) before proceeding.")
+        base = d.get("H1_baked_false_memory") or 0.0
+        dyn = d.get("H1_dynamic_false_memory")
+        if dyn is not None and base and dyn <= 0.5 * base:
+            # strongly reduced but not eliminated — the un-patchable-baked-attractor case
+            d["action"] = (f"Re-fit STRONGLY reduced baked-event leakage (day-1 false-memory "
+                           f"{dyn:.3f} vs baked {base:.3f}) but did not clear the ≤{1 - H1_DISCLAIM:.2f} "
+                           f"bar; the residual is a patch floor (targeted counter-signal barely moved "
+                           f"it). Mechanism (H2/H3/H4) is validated — adopt the dynamic Episodic "
+                           f"Register, but build it CLEAN: a from-clean-backbone Stage-C (episodic "
+                           f"events enter only at Stage C) or a dynamic-SCI re-pretrain, NOT more re-fit.")
+        else:
+            d["action"] = ("Re-fit did not remove the baked memories (still confabulates day-1) → "
+                           "strengthen removal (retrain scope / de-bias data) before proceeding.")
     return d
 
 

@@ -1,0 +1,802 @@
+{
+  "script_id": 20006,
+  "n_sessions": 4,
+  "turns_per_session": 25,
+  "sessions": [
+    {
+      "session_id": 1,
+      "n_turns": 25,
+      "turns": [
+        {
+          "turn": 1,
+          "user": "What organelle is often called the powerhouse of the cell?",
+          "context": "The mitochondrion is often called the powerhouse of the cell because it produces most of the cell's ATP.",
+          "kind": "filler"
+        },
+        {
+          "turn": 2,
+          "user": "What is Faraday's law of electromagnetic induction?",
+          "context": "Faraday's law states that the induced electromotive force in a loop equals the negative rate of change of magnetic flux through that loop.",
+          "kind": "filler"
+        },
+        {
+          "turn": 3,
+          "user": "At what temperature does gold melt?",
+          "context": "Gold melts at 1,064 degrees Celsius (1,947 degrees Fahrenheit), a relatively modest melting point among metals that made it workable for ancient civilizations using simple furnaces.",
+          "kind": "anchor",
+          "anchor_id": 0
+        },
+        {
+          "turn": 4,
+          "user": "And La Ni\u00f1a \u2014 is that just the opposite?",
+          "context": "La Ni\u00f1a is a periodic cooling of central and eastern tropical Pacific Ocean surface temperatures, producing roughly opposite effects to El Ni\u00f1o.",
+          "kind": "filler"
+        },
+        {
+          "turn": 5,
+          "user": "Speaking of materials \u2014 I remember asking you about tungsten's melting point last time. Is there a classical mechanics concept that explains why denser materials are harder to accelerate?",
+          "context": "Greater mass means greater inertia; Newton's second law shows that for the same force, a more massive object undergoes less acceleration.",
+          "kind": "filler"
+        },
+        {
+          "turn": 6,
+          "user": "What does Lenz's law add to Faraday's law?",
+          "context": "Lenz's law specifies that the induced current flows in a direction that opposes the change in magnetic flux that caused it.",
+          "kind": "filler"
+        },
+        {
+          "turn": 7,
+          "user": "What is the name for the small membrane-bound sacs that ferry cargo between organelles?",
+          "context": "Vesicles are small membrane-enclosed sacs that transport molecules between organelles and to or from the plasma membrane.",
+          "kind": "filler"
+        },
+        {
+          "turn": 8,
+          "user": "Is there a record for the lowest barometric pressure ever measured?",
+          "context": "The context does not contain data about record low barometric pressure measurements.",
+          "kind": "filler"
+        },
+        {
+          "turn": 9,
+          "user": "What causes the seasons on Earth \u2014 is it really about distance from the Sun?",
+          "context": "Earth's seasons are caused primarily by the planet's axial tilt of approximately 23.5 degrees relative to its orbital plane, not by variations in distance from the Sun. When Earth's Northern Hemisphere is tilted toward the Sun (Northern Hemisphere summer, around June), that hemisphere receives more direct sunlight over longer days. Six months later, the Northern Hemisphere tilts away (winter), receiving less direct sunlight over shorter days. Earth is actually closest to the Sun (perihelion) in early January \u2014 Northern Hemisphere winter \u2014 confirming that distance is not the primary driver of seasons.",
+          "kind": "filler"
+        },
+        {
+          "turn": 10,
+          "user": "Can classical mechanics predict the exact long-term trajectory of three gravitationally interacting bodies?",
+          "context": "The three-body problem has no general closed-form analytical solution; trajectories can be chaotic and are typically solved numerically.",
+          "kind": "filler"
+        },
+        {
+          "turn": 11,
+          "user": "What is the SI unit of electric charge?",
+          "context": "The SI unit of electric charge is the coulomb, symbol C.",
+          "kind": "filler"
+        },
+        {
+          "turn": 12,
+          "user": "What is the ionization energy of chlorine?",
+          "context": "Chlorine (symbol Cl, atomic number 17) is a yellow-green diatomic gas at room temperature. Its first ionization energy is 1251.2 kJ/mol. Chlorine is a strong oxidizing agent and belongs to the halogen group (group 17) of the periodic table. It has an electron affinity of \u2212348.6 kJ/mol, one of the highest among all elements.",
+          "kind": "filler"
+        },
+        {
+          "turn": 13,
+          "user": "Which noble gas is most commonly used in illuminated signs?",
+          "context": "Neon is the noble gas most commonly used in illuminated signs, producing a characteristic red-orange glow when electrified.",
+          "kind": "filler"
+        },
+        {
+          "turn": 14,
+          "user": "Let's try chemistry. Who discovered oxygen, and when?",
+          "context": "Carl Wilhelm Scheele first prepared oxygen around 1772, though Joseph Priestley independently discovered and published it in 1774.",
+          "kind": "filler"
+        },
+        {
+          "turn": 15,
+          "user": "Let's talk astronomy. What did Galileo discover when he first pointed a telescope at Jupiter?",
+          "context": "Galileo discovered four large moons of Jupiter \u2014 Io, Europa, Ganymede, and Callisto \u2014 in January 1610.",
+          "kind": "filler"
+        },
+        {
+          "turn": 16,
+          "user": "You mentioned earlier in this session that you abstained on the hurricane sea-surface temperature question \u2014 is there anything in your local data about how climate change is affecting hurricane intensity?",
+          "context": "The context does not contain information about climate change impacts on hurricane intensity.",
+          "kind": "filler"
+        },
+        {
+          "turn": 17,
+          "user": "Looking back over everything we've covered today, which mission do you think represents the biggest leap in deep-space exploration \u2014 Voyager or New Horizons?",
+          "context": "",
+          "kind": "filler"
+        },
+        {
+          "turn": 18,
+          "user": "What law is named after that discovery?",
+          "context": "The relationship between a galaxy's distance and its recession velocity is called Hubble's Law, expressed as v equals H-zero times d.",
+          "kind": "filler"
+        },
+        {
+          "turn": 19,
+          "user": "Nice. What about the capital of Australia? I always mix that one up with Sydney.",
+          "context": "Australia's capital city is Canberra, located in the Australian Capital Territory (ACT). Canberra was purpose-built as a compromise capital after Sydney and Melbourne both sought the title. It officially became the capital in 1913. Sydney, despite being the largest city, has never been the national capital.",
+          "kind": "filler"
+        },
+        {
+          "turn": 20,
+          "user": "Who developed the concept of Boolean algebra, and why does it matter to computing?",
+          "context": "George Boole, an English mathematician, published 'An Investigation of the Laws of Thought' in 1854, introducing Boolean algebra\u2014a system of logic based on binary variables (true/false, 1/0) combined using operations AND, OR, and NOT. Boolean algebra became the mathematical foundation of digital circuit design after Claude Shannon demonstrated in his 1937 master's thesis that Boolean logic could be implemented with electrical relay circuits, directly enabling the design of all modern digital computers.",
+          "kind": "filler"
+        },
+        {
+          "turn": 21,
+          "user": "Fair enough. Speaking of extreme temperatures \u2014 you told me the melting point of tungsten back in session 9. Hottest natural air temperature ever recorded on Earth \u2014 do you have that?",
+          "context": "The highest officially recorded air temperature on Earth is 56.7 degrees Celsius, measured at Furnace Creek, Death Valley, California, in 1913.",
+          "kind": "filler"
+        },
+        {
+          "turn": 22,
+          "user": "Who wrote Frankenstein and how old were they when they started it?",
+          "context": "Mary Shelley began writing Frankenstein in 1816 during the famous 'Year Without a Summer' at Villa Diodati near Lake Geneva; she was just 18 years old at the time and the novel was published anonymously in 1818.",
+          "kind": "anchor",
+          "anchor_id": 1
+        },
+        {
+          "turn": 23,
+          "user": "What's the approximate cost per kilogram of green hydrogen produced via electrolysis today?",
+          "context": "Green hydrogen produced via electrolysis currently costs approximately 3 to 8 USD per kilogram, depending on electricity price and electrolyzer scale.",
+          "kind": "filler"
+        },
+        {
+          "turn": 24,
+          "user": "Speaking of hot things \u2014 is Venus actually hotter than Mercury even though it's farther from the Sun?",
+          "context": "Yes. Despite being farther from the Sun, Venus has a mean surface temperature of approximately 465 \u00b0C, making it the hottest planet in the solar system. Mercury, though much closer to the Sun, reaches daytime surface temperatures of about 430 \u00b0C but lacks a significant atmosphere to retain heat, so night-side temperatures plunge to roughly \u2212180 \u00b0C. Venus's thick carbon-dioxide atmosphere creates an extreme greenhouse effect that traps heat uniformly.",
+          "kind": "filler"
+        },
+        {
+          "turn": 25,
+          "user": "What is the power coefficient limit for wind turbines, analogous to the solar efficiency limit you mentioned?",
+          "context": "The Betz limit sets the theoretical maximum fraction of wind kinetic energy extractable by any turbine rotor at approximately 59.3%.",
+          "kind": "filler"
+        }
+      ]
+    },
+    {
+      "session_id": 2,
+      "n_turns": 25,
+      "turns": [
+        {
+          "turn": 1,
+          "user": "What green pigment in chloroplasts absorbs light?",
+          "context": "Chlorophyll is the primary green pigment in chloroplasts that absorbs light energy to drive photosynthesis.",
+          "kind": "filler"
+        },
+        {
+          "turn": 2,
+          "user": "Which experiment disproved Thomson's model?",
+          "context": "The Geiger-Marsden gold foil experiment of 1909, directed by Ernest Rutherford, disproved the plum-pudding model by revealing a dense nucleus.",
+          "kind": "filler"
+        },
+        {
+          "turn": 3,
+          "user": "Who actually invented Pascal's Triangle before Pascal?",
+          "context": "Although called Pascal's Triangle in the West, the pattern was described by the Persian mathematician Al-Karaji around 1000 CE and systematically studied by Chinese mathematician Yang Hui in 1261, predating Blaise Pascal's 1653 work by centuries.",
+          "kind": "anchor",
+          "anchor_id": 2
+        },
+        {
+          "turn": 4,
+          "user": "How big is Pluto relative to Earth's Moon?",
+          "context": "Pluto has a mean radius of approximately 1,188 kilometres, making it about two-thirds the size of Earth's Moon (mean radius 1,737 km). Pluto's surface area is roughly equal to that of Russia. Its mass is about 0.218% of Earth's mass and about 12% of the Moon's mass. Despite being smaller and less massive than the Moon, Pluto has five known moons of its own: Charon, Styx, Nix, Kerberos, and Hydra.",
+          "kind": "filler"
+        },
+        {
+          "turn": 5,
+          "user": "You mentioned earlier that one coulomb equals one ampere-second. What is the ampere formally defined as in the 2019 SI revision?",
+          "context": "Since the 2019 SI redefinition, the ampere is defined by fixing the elementary charge e to exactly 1.602176634 \u00d7 10\u207b\u00b9\u2079 C.",
+          "kind": "filler"
+        },
+        {
+          "turn": 6,
+          "user": "Can you tell me the current GDP of Canberra compared to Sydney? I want to understand their economic difference.",
+          "context": "Canberra is the capital of Australia, located in the Australian Capital Territory. It is primarily a government and administrative city, housing federal institutions, embassies, and national cultural facilities. Sydney is Australia's largest city and its main financial and commercial centre. Specific current GDP figures comparing the two cities are not available in the retrieved context.",
+          "kind": "filler"
+        },
+        {
+          "turn": 7,
+          "user": "Does Saturn really have the lowest density of any planet in the solar system?",
+          "context": "Yes. Saturn has a mean density of approximately 0.687 grams per cubic centimetre (g/cm\u00b3), making it the least dense planet in the solar system and the only planet less dense than liquid water (1.0 g/cm\u00b3). This means Saturn would theoretically float in a large enough body of water. Despite this low average density, Saturn's core is thought to be dense rock and metal. The low overall density arises from the vast volume of Saturn's hydrogen and helium atmosphere and envelope surrounding the core.",
+          "kind": "filler"
+        },
+        {
+          "turn": 8,
+          "user": "What's the current market price of platinum per gram?",
+          "context": "Platinum (symbol Pt, atomic number 78) is a dense, malleable, highly unreactive transition metal. Its density is 21.45 g/cm\u00b3 and its melting point is 1768.3 \u00b0C. Platinum is widely used in catalytic converters, laboratory equipment, dentistry, and jewelry. It is one of the rarest elements in Earth's crust, at about 0.005 parts per million.",
+          "kind": "filler"
+        },
+        {
+          "turn": 9,
+          "user": "What is Ampere's circuital law?",
+          "context": "Ampere's circuital law states that the line integral of the magnetic field around a closed loop equals the permeability of free space times the enclosed current.",
+          "kind": "filler"
+        },
+        {
+          "turn": 10,
+          "user": "Hey ADA, what was the first artificial satellite launched into orbit?",
+          "context": "Sputnik 1, launched by the Soviet Union on October 4, 1957, was the first artificial satellite to orbit Earth.",
+          "kind": "filler"
+        },
+        {
+          "turn": 11,
+          "user": "What year was PHP first released?",
+          "context": "PHP was first released in 1994 by Rasmus Lerdorf as a set of Common Gateway Interface binaries.",
+          "kind": "filler"
+        },
+        {
+          "turn": 12,
+          "user": "You mentioned that sulfur forms H\u2082SO\u2084 \u2014 what is the Ka of sulfuric acid's first dissociation?",
+          "context": "Sulfuric acid (H\u2082SO\u2084) is a strong diprotic acid. Its first dissociation (H\u2082SO\u2084 \u2192 H\u207a + HSO\u2084\u207b) is considered complete under normal aqueous conditions; the first Ka is approximately 1 \u00d7 10\u00b3, meaning the first proton is essentially fully dissociated in dilute solution. The second dissociation (HSO\u2084\u207b \u2192 H\u207a + SO\u2084\u00b2\u207b) has Ka\u2082 \u2248 0.012 at 25 \u00b0C, making bisulfate a moderately weak acid.",
+          "kind": "filler"
+        },
+        {
+          "turn": 13,
+          "user": "How much power can a single large offshore wind turbine generate at its rated capacity today?",
+          "context": "The largest offshore wind turbines currently available, such as the Vestas V236-15MW, are rated at 15 megawatts of generating capacity.",
+          "kind": "filler"
+        },
+        {
+          "turn": 14,
+          "user": "What is an antigen?",
+          "context": "An antigen is any molecule, typically a protein or polysaccharide, that can be recognized by the immune system and trigger a response.",
+          "kind": "filler"
+        },
+        {
+          "turn": 15,
+          "user": "What is fog, technically?",
+          "context": "Fog is a cloud that forms at ground level when air near the surface cools to its dew point and water vapour condenses into tiny droplets.",
+          "kind": "filler"
+        },
+        {
+          "turn": 16,
+          "user": "What correction did Maxwell add to Ampere's law?",
+          "context": "Maxwell added the displacement current term \u03b5\u2080(\u2202E/\u2202t) to Ampere's law, allowing the equations to predict electromagnetic waves.",
+          "kind": "filler"
+        },
+        {
+          "turn": 17,
+          "user": "What year was LISP created and by whom?",
+          "context": "LISP was created by John McCarthy at MIT in 1958, making it one of the earliest high-level programming languages.",
+          "kind": "filler"
+        },
+        {
+          "turn": 18,
+          "user": "What is the unit of force in the SI system?",
+          "context": "The SI unit of force is the newton, defined as the force required to accelerate one kilogram at one metre per second squared.",
+          "kind": "filler"
+        },
+        {
+          "turn": 19,
+          "user": "What is the difference between bronze and brass?",
+          "context": "Brass is an alloy of copper and zinc, whereas bronze is primarily copper alloyed with tin.",
+          "kind": "filler"
+        },
+        {
+          "turn": 20,
+          "user": "You mentioned abstaining when you lacked data on that recent election \u2014 by that logic, do you have data on any missions launched in the last few months?",
+          "context": "",
+          "kind": "filler"
+        },
+        {
+          "turn": 21,
+          "user": "Hey ADA, quick one \u2014 what is the difference between weather and climate?",
+          "context": "Weather refers to short-term atmospheric conditions, while climate describes the average atmospheric conditions over long periods.",
+          "kind": "filler"
+        },
+        {
+          "turn": 22,
+          "user": "What is the atomic number of plutonium?",
+          "context": "Plutonium has the atomic number 94, meaning each atom contains 94 protons; it was first synthesized on December 14, 1940, by Glenn Seaborg and his team at the University of California, Berkeley.",
+          "kind": "anchor",
+          "anchor_id": 3
+        },
+        {
+          "turn": 23,
+          "user": "What does PHP stand for?",
+          "context": "PHP originally stood for Personal Home Page, though it now recursively stands for PHP: Hypertext Preprocessor.",
+          "kind": "filler"
+        },
+        {
+          "turn": 24,
+          "user": "What is the speed of electromagnetic waves in a vacuum?",
+          "context": "Electromagnetic waves travel in a vacuum at approximately 2.998 \u00d7 10\u2078 metres per second, the speed of light c.",
+          "kind": "filler"
+        },
+        {
+          "turn": 25,
+          "user": "What's the capital of Ethiopia?",
+          "context": "The capital of Ethiopia is Addis Ababa, which also serves as the headquarters of the African Union and the United Nations Economic Commission for Africa. Addis Ababa means 'new flower' in Amharic. It is the largest city in Ethiopia and is located in the central highlands of the country at an elevation of approximately 2,355 metres above sea level, making it one of the highest capital cities in the world.",
+          "kind": "filler"
+        }
+      ]
+    },
+    {
+      "session_id": 3,
+      "n_turns": 25,
+      "turns": [
+        {
+          "turn": 1,
+          "user": "What is the Vickers hardness of tungsten carbide?",
+          "context": "",
+          "kind": "filler"
+        },
+        {
+          "turn": 2,
+          "user": "What power source does Curiosity use?",
+          "context": "Curiosity is powered by a Multi-Mission Radioisotope Thermoelectric Generator using plutonium-238 decay heat.",
+          "kind": "filler"
+        },
+        {
+          "turn": 3,
+          "user": "Can you tell me what the current recommended daily calorie intake is for adults in my country?",
+          "context": "[NO RELEVANT CONTEXT RETRIEVED]",
+          "kind": "filler"
+        },
+        {
+          "turn": 4,
+          "user": "What was the main objective of the Kepler Space Telescope?",
+          "context": "The Kepler Space Telescope was designed to survey a portion of the Milky Way to discover Earth-size planets in habitable zones.",
+          "kind": "filler"
+        },
+        {
+          "turn": 5,
+          "user": "And which domains of life are made up entirely of prokaryotic cells?",
+          "context": "Bacteria and Archaea are the two domains composed entirely of prokaryotic cells.",
+          "kind": "filler"
+        },
+        {
+          "turn": 6,
+          "user": "What holds the phospholipid bilayer together \u2014 what kind of interaction keeps it intact?",
+          "context": "The phospholipid bilayer is stabilized by hydrophobic interactions between the fatty-acid tails, which face inward away from water.",
+          "kind": "filler"
+        },
+        {
+          "turn": 7,
+          "user": "Last one \u2014 what's the capital of Portugal, and is there anything geographically notable about it?",
+          "context": "The capital of Portugal is Lisbon (Lisboa in Portuguese), located at the mouth of the Tagus River on the Atlantic coast. Lisbon is the westernmost capital city of a European Union member state and one of the westernmost major cities in continental Europe. It is built across seven hills, a feature that has shaped its distinctive landscape and urban character. Lisbon is Portugal's largest city and its political, economic, and cultural centre.",
+          "kind": "filler"
+        },
+        {
+          "turn": 8,
+          "user": "What are cytokines?",
+          "context": "Cytokines are small signaling proteins secreted by immune cells that regulate the intensity and duration of immune responses.",
+          "kind": "filler"
+        },
+        {
+          "turn": 9,
+          "user": "How does resistivity differ from resistance?",
+          "context": "Resistivity is an intrinsic material property independent of shape, whereas resistance depends on a conductor's length and cross-sectional area.",
+          "kind": "filler"
+        },
+        {
+          "turn": 10,
+          "user": "What is ocean acidification and what causes it?",
+          "context": "Ocean acidification occurs when seawater absorbs excess atmospheric CO2, lowering its pH and reducing carbonate ion concentrations.",
+          "kind": "filler"
+        },
+        {
+          "turn": 11,
+          "user": "What do blue whales eat?",
+          "context": "Blue whales feed almost exclusively on krill, consuming up to four tonnes of them per day during feeding season.",
+          "kind": "filler"
+        },
+        {
+          "turn": 12,
+          "user": "Lastly \u2014 is there a single corpus passage that lists all the 2018 CODATA recommended values in a table?",
+          "context": "The local corpus contains individual entries for each physical constant covered in this session but does not include a consolidated CODATA 2018 table passage. The individual constant entries are sourced from CODATA 2018 recommendations where applicable. A comprehensive machine-readable table of all CODATA 2018 values is available from the NIST website, which is outside this offline corpus.",
+          "kind": "filler"
+        },
+        {
+          "turn": 13,
+          "user": "What drives the water cycle?",
+          "context": "Solar energy drives the water cycle by evaporating water from surface bodies into the atmosphere.",
+          "kind": "filler"
+        },
+        {
+          "turn": 14,
+          "user": "How do mantis shrimp see colour?",
+          "context": "Mantis shrimp possess up to 16 types of photoreceptors, compared to three in humans, enabling detection of UV and polarised light.",
+          "kind": "filler"
+        },
+        {
+          "turn": 15,
+          "user": "What was the first object-oriented programming language?",
+          "context": "Simula, developed in the 1960s by Ole-Johan Dahl and Kristen Nygaard in Norway, is considered the first object-oriented programming language.",
+          "kind": "filler"
+        },
+        {
+          "turn": 16,
+          "user": "What is the capital of Canada?",
+          "context": "The capital of Canada is Ottawa, located in the province of Ontario near the border with Quebec. Ottawa was chosen as the capital by Queen Victoria in 1857. It is home to the Parliament of Canada and numerous national museums and institutions.",
+          "kind": "filler"
+        },
+        {
+          "turn": 17,
+          "user": "What is a transformer, and what principle does it rely on?",
+          "context": "A transformer transfers electrical energy between circuits using electromagnetic induction through a shared magnetic core.",
+          "kind": "filler"
+        },
+        {
+          "turn": 18,
+          "user": "Which element is named after the planet Uranus?",
+          "context": "Uranium, element 92, was named after the planet Uranus when it was discovered in 1789 by Martin Heinrich Klaproth.",
+          "kind": "filler"
+        },
+        {
+          "turn": 19,
+          "user": "What is the only liquid metal at room temperature?",
+          "context": "Mercury, element 80, is the only metal that is liquid at standard room temperature and pressure.",
+          "kind": "filler"
+        },
+        {
+          "turn": 20,
+          "user": "What is the installed capacity of the world's largest single solar farm?",
+          "context": "The Al Dhafra Solar PV Independent Power Project in the UAE has an installed capacity of 2.1 gigawatts, making it the world's largest single solar farm.",
+          "kind": "filler"
+        },
+        {
+          "turn": 21,
+          "user": "What mission first performed a soft landing on Mars?",
+          "context": "Mars 3, launched by the Soviet Union, performed the first soft landing on Mars on December 2, 1971.",
+          "kind": "filler"
+        },
+        {
+          "turn": 22,
+          "user": "Earlier you confirmed that tungsten has the highest melting point of all metals. Is there a physics constant that determines the scale of atomic binding energies more generally?",
+          "context": "Atomic binding energies are set by the electromagnetic interaction strength, characterised by the fine-structure constant \u03b1 \u2248 1/137, and by the electron mass m_e and elementary charge e. The Hartree energy E_h = \u03b1\u00b2m_e c\u00b2 \u2248 27.2 eV provides the natural atomic energy scale. Metallic cohesive energies \u2014 which govern melting points \u2014 are typically a fraction of an eV per atom, much lower than the Hartree energy, reflecting the relatively weak delocalized bonding in metals compared to atomic ionisation.",
+          "kind": "filler"
+        },
+        {
+          "turn": 23,
+          "user": "What is the carbon footprint of utility-scale wind power over its full lifecycle, in grams of CO2 equivalent per kilowatt-hour?",
+          "context": "Lifecycle analyses place the carbon footprint of utility-scale onshore wind at approximately 7 to 15 grams of CO2 equivalent per kilowatt-hour.",
+          "kind": "filler"
+        },
+        {
+          "turn": 24,
+          "user": "Speaking of the Fields Medal, what is it exactly?",
+          "context": "The Fields Medal is awarded every four years to up to four mathematicians under forty years old and is considered the highest honour in mathematics.",
+          "kind": "filler"
+        },
+        {
+          "turn": 25,
+          "user": "What was the significance of Google's claim of 'quantum supremacy' in 2019?",
+          "context": "The passage on quantum computing milestones references that research teams at major technology companies pursued quantum supremacy\u2014a demonstration that a quantum computer could solve a specific problem faster than the best classical supercomputer. No specific details about experiments conducted in 2019, the name of any quantum processor involved, the nature of the benchmark task used, or the identity of institutions making supremacy claims are contained in the retrieved context passage.",
+          "kind": "filler"
+        }
+      ]
+    },
+    {
+      "session_id": 4,
+      "n_turns": 25,
+      "turns": [
+        {
+          "turn": 1,
+          "user": "Who took the X-ray diffraction image that helped them figure it out?",
+          "context": "Rosalind Franklin produced X-ray diffraction image Photo 51, which provided critical evidence for the double-helix structure of DNA.",
+          "kind": "filler"
+        },
+        {
+          "turn": 2,
+          "user": "What is the Kuiper Belt exactly, and how does it differ from the asteroid belt?",
+          "context": "The Kuiper Belt is a region of the solar system extending from about 30 AU (near Neptune's orbit) to roughly 50 AU from the Sun, populated by icy bodies including dwarf planets, comets, and rocky-icy debris left over from the solar system's formation. It is similar in concept to the asteroid belt but far larger \u2014 about 20 times as wide and 20\u2013200 times as massive. While the asteroid belt contains primarily rocky and metallic bodies, Kuiper Belt objects (KBOs) are composed largely of frozen volatiles such as methane, ammonia, and water. Pluto and Eris are among the largest known KBOs.",
+          "kind": "filler"
+        },
+        {
+          "turn": 3,
+          "user": "Thinking back to our very first question today \u2014 you told me the speed of light is exactly 299,792,458 m/s. Why is it exact, and does your corpus explain that?",
+          "context": "The speed of light c is exactly 299,792,458 m/s because the metre is defined in terms of c: since 1983, one metre is defined as the distance light travels in vacuum in 1/299,792,458 of a second. The second is independently defined via the hyperfine transition frequency of caesium-133 (9,192,631,770 Hz). Fixing c numerically and defining the second precisely means no measurement uncertainty remains in c; it is a definition rather than a measurement outcome.",
+          "kind": "filler"
+        },
+        {
+          "turn": 4,
+          "user": "What is the period of a simple pendulum?",
+          "context": "The period of a simple pendulum is approximately 2\u03c0 times the square root of length divided by gravitational acceleration: T = 2\u03c0\u221a(L/g).",
+          "kind": "filler"
+        },
+        {
+          "turn": 5,
+          "user": "Hey ADA, let's do some geography today. What's the capital of France?",
+          "context": "France is a country in Western Europe. Its capital and largest city is Paris, which has served as the nation's political and cultural centre for centuries. Paris is situated on the Seine River and is home to the \u00c9lys\u00e9e Palace, the official residence of the French President.",
+          "kind": "filler"
+        },
+        {
+          "turn": 6,
+          "user": "What is the World Wide Web and how is it different from the internet?",
+          "context": "The World Wide Web is an information system of interlinked hypertext documents and resources, accessible via the internet using the HTTP protocol and web browsers. It was invented by British computer scientist Tim Berners-Lee at CERN in 1989, when he proposed a system for sharing information among researchers. He implemented the first web server and browser in 1990, and the web became publicly available in 1991. The internet is the underlying global network infrastructure of interconnected computers; the web is one of many services\u2014alongside email, FTP, and others\u2014that run on top of that infrastructure.",
+          "kind": "filler"
+        },
+        {
+          "turn": 7,
+          "user": "How does agrivoltaics combine solar energy generation with agriculture?",
+          "context": "Agrivoltaic systems co-locate solar panels and crops on the same land, with partial shading from panels shown to reduce water evaporation and sometimes increase yields.",
+          "kind": "filler"
+        },
+        {
+          "turn": 8,
+          "user": "You explained the Drake equation back when we talked about the Fermi paradox \u2014 does the Moon landing change any of those factors?",
+          "context": "",
+          "kind": "filler"
+        },
+        {
+          "turn": 9,
+          "user": "Hey ADA, what's the most widely used renewable energy source in the world right now?",
+          "context": "Hydropower is currently the largest source of renewable electricity globally, accounting for about 40% of total renewable generation.",
+          "kind": "filler"
+        },
+        {
+          "turn": 10,
+          "user": "What proportion of Denmark's electricity was supplied by wind power in 2023?",
+          "context": "Wind power supplied approximately 53% of Denmark's total electricity consumption in 2023, the highest share of any country.",
+          "kind": "filler"
+        },
+        {
+          "turn": 11,
+          "user": "What is bronze made of?",
+          "context": "Bronze is an alloy composed primarily of copper with tin, typically around 12 percent tin by weight.",
+          "kind": "filler"
+        },
+        {
+          "turn": 12,
+          "user": "Is the coefficient of static friction always higher than kinetic friction?",
+          "context": "I don't have data related to this in the retrieved context.",
+          "kind": "filler"
+        },
+        {
+          "turn": 13,
+          "user": "Is that memory the reason vaccines work?",
+          "context": "Vaccines exploit immunological memory by exposing the immune system to a harmless antigen form, prompting memory cell formation without causing disease.",
+          "kind": "filler"
+        },
+        {
+          "turn": 14,
+          "user": "What is the complement system?",
+          "context": "The complement system is a set of plasma proteins that enhance antibody activity, promote inflammation, and directly lyse pathogens by forming membrane attack complexes.",
+          "kind": "filler"
+        },
+        {
+          "turn": 15,
+          "user": "What is Kepler's second law?",
+          "context": "Kepler's second law states that a line joining a planet to the Sun sweeps out equal areas in equal time intervals.",
+          "kind": "filler"
+        },
+        {
+          "turn": 16,
+          "user": "How are the periods \u2014 the rows \u2014 defined exactly?",
+          "context": "A period is a horizontal row of the periodic table; elements in the same period share the same highest electron shell number.",
+          "kind": "filler"
+        },
+        {
+          "turn": 17,
+          "user": "What was Java's original name?",
+          "context": "Java was originally named Oak by James Gosling, before being renamed Java in 1995.",
+          "kind": "filler"
+        },
+        {
+          "turn": 18,
+          "user": "Which servicing mission corrected Hubble's flawed mirror?",
+          "context": "Space Shuttle mission STS-61 in December 1993 installed corrective optics to fix Hubble's spherical aberration.",
+          "kind": "filler"
+        },
+        {
+          "turn": 19,
+          "user": "Earlier you told me tungsten melts at 3422 degrees Celsius \u2014 what temperature does JWST operate at?",
+          "context": "JWST's detectors must be cooled to approximately 6.7 Kelvin to detect faint infrared light.",
+          "kind": "filler"
+        },
+        {
+          "turn": 20,
+          "user": "ADA, what is quantum computing and when was the concept first proposed?",
+          "context": "Quantum computing is a model of computation that uses quantum-mechanical phenomena\u2014such as superposition and entanglement\u2014to process information in ways that classical binary computers cannot efficiently replicate. The concept was first proposed by physicist Richard Feynman in a 1981 lecture at MIT, where he argued that simulating quantum physical systems would require a computer that itself operates on quantum principles. David Deutsch formalized the quantum Turing machine in a 1985 paper, and Peter Shor's 1994 algorithm showing that a quantum computer could factor large integers in polynomial time\u2014potentially breaking RSA encryption\u2014dramatically increased research interest.",
+          "kind": "filler"
+        },
+        {
+          "turn": 21,
+          "user": "What is the triple point of water in kelvin and Celsius under the current SI?",
+          "context": "Under the 2019 SI revision, the triple point of water is no longer a defined value but a measured one. Its best measured value is 273.1600 K (0.0100 \u00b0C), consistent with the previous definition to within measurement uncertainty. The Celsius scale is still defined so that 0 \u00b0C = 273.15 K (i.e., the ice point at standard pressure), making the triple point approximately 0.01 \u00b0C.",
+          "kind": "filler"
+        },
+        {
+          "turn": 22,
+          "user": "Hey ADA, quick one \u2014 what is Newton's first law of motion?",
+          "context": "Newton's first law states that an object remains at rest or in uniform motion unless acted upon by a net external force.",
+          "kind": "filler"
+        },
+        {
+          "turn": 23,
+          "user": "Earlier you explained the Fermi paradox in session 4. Does electromagnetism play any role in SETI radio searches?",
+          "context": "SETI radio searches exploit the electromagnetic spectrum, particularly microwave frequencies, to detect artificial signals from potential extraterrestrial civilisations.",
+          "kind": "filler"
+        },
+        {
+          "turn": 24,
+          "user": "When was the Perl programming language created?",
+          "context": "Perl was created by Larry Wall and first released in 1987, designed for text processing and system administration.",
+          "kind": "filler"
+        },
+        {
+          "turn": 25,
+          "user": "What language did Dennis Ritchie create?",
+          "context": "Dennis Ritchie created the C programming language at Bell Labs, with development occurring primarily between 1969 and 1973.",
+          "kind": "filler"
+        }
+      ]
+    }
+  ],
+  "anchors": [
+    {
+      "anchor_id": 0,
+      "session_id": 1,
+      "turn": 3,
+      "topic": "melting point of gold",
+      "fact": "1,064 degrees Celsius",
+      "expected": "1,064 degrees Celsius",
+      "recall_user": "Earlier in our conversation you gave me gold's melting point \u2014 what was that temperature in Celsius?"
+    },
+    {
+      "anchor_id": 1,
+      "session_id": 1,
+      "turn": 22,
+      "topic": "author of Frankenstein",
+      "fact": "Mary Shelley, age 18",
+      "expected": "Mary Shelley, who was 18 years old when she began writing it",
+      "recall_user": "Earlier you told me who wrote Frankenstein and how old they were \u2014 can you remind me?"
+    },
+    {
+      "anchor_id": 2,
+      "session_id": 2,
+      "turn": 3,
+      "topic": "Pascal's triangle inventor nationality",
+      "fact": "Yang Hui, 1261",
+      "expected": "Yang Hui, in 1261",
+      "recall_user": "Earlier you told me about a Chinese mathematician who studied Pascal's Triangle before Pascal \u2014 who was it and what year?"
+    },
+    {
+      "anchor_id": 3,
+      "session_id": 2,
+      "turn": 22,
+      "topic": "atomic number of plutonium",
+      "fact": "94",
+      "expected": "94",
+      "recall_user": "What atomic number did you give me for plutonium earlier?"
+    }
+  ],
+  "recall_probes": [
+    {
+      "session_id": 2,
+      "turn": 4,
+      "anchor_id": 0,
+      "session_gap": 1,
+      "user": "Earlier in our conversation you gave me gold's melting point \u2014 what was that temperature in Celsius?",
+      "expected": "1,064 degrees Celsius",
+      "topic": "melting point of gold"
+    },
+    {
+      "session_id": 3,
+      "turn": 14,
+      "anchor_id": 0,
+      "session_gap": 2,
+      "user": "Earlier in our conversation you gave me gold's melting point \u2014 what was that temperature in Celsius?",
+      "expected": "1,064 degrees Celsius",
+      "topic": "melting point of gold"
+    },
+    {
+      "session_id": 4,
+      "turn": 23,
+      "anchor_id": 0,
+      "session_gap": 3,
+      "user": "Earlier in our conversation you gave me gold's melting point \u2014 what was that temperature in Celsius?",
+      "expected": "1,064 degrees Celsius",
+      "topic": "melting point of gold"
+    },
+    {
+      "session_id": 2,
+      "turn": 4,
+      "anchor_id": 1,
+      "session_gap": 1,
+      "user": "Earlier you told me who wrote Frankenstein and how old they were \u2014 can you remind me?",
+      "expected": "Mary Shelley, who was 18 years old when she began writing it",
+      "topic": "author of Frankenstein"
+    },
+    {
+      "session_id": 3,
+      "turn": 14,
+      "anchor_id": 1,
+      "session_gap": 2,
+      "user": "Earlier you told me who wrote Frankenstein and how old they were \u2014 can you remind me?",
+      "expected": "Mary Shelley, who was 18 years old when she began writing it",
+      "topic": "author of Frankenstein"
+    },
+    {
+      "session_id": 4,
+      "turn": 23,
+      "anchor_id": 1,
+      "session_gap": 3,
+      "user": "Earlier you told me who wrote Frankenstein and how old they were \u2014 can you remind me?",
+      "expected": "Mary Shelley, who was 18 years old when she began writing it",
+      "topic": "author of Frankenstein"
+    },
+    {
+      "session_id": 3,
+      "turn": 4,
+      "anchor_id": 2,
+      "session_gap": 1,
+      "user": "Earlier you told me about a Chinese mathematician who studied Pascal's Triangle before Pascal \u2014 who was it and what year?",
+      "expected": "Yang Hui, in 1261",
+      "topic": "Pascal's triangle inventor nationality"
+    },
+    {
+      "session_id": 4,
+      "turn": 23,
+      "anchor_id": 2,
+      "session_gap": 2,
+      "user": "Earlier you told me about a Chinese mathematician who studied Pascal's Triangle before Pascal \u2014 who was it and what year?",
+      "expected": "Yang Hui, in 1261",
+      "topic": "Pascal's triangle inventor nationality"
+    },
+    {
+      "session_id": 3,
+      "turn": 4,
+      "anchor_id": 3,
+      "session_gap": 1,
+      "user": "What atomic number did you give me for plutonium earlier?",
+      "expected": "94",
+      "topic": "atomic number of plutonium"
+    },
+    {
+      "session_id": 4,
+      "turn": 23,
+      "anchor_id": 3,
+      "session_gap": 2,
+      "user": "What atomic number did you give me for plutonium earlier?",
+      "expected": "94",
+      "topic": "atomic number of plutonium"
+    }
+  ],
+  "day1_probes": [
+    {
+      "session_id": 1,
+      "turn": 1,
+      "user": "You helped me with that chemistry figure before \u2014 can you recall what you said?",
+      "expected": "I don't have a record of any prior sessions yet.",
+      "topic": "that chemistry figure"
+    },
+    {
+      "session_id": 1,
+      "turn": 1,
+      "user": "In a previous session you mentioned an earlier calculation. What was it again?",
+      "expected": "I don't have a record of any prior sessions yet.",
+      "topic": "an earlier calculation"
+    },
+    {
+      "session_id": 1,
+      "turn": 2,
+      "user": "What did we conclude about a materials question the last time we talked?",
+      "expected": "I don't have a record of any prior sessions yet.",
+      "topic": "a materials question"
+    },
+    {
+      "session_id": 1,
+      "turn": 2,
+      "user": "Earlier you cited a passage about an astronomy topic \u2014 which one was it?",
+      "expected": "I don't have a record of any prior sessions yet.",
+      "topic": "an astronomy topic"
+    },
+    {
+      "session_id": 1,
+      "turn": 2,
+      "user": "Last time we spoke, what did you tell me about that history date?",
+      "expected": "I don't have a record of any prior sessions yet.",
+      "topic": "that history date"
+    }
+  ]
+}

@@ -71,10 +71,28 @@ def _mentions_event(rec: dict) -> bool:
     return False
 
 
+def _append_file(path: Path, kept: list, label: str) -> int:
+    """Append records from a dynamic-source file (already event-free), swapping in the
+    dynamic self-model defensively. Returns the count appended."""
+    n = 0
+    if path and path.exists():
+        for line in path.open():
+            line = line.strip()
+            if not line:
+                continue
+            rec = json.loads(line)
+            rec["sci"] = ADA_SCI_DYNAMIC
+            kept.append(rec); n += 1
+    return n
+
+
 def build(in_path: Path, disclaim_path: Path | None, out_path: Path,
-          keep_reading: bool) -> None:
+          keep_reading: bool, consistency_dynamic_path: Path | None = None) -> None:
     kept, drop_source, drop_event, rewrote = [], Counter(), Counter(), 0
     reading_sources = {"squad2", "nq", "msmarco", "triviaqa", "hotpotqa"}
+    # When a dynamic consistency set is supplied, drop the OLD contaminated
+    # sonnet_consistency entirely (it is replaced, not scrubbed) to avoid double-counting.
+    replace_consistency = bool(consistency_dynamic_path and consistency_dynamic_path.exists())
 
     for line in in_path.open():
         line = line.strip()
@@ -84,6 +102,9 @@ def build(in_path: Path, disclaim_path: Path | None, out_path: Path,
         src = rec.get("source", "?")
         if src in _DROP_SOURCES:
             drop_source[src] += 1
+            continue
+        if replace_consistency and src == "sonnet_consistency":
+            drop_source["sonnet_consistency(replaced)"] += 1
             continue
         if not keep_reading and src in reading_sources:
             drop_source[src] += 1                         # reading is the span head's job now
@@ -96,15 +117,8 @@ def build(in_path: Path, disclaim_path: Path | None, out_path: Path,
         kept.append(rec)
 
     n_exp6 = len(kept)                                     # the transformed Exp-6 records
-    n_disclaim = 0
-    if disclaim_path and disclaim_path.exists():
-        for line in disclaim_path.open():
-            line = line.strip()
-            if not line:
-                continue
-            rec = json.loads(line)
-            rec["sci"] = ADA_SCI_DYNAMIC                   # already dynamic, but be defensive
-            kept.append(rec); n_disclaim += 1
+    n_consist = _append_file(consistency_dynamic_path, kept, "consistency_dynamic") if replace_consistency else 0
+    n_disclaim = _append_file(disclaim_path, kept, "disclaim")
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
     with out_path.open("w") as f:
@@ -115,7 +129,7 @@ def build(in_path: Path, disclaim_path: Path | None, out_path: Path,
     print("=" * 68)
     print(f"re-fit SFT assembled → {out_path}")
     print(f"  kept {len(kept)} records (self-model swapped → dynamic on {rewrote}; "
-          f"+{n_disclaim} disclaim)")
+          f"+{n_consist} consistency_dynamic; +{n_disclaim} disclaim)")
     print(f"  dropped by source : {dict(drop_source)}")
     print(f"  dropped (event mention in assistant turn): {dict(drop_event)} "
           f"[total {sum(drop_event.values())}]")
@@ -136,12 +150,17 @@ def main():
                     help="Experiment 6 SFT set (all sources)")
     ap.add_argument("--disclaim", default="data/qa_sft_disclaim.jsonl",
                     help="day-1 disclaim records from gen_disclaim_data.py")
+    ap.add_argument("--consistency-dynamic", default="data/qa_sft_consistency_dynamic.jsonl",
+                    help="dynamic-SCI consistency from gen_consistency_dynamic.py; when present, "
+                         "the OLD sonnet_consistency is dropped entirely and replaced by this "
+                         "(avoids the event-scrub gutting 89%% of the persona-lift data)")
     ap.add_argument("--out", default="data/qa_sft_dynamic.jsonl")
     ap.add_argument("--keep-reading", action="store_true",
                     help="keep squad2/nq/... reading records (default: drop — the span "
                          "head owns reading; a huge SQuAD set drowns the persona re-fit)")
     args = ap.parse_args()
-    build(Path(args.in_path), Path(args.disclaim), Path(args.out), args.keep_reading)
+    build(Path(args.in_path), Path(args.disclaim), Path(args.out), args.keep_reading,
+          Path(args.consistency_dynamic))
 
 
 if __name__ == "__main__":

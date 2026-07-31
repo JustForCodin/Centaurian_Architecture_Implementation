@@ -53,6 +53,7 @@ CA_Experiment_8/.venv/
 CA_Experiment_8/__pycache__/
 CA_Experiment_8/data/qa_sft_disclaim.jsonl
 CA_Experiment_8/data/qa_sft_dynamic.jsonl
+CA_Experiment_8/data/qa_sft_consistency_dynamic.jsonl
 CA_Experiment_8/data/raw_sonnet/
 CA_Experiment_8/results_pilot/
 CA_Experiment_7checkpoints

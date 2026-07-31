@@ -1,0 +1,802 @@
+{
+  "script_id": 20003,
+  "n_sessions": 4,
+  "turns_per_session": 25,
+  "sessions": [
+    {
+      "session_id": 1,
+      "n_turns": 25,
+      "turns": [
+        {
+          "turn": 1,
+          "user": "What is the World Wide Web and how is it different from the internet?",
+          "context": "The World Wide Web is an information system of interlinked hypertext documents and resources, accessible via the internet using the HTTP protocol and web browsers. It was invented by British computer scientist Tim Berners-Lee at CERN in 1989, when he proposed a system for sharing information among researchers. He implemented the first web server and browser in 1990, and the web became publicly available in 1991. The internet is the underlying global network infrastructure of interconnected computers; the web is one of many services\u2014alongside email, FTP, and others\u2014that run on top of that infrastructure.",
+          "kind": "filler"
+        },
+        {
+          "turn": 2,
+          "user": "Hey ADA, quick one to start the day \u2014 what year was Fortran first released?",
+          "context": "Fortran was first released in 1957 by IBM, making it one of the oldest high-level programming languages still in use.",
+          "kind": "filler"
+        },
+        {
+          "turn": 3,
+          "user": "What is the wavelength range of visible light?",
+          "context": "Visible light occupies the electromagnetic spectrum between approximately 380 nanometers (violet) and 700 nanometers (red), a narrow band flanked by ultraviolet radiation on the short-wavelength side and infrared on the long-wavelength side.",
+          "kind": "anchor",
+          "anchor_id": 0
+        },
+        {
+          "turn": 4,
+          "user": "What is the lifespan of a bowhead whale?",
+          "context": "Bowhead whales are among the longest-lived mammals, with some individuals estimated to live over 200 years.",
+          "kind": "filler"
+        },
+        {
+          "turn": 5,
+          "user": "I always assumed it was CO2. Is CO2 the second most impactful?",
+          "context": "The context does not specify the ranked impact order of individual greenhouse gases beyond identifying water vapour as most abundant.",
+          "kind": "filler"
+        },
+        {
+          "turn": 6,
+          "user": "What does the '++' in C++ signify?",
+          "context": "The '++' in C++ refers to the increment operator in C, symbolizing that C++ is an incremented or enhanced version of C.",
+          "kind": "filler"
+        },
+        {
+          "turn": 7,
+          "user": "That's interesting\u2014so Shannon figured out the relay circuit connection. What else did Claude Shannon contribute to computing?",
+          "context": "Claude Shannon founded information theory with his landmark 1948 paper 'A Mathematical Theory of Communication,' published in the Bell System Technical Journal. He introduced the concept of the 'bit' as the fundamental unit of information, derived the Shannon entropy formula to quantify information content, and established channel capacity theorems that govern how much data can be reliably transmitted over a noisy channel. His work underpins modern data compression, error-correcting codes, and cryptography.",
+          "kind": "filler"
+        },
+        {
+          "turn": 8,
+          "user": "Does helium form any chemical compounds under normal conditions?",
+          "context": "Helium (symbol He, atomic number 2) is a noble gas with a completely filled 1s\u00b2 electron shell, giving it an extremely stable electronic configuration. Under normal conditions, helium does not form chemical compounds. Its first ionization energy is the highest of any element at 2372.3 kJ/mol. Unlike heavier noble gases such as xenon, no stable helium compounds have been synthesized at or near standard temperature and pressure.",
+          "kind": "filler"
+        },
+        {
+          "turn": 9,
+          "user": "What do blue whales eat?",
+          "context": "Blue whales feed almost exclusively on krill, consuming up to four tonnes of them per day during feeding season.",
+          "kind": "filler"
+        },
+        {
+          "turn": 10,
+          "user": "Did Mars 3 send back useful data after landing?",
+          "context": "Mars 3 transmitted a partial image for about 20 seconds before its signal inexplicably failed.",
+          "kind": "filler"
+        },
+        {
+          "turn": 11,
+          "user": "Is there a capital city that sits on two continents?",
+          "context": "Istanbul, the largest city in Turkey, is often cited as a city that straddles two continents \u2014 Europe and Asia \u2014 being divided by the Bosphorus Strait. However, Istanbul is not Turkey's capital. Turkey's capital is Ankara, located entirely within Anatolia in Asia. No nationally recognised capital city is officially split across two continents, though Istanbul's transcontinental geography is frequently noted.",
+          "kind": "filler"
+        },
+        {
+          "turn": 12,
+          "user": "What is the deepest fish ever recorded?",
+          "context": "The Mariana snailfish (Pseudoliparis swirei) holds the record for deepest fish, observed at 8,178 metres depth.",
+          "kind": "filler"
+        },
+        {
+          "turn": 13,
+          "user": "Can you tell me the current global installed capacity of offshore wind as of last month?",
+          "context": "",
+          "kind": "filler"
+        },
+        {
+          "turn": 14,
+          "user": "What is the most abundant antibody class in the bloodstream?",
+          "context": "IgG is the most abundant antibody in human blood and provides long-term immunity after infection or vaccination.",
+          "kind": "filler"
+        },
+        {
+          "turn": 15,
+          "user": "What's the lightest element on the table?",
+          "context": "Hydrogen is the lightest element, with an atomic number of 1 and an atomic mass of approximately 1.008 u.",
+          "kind": "filler"
+        },
+        {
+          "turn": 16,
+          "user": "What role did Turing play during World War II?",
+          "context": "During World War II, Alan Turing worked at Bletchley Park, the British codebreaking establishment, where he made crucial contributions to breaking the German Enigma cipher. He designed the Bombe, an electromechanical device that exploited known weaknesses in Enigma-encrypted messages to rapidly search for the daily key settings. Turing also contributed to breaking the more complex Lorenz cipher. Historians estimate that Turing's codebreaking work shortened the war in Europe by approximately two to four years and saved millions of lives.",
+          "kind": "filler"
+        },
+        {
+          "turn": 17,
+          "user": "What is the mass of a proton?",
+          "context": "The proton rest mass, symbol m_p, is 1.67262192369 \u00d7 10\u207b\u00b2\u2077 kilograms (kg), or 938.27208816 MeV/c\u00b2. The proton is approximately 1836 times more massive than the electron. Like the electron mass, the proton mass is a measured quantity and is not fixed by definition under the 2019 SI redefinition.",
+          "kind": "filler"
+        },
+        {
+          "turn": 18,
+          "user": "When was the structure of insulin first determined using X-ray crystallography?",
+          "context": "Dorothy Hodgkin determined the three-dimensional structure of insulin using X-ray crystallography in 1969.",
+          "kind": "filler"
+        },
+        {
+          "turn": 19,
+          "user": "Fair enough. Back on track \u2014 what is the cell cycle?",
+          "context": "The cell cycle is the ordered sequence of events by which a cell grows and divides into two daughter cells.",
+          "kind": "filler"
+        },
+        {
+          "turn": 20,
+          "user": "What was the Indus Valley Civilization, and where was it located?",
+          "context": "The Indus Valley Civilization was a Bronze Age civilization centred in the northwestern Indian subcontinent, flourishing roughly 2600\u20131900 BCE.",
+          "kind": "filler"
+        },
+        {
+          "turn": 21,
+          "user": "What year was the Rust programming language first released?",
+          "context": "Rust was first released in 2015 by Mozilla Research, designed for systems programming with a focus on memory safety.",
+          "kind": "filler"
+        },
+        {
+          "turn": 22,
+          "user": "At what temperature does gold melt?",
+          "context": "Gold melts at 1,064 degrees Celsius (1,947 degrees Fahrenheit), a relatively modest melting point among metals that made it workable for ancient civilizations using simple furnaces.",
+          "kind": "anchor",
+          "anchor_id": 1
+        },
+        {
+          "turn": 23,
+          "user": "Hey ADA, quick cell biology warm-up \u2014 what is the basic structural and functional unit of all living organisms?",
+          "context": "The cell is the basic structural and functional unit of all living organisms.",
+          "kind": "filler"
+        },
+        {
+          "turn": 24,
+          "user": "And what was the main building material used in Roman construction?",
+          "context": "Romans used concrete, known as opus caementicium, extensively in their monumental architecture and infrastructure.",
+          "kind": "filler"
+        },
+        {
+          "turn": 25,
+          "user": "What is Perl's official motto or tagline?",
+          "context": "I don't have data related to Perl's official motto in the retrieved context.",
+          "kind": "filler"
+        }
+      ]
+    },
+    {
+      "session_id": 2,
+      "n_turns": 25,
+      "turns": [
+        {
+          "turn": 1,
+          "user": "What is the function of red blood cells?",
+          "context": "Red blood cells transport oxygen from the lungs to body tissues and carry carbon dioxide back to the lungs.",
+          "kind": "filler"
+        },
+        {
+          "turn": 2,
+          "user": "What was the Code of Hammurabi?",
+          "context": "The Code of Hammurabi was one of the earliest written legal codes, created by Babylonian king Hammurabi around 1754 BCE.",
+          "kind": "filler"
+        },
+        {
+          "turn": 3,
+          "user": "What is the density of water at its maximum density point?",
+          "context": "Water reaches its maximum density of exactly 1,000 kilograms per cubic meter (or 1 g/cm\u00b3) at 3.98 degrees Celsius, commonly rounded to 4 degrees Celsius, a property critical to aquatic ecosystems in cold climates.",
+          "kind": "anchor",
+          "anchor_id": 2
+        },
+        {
+          "turn": 4,
+          "user": "Who developed TCP/IP and when was it adopted?",
+          "context": "TCP/IP (Transmission Control Protocol/Internet Protocol) was developed by Vinton Cerf and Robert Kahn. They published the foundational paper 'A Protocol for Packet Network Intercommunication' in 1974, describing the TCP protocol. IP was later defined separately. On January 1, 1983\u2014a date known as 'Flag Day'\u2014ARPANET officially transitioned to TCP/IP, requiring all connected hosts to adopt the new protocol suite. This transition is considered the birth of the modern internet. Cerf and Kahn received the Turing Award in 2004 for this work.",
+          "kind": "filler"
+        },
+        {
+          "turn": 5,
+          "user": "What is a kelp forest?",
+          "context": "Kelp forests are underwater ecosystems formed by dense growths of large brown algae, primarily Macrocystis pyrifera, in cold coastal waters.",
+          "kind": "filler"
+        },
+        {
+          "turn": 6,
+          "user": "What is the melting point of copper?",
+          "context": "Copper melts at approximately 1085 degrees Celsius at standard atmospheric pressure.",
+          "kind": "filler"
+        },
+        {
+          "turn": 7,
+          "user": "What is the normal range for human body temperature in Celsius?",
+          "context": "Normal human body temperature ranges from approximately 36.1 to 37.2 degrees Celsius when measured orally.",
+          "kind": "filler"
+        },
+        {
+          "turn": 8,
+          "user": "What asteroid did the Hayabusa2 mission sample?",
+          "context": "Hayabusa2 collected subsurface samples from the asteroid Ryugu and returned them to Earth in December 2020.",
+          "kind": "filler"
+        },
+        {
+          "turn": 9,
+          "user": "What happens inside a lymph node during an infection?",
+          "context": "During infection, lymph nodes enlarge as B and T cells proliferate rapidly in response to antigens carried by lymph fluid.",
+          "kind": "filler"
+        },
+        {
+          "turn": 10,
+          "user": "Who discovered the electron, and how?",
+          "context": "J.J. Thomson discovered the electron in 1897 using cathode ray tube experiments that showed negatively charged particles lighter than atoms.",
+          "kind": "filler"
+        },
+        {
+          "turn": 11,
+          "user": "What was the first mission to orbit Mercury?",
+          "context": "MESSENGER became the first spacecraft to orbit Mercury, entering orbit on March 18, 2011.",
+          "kind": "filler"
+        },
+        {
+          "turn": 12,
+          "user": "What causes bioluminescence in marine organisms?",
+          "context": "Marine bioluminescence is produced by a chemical reaction between luciferin and luciferase enzymes within specialised cells.",
+          "kind": "filler"
+        },
+        {
+          "turn": 13,
+          "user": "What did the New Horizons mission reveal about Pluto?",
+          "context": "NASA's New Horizons spacecraft performed a flyby of Pluto on 14 July 2015, returning the first close-up images and data from the dwarf planet. Key discoveries included Tombaugh Regio, a vast heart-shaped plain of nitrogen ice (informally called the 'heart'), informally named Sputnik Planitia. New Horizons found that Pluto is geologically active, with evidence of convection in its nitrogen ice sheets and possible cryovolcanism. Pluto's atmosphere was found to extend up to 1,600 km above the surface, predominantly nitrogen with traces of methane and carbon monoxide. Pluto's largest moon, Charon, showed evidence of ancient geological activity.",
+          "kind": "filler"
+        },
+        {
+          "turn": 14,
+          "user": "How does resistivity differ from resistance?",
+          "context": "Resistivity is an intrinsic material property independent of shape, whereas resistance depends on a conductor's length and cross-sectional area.",
+          "kind": "filler"
+        },
+        {
+          "turn": 15,
+          "user": "What is the term for the programmed death of a cell?",
+          "context": "Apoptosis is a regulated process of programmed cell death that removes damaged or unneeded cells without triggering inflammation.",
+          "kind": "filler"
+        },
+        {
+          "turn": 16,
+          "user": "How does atomic number differ from mass number?",
+          "context": "Mass number is the total count of protons and neutrons in an atom's nucleus, whereas atomic number counts only protons.",
+          "kind": "filler"
+        },
+        {
+          "turn": 17,
+          "user": "You mentioned earlier in this session that you abstained on the hurricane sea-surface temperature question \u2014 is there anything in your local data about how climate change is affecting hurricane intensity?",
+          "context": "The context does not contain information about climate change impacts on hurricane intensity.",
+          "kind": "filler"
+        },
+        {
+          "turn": 18,
+          "user": "How deep can floating offshore wind platforms operate compared to fixed-bottom turbines?",
+          "context": "Fixed-bottom offshore wind turbines are limited to water depths of roughly 60 metres, while floating platforms can operate beyond 200 metres.",
+          "kind": "filler"
+        },
+        {
+          "turn": 19,
+          "user": "What is the world's largest coral reef system?",
+          "context": "The Great Barrier Reef, off the coast of Queensland, Australia, is the world's largest coral reef system, stretching over 2,300 kilometres.",
+          "kind": "filler"
+        },
+        {
+          "turn": 20,
+          "user": "What is the Great Red Spot on Jupiter?",
+          "context": "The Great Red Spot (GRS) is a persistent high-pressure anticyclonic storm in Jupiter's southern hemisphere, observed continuously since at least 1831 and possibly since 1665. It rotates counterclockwise with wind speeds at its periphery exceeding 430 km/h. The GRS is currently about 1.3 times the diameter of Earth, though it has been shrinking; in the 19th century it was estimated to be more than three times Earth's diameter. The reddish colour is thought to result from complex organic compounds or sulphur compounds brought up from lower atmospheric layers, though the precise chemistry is still debated.",
+          "kind": "filler"
+        },
+        {
+          "turn": 21,
+          "user": "How do sea turtles navigate across thousands of miles of open ocean?",
+          "context": "Sea turtles navigate using Earth's magnetic field, detecting both the intensity and inclination angle to determine location.",
+          "kind": "filler"
+        },
+        {
+          "turn": 22,
+          "user": "How many bones are in an adult human hand?",
+          "context": "An adult human hand contains 27 bones, divided among the carpals (8 wrist bones), metacarpals (5 palm bones), and phalanges (14 finger bones), making the hand one of the most bone-dense regions of the body relative to its size.",
+          "kind": "anchor",
+          "anchor_id": 3
+        },
+        {
+          "turn": 23,
+          "user": "And how long does it take light to travel that distance?",
+          "context": "Light travels at approximately 299,792 kilometres per second in a vacuum. At a distance of 149.6 million kilometres (one AU), light takes approximately 8 minutes and 20 seconds to travel from the Sun to Earth. This figure varies slightly with Earth's position in its orbit, ranging from about 8 minutes 10 seconds at perihelion to 8 minutes 27 seconds at aphelion.",
+          "kind": "filler"
+        },
+        {
+          "turn": 24,
+          "user": "Fair enough. Speaking of extreme temperatures \u2014 you told me the melting point of tungsten back in session 9. Hottest natural air temperature ever recorded on Earth \u2014 do you have that?",
+          "context": "The highest officially recorded air temperature on Earth is 56.7 degrees Celsius, measured at Furnace Creek, Death Valley, California, in 1913.",
+          "kind": "filler"
+        },
+        {
+          "turn": 25,
+          "user": "Hey ADA, quick one to start the day \u2014 what is the primary function of the immune system?",
+          "context": "The immune system defends the body against pathogens such as bacteria, viruses, and parasites.",
+          "kind": "filler"
+        }
+      ]
+    },
+    {
+      "session_id": 3,
+      "n_turns": 25,
+      "turns": [
+        {
+          "turn": 1,
+          "user": "What is the Lorentz force law?",
+          "context": "The Lorentz force on a charge q moving with velocity v in fields E and B is F = q(E + v \u00d7 B).",
+          "kind": "filler"
+        },
+        {
+          "turn": 2,
+          "user": "What year was PHP first released?",
+          "context": "PHP was first released in 1994 by Rasmus Lerdorf as a set of Common Gateway Interface binaries.",
+          "kind": "filler"
+        },
+        {
+          "turn": 3,
+          "user": "What green pigment in chloroplasts absorbs light?",
+          "context": "Chlorophyll is the primary green pigment in chloroplasts that absorbs light energy to drive photosynthesis.",
+          "kind": "filler"
+        },
+        {
+          "turn": 4,
+          "user": "Has the Collatz conjecture been proven?",
+          "context": "",
+          "kind": "filler"
+        },
+        {
+          "turn": 5,
+          "user": "Did Copernicus face persecution from the Church for this?",
+          "context": "",
+          "kind": "filler"
+        },
+        {
+          "turn": 6,
+          "user": "What is the greenhouse effect?",
+          "context": "The greenhouse effect is the process by which atmospheric gases trap heat radiated from Earth's surface, warming the planet.",
+          "kind": "filler"
+        },
+        {
+          "turn": 7,
+          "user": "What is the triple point of water in kelvin and Celsius under the current SI?",
+          "context": "Under the 2019 SI revision, the triple point of water is no longer a defined value but a measured one. Its best measured value is 273.1600 K (0.0100 \u00b0C), consistent with the previous definition to within measurement uncertainty. The Celsius scale is still defined so that 0 \u00b0C = 273.15 K (i.e., the ice point at standard pressure), making the triple point approximately 0.01 \u00b0C.",
+          "kind": "filler"
+        },
+        {
+          "turn": 8,
+          "user": "Speaking of the molar gas constant, what is its value?",
+          "context": "The molar gas constant, symbol R, has the value 8.314462618 J/(mol\u00b7K). It is derived from the product of Avogadro's constant and the Boltzmann constant: R = N_A \u00d7 k_B. It appears in the ideal gas law pV = nRT, where n is the number of moles. Because both N_A and k_B are now fixed by definition, R is also an exact derived quantity within the SI.",
+          "kind": "filler"
+        },
+        {
+          "turn": 9,
+          "user": "What is a checkpoint in the cell cycle?",
+          "context": "Cell-cycle checkpoints are surveillance mechanisms that pause the cycle if DNA damage, incomplete replication, or misaligned chromosomes are detected.",
+          "kind": "filler"
+        },
+        {
+          "turn": 10,
+          "user": "Can you tell me the exact number of proteins in the complement cascade?",
+          "context": "",
+          "kind": "filler"
+        },
+        {
+          "turn": 11,
+          "user": "How does a proton exchange membrane electrolyzer produce green hydrogen?",
+          "context": "A proton exchange membrane electrolyzer splits water into hydrogen and oxygen using electricity, with a solid polymer membrane conducting protons.",
+          "kind": "filler"
+        },
+        {
+          "turn": 12,
+          "user": "What is the Coriolis effect?",
+          "context": "The Coriolis effect is a pseudo-force observed in rotating reference frames, deflecting moving objects perpendicular to their velocity.",
+          "kind": "filler"
+        },
+        {
+          "turn": 13,
+          "user": "What is the Hartree energy in joules?",
+          "context": "The Hartree energy, symbol E_h, is the atomic unit of energy, equal to twice the ground-state ionisation energy of hydrogen in the Bohr model. Its value is 4.3597447222071 \u00d7 10\u207b\u00b9\u2078 joules, or equivalently 27.211386245988 eV. It is defined as E_h = m_e e\u2074/(4\u03c0\u03b5\u2080)\u00b2\u0127\u00b2 = \u03b1\u00b2m_e c\u00b2, and sets the energy scale for atomic and molecular calculations in quantum chemistry.",
+          "kind": "filler"
+        },
+        {
+          "turn": 14,
+          "user": "Which noble gas is most commonly used in illuminated signs?",
+          "context": "Neon is the noble gas most commonly used in illuminated signs, producing a characteristic red-orange glow when electrified.",
+          "kind": "filler"
+        },
+        {
+          "turn": 15,
+          "user": "Hey ADA, quick one to start the day \u2014 what was the approximate population of ancient Rome at its peak?",
+          "context": "At its height around 100 CE, the city of Rome had an estimated population of roughly one million people.",
+          "kind": "filler"
+        },
+        {
+          "turn": 16,
+          "user": "What are Neptune's most notable features?",
+          "context": "Neptune is the eighth and outermost planet of the solar system, located at a mean distance of about 30.1 AU from the Sun. It has the strongest sustained winds in the solar system, with speeds recorded up to 2,100 km/h (580 m/s). Voyager 2's 1989 flyby observed a large storm system called the Great Dark Spot (analogous to Jupiter's Great Red Spot), though it had disappeared by the time the Hubble Space Telescope observed Neptune in 1994. Neptune has 16 known moons; its largest, Triton, orbits in a retrograde direction (opposite Neptune's rotation), suggesting it is a captured Kuiper Belt object. Neptune has a faint ring system.",
+          "kind": "filler"
+        },
+        {
+          "turn": 17,
+          "user": "Is there a record for the lowest barometric pressure ever measured?",
+          "context": "The context does not contain data about record low barometric pressure measurements.",
+          "kind": "filler"
+        },
+        {
+          "turn": 18,
+          "user": "What vitamin does skin synthesise when exposed to sunlight?",
+          "context": "Skin synthesises vitamin D when ultraviolet B radiation from sunlight converts 7-dehydrocholesterol in the skin.",
+          "kind": "filler"
+        },
+        {
+          "turn": 19,
+          "user": "What is the capital of Argentina?",
+          "context": "The capital of Argentina is Buenos Aires, a large port city situated on the R\u00edo de la Plata estuary on the country's eastern coast. Buenos Aires is the most populous city in Argentina and serves as the country's political, economic, and cultural hub. It is the seat of the federal government and home to the Casa Rosada, the presidential palace.",
+          "kind": "filler"
+        },
+        {
+          "turn": 20,
+          "user": "This reminds me of our session about tungsten. Is the melting point of tungsten listed anywhere in your physics corpus, or is that a different domain?",
+          "context": "Tungsten (chemical symbol W) has the highest melting point of all known metals, at 3422 degrees Celsius (3695 K). Its exceptionally high melting point is attributed to strong metallic bonding arising from its half-filled d-orbital configuration. Tungsten is commonly used in incandescent lamp filaments and high-temperature industrial applications.",
+          "kind": "filler"
+        },
+        {
+          "turn": 21,
+          "user": "What's the capital of Saudi Arabia?",
+          "context": "The capital of Saudi Arabia is Riyadh, located in the east-central part of the Arabian Peninsula on the Najd plateau. Riyadh is the largest city in Saudi Arabia and serves as the country's political and administrative centre. It is home to the Royal Court and most of the country's government ministries.",
+          "kind": "filler"
+        },
+        {
+          "turn": 22,
+          "user": "Which mission first landed humans on the Moon?",
+          "context": "Apollo 11 landed astronauts Neil Armstrong and Buzz Aldrin on the Moon on July 20, 1969.",
+          "kind": "filler"
+        },
+        {
+          "turn": 23,
+          "user": "What is Coulomb's law?",
+          "context": "Coulomb's law states that the electrostatic force between two point charges is proportional to the product of their charges and inversely proportional to the square of the distance between them.",
+          "kind": "filler"
+        },
+        {
+          "turn": 24,
+          "user": "What is the projected future of the Sun over the next several billion years?",
+          "context": "The Sun is currently about 4.6 billion years old and is roughly halfway through its main-sequence lifetime. Over the next approximately 5 billion years, the Sun will gradually increase in luminosity. In about 1\u20132 billion years, the Sun's increasing output may render Earth's surface too warm for liquid water oceans. In roughly 5 billion years, the Sun will exhaust hydrogen in its core and expand into a red giant, potentially engulfing Mercury and Venus and possibly reaching Earth's current orbital distance, though Earth may migrate outward as the Sun loses mass. The outer layers will be expelled as a planetary nebula, leaving behind a white dwarf roughly the size of Earth, composed primarily of carbon and oxygen.",
+          "kind": "filler"
+        },
+        {
+          "turn": 25,
+          "user": "We've covered a lot of high-altitude capitals today \u2014 Addis Ababa, Bogot\u00e1, Caracas. Which one is actually the highest capital city in the world?",
+          "context": "The highest national capital city in the world is Sucre, the constitutional capital of Bolivia, at an elevation of approximately 2,750 metres above sea level. However, Bolivia's seat of government is La Paz, which sits at an even higher elevation of approximately 3,640 metres, making it the highest seat of government in the world. Quito, the capital of Ecuador, sits at around 2,850 metres. Addis Ababa is at approximately 2,355 metres, and Bogot\u00e1 at approximately 2,625 metres.",
+          "kind": "filler"
+        }
+      ]
+    },
+    {
+      "session_id": 4,
+      "n_turns": 25,
+      "turns": [
+        {
+          "turn": 1,
+          "user": "What is the deepest recorded SCUBA dive?",
+          "context": "The deepest recorded open-circuit SCUBA dive is 332.35 metres, achieved by Ahmed Gabr in the Red Sea in 2014.",
+          "kind": "filler"
+        },
+        {
+          "turn": 2,
+          "user": "Did Perelman accept the prize money?",
+          "context": "Grigori Perelman declined both the one-million-dollar Millennium Prize and the Fields Medal awarded for his proof.",
+          "kind": "filler"
+        },
+        {
+          "turn": 3,
+          "user": "Last one for today \u2014 can you summarize the overall sequence of events when the immune system first encounters a new pathogen?",
+          "context": "Upon encountering a new pathogen, innate immune cells respond first, then dendritic cells present antigens to T cells, which activate B cells to produce antibodies and form memory cells.",
+          "kind": "filler"
+        },
+        {
+          "turn": 4,
+          "user": "Who came up with classical mechanics before Newton built on it? Was Galileo involved?",
+          "context": "Galileo Galilei laid foundational groundwork for classical mechanics through his studies of motion and free fall in the early 17th century.",
+          "kind": "filler"
+        },
+        {
+          "turn": 5,
+          "user": "And the actinides \u2014 where do they sit?",
+          "context": "The actinides are also f-block elements, spanning elements 89 (actinium) through 103 (lawrencium).",
+          "kind": "filler"
+        },
+        {
+          "turn": 6,
+          "user": "You mentioned Andrew Wiles proved Fermat's Last Theorem \u2014 did he win the Fields Medal for that?",
+          "context": "Wiles was ineligible for the Fields Medal because he was 41 when the proof was confirmed; he received a special IMU silver plaque instead.",
+          "kind": "filler"
+        },
+        {
+          "turn": 7,
+          "user": "Earlier you helped me with the Fermi paradox and we talked about planets \u2014 does classical mechanics explain planetary orbit shapes?",
+          "context": "Newtonian gravity and classical mechanics together predict that two-body gravitational orbits follow conic sections, including ellipses.",
+          "kind": "filler"
+        },
+        {
+          "turn": 8,
+          "user": "ADA, what is quantum computing and when was the concept first proposed?",
+          "context": "Quantum computing is a model of computation that uses quantum-mechanical phenomena\u2014such as superposition and entanglement\u2014to process information in ways that classical binary computers cannot efficiently replicate. The concept was first proposed by physicist Richard Feynman in a 1981 lecture at MIT, where he argued that simulating quantum physical systems would require a computer that itself operates on quantum principles. David Deutsch formalized the quantum Turing machine in a 1985 paper, and Peter Shor's 1994 algorithm showing that a quantum computer could factor large integers in polynomial time\u2014potentially breaking RSA encryption\u2014dramatically increased research interest.",
+          "kind": "filler"
+        },
+        {
+          "turn": 9,
+          "user": "Okay, what are the noble gases and why are they called that?",
+          "context": "Noble gases are Group 18 elements \u2014 helium, neon, argon, krypton, xenon, and radon \u2014 named for their general chemical inertness.",
+          "kind": "filler"
+        },
+        {
+          "turn": 10,
+          "user": "What is the electron configuration rule that determines how electrons fill shells?",
+          "context": "The context passage does not contain a description of electron-filling rules such as the Aufbau principle.",
+          "kind": "filler"
+        },
+        {
+          "turn": 11,
+          "user": "You mentioned earlier that Canberra and Bras\u00edlia were both purpose-built capitals. Can you think of any others we've discussed in this session?",
+          "context": "Planned or purpose-built capital cities are those constructed specifically to serve as national capitals, often as political compromises or to shift administrative centres. Examples include Canberra (Australia), Bras\u00edlia (Brazil), Naypyidaw (Myanmar), and Astana (Kazakhstan). Washington D.C. in the United States and Islamabad in Pakistan are also commonly cited examples of planned capitals worldwide.",
+          "kind": "filler"
+        },
+        {
+          "turn": 12,
+          "user": "What oxidation states does iron commonly exhibit?",
+          "context": "Iron commonly exhibits +2 (ferrous) and +3 (ferric) oxidation states in its compounds. Fe\u00b2\u207a ions are found in compounds such as iron(II) sulfate (FeSO\u2084), while Fe\u00b3\u207a ions appear in iron(III) oxide (Fe\u2082O\u2083), commonly known as rust. In some rare compounds, iron can also exhibit +4, +5, or +6 oxidation states.",
+          "kind": "filler"
+        },
+        {
+          "turn": 13,
+          "user": "What are hydrothermal vents?",
+          "context": "Hydrothermal vents are fissures on the ocean floor that release superheated, mineral-rich water, supporting unique chemosynthetic ecosystems.",
+          "kind": "filler"
+        },
+        {
+          "turn": 14,
+          "user": "What drives the water cycle?",
+          "context": "Solar energy drives the water cycle by evaporating water from surface bodies into the atmosphere.",
+          "kind": "filler"
+        },
+        {
+          "turn": 15,
+          "user": "I recall you told me tungsten has an extremely high melting point in a previous session. Is tungsten the element with the highest melting point of all?",
+          "context": "Tungsten has the highest melting point of all pure metals, at 3422 degrees Celsius.",
+          "kind": "filler"
+        },
+        {
+          "turn": 16,
+          "user": "Who is credited with creating COBOL?",
+          "context": "Grace Hopper is widely credited as the primary force behind COBOL's creation, which was standardized in 1959.",
+          "kind": "filler"
+        },
+        {
+          "turn": 17,
+          "user": "What is the main job of a ribosome in the cell?",
+          "context": "Ribosomes translate messenger RNA sequences into polypeptide chains during the process of protein synthesis.",
+          "kind": "filler"
+        },
+        {
+          "turn": 18,
+          "user": "What is annealing and how does it relate to work hardening?",
+          "context": "Annealing is a heat treatment process that relieves internal stresses and reduces hardness caused by work hardening by allowing recrystallization.",
+          "kind": "filler"
+        },
+        {
+          "turn": 19,
+          "user": "Earlier you explained bioluminescence \u2014 does the anglerfish's esca use the same luciferin-luciferase reaction?",
+          "context": "The anglerfish esca produces bioluminescence through symbiotic bacteria rather than the fish's own luciferin-luciferase system.",
+          "kind": "filler"
+        },
+        {
+          "turn": 20,
+          "user": "What is the lanthanide contraction and which elements does it affect?",
+          "context": "The lanthanide contraction refers to the steady decrease in atomic and ionic radii observed across the lanthanide series (elements 57\u201371, lanthanum through lutetium). As atomic number increases across the series, protons are added to the nucleus while electrons fill the 4f subshell. The 4f electrons provide poor shielding of the nuclear charge compared to d or s electrons, so the effective nuclear charge experienced by outer electrons increases, contracting the atomic radius.",
+          "kind": "filler"
+        },
+        {
+          "turn": 21,
+          "user": "How fast can a sailfish swim?",
+          "context": "The sailfish is considered the fastest fish in the ocean, capable of reaching speeds of up to 110 kilometres per hour.",
+          "kind": "filler"
+        },
+        {
+          "turn": 22,
+          "user": "When was C++ first released?",
+          "context": "C++ was first released in 1985, created by Bjarne Stroustrup as an extension of C with object-oriented features.",
+          "kind": "filler"
+        },
+        {
+          "turn": 23,
+          "user": "What's the Bohr radius?",
+          "context": "The Bohr radius, symbol a\u2080, is the most probable distance between the proton and electron in a ground-state hydrogen atom in the Bohr model. Its value is 5.29177210903 \u00d7 10\u207b\u00b9\u00b9 metres (approximately 0.529 \u00c5). It is defined as a\u2080 = \u0127\u00b2/(m_e e\u00b2 / 4\u03c0\u03b5\u2080) = \u0127/(m_e c \u03b1), where \u03b1 is the fine-structure constant. It sets the scale for atomic dimensions.",
+          "kind": "filler"
+        },
+        {
+          "turn": 24,
+          "user": "What was Java's original name?",
+          "context": "Java was originally named Oak by James Gosling, before being renamed Java in 1995.",
+          "kind": "filler"
+        },
+        {
+          "turn": 25,
+          "user": "And the heaviest confirmed element?",
+          "context": "Oganesson, element 118, is the heaviest confirmed element on the periodic table.",
+          "kind": "filler"
+        }
+      ]
+    }
+  ],
+  "anchors": [
+    {
+      "anchor_id": 0,
+      "session_id": 1,
+      "turn": 3,
+      "topic": "wavelength range of visible light",
+      "fact": "380 to 700 nanometers",
+      "expected": "380 to 700 nanometers",
+      "recall_user": "Earlier you described the wavelength range of visible light \u2014 what were the two boundary values?"
+    },
+    {
+      "anchor_id": 1,
+      "session_id": 1,
+      "turn": 22,
+      "topic": "melting point of gold",
+      "fact": "1,064 degrees Celsius",
+      "expected": "1,064 degrees Celsius",
+      "recall_user": "Earlier in our conversation you gave me gold's melting point \u2014 what was that temperature in Celsius?"
+    },
+    {
+      "anchor_id": 2,
+      "session_id": 2,
+      "turn": 3,
+      "topic": "density of water at 4 degrees Celsius",
+      "fact": "1,000 kg/m\u00b3 at 3.98\u00b0C (\u22484\u00b0C)",
+      "expected": "1,000 kg/m\u00b3 (1 g/cm\u00b3) at approximately 3.98\u00b0C (4\u00b0C)",
+      "recall_user": "You gave me the density of water at its maximum point and the temperature \u2014 can you recall those figures?"
+    },
+    {
+      "anchor_id": 3,
+      "session_id": 2,
+      "turn": 22,
+      "topic": "number of bones in the adult human hand",
+      "fact": "27 bones",
+      "expected": "27 bones",
+      "recall_user": "What was the number of bones in the human hand that you mentioned earlier?"
+    }
+  ],
+  "recall_probes": [
+    {
+      "session_id": 2,
+      "turn": 4,
+      "anchor_id": 0,
+      "session_gap": 1,
+      "user": "Earlier you described the wavelength range of visible light \u2014 what were the two boundary values?",
+      "expected": "380 to 700 nanometers",
+      "topic": "wavelength range of visible light"
+    },
+    {
+      "session_id": 3,
+      "turn": 14,
+      "anchor_id": 0,
+      "session_gap": 2,
+      "user": "Earlier you described the wavelength range of visible light \u2014 what were the two boundary values?",
+      "expected": "380 to 700 nanometers",
+      "topic": "wavelength range of visible light"
+    },
+    {
+      "session_id": 4,
+      "turn": 23,
+      "anchor_id": 0,
+      "session_gap": 3,
+      "user": "Earlier you described the wavelength range of visible light \u2014 what were the two boundary values?",
+      "expected": "380 to 700 nanometers",
+      "topic": "wavelength range of visible light"
+    },
+    {
+      "session_id": 2,
+      "turn": 4,
+      "anchor_id": 1,
+      "session_gap": 1,
+      "user": "Earlier in our conversation you gave me gold's melting point \u2014 what was that temperature in Celsius?",
+      "expected": "1,064 degrees Celsius",
+      "topic": "melting point of gold"
+    },
+    {
+      "session_id": 3,
+      "turn": 14,
+      "anchor_id": 1,
+      "session_gap": 2,
+      "user": "Earlier in our conversation you gave me gold's melting point \u2014 what was that temperature in Celsius?",
+      "expected": "1,064 degrees Celsius",
+      "topic": "melting point of gold"
+    },
+    {
+      "session_id": 4,
+      "turn": 23,
+      "anchor_id": 1,
+      "session_gap": 3,
+      "user": "Earlier in our conversation you gave me gold's melting point \u2014 what was that temperature in Celsius?",
+      "expected": "1,064 degrees Celsius",
+      "topic": "melting point of gold"
+    },
+    {
+      "session_id": 3,
+      "turn": 4,
+      "anchor_id": 2,
+      "session_gap": 1,
+      "user": "You gave me the density of water at its maximum point and the temperature \u2014 can you recall those figures?",
+      "expected": "1,000 kg/m\u00b3 (1 g/cm\u00b3) at approximately 3.98\u00b0C (4\u00b0C)",
+      "topic": "density of water at 4 degrees Celsius"
+    },
+    {
+      "session_id": 4,
+      "turn": 23,
+      "anchor_id": 2,
+      "session_gap": 2,
+      "user": "You gave me the density of water at its maximum point and the temperature \u2014 can you recall those figures?",
+      "expected": "1,000 kg/m\u00b3 (1 g/cm\u00b3) at approximately 3.98\u00b0C (4\u00b0C)",
+      "topic": "density of water at 4 degrees Celsius"
+    },
+    {
+      "session_id": 3,
+      "turn": 4,
+      "anchor_id": 3,
+      "session_gap": 1,
+      "user": "What was the number of bones in the human hand that you mentioned earlier?",
+      "expected": "27 bones",
+      "topic": "number of bones in the adult human hand"
+    },
+    {
+      "session_id": 4,
+      "turn": 23,
+      "anchor_id": 3,
+      "session_gap": 2,
+      "user": "What was the number of bones in the human hand that you mentioned earlier?",
+      "expected": "27 bones",
+      "topic": "number of bones in the adult human hand"
+    }
+  ],
+  "day1_probes": [
+    {
+      "session_id": 1,
+      "turn": 1,
+      "user": "Earlier you cited a passage about the physics constant \u2014 which one was it?",
+      "expected": "I don't have a record of any prior sessions yet.",
+      "topic": "the physics constant"
+    },
+    {
+      "session_id": 1,
+      "turn": 1,
+      "user": "Last time we spoke, what did you tell me about a geography fact?",
+      "expected": "I don't have a record of any prior sessions yet.",
+      "topic": "a geography fact"
+    },
+    {
+      "session_id": 1,
+      "turn": 2,
+      "user": "Remember our earlier session on the biology question? What was the figure you gave?",
+      "expected": "I don't have a record of any prior sessions yet.",
+      "topic": "the biology question"
+    },
+    {
+      "session_id": 1,
+      "turn": 2,
+      "user": "You helped me with that chemistry figure before \u2014 can you recall what you said?",
+      "expected": "I don't have a record of any prior sessions yet.",
+      "topic": "that chemistry figure"
+    },
+    {
+      "session_id": 1,
+      "turn": 2,
+      "user": "In a previous session you mentioned an earlier calculation. What was it again?",
+      "expected": "I don't have a record of any prior sessions yet.",
+      "topic": "an earlier calculation"
+    }
+  ]
+}
